@@ -1023,6 +1023,165 @@ a {
   }
 }
 
+
+/* ================= NEW COMPACT COURSE SECTION & LECTURE CARDS ================= */
+.course-section {
+  margin-bottom: 40px;
+}
+.course-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.course-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.course-badge-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.course-title-group h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+.course-title-group span {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.course-tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: var(--primary);
+}
+
+/* Compact Lecture Grid */
+.lectures-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Compact Lecture Card */
+.compact-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+.compact-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.compact-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.lec-number-tag {
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+.lec-topic-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-family: 'Fira Code', monospace;
+}
+
+.compact-card h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.compact-card p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+  flex-grow: 1;
+}
+
+.compact-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.btn-compact {
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.btn-compact-interactive {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-compact-interactive:hover {
+  background: #1d4ed8;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+}
+.btn-compact-pdf {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+}
+.btn-compact-pdf:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .compact-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1075,10 +1234,7 @@ a {
           <span class="stat-num">01</span>
           <span class="stat-label">المقررات الحالية (Java)</span>
         </div>
-        <div class="stat-item" style="border-right: 2px solid var(--border); padding-right: 20px;">
-          <span class="stat-num">+2</span>
-          <span class="stat-label">مقررات قادمة قريباً</span>
-        </div>
+        
         <div class="stat-item" style="border-right: 2px solid var(--border); padding-right: 20px;">
           <span class="stat-num">100%</span>
           <span class="stat-label">تفاعلي & مجاني للطلاب</span>
@@ -1128,133 +1284,60 @@ a {
     <div class="section-header">
       <div class="section-title-wrap">
         <h2><i class="fa-solid fa-book-bookmark"></i> المقررات والملازم الدراسية</h2>
-        <p>استعرض المحاضرات والمختبرات المتاحة حالياً، مع إمكانية التفاعل المباشر أو تحميل ملفات الطباعة.</p>
+        <p>استعرض الملازم المتاحة للمقرر، مع إمكانية الدخول للشرح التفاعلي أو الانتقال لنسخة الـ PDF المجهزة للطباعة.</p>
       </div>
       <div>
-        <span class="badge-count">مقررات نظم المعلومات</span>
+        <span class="badge-count">مقررات نظم المعلومات (الجانب العملي)</span>
       </div>
     </div>
 
-    <div class="courses-grid">
-
-      <!-- Course 1: Active Course (Data Structures) -->
-      <div class="course-card active-course">
-        <div class="course-card-top">
-          <div class="course-status-bar">
-            <span class="status-pill status-active">
-              <i class="fa-solid fa-circle-check"></i> مقرر نشط حالياً (متاح)
-            </span>
-            <span class="course-code">IS-204 · Java</span>
+    <!-- Course Section 1: Data Structures -->
+    <div class="course-section">
+      <div class="course-section-header">
+        <div class="course-title-group">
+          <div class="course-badge-icon">
+            <i class="fa-solid fa-diagram-project"></i>
           </div>
-
-          <div class="course-body">
+          <div>
             <h3>هياكل البيانات والخوارزميات (Data Structures)</h3>
-            <p class="course-desc">
-              المعمل التطبيقي لمادة هياكل البيانات بلغة Java. يتناول تحليل كفاءة الخوارزميات (Big-O)، وإدارة الذاكرة الفيزيائية، وتطبيق العمليات على المصفوفات الأحادية والثنائية والقوائم والمكدسات.
+            <span>المختبر البرمجي العملي بلغة Java · الفصل الدراسي الثاني</span>
+          </div>
+        </div>
+        <div class="course-tag">IS-204 · Java</div>
+      </div>
+
+      <!-- Lectures Grid for this course -->
+      <div class="lectures-grid">
+
+        <!-- Lecture Card 1: Arrays & Big-O -->
+        <div class="compact-card">
+          <div>
+            <div class="compact-top">
+              <span class="lec-number-tag">الدرس الأول</span>
+              <span class="lec-topic-tag">Arrays & Big-O</span>
+            </div>
+            <h4>المصفوفات (Arrays) وتحليل كفاءة الخوارزميات</h4>
+            <p>
+              شرح معمارية المصفوفة الأحادية في الذاكرة الفيزيائية، وتطبيق العمليات الأساسية (الوصول، التعديل، المجموع، البحث الخطي، الإدراج، والحذف مع إزاحة الذاكرة) مع تحليل التعقيد الزمني والمكاني.
             </p>
           </div>
 
-          <!-- Featured Showcase of Lecture 1 -->
-          <div class="lecture-showcase-box">
-            <div class="showcase-header">
-              <span class="pill-featured"><i class="fa-solid fa-star"></i> المحاضرة الأولى المعتمدة</span>
-              <span class="pill-tag">Java Data Structures</span>
-            </div>
-
-            <!-- Clickable Lecture Header / Icon Card -->
-            <a href="courses/data-structures/lecture-01/interactive.html" class="lecture-main-card" title="انقر هنا لفتح الشرح التفاعلي للملزمة الأولى">
-              <div class="lecture-avatar-icon">
-                <i class="fa-solid fa-laptop-code"></i>
-                <span class="badge-play"><i class="fa-solid fa-play"></i></span>
-              </div>
-              <div class="lecture-details">
-                <h4>الملزمة 01: المصفوفات (Arrays) وتحليل التعقيد (Big-O)</h4>
-                <p>شرح تفاعلي وتحليل كامل للعمليات الأساسية مع محاكاة فيزيائية لحركة الذاكرة (Memory Layout) ودراسة الحالات (Best & Worst Cases).</p>
-                <div class="lecture-hint">
-                  <span><i class="fa-solid fa-arrow-up-right-from-square"></i> انقر على هذه البطاقة أو الأيقونة لبدء الشرح التفاعلي</span>
-                </div>
-              </div>
+          <div class="compact-actions">
+            <!-- Button 1: Interactive -->
+            <a href="courses/data-structures/lecture-01/interactive.html" class="btn-compact btn-compact-interactive" title="فتح الشرح التفاعلي والمحاكاة">
+              <i class="fa-solid fa-play"></i> الشرح التفاعلي
             </a>
 
-            <!-- Action Buttons: Interactive + Direct PDF Download / View -->
-            <div class="showcase-actions">
-              <a href="courses/data-structures/lecture-01/interactive.html" class="btn-showcase btn-primary-showcase" title="دخول الشرح التفاعلي">
-                <i class="fa-solid fa-play-circle"></i>
-                <span>دخول الشرح التفاعلي للملزمة</span>
-              </a>
-
-              <a href="courses/data-structures/lecture-01/print-pdf.html" class="btn-showcase btn-pdf-showcase" title="تحميل وتصدير ملزمة الـ PDF">
-                <i class="fa-solid fa-file-arrow-down"></i>
-                <span>تحميل / حفظ الملزمة كـ PDF</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Upcoming Lecture in Roadmap -->
-          <div class="upcoming-lecture-bar">
-            <div class="upcoming-info">
-              <i class="fa-solid fa-lock"></i>
-              <div>
-                <strong>الملزمة 02: القوائم المترابطة (Linked Lists)</strong>
-                <span>المقارنة المعمارية مع المصفوفات والعقد (Nodes)</span>
-              </div>
-            </div>
-            <span class="status-pill status-future" style="font-size: 11.5px;">قريباً في المعمل</span>
+            <!-- Button 2: PDF -->
+            <a href="courses/data-structures/lecture-01/print-pdf.html" class="btn-compact btn-compact-pdf" target="_blank" title="الانتقال إلى نسخة PDF للطباعة">
+              <i class="fa-solid fa-file-pdf"></i> نسخة PDF
+            </a>
           </div>
         </div>
+
       </div>
-
-      <!-- Course 2: Future Course Placeholder (OOP) -->
-      <div class="course-card future-course">
-        <div class="course-card-top">
-          <div class="course-status-bar">
-            <span class="status-pill status-future">
-              <i class="fa-solid fa-hourglass-half"></i> مقرر قادم
-            </span>
-            <span class="course-code">IS-202 · Java</span>
-          </div>
-
-          <div class="course-body">
-            <h3>البرمجة كائنية التوجه (OOP)</h3>
-            <p class="course-desc">
-              مفاهيم الكلاسات، الكائنات، الوراثة (Inheritance)، التغليف (Encapsulation)، وتعدد الأشكال (Polymorphism) وبناء التطبيقات المتقدمة بلغة Java.
-            </p>
-          </div>
-
-          <div class="future-notice">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-            <strong>سيتم نشر الملازم والمختبرات فور بدء تدريس المادة</strong>
-            <p style="font-size: 12px; margin-top: 4px;">جاري إعداد التمارين البرمجية التفاعلية والمشاريع العملية.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Course 3: Future Course Placeholder (Database / Web) -->
-      <div class="course-card future-course">
-        <div class="course-card-top">
-          <div class="course-status-bar">
-            <span class="status-pill status-future">
-              <i class="fa-solid fa-hourglass-half"></i> مقرر قادم
-            </span>
-            <span class="course-code">IS-301 · Systems</span>
-          </div>
-
-          <div class="course-body">
-            <h3>تصميم وإدارة قواعد البيانات (Databases)</h3>
-            <p class="course-desc">
-              تطوير نظم قواعد البيانات العلاقية، لغة الاستعلامات SQL، ونماذج الكينونات ERD وتطبيقها على مشاريع نظم المعلومات الإدارية.
-            </p>
-          </div>
-
-          <div class="future-notice">
-            <i class="fa-solid fa-database"></i>
-            <strong>مقرر قادم لطلاب المستويات المتقدمة</strong>
-            <p style="font-size: 12px; margin-top: 4px;">سيتم تضمين المختبرات والأكواد التطبيقية وفق الخطة الأكاديمية.</p>
-          </div>
-        </div>
-      </div>
-
     </div>
+
   </div>
 </section>
 
