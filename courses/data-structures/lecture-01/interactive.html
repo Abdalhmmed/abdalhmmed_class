@@ -816,7 +816,7 @@ h2 i, h3 i, h4 i {
 
     <h3>ماذا نعدّ بالضبط داخل الكود؟ (العدّادات التي ستراها في المحاكاة)</h3>
     <div class="grid g4">
-      <div class="mini"><h4>🔍 مقارنة (Comparisons)</h4><p>كل شرط يُفحص في المعالج: <code>i &lt; n</code> أو <code>arr[i] == target</code> أو <code>arr[j] &gt; arr[j+1]</code>.</p></div>
+      <div class="mini"><h4><i class="fa-solid fa-code-compare" style="color:var(--primary)"></i> مقارنة (Comparisons)</h4><p>كل شرط يُفحص في المعالج: <code>i &lt; n</code> أو <code>arr[i] == target</code> أو <code>arr[j] &gt; arr[j+1]</code>.</p></div>
       <div class="mini"><h4><i class="fa-solid fa-book-open" style="color:var(--primary)"></i> قراءة (Reads)</h4><p>كل وصول لقيمة عنصر من خانات المصفوفة في الذاكرة: <code>arr[i]</code>.</p></div>
       <div class="mini"><h4><i class="fa-solid fa-pen-to-square" style="color:var(--accent)"></i> كتابة (Writes)</h4><p>كل إسناد وتخزين قيمة في خانة أو متغير: <code>arr[i] = x</code> أو <code>sum += …</code>.</p></div>
       <div class="mini"><h4><i class="fa-solid fa-calculator"></i> المجموع الفعلي</h4><p>مجموع العمليات الثلاث معاً، ومنه نستخرج معادلة النمو ونختصرها إلى Big-O.</p></div>
@@ -847,7 +847,7 @@ h2 i, h3 i, h4 i {
     <p>لنفترض أننا نريد تخزين درجات 5 طلاب. بدون مصفوفة نحتاج 5 متغيرات منفصلة، ولو زادوا إلى 100 طالب نحتاج 100 متغير ولا نستطيع المرور عليها بحلقة تكرار.</p>
     <div class="grid g3">
       <div class="mini" style="border-top:4px solid var(--bad)">
-        <h4>❌ بدون مصفوفة (كابوس برمجي)</h4>
+        <h4><i class="fa-solid fa-circle-xmark" style="color:var(--bad)"></i> بدون مصفوفة (كابوس برمجي)</h4>
 <div class="code" style="padding:10px 14px;white-space:pre"><span class="kw">int</span> mark1 = 85;
 <span class="kw">int</span> mark2 = 92;
 <span class="kw">int</span> mark3 = 78;
@@ -858,7 +858,7 @@ h2 i, h3 i, h4 i {
         <p style="margin-top:8px">متغيرات متفرقة، لا يمكن المرور عليها بحلقة، والكود يطول مع كل طالب جديد.</p>
       </div>
       <div class="mini" style="border-top:4px solid var(--ok)">
-        <h4>✅ مع مصفوفة (الحل الذكي)</h4>
+        <h4><i class="fa-solid fa-circle-check" style="color:var(--ok)"></i> مع مصفوفة (الحل الذكي)</h4>
 <div class="code" style="padding:10px 14px;white-space:pre"><span class="kw">int</span>[] marks = {85, 92, 78, 64, 90};
 
 <span class="kw">int</span> sum = 0;
@@ -950,7 +950,7 @@ h2 i, h3 i, h4 i {
     <!-- Walk Lab -->
     <div class="lab-mini">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
-        <b style="font-size:15px">🎬 محاكاة حية للمرور بحلقة for التقليدية:</b>
+        <b style="font-size:15px"><i class="fa-solid fa-play" style="color:var(--primary);margin-left:6px;"></i> محاكاة حية للمرور بحلقة for التقليدية:</b>
         <button class="btn" onclick="walk()">▶ تشغيل تتبع الحلقة (i = 0 إلى 4)</button>
       </div>
       <div class="stage" style="min-height:110px;margin-top:10px"><div class="arr-row" id="wStage"></div></div>
@@ -961,7 +961,7 @@ h2 i, h3 i, h4 i {
     <h3>2.5 خصائص المصفوفة: ما الذي تجيده وما الذي تعجز عنه؟</h3>
     <div class="grid g3">
       <div class="mini" style="border-top:4px solid var(--ok)">
-        <h4>✅ المزايا والقوة</h4>
+        <h4><i class="fa-solid fa-circle-check" style="color:var(--ok)"></i> المزايا والقوة</h4>
         <p>• وصول مباشر فوري لأي عنصر O(1)<br>• تخزين متجاور وسريع في الذاكرة (Cache friendly)<br>• حجز مساحة محددة دون استهلاك ذاكرة إضافية للروابط</p>
       </div>
       <div class="mini" style="border-top:4px solid var(--bad)">
@@ -1029,7 +1029,7 @@ h2 i, h3 i, h4 i {
     <!-- 2. UPDATE -->
     <div style="margin-bottom:34px;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:24px">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
-        <h3 style="margin:0;color:var(--brand);font-size:18px">✏️ 2. كود تعديل بيانات (Update at Index)</h3>
+        <h3 style="margin:0;color:var(--brand);font-size:18px"><i class="fa-solid fa-pen-to-square" style="color:var(--primary)"></i> 2. كود تعديل بيانات (Update at Index)</h3>
         <span class="pill p-ok">التعقيد الزمني: O(1)</span>
       </div>
       <p style="margin:0 0 12px;font-size:14.5px;color:var(--muted)">
@@ -1049,7 +1049,7 @@ h2 i, h3 i, h4 i {
     <!-- 3. DELETE -->
     <div style="margin-bottom:34px;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:24px">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
-        <h3 style="margin:0;color:var(--brand);font-size:18px">🗑️ 3. كود حذف بيانات (Delete at Position)</h3>
+        <h3 style="margin:0;color:var(--brand);font-size:18px"><i class="fa-solid fa-trash-can" style="color:var(--bad)"></i> 3. كود حذف بيانات (Delete at Position)</h3>
         <span class="pill p-acc">التعقيد الزمني: O(n)</span>
       </div>
       <p style="margin:0 0 12px;font-size:14.5px;color:var(--muted)">
@@ -1077,7 +1077,7 @@ h2 i, h3 i, h4 i {
     <!-- 4. SEARCH -->
     <div style="margin-bottom:14px;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:24px">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
-        <h3 style="margin:0;color:var(--brand);font-size:18px">🔍 4. كود البحث عن بيانات (Linear Search)</h3>
+        <h3 style="margin:0;color:var(--brand);font-size:18px"><i class="fa-solid fa-magnifying-glass" style="color:var(--primary)"></i> 4. كود البحث عن بيانات (Linear Search)</h3>
         <span class="pill p-acc">التعقيد: أفضل O(1) / أسوأ O(n)</span>
       </div>
       <p style="margin:0 0 12px;font-size:14.5px;color:var(--muted)">
@@ -1569,7 +1569,7 @@ function sectionHTML(i){
           <div class="prog"><div id="prog-${i}"></div></div>
           <span class="cnt" id="cnt-${i}">0/0</span>
         </div>
-        <div class="player"><label class="speed"><i class="fa-solid fa-gauge-simple-high" style="color:var(--primary);margin-left:4px;"></i> التحكم بالسرعة: <input type="range" id="speed-${i}" min="150" max="1500" value="750" style="direction:ltr;margin:0 8px;"></label></div>
+        <div class="player"><label class="speed"><i class="fa-solid fa-sliders" style="color:var(--primary);margin-left:6px;"></i> سرعة المحاكاة: <input type="range" id="speed-${i}" min="150" max="1500" value="750" style="direction:ltr;margin:0 8px;"></label></div>
       </div>
       <div>
         <div class="panel-title">الكود — السطر المظلّل هو الذي يُنفَّذ الآن</div>
@@ -1726,7 +1726,7 @@ function buildSummary(){
 }
 
 /* ================= teacher tools ================= */
-function toggleTheme(){const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'light':'dark');$('tTheme').textContent=d?'🌙 ليلي':'☀️ نهاري';}
+function toggleTheme(){const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'light':'dark');$('tTheme').innerHTML=d?'<i class="fa-solid fa-moon"></i> ليلي':'<i class="fa-solid fa-sun"></i> نهاري';}
 function toggleBig(){document.body.classList.toggle('big');$('tBig').classList.toggle('on');}
 const pen=$('pen'),ctx=pen.getContext('2d');let drawing=false;
 function sizePen(){pen.width=innerWidth;pen.height=innerHeight;} addEventListener('resize',sizePen); sizePen();
