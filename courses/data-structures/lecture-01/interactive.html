@@ -547,10 +547,10 @@ a.tool{text-decoration:none}
 <header class="topbar">
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
     <a href="../../../index.html" class="tool nav-back-btn" title="الرجوع إلى البوابة الرئيسية">
-      🏠 الرئيسية
+      <i class="fa-solid fa-house"></i> الرئيسية
     </a>
     <a href="print-pdf.html" class="tool nav-pdf-btn" target="_blank" title="الانتقال إلى النسخة المجهزة للطباعة والحفظ PDF">
-      📄 نسخة PDF للطباعة
+      <i class="fa-solid fa-file-pdf"></i> نسخة PDF للطباعة
     </a>
     <div style="display:inline-flex;align-items:center;gap:8px;background:var(--brand-soft);border:1px solid rgba(59,130,246,0.25);border-radius:20px;padding:3px 12px;font-size:12.5px;font-weight:800;color:var(--brand);">
       <span style="width:7px;height:7px;border-radius:50%;background:#10b981;display:inline-block;"></span>
@@ -558,10 +558,10 @@ a.tool{text-decoration:none}
     </div>
   </div>
   <div class="tools">
-    <button class="tool" id="tBig" onclick="toggleBig()" title="تكبير الخط وعرض القاعة">🖥️ وضع العرض</button>
-    <button class="tool" id="tPen" onclick="togglePen()" title="الكتابة على الشاشة">✏️ قلم الشرح</button>
-    <button class="tool" id="tClr" onclick="clearPen()" style="display:none" title="مسح">🗑️ مسح</button>
-    <button class="tool" id="tTheme" onclick="toggleTheme()" title="تبديل الوضع الليلي">🌙 ليلي</button>
+    <button class="tool" id="tBig" onclick="toggleBig()" title="تكبير الخط وعرض القاعة"><i class="fa-solid fa-display"></i> وضع العرض</button>
+    <button class="tool" id="tPen" onclick="togglePen()" title="الكتابة على الشاشة"><i class="fa-solid fa-pen-nib"></i> قلم الشرح</button>
+    <button class="tool" id="tClr" onclick="clearPen()" style="display:none" title="مسح"><i class="fa-solid fa-trash-can"></i> مسح</button>
+    <button class="tool" id="tTheme" onclick="toggleTheme()" title="تبديل الوضع الليلي"><i class="fa-solid fa-moon"></i> ليلي</button>
   </div>
 </header>
 
@@ -573,11 +573,11 @@ a.tool{text-decoration:none}
     <h1>المصفوفات (Arrays) في Java<br>شرح تفاعلي وتحليل كامل لكل عملية</h1>
     <p>كل عملية تُعرض في ثلاث شرائح: <b>① الفكرة</b> بأسلوب مبسّط، ثم <b>② التنفيذ خطوة بخطوة</b> مع تظليل سطر الكود المنفَّذ وتتبع المتغيرات وعدّاد العمليات، ثم <b>③ التحليل</b>: أفضل ومتوسط وأسوأ حالة، والتعقيد الزمني والمكاني مع قياس فعلي.</p>
     <div class="chips">
-      <span>👨‍🏫 إعداد: م. عبدالحميد هلال دعبان</span>
-      <span>🚀 9 عمليات برمجية</span>
-      <span>⏱️ عدّاد عمليات حي</span>
-      <span>📊 Best / Average / Worst</span>
-      <span>🎓 2026-2027م</span>
+      <span><i class="fa-solid fa-user-tie"></i> إعداد: م. عبدالحميد هلال دعبان</span>
+      <span><i class="fa-solid fa-microchip"></i> 9 عمليات برمجية</span>
+      <span><i class="fa-solid fa-stopwatch"></i> عدّاد عمليات حي</span>
+      <span><i class="fa-solid fa-chart-simple"></i> Best / Average / Worst</span>
+      <span><i class="fa-solid fa-graduation-cap"></i> 2026-2027م</span>
     </div>
   </section>
 
@@ -586,7 +586,7 @@ a.tool{text-decoration:none}
     <h2>الدرس 1: ما هو رمز Big-O وكيف نقيس كفاءة الكود؟</h2>
     
     <div class="mini" style="border-right:5px solid var(--brand);background:var(--brand-soft);margin-bottom:18px;padding:16px 20px">
-      <h3 style="margin:0 0 8px;color:var(--brand);font-size:19px">💡 ما هو وما هو اختصار له؟</h3>
+      <h3 style="margin:0 0 8px;color:var(--brand);font-size:19px"><i class="fa-solid fa-lightbulb" style="color:var(--accent)"></i> ما هو وما هو اختصار له؟</h3>
       <p style="margin:0;font-size:15px;line-height:1.8">
         الحرف <b>O</b> يرمز لكلمة <b>"Order of Growth"</b> (رتبة أو معدل النمو)، ويُعرف بـ <b>Big-O Notation</b>.<br>
         هو مقياس رياضي عالمي يجيب عن السؤال: 
@@ -597,15 +597,15 @@ a.tool{text-decoration:none}
 
     <div class="grid g3">
       <div class="mini" style="border-top:4px solid var(--bad)">
-        <h4>❌ لماذا لا نقيس الكفاءة بالثواني؟</h4>
+        <h4><i class="fa-solid fa-circle-xmark" style="color:var(--bad)"></i> لماذا لا نقيس الكفاءة بالثواني؟</h4>
         <p>لأن الثواني خادعة وتعتمد على قوة المعالج، نوع نظام التشغيل وسرعة الجهاز. نفس الكود قد يستغرق 0.1 ثانية على حاسوب حديث و 4 ثوانٍ على هاتف قديم.</p>
       </div>
       <div class="mini" style="border-top:4px solid var(--ok)">
-        <h4>✅ لماذا نستخدم رمز Big-O؟</h4>
+        <h4><i class="fa-solid fa-circle-check" style="color:var(--ok)"></i> لماذا نستخدم رمز Big-O؟</h4>
         <p>لأنه يقيس <b>الخطوات والعمليات المنطقية</b> المستقلة عن العتاد، ويعطينا حكماً ثابتاً وعادلاً وموثوقاً على كفاءة الخوارزمية.</p>
       </div>
       <div class="mini" style="border-top:4px solid var(--accent)">
-        <h4>🔍 ماذا يعني الحرف (n)؟</h4>
+        <h4><i class="fa-solid fa-magnifying-glass" style="color:var(--primary)"></i> ماذا يعني الحرف (n)؟</h4>
         <p><b>n</b> يمثل <b>حجم المدخلات</b> (Number of elements). في المصفوفات: إذا كانت المصفوفة تحتوي على 5 عناصر فإن <code>n = 5</code>، وإذا احتوت على 1000 عنصر فإن <code>n = 1000</code>.</p>
       </div>
     </div>
@@ -613,7 +613,7 @@ a.tool{text-decoration:none}
     <!-- Interactive Big-O Visual Curve & Graph (XY Plot) -->
     <div class="builder" style="margin:20px 0;background:var(--bg)">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
-        <h3 style="margin:0;color:var(--brand)">📈 رسم بياني ديكارتي (X و Y): كيف تنمو العمليات مع زيادة حجم البيانات n؟</h3>
+        <h3 style="margin:0;color:var(--brand)"><i class="fa-solid fa-chart-line" style="color:var(--primary)"></i> رسم بياني ديكارتي (X و Y): كيف تنمو العمليات مع زيادة حجم البيانات n؟</h3>
         <span class="pill p-brand">محاور X و Y تفاعلية</span>
       </div>
       <p style="font-size:14px;color:var(--muted);margin-top:0">
@@ -753,9 +753,9 @@ a.tool{text-decoration:none}
     <h3>ماذا نعدّ بالضبط داخل الكود؟ (العدّادات التي ستراها في المحاكاة)</h3>
     <div class="grid g4">
       <div class="mini"><h4>🔍 مقارنة (Comparisons)</h4><p>كل شرط يُفحص في المعالج: <code>i &lt; n</code> أو <code>arr[i] == target</code> أو <code>arr[j] &gt; arr[j+1]</code>.</p></div>
-      <div class="mini"><h4>📖 قراءة (Reads)</h4><p>كل وصول لقيمة عنصر من خانات المصفوفة في الذاكرة: <code>arr[i]</code>.</p></div>
-      <div class="mini"><h4>✍️ كتابة (Writes)</h4><p>كل إسناد وتخزين قيمة في خانة أو متغير: <code>arr[i] = x</code> أو <code>sum += …</code>.</p></div>
-      <div class="mini"><h4>Σ المجموع الفعلي</h4><p>مجموع العمليات الثلاث معاً، ومنه نستخرج معادلة النمو ونختصرها إلى Big-O.</p></div>
+      <div class="mini"><h4><i class="fa-solid fa-book-open" style="color:var(--primary)"></i> قراءة (Reads)</h4><p>كل وصول لقيمة عنصر من خانات المصفوفة في الذاكرة: <code>arr[i]</code>.</p></div>
+      <div class="mini"><h4><i class="fa-solid fa-pen-to-square" style="color:var(--accent)"></i> كتابة (Writes)</h4><p>كل إسناد وتخزين قيمة في خانة أو متغير: <code>arr[i] = x</code> أو <code>sum += …</code>.</p></div>
+      <div class="mini"><h4><i class="fa-solid fa-calculator"></i> المجموع الفعلي</h4><p>مجموع العمليات الثلاث معاً، ومنه نستخرج معادلة النمو ونختصرها إلى Big-O.</p></div>
     </div>
 
     <h3>الحالات الثلاث في تقييم الخوارزمية (لماذا لا يكفي رقم واحد؟)</h3>
@@ -776,7 +776,7 @@ a.tool{text-decoration:none}
 
   <!-- 2. UNDERSTANDING ARRAYS -->
   <section class="card" id="memory">
-    <div style="font-size:13px;color:var(--brand);font-weight:800;letter-spacing:0.5px">📦 الوحدة الثانية: ماهية المصفوفة (المفهوم والتصميم)</div>
+    <div style="font-size:13px;color:var(--brand);font-weight:800;letter-spacing:0.5px"><i class="fa-solid fa-boxes-stacked" style="color:var(--primary)"></i> الوحدة الثانية: ماهية المصفوفة (المفهوم والتصميم)</div>
     <h2 style="margin-top:6px">الدرس 2: ما هي المصفوفة ولماذا نحتاجها؟</h2>
 
     <h3>2.1 مشكلة المتغيرات المنفصلة وحلها بالمصفوفة</h3>
@@ -852,7 +852,7 @@ a.tool{text-decoration:none}
     <!-- Live Builder Lab -->
     <div class="builder">
       <div class="inputs">
-        <b>🛠️ مختبر الإنشاء والحجز المباشر:</b>
+        <b><i class="fa-solid fa-screwdriver-wrench" style="color:var(--primary)"></i> مختبر الإنشاء والحجز المباشر:</b>
         <label>النوع: <select id="bType"><option>int</option><option>double</option><option>boolean</option><option>char</option><option>String</option></select></label>
         <label>الحجم: <input class="num" type="number" id="bSize" value="5" min="1" max="8"></label>
         <button class="btn" onclick="buildArr()">نفّذ new (حجز)</button>
@@ -901,11 +901,11 @@ a.tool{text-decoration:none}
         <p>• وصول مباشر فوري لأي عنصر O(1)<br>• تخزين متجاور وسريع في الذاكرة (Cache friendly)<br>• حجز مساحة محددة دون استهلاك ذاكرة إضافية للروابط</p>
       </div>
       <div class="mini" style="border-top:4px solid var(--bad)">
-        <h4>⚠️ القيود والعيوب</h4>
+        <h4><i class="fa-solid fa-triangle-exclamation" style="color:var(--bad)"></i> القيود والعيوب</h4>
         <p>• الحجم ثابت ولا يمكن تمديده أو تقليصه<br>• الإدراج والحذف مكلفان O(n) ويتطلبان بناء مصفوفة جديدة وإزاحة العناصر<br>• نوع البيانات موحد ولا يقبل خلط أنواع</p>
       </div>
       <div class="mini" style="border-top:4px solid var(--brand)">
-        <h4>🎯 متى نفضل استخدامها؟</h4>
+        <h4><i class="fa-solid fa-bullseye" style="color:var(--primary)"></i> متى نفضل استخدامها؟</h4>
         <p>• عندما يكون عدد العناصر معروفاً مسبقاً<br>• عندما نحتاج للقراءة والتعديل السريع بالموقع<br>• كبنية أساسية لبناء هياكل أخرى (مثل Stack, Queue, Tables)</p>
       </div>
     </div>
@@ -925,7 +925,7 @@ a.tool{text-decoration:none}
 
   <!-- CRUD CODE CHEAT SHEET SECTION -->
   <section class="card" id="crud-codes">
-    <div style="font-size:13px;color:var(--brand);font-weight:800;letter-spacing:0.5px">💻 مرجع الأكواد الأساسية (CRUD Operations)</div>
+    <div style="font-size:13px;color:var(--brand);font-weight:800;letter-spacing:0.5px"><i class="fa-solid fa-laptop-code" style="color:var(--primary)"></i> مرجع الأكواد الأساسية (CRUD Operations)</div>
     <h2 style="margin-top:6px">أكواد العمليات الأربع الرئيسية على المصفوفة (دوال جاهزة مع الشرح)</h2>
     <p class="lead">
       دليل عملي سريع يحتوي على الدوال البرمجية (Methods) النموذجية المكتوبة بلغة Java للعمليات الأربع: <b>الإضافة</b>، <b>التعديل</b>، <b>الحذف</b>، و<b>البحث</b>، مع شرح مدخلات ومخرجات كل دالة وما تفعله بالتفصيل.
@@ -934,7 +934,7 @@ a.tool{text-decoration:none}
     <!-- 1. ADD / INSERT -->
     <div style="margin-bottom:34px;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:24px">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
-        <h3 style="margin:0;color:var(--brand);font-size:18px">➕ 1. كود إضافة بيانات (Insert at Position)</h3>
+        <h3 style="margin:0;color:var(--brand);font-size:18px"><i class="fa-solid fa-circle-plus" style="color:var(--primary)"></i> 1. كود إضافة بيانات (Insert at Position)</h3>
         <span class="pill p-acc">التعقيد الزمني: O(n)</span>
       </div>
       <p style="margin:0 0 12px;font-size:14.5px;color:var(--muted)">
@@ -1032,7 +1032,7 @@ a.tool{text-decoration:none}
 
     <!-- MAIN DEMO PROGRAM COMBINING ALL 4 -->
     <div style="margin-top:28px">
-      <div class="panel-title" style="font-size:15px;color:var(--ink)">🌟 برنامج متكامل في Main يجرّب العمليات الأربع معاً:</div>
+      <div class="panel-title" style="font-size:15px;color:var(--ink)"><i class="fa-solid fa-star" style="color:var(--accent)"></i> برنامج متكامل في Main يجرّب العمليات الأربع معاً:</div>
 <div class="code" style="padding:16px 20px;white-space:pre"><span class="cm">/**
  * مختبر هياكل البيانات والخوارزميات بلغة Java
  * إعداد وتطوير: م. عبدالحميد هلال دعبان (بكالوريوس علوم حاسوب)
@@ -1463,7 +1463,7 @@ function sectionHTML(i){
     </div>
     <div class="tools">
       ${P?`<a class="tool" href="#op-${P.key}">→ ${P.name}</a>`:''}
-      <a class="tool" href="#ops-index">☰ الفهرس</a>
+      <a class="tool" href="#ops-index"><i class="fa-solid fa-bars-staggered"></i> الفهرس</a>
       ${N?`<a class="tool" href="#op-${N.key}">${N.name} ←</a>`:''}
     </div>
   </div>
@@ -1482,7 +1482,7 @@ function sectionHTML(i){
         <ol class="idea-steps">${o.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>
       </div>
       <div>
-        <div class="analogy"><b>🧠 تشبيه يقرّب الفكرة</b><p style="margin:6px 0 0">${esc(o.analogy)}</p></div>
+        <div class="analogy"><b><i class="fa-solid fa-brain" style="color:var(--violet)"></i> تشبيه يقرّب الفكرة</b><p style="margin:6px 0 0">${esc(o.analogy)}</p></div>
         <div class="panel-title">الكود الكامل</div>
         <div class="code">${codeHTML(o.code,-1)}</div>
       </div>
@@ -1497,15 +1497,15 @@ function sectionHTML(i){
         <div class="stage" id="stage-${i}"></div>
         <div class="msg" id="msg-${i}"></div>
         <div class="player">
-          <button class="btn ghost" onclick="first(${i})" title="البداية">⏭</button>
-          <button class="btn ghost" onclick="prev(${i})" title="السابق">→</button>
-          <button class="btn acc" id="play-${i}" onclick="togglePlay(${i})">▶ تشغيل</button>
-          <button class="btn ghost" onclick="stop(${i});next(${i})" title="التالي">←</button>
-          <button class="btn ghost" onclick="last(${i})" title="النهاية">⏮</button>
+          <button class="btn ghost" onclick="first(${i})" title="الخطوة الأولى"><i class="fa-solid fa-forward-step"></i></button>
+          <button class="btn ghost" onclick="prev(${i})" title="الخطوة السابقة"><i class="fa-solid fa-arrow-right"></i></button>
+          <button class="btn acc" id="play-${i}" onclick="togglePlay(${i})"><i class="fa-solid fa-play"></i> تشغيل</button>
+          <button class="btn ghost" onclick="stop(${i});next(${i})" title="الخطوة التالية"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="btn ghost" onclick="last(${i})" title="الخطوة الأخيرة"><i class="fa-solid fa-backward-step"></i></button>
           <div class="prog"><div id="prog-${i}"></div></div>
           <span class="cnt" id="cnt-${i}">0/0</span>
         </div>
-        <div class="player"><label class="speed">🐢 <input type="range" id="speed-${i}" min="150" max="1500" value="750" style="direction:ltr"> 🐇 السرعة</label></div>
+        <div class="player"><label class="speed"><i class="fa-solid fa-gauge-simple-high" style="color:var(--primary);margin-left:4px;"></i> التحكم بالسرعة: <input type="range" id="speed-${i}" min="150" max="1500" value="750" style="direction:ltr;margin:0 8px;"></label></div>
       </div>
       <div>
         <div class="panel-title">الكود — السطر المظلّل هو الذي يُنفَّذ الآن</div>
@@ -1514,9 +1514,9 @@ function sectionHTML(i){
         <div class="vars" id="vars-${i}"></div>
         <div class="panel-title">عدّاد العمليات (يتراكم مع كل خطوة)</div>
         <div class="counters">
-          <div class="counter"><div class="v" id="cmp-${i}">0</div><div class="l">🔍 مقارنات</div></div>
-          <div class="counter"><div class="v" id="rd-${i}">0</div><div class="l">📖 قراءات</div></div>
-          <div class="counter"><div class="v" id="wr-${i}">0</div><div class="l">✍️ كتابات</div></div>
+          <div class="counter"><div class="v" id="cmp-${i}">0</div><div class="l"><i class="fa-solid fa-magnifying-glass"></i> مقارنات</div></div>
+          <div class="counter"><div class="v" id="rd-${i}">0</div><div class="l"><i class="fa-solid fa-book-open"></i> قراءات</div></div>
+          <div class="counter"><div class="v" id="wr-${i}">0</div><div class="l"><i class="fa-solid fa-pen"></i> كتابات</div></div>
           <div class="counter total"><div class="v" id="tot-${i}">0</div><div class="l">Σ المجموع</div></div>
         </div>
       </div>
@@ -1526,15 +1526,15 @@ function sectionHTML(i){
   <div class="slide" data-slide="2">
     <div class="cases" id="cases-${i}"></div>
     <div class="grid g3" style="margin-top:14px">
-      <div class="mini"><h4>⏱️ التعقيد الزمني</h4><div>${o.time}</div></div>
-      <div class="mini"><h4>💾 التعقيد المكاني</h4><div>${o.space}</div></div>
+      <div class="mini"><h4><i class="fa-solid fa-clock" style="color:var(--primary)"></i> التعقيد الزمني</h4><div>${o.time}</div></div>
+      <div class="mini"><h4><i class="fa-solid fa-hard-drive" style="color:var(--accent)"></i> التعقيد المكاني</h4><div>${o.space}</div></div>
     </div>
-    <h3>📐 كيف وصلنا للنتيجة؟ (عدّ العمليات)</h3>
+    <h3><i class="fa-solid fa-calculator" style="color:var(--primary)"></i> كيف وصلنا للنتيجة؟ (عدّ العمليات)</h3>
     <div>${o.derive}</div>
-    <h3>📊 قياس فعلي: عدد العمليات عند تكبير n</h3>
+    <h3><i class="fa-solid fa-chart-column" style="color:var(--primary)"></i> قياس فعلي: عدد العمليات عند تكبير n</h3>
     <p class="lead" style="font-size:14px;margin:0">الأرقام ناتجة من تشغيل نفس الكود فعلياً على مصفوفات بأحجام مختلفة، في أفضل حالة وأسوأ حالة.</p>
     <div class="bars" id="bars-${i}"></div>
-    <div class="note">💡 ${o.take}</div>
+    <div class="note"><i class="fa-solid fa-lightbulb" style="color:var(--accent);margin-left:6px;"></i> ${o.take}</div>
   </div>
 </section>`;
 }
@@ -1621,12 +1621,12 @@ function togglePlay(i){ I[i].timer?stop(i):play(i); }
 function play(i){
   const st=I[i];
   if(st.si>=st.steps.length-1){st.si=0;render(i);}
-  q('play',i).textContent='⏸ إيقاف';
+  q('play',i).innerHTML='<i class="fa-solid fa-pause"></i> إيقاف';
   const delay=()=>1650-q('speed',i).value;
   const tick=()=>{ next(i); if(st.timer) st.timer=setTimeout(tick,delay()); };
   st.timer=setTimeout(tick,delay());
 }
-function stop(i){ clearTimeout(I[i].timer); I[i].timer=null; const b=q('play',i); if(b) b.textContent='▶ تشغيل'; }
+function stop(i){ clearTimeout(I[i].timer); I[i].timer=null; const b=q('play',i); if(b) b.innerHTML='<i class="fa-solid fa-play"></i> تشغيل'; }
 
 /* ================= analysis ================= */
 function countOps(o,n,k){ const S=o.gen(o.sample(n,k)); const c=S[S.length-1].c; return c.cmp+c.rd+c.wr; }
@@ -1635,7 +1635,7 @@ function renderAnalysis(i){
   q('cases',i).innerHTML=o.cases.map((c,k)=>{
     const [key,ar,en]=names[k];
     const tryBtn = ['search','bubble','insert','delete'].includes(o.key) && key!=='avg'
-      ? `<div class="try"><button class="btn ghost" onclick="tryCase(${i},'${key}')">▶ شاهدها في التنفيذ</button></div>`:'';
+      ? `<div class="try"><button class="btn ghost" onclick="tryCase(${i},'${key}')"><i class="fa-solid fa-play" style="font-size:10px"></i> شاهدها في التنفيذ</button></div>`:'';
     return `<div class="case ${key}"><h4>${ar} <small style="color:var(--muted)">${en}</small><span class="pill ${pillCls(c[0])}">${c[0]}</span></h4><p>${c[1]}</p>${tryBtn}</div>`;
   }).join('');
   const ns = o.key==='matrix'?[2,4,8,16]:[5,10,20,40];
