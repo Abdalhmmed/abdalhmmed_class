@@ -615,6 +615,164 @@ body.big .code { font-size: 15px; }
   th, td { padding: 8px 10px; white-space: nowrap; }
 }
 
+
+/* ================= SIMULATION & ARRAY LAYOUT FIXES ================= */
+.arr-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+  direction: ltr !important;
+  flex-wrap: wrap;
+  margin: 12px 0;
+  width: 100%;
+}
+
+.row-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 10px 0 4px;
+  text-align: center;
+}
+
+.cell {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center;
+  position: relative;
+  transition: all .25s ease;
+}
+
+.cell .ptr {
+  font: 800 11px "Fira Code", monospace;
+  color: var(--primary);
+  height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.cell .box {
+  width: 58px;
+  height: 54px;
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 800 19px "Fira Code", monospace;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+  transition: all .2s ease;
+}
+
+.cell .ix {
+  font: 700 11px "Fira Code", monospace;
+  color: var(--muted);
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+.cell.active .box {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+.cell.compare .box {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cell.swap .box {
+  background: #fef3c7;
+  border-color: #d97706;
+  transform: rotate(-3deg) scale(1.08);
+}
+
+.cell.found .box, .cell.done .box {
+  background: var(--ok-soft);
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.cell.danger .box {
+  background: var(--bad-soft);
+  border-color: var(--bad);
+  color: var(--bad);
+}
+
+.cell.empty .box {
+  border-style: dashed;
+  opacity: 0.5;
+  background: transparent;
+}
+
+/* 2D Matrix Grid */
+.matrix {
+  display: grid;
+  gap: 8px;
+  direction: ltr;
+  justify-content: center;
+  margin: 12px auto;
+}
+.mcell {
+  width: 62px;
+  height: 58px;
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font: 800 15px "Fira Code";
+  background: var(--paper);
+  transition: all .2s;
+}
+.mcell small { font-size: 10px; color: var(--muted); }
+.mcell.active { background: var(--primary-soft); border-color: var(--primary); transform: scale(1.06); }
+.mcell.row { background: var(--bg); border-color: var(--primary-light); }
+.mcell.done { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+
+/* Variable Watch & Counters */
+.vars-bar {
+  display: flex;
+  gap: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-top: 14px;
+  font: 600 12.5px "Fira Code";
+  direction: ltr;
+  flex-wrap: wrap;
+}
+.var { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; }
+.var.chg { border-color: var(--accent); color: var(--accent); font-weight: 700; }
+
+.bars { margin-top: 14px; }
+.bar-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+  margin: 8px 0;
+  font: 600 12.5px "Fira Code";
+  direction: ltr;
+}
+.bar { height: 22px; background: var(--line); border-radius: 6px; overflow: hidden; position: relative; }
+.bar div { height: 100%; border-radius: 6px; transition: width .5s; }
+.bar span { position: absolute; left: 8px; top: 2px; font-size: 11px; font-weight: 700; color: var(--ink); }
+.bar.b div { background: var(--ok); }
+.bar.w div { background: var(--bad); }
+
+.try { margin-top: 10px; }
+.ghost { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 5px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+.ghost:hover { background: var(--primary-soft); }
+
 </style>
 </head>
 <body>
