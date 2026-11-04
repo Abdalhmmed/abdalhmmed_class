@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="عبدالحميد هلال دعبان - Abdulhamid Helal Daban">
+<meta name="institution" content="جامعة عدن - كلية علوم الحاسوب وتكنولوجيا المعلومات - قسم نظم المعلومات">
+<meta name="description" content="ملزمة هياكل البيانات العملية بلغة Java - جامعة عدن - كلية علوم الحاسوب وتكنولوجيا المعلومات - إعداد عبدالحميد هلال دعبان">
+<title>جامعة عدن | كلية علوم الحاسوب وتكنولوجيا المعلومات | ملزمة هياكل البيانات العملية (Java) - إعداد عبدالحميد هلال دعبان</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink: #0f172a;
+  --muted: #475569;
+  --line: #cbd5e1;
+  --line-light: #e2e8f0;
+  --bg-soft: #f8fafc;
+  --brand: #1d4ed8;
+  --brand-dark: #0f2b6b;
+  --brand-light: #eff6ff;
+  --accent: #b45309;
+  --accent-light: #fffbeb;
+  --ok: #047857;
+  --ok-light: #ecfdf5;
+  --bad: #b91c1c;
+  --bad-light: #fef2f2;
+  --code-bg: #0f172a;
+  --code-ink: #f8fafc;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 14px; }
+body {
+  margin: 0;
+  padding: 0;
+  background: #f1f5f9;
+  color: var(--ink);
+  font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.8;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+code, .mono {
+  font-family: 'Fira Code', Consolas, monospace;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* Screen Action Bar (hidden on print) */
+.action-bar {
+  background: #0f172a;
+  color: #fff;
+  padding: 14px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.action-bar b { font-size: 16px; }
+.btn-print {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font: 800 14px 'Cairo', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(37,99,235,0.3);
+  transition: all 0.2s;
+}
+.btn-print:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+/* Document Container */
+.doc-container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #fff;
+  box-shadow: 0 10px 35px rgba(15,23,42,0.1);
+  border-radius: 12px;
+  padding: 50px 60px;
+}
+
+/* Cover Page */
+.cover-page {
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 60px 48px;
+  margin-bottom: 50px;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  position: relative;
+  page-break-after: always;
+  break-after: page;
+}
+.cover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 16px;
+  margin-bottom: 40px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.cover-title {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--brand-dark);
+  line-height: 1.4;
+  margin: 0 0 16px;
+}
+.cover-subtitle {
+  font-size: 19px;
+  color: var(--muted);
+  font-weight: 700;
+  margin: 0 0 28px;
+  line-height: 1.6;
+}
+.cover-divider {
+  width: 90px;
+  height: 5px;
+  background: var(--brand);
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+.cover-desc {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--ink);
+  max-width: 680px;
+  margin-bottom: 40px;
+}
+.cover-meta {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  font-size: 13px;
+}
+.cover-meta div strong {
+  display: block;
+  color: var(--brand);
+  margin-bottom: 4px;
+}
+
+/* Table of Contents */
+.toc-box {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px 30px;
+  margin: 30px 0 50px;
+  page-break-after: always;
+  break-after: page;
+}
+.toc-box h3 {
+  margin: 0 0 18px;
+  font-size: 18px;
+  color: var(--brand-dark);
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 8px;
+}
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 24px;
+}
+.toc-list li {
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--line-light);
+  display: flex;
+  justify-content: space-between;
+}
+.toc-list li span.num {
+  color: var(--brand);
+  font-family: 'Fira Code', monospace;
+}
+
+/* Headings */
+h2.sec-heading {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--brand-dark);
+  border-right: 6px solid var(--brand);
+  padding-right: 14px;
+  margin: 40px 0 18px;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+h3.sub-heading {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: var(--brand);
+  margin: 24px 0 12px;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+h4 {
+  font-size: 14.5px;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+p {
+  margin: 10px 0 14px;
+  line-height: 1.85;
+}
+
+/* Callout Boxes */
+.card-box {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 18px 0;
+  background: #fff;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.note-box {
+  background: var(--brand-light);
+  border-right: 5px solid var(--brand);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-size: 13.5px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.warn-box {
+  background: var(--accent-light);
+  border-right: 5px solid var(--accent);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-size: 13.5px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.success-box {
+  background: var(--ok-light);
+  border-right: 5px solid var(--ok);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-size: 13.5px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* Grid Layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 16px 0;
+}
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+/* Badges / Pills */
+.pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 16px;
+  font-size: 11.5px;
+  font-weight: 800;
+  font-family: 'Fira Code', monospace;
+  direction: ltr;
+}
+.pill-ok { background: var(--ok-light); color: var(--ok); border: 1px solid #a7f3d0; }
+.pill-acc { background: var(--accent-light); color: var(--accent); border: 1px solid #fde68a; }
+.pill-bad { background: var(--bad-light); color: var(--bad); border: 1px solid #fecaca; }
+.pill-brand { background: var(--brand-light); color: var(--brand); border: 1px solid #bfdbfe; }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 10px 14px;
+  text-align: right;
+  vertical-align: middle;
+}
+th {
+  background: var(--bg-soft);
+  font-weight: 800;
+  color: var(--brand-dark);
+}
+
+/* Visual Diagrams (Print-ready) */
+.diagram-stage {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+  background: var(--bg-soft);
+  text-align: center;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.array-strip {
+  display: inline-flex;
+  gap: 12px;
+  direction: ltr;
+  margin: 12px 0;
+  align-items: flex-start;
+}
+.array-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+.array-item .addr {
+  font-size: 10.5px;
+  color: var(--accent);
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+.array-item .box {
+  min-width: 58px;
+  height: 52px;
+  padding: 0 8px;
+  border: 2px solid var(--brand);
+  border-radius: 8px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: 'Fira Code', monospace;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.array-item .box .tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: inherit;
+  margin-top: 1px;
+}
+.array-item .box.highlight {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.array-item .box.success {
+  background: var(--ok-light);
+  border-color: var(--ok);
+  color: var(--ok);
+}
+.array-item .box.danger {
+  background: var(--bad-light);
+  border-color: var(--bad);
+  color: var(--bad);
+}
+.array-item .idx {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  margin-top: 6px;
+  white-space: nowrap;
+}
+
+/* Code Listings */
+.code-block {
+  background: var(--code-bg);
+  color: var(--code-ink);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  direction: ltr;
+  text-align: left;
+  font-family: 'Fira Code', Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: hidden;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  border: 1px solid #1e293b;
+}
+.code-block .kw { color: #60a5fa; font-weight: 700; }
+.code-block .cm { color: #94a3b8; font-style: italic; }
+.code-block .str { color: #86efac; }
+.code-block .num { color: #fca5a5; }
+
+/* Operation Card in Print */
+.op-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
+  background: #fff;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.op-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--bg-soft);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  direction: rtl;
+}
+.op-card-header .pill {
+  direction: ltr;
+  display: inline-block;
+}
+.op-card-title {
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--brand-dark);
+}
+
+/* Step list */
+.step-list {
+  counter-reset: step-counter;
+  list-style: none;
+  padding: 0;
+  margin: 14px 0;
+}
+.step-list li {
+  counter-increment: step-counter;
+  position: relative;
+  padding: 6px 36px 6px 0;
+  font-size: 13.5px;
+}
+.step-list li::before {
+  content: counter(step-counter);
+  position: absolute;
+  right: 0;
+  top: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Print Specific Rules */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm 16mm;
+  }
+  body {
+    background: #fff !important;
+    font-size: 12pt;
+    color: #000;
+  }
+  .action-bar { display: none !important; }
+  .doc-container {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
+  .cover-page {
+    height: 94vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 0;
+    page-break-after: always;
+    break-after: page;
+  }
+  .toc-box {
+    page-break-after: always;
+    break-after: page;
+  }
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+  .code-block {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border: 1px solid #334155 !important;
+    font-size: 9.5pt !important;
+  }
+  .op-card, .card-box, table, .diagram-stage {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  h2.sec-heading, h3.sub-heading {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+}
+
+/* ===== Mobile View Responsiveness on Screens (Keeps clean A4 print on Paper) ===== */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+  .action-bar {
+    padding: 10px 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .action-bar > div:first-child {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .action-bar b {
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+  .action-bar .btn-print {
+    padding: 7px 12px;
+    font-size: 12px;
+    text-align: center;
+    justify-content: center;
+  }
+  .doc-container {
+    padding: 18px 14px;
+    margin: 10px auto;
+    border-radius: 10px;
+    box-shadow: none;
+  }
+  .cover-page {
+    min-height: auto;
+    padding: 24px 16px;
+  }
+  .cover-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 11.5px;
+  }
+  .cover-title {
+    font-size: 23px;
+    line-height: 1.35;
+  }
+  .cover-subtitle {
+    font-size: 14.5px;
+  }
+  .cover-desc {
+    font-size: 13.5px;
+  }
+  .cover-meta {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+  }
+  .diagram-stage {
+    padding: 14px 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .array-strip {
+    gap: 8px;
+  }
+  .array-item .box {
+    min-width: 46px;
+    height: 46px;
+    font-size: 13.5px;
+    padding: 0 4px;
+  }
+  .code-block {
+    font-size: 11px !important;
+    padding: 10px 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 12px;
+  }
+  th, td {
+    padding: 8px 10px;
+    white-space: nowrap;
+  }
+  .op-card {
+    padding: 16px 12px;
+  }
+  .op-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .sec-heading {
+    font-size: 18px;
+  }
+  .sub-heading {
+    font-size: 15px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Top Action Bar for PDF export -->
+<div class="action-bar">
+  <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+    <a href="index.html" class="btn-print" style="background:#334155;text-decoration:none;display:inline-flex;align-items:center;gap:6px" title="الرجوع إلى البوابة الرئيسية">
+      🏠 الرئيسية
+    </a>
+    <a href="الملزمة_العملية_الأولى_التعقيد_والمصفوفات_Java.html" class="btn-print" style="background:#1d4ed8;text-decoration:none;display:inline-flex;align-items:center;gap:6px" title="الانتقال إلى الشرح التفاعلي">
+      🚀 الشرح التفاعلي
+    </a>
+    <b>📄 ملزمة الطباعة والحفظ PDF | م. عبدالحميد هلال دعبان · جامعة عدن</b>
+  </div>
+  <div>
+    <button class="btn-print" style="background:#059669;" onclick="window.print()" title="طباعة أو حفظ مباشر">
+      🖨️ طباعة / حفظ مباشر بتنسيق PDF
+    </button>
+  </div>
+</div>
+
+<div class="doc-container">
+
+  <!-- ================= COVER PAGE ================= -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <span>جامعة عدن · كلية علوم الحاسوب وتكنولوجيا المعلومات · قسم نظم المعلومات (IS)</span>
+      <span>مختبر هياكل البيانات والخوارزميات بلغة Java (الجانب العملي) · العام الجامعي 2026-2027م</span>
+    </div>
+
+    <div>
+      <span class="pill pill-brand" style="font-size: 13px; padding: 4px 14px;">جامعة عدن · كلية علوم الحاسوب وتكنولوجيا المعلومات</span>
+      <h1 class="cover-title">المصفوفات في Java<br>وتحليل كفاءة الخوارزميات (Big-O)</h1>
+      <h2 class="cover-subtitle">دليل عملي تطبيقي شامل لطلاب قسم نظم المعلومات - جامعة عدن</h2>
+      <div class="cover-divider"></div>
+      <p class="cover-desc">
+        ملزمة دراسية منهجية للجانب العملي، مخصصة لطلاب قسم نظم المعلومات بكلية علوم الحاسوب وتكنولوجيا المعلومات - جامعة عدن. تغطي بالتفصيل: كيفية قياس كفاءة البرمجيات برمز Big-O، بنية المصفوفات الأحادية في الذاكرة الفيزيائية، خوارزميات العمليات الأساسية (الوصول، التعديل، المجموع، البحث، الأكبر والأصغر، العكس، الإدراج، الحذف)، مع دراسة الحالات (Best & Worst Cases) وشرح الأكواد النموذجية.
+      </p>
+    </div>
+
+    <div class="cover-meta">
+      <div>
+        <strong>المؤسسة التعليمية:</strong>
+        جامعة عدن - كلية علوم الحاسوب وتكنولوجيا المعلومات
+      </div>
+      <div>
+        <strong>القسم والتخصص:</strong>
+        قسم نظم المعلومات (الجانب العملي)
+      </div>
+      <div>
+        <strong>إعداد وتطوير:</strong>
+        م. عبدالحميد هلال دعبان
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TABLE OF CONTENTS ================= -->
+  <div class="toc-box">
+    <h3>فهرس محتويات الملزمة</h3>
+    <ul class="toc-list">
+      <li><span>1. مدخل التعقيد: ما هو رمز Big-O وكيف نقيس كفاءة الكود؟</span> <span class="num">01</span></li>
+      <li><span>2. ماهية المصفوفة ولماذا نحتاجها (المفهوم والتصميم)</span> <span class="num">02</span></li>
+      <li><span>3. هيكل المصفوفة في الذاكرة ولماذا الفهرس يبدأ من 0</span> <span class="num">03</span></li>
+      <li><span>4. مراحل حياة المصفوفة في Java (التصريح ⬅️ الحجز ⬅️ التعبئة)</span> <span class="num">04</span></li>
+      <li><span>5. المرور على عناصر المصفوفة بحلقة for التقليدية</span> <span class="num">05</span></li>
+      <li><span>6. العمليات الأساسية: الوصول والتعديل المباشر O(1)</span> <span class="num">06</span></li>
+      <li><span>7. العمليات الأساسية: المرور وحساب المجموع والمتوسط O(n)</span> <span class="num">07</span></li>
+      <li><span>8. البحث الخطي (Linear Search) وحالاته</span> <span class="num">08</span></li>
+      <li><span>9. إيجاد أكبر وأصغر قيمة (Min & Max)</span> <span class="num">09</span></li>
+      <li><span>10. عكس المصفوفة مكانياً بتقنية المؤشرين (Two-Pointers)</span> <span class="num">10</span></li>
+      <li><span>11. عملية الإضافة (Insertion) بمراحلها الثلاث وشرح إزاحة الذاكرة</span> <span class="num">11</span></li>
+      <li><span>12. عملية الحذف (Deletion) بمراحلها الثلاث وشرح سحب العناصر</span> <span class="num">12</span></li>
+      <li><span>13. مرجع الأكواد البرمجية الجاهزة (CRUD Cheat Sheet)</span> <span class="num">13</span></li>
+      <li><span>14. جدول المقارنة والمراجعة الشاملة لجميع العمليات</span> <span class="num">14</span></li>
+    </ul>
+  </div>
+
+  <!-- ================= SECTION 1: BIG-O ================= -->
+  <h2 class="sec-heading">1. مدخل التعقيد: ما هو رمز Big-O وكيف نقيس كفاءة الكود؟</h2>
+
+  <div class="note-box">
+    <b>💡 ما هو رمز Big-O وما هو اختصار له؟</b><br>
+    الحرف <b>O</b> هو اختصار لكلمة <b>"Order of Growth"</b> (رتبة أو وتيرة نمو العمليات). هو لغة ومقياس رياضي عالمي موحد يجيب عن السؤال الجوهري: 
+    <i>«إذا زاد حجم البيانات المدخلة للبرنامج (n)، فبأي وتيرة ومعدل سيزداد عدد العمليات والخطوات التي ينفذها المعالج؟»</i>
+  </div>
+
+  <div class="grid-3">
+    <div class="card-box" style="border-top: 4px solid var(--bad);">
+      <h4>❌ لماذا لا نقيس الكفاءة بالثواني؟</h4>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">
+        لأن الثواني مقياس خادع يعتمد على سرعة المعالج، نوع نظام التشغيل، وحجم الذاكرة. نفس الكود قد يستغرق 0.05 ثانية على حاسوب متطور و 4 ثوانٍ على جهاز بطيء.
+      </p>
+    </div>
+    <div class="card-box" style="border-top: 4px solid var(--ok);">
+      <h4>✅ لماذا نستخدم رمز Big-O؟</h4>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">
+        لأنه يقيس <b>الخطوات والعمليات المنطقية</b> المستقلة عن العتاد، ويعطينا تقييماً ثابتاً وموضوعياً لجودة الفكرة التصميمية للخوارزمية.
+      </p>
+    </div>
+    <div class="card-box" style="border-top: 4px solid var(--brand);">
+      <h4>🔍 ماذا يمثل الحرف (n)؟</h4>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">
+        <b>n</b> يمثل <b>حجم المدخلات</b> (عدد العناصر). في المصفوفات: إذا كانت المصفوفة تحتوي على 5 عناصر فإن <code>n = 5</code>، وإذا كانت 1000 عنصر فإن <code>n = 1000</code>.
+      </p>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">ماذا نعدّ بالضبط داخل الكود لحساب التعقيد؟</h3>
+  <div class="grid-4">
+    <div class="card-box" style="text-align: center;">
+      <span style="font-size: 20px;">🔍</span>
+      <h4>المقارنات (Comparisons)</h4>
+      <p style="font-size: 12px; color: var(--muted); margin: 0;">شروط الحلقات <code>i &lt; n</code> وفحص <code>if</code>.</p>
+    </div>
+    <div class="card-box" style="text-align: center;">
+      <span style="font-size: 20px;">📖</span>
+      <h4>القراءات (Reads)</h4>
+      <p style="font-size: 12px; color: var(--muted); margin: 0;">الوصول لقيمة من خانة المصفوفة <code>arr[i]</code>.</p>
+    </div>
+    <div class="card-box" style="text-align: center;">
+      <span style="font-size: 20px;">✍️</span>
+      <h4>الكتابات (Writes)</h4>
+      <p style="font-size: 12px; color: var(--muted); margin: 0;">تخزين وإسناد في متغير أو خانة <code>arr[i] = x</code>.</p>
+    </div>
+    <div class="card-box" style="text-align: center;">
+      <span style="font-size: 20px;">Σ</span>
+      <h4>المجموع الكلي</h4>
+      <p style="font-size: 12px; color: var(--muted); margin: 0;">مجموع العمليات ومنه نستخرج رتبة النمو.</p>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">رُتب Big-O الأساسية مرتبة من الأسرع إلى الأبطأ:</h3>
+  <table>
+    <tr>
+      <th style="width: 15%;">الرمز</th>
+      <th style="width: 25%;">الاسم العلمي</th>
+      <th style="width: 35%;">الوصف وسلوك النمو</th>
+      <th style="width: 25%;">مثال من المصفوفات</th>
+    </tr>
+    <tr>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td>ثابت (Constant)</td>
+      <td>خطوة واحدة ثابتة لا تتأثر بحجم البيانات نهائياً.</td>
+      <td>الوصول للخانة بالفهرس <code>arr[i]</code></td>
+    </tr>
+    <tr>
+      <td><span class="pill pill-brand">O(log n)</span></td>
+      <td>لوغاريتمي (Logarithmic)</td>
+      <td>فائق السرعة؛ تُقسم مساحة البحث إلى النصف في كل خطوة.</td>
+      <td>البحث الثنائي في مصفوفة مرتبة</td>
+    </tr>
+    <tr>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td>خطي (Linear)</td>
+      <td>يتناسب طردياً مع n؛ إذا تضاعف n يتضاعف العمل.</td>
+      <td>المرور بحلقة واحدة لحساب المجموع</td>
+    </tr>
+    <tr>
+      <td><span class="pill pill-bad">O(n²)</span></td>
+      <td>تربيعي (Quadratic)</td>
+      <td>حلقتان متداخلتان؛ إذا تضاعف n يتضاعف العمل 4 مرات.</td>
+      <td>الترتيب الفقاعي (Bubble Sort)</td>
+    </tr>
+  </table>
+
+  <h3 class="sub-heading">الحالات الثلاث لتقييم أداء الخوارزمية (Cases of Analysis):</h3>
+  <table>
+    <tr>
+      <th style="width: 22%;">الحالة</th>
+      <th style="width: 45%;">المفهوم العلمي</th>
+      <th style="width: 33%;">مثال من البحث الخطي</th>
+    </tr>
+    <tr>
+      <td><span class="pill pill-ok">أفضل حالة (Best Case)</span></td>
+      <td>أسهل سيناريو للمدخلات؛ أقل عدد ممكن من الخطوات.</td>
+      <td>العنصر المطلوب يقع في أول خانة <code>arr[0]</code> مباشرة.</td>
+    </tr>
+    <tr>
+      <td><span class="pill pill-acc">الحالة المتوسطة (Average Case)</span></td>
+      <td>الأداء المتوقع عند تشغيل البرنامج على بيانات عشوائية.</td>
+      <td>العنصر في منتصف المصفوفة تقريباً ($n/2$).</td>
+    </tr>
+    <tr>
+      <td><span class="pill pill-bad">أسوأ حالة (Worst Case)</span></td>
+      <td>أصعب سيناريو ممكن؛ أعلى سقف للعمليات (Upper Bound).</td>
+      <td>العنصر المطلوب في آخر خانة أو غير موجود إطلاقاً ($n$).</td>
+    </tr>
+  </table>
+
+  <!-- ================= SECTION 2: ARRAY ESSENTIALS ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">2. ماهية المصفوفة (المفهوم، التصميم، والذاكرة)</h2>
+
+  <h3 class="sub-heading">2.1 مشكلة المتغيرات المنفصلة وحلها بالمصفوفة</h3>
+  <div class="grid-2">
+    <div class="card-box" style="border-top: 4px solid var(--bad);">
+      <h4>❌ بدون مصفوفة (كابوس برمجي)</h4>
+      <div class="code-block">
+<span class="kw">int</span> mark1 = 85;
+<span class="kw">int</span> mark2 = 92;
+<span class="kw">int</span> mark3 = 78;
+<span class="kw">int</span> mark4 = 64;
+<span class="kw">int</span> mark5 = 90;
+<span class="cm">// لحساب المجموع:</span>
+<span class="kw">int</span> sum = mark1 + mark2 + mark3 + mark4 + mark5;
+      </div>
+      <p style="font-size: 12.5px; color: var(--muted); margin: 0;">
+        متغيرات متفرقة، لا يمكن المرور عليها بحلقة، والكود يزداد تعقيداً مع كل عنصر إضافي.
+      </p>
+    </div>
+
+    <div class="card-box" style="border-top: 4px solid var(--ok);">
+      <h4>✅ مع مصفوفة (الحل الذكي والمنظم)</h4>
+      <div class="code-block">
+<span class="kw">int</span>[] marks = {85, 92, 78, 64, 90};
+
+<span class="kw">int</span> sum = 0;
+<span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; marks.length; i++) {
+    sum += marks[i];
+}
+      </div>
+      <p style="font-size: 12.5px; color: var(--muted); margin: 0;">
+        اسم واحد جامع، وحلقة واحدة من سطرين تجمع درجات 5 طلاب أو حتى مليون طالب.
+      </p>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <b>تعريف المصفوفة (Array):</b> بنية بيانات خطية متجانسة تخزن مجموعة عناصر من <b>نفس النوع</b> في <b>مواقع متجاورة ومتلاصقة تماماً</b> في الذاكرة تحت اسم واحد، ونصل لكل عنصر عبر رقم موقعه (<b>الفهرس Index</b>) الذي يبدأ دائماً من <code>0</code>.
+  </div>
+
+  <h3 class="sub-heading">2.2 هيكل المصفوفة في الذاكرة ولماذا يبدأ الفهرس من 0؟</h3>
+  <p>
+    المعالج يعرف عنوان أول خانة فقط في الذاكرة (<b>Base Address</b>). ولأن جميع الخانات متطابقة في الحجم ومحجوزة على التوالي، فإن الفهرس (Index) يمثل في الأصل <b>مقدار الإزاحة (Offset)</b> عن نقطة البداية وفق المعادلة الفيزيائية:
+  </p>
+  
+  <div class="diagram-stage">
+    <div style="font-size: 14px; font-weight: 800; color: var(--brand); margin-bottom: 8px;">
+      المعادلة: العنوان الفيزيائي للخانة = Base Address + (Index × حجم نوع البيانات)
+    </div>
+    <div class="array-strip">
+      <div class="array-item">
+        <span class="addr">0x1000 (Base)</span>
+        <div class="box">85</div>
+        <span class="idx">[0]</span>
+      </div>
+      <div class="array-item">
+        <span class="addr">0x1004</span>
+        <div class="box">92</div>
+        <span class="idx">[1]</span>
+      </div>
+      <div class="array-item">
+        <span class="addr">0x1008</span>
+        <div class="box">78</div>
+        <span class="idx">[2]</span>
+      </div>
+      <div class="array-item">
+        <span class="addr">0x100C</span>
+        <div class="box">64</div>
+        <span class="idx">[3]</span>
+      </div>
+      <div class="array-item">
+        <span class="addr">0x1010</span>
+        <div class="box">90</div>
+        <span class="idx">[4]</span>
+      </div>
+    </div>
+    <div style="font-size: 12.5px; color: var(--muted); margin-top: 6px;">
+      كل عنصر نوع <code>int</code> يستهلك 4 بايت. الخانة الأولى إزاحتها 0 ($\text{Base} + 0 \times 4 = \text{Base}$)، لذلك الفهرس يبدأ من 0.
+    </div>
+  </div>
+
+  <div class="success-box">
+    <b>النتيجة الهندسية:</b> لأن المعالج ينفذ عملية الضرب والجمع في دورة ساعة واحدة، فإن <b>الوصول وقراءة أي عنصر في المصفوفة يستغرق دائماً زمناً ثابتاً O(1)</b> مهما بلغ طول المصفوفة!
+  </div>
+
+  <h3 class="sub-heading">2.3 مراحل حياة المصفوفة في Java</h3>
+  <div class="grid-3">
+    <div class="card-box" style="border-top: 3px solid var(--brand);">
+      <span class="pill pill-brand">المرحلة 1</span>
+      <h4>1. التصريح (Declaration)</h4>
+      <code>int[] marks;</code>
+      <p style="font-size: 12.5px; color: var(--muted); margin: 6px 0 0;">
+        نعلن فقط عن اسم سيكون مصفوفة. لم تُحجز أي خانات بعد في الذاكرة (قيمته null).
+      </p>
+    </div>
+
+    <div class="card-box" style="border-top: 3px solid var(--accent);">
+      <span class="pill pill-acc">المرحلة 2</span>
+      <h4>2. الحجز بواسطة new</h4>
+      <code>marks = new int[5];</code>
+      <p style="font-size: 12.5px; color: var(--muted); margin: 6px 0 0;">
+        تُحجز 5 خانات متتالية في الـ Heap فوراً، وتأخذ قيماً افتراضية تلقائية (0 للأعداد).
+      </p>
+    </div>
+
+    <div class="card-box" style="border-top: 3px solid var(--ok);">
+      <span class="pill pill-ok">المرحلة 3</span>
+      <h4>3. التعبئة (Initialization)</h4>
+      <code>marks[0] = 85;</code>
+      <p style="font-size: 12.5px; color: var(--muted); margin: 6px 0 0;">
+        نضع القيم الحقيقية في الخانات بالفهرس، أو ندمج المراحل الثلاث بسطر واحد جاهز.
+      </p>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">2.4 المرور على العناصر بحلقة for التقليدية بالفهرس</h3>
+  <div class="code-block">
+<span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; marks.length; i++) {
+    System.out.println(<span class="str">"marks["</span> + i + <span class="str">"] = "</span> + marks[i]);
+    marks[i] += 5; <span class="cm">// يمكننا التعديل على الخانة في مكانها لأننا نملك الفهرس i!</span>
+}
+  </div>
+  <p style="font-size: 13.5px;">
+    <b>قاعدة هامة:</b> يبدأ العداد <code>i</code> من <code>0</code> ويزداد بمقدار <code>1</code> حتى يصل إلى <code>marks.length - 1</code>. نستخدم دائماً <code>i &lt; marks.length</code> لتجنب خطأ تجاوز الحدود (ArrayIndexOutOfBoundsException).
+  </p>
+
+  <!-- ================= SECTION 3: OPERATIONS ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">3. العمليات الأساسية على المصفوفات (تحليل وتطبيق)</h2>
+
+  <!-- 3.1 & 3.2 -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.1 الوصول والتعديل المباشر (Direct Access & Update)</span>
+      <span class="pill pill-ok">التعقيد الزمني: O(1) · المكاني: O(1)</span>
+    </div>
+    <p>
+      الوصول لقيمة أي عنصر أو تعديلها يتم فوراً عبر حسابه الفيزيائي المباشر دون المرور على ما قبله.
+    </p>
+    <div class="code-block">
+<span class="kw">int</span> x = arr[2];    <span class="cm">// قراءة العنصر في الفهرس 2 بتعقيد O(1)</span>
+arr[2] = 88;       <span class="cm">// تعديل القيمة في خطوة واحدة ثابتة O(1)</span>
+    </div>
+  </div>
+
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.2 المرور وحساب المجموع والمتوسط (Sum & Average)</span>
+      <span class="pill pill-acc">التعقيد الزمني: O(n) · المكاني: O(1)</span>
+    </div>
+    <p>
+      نستخدم متغيراً مجمعاً <code>sum = 0</code>، ثم نمر بحلقة واحدة على جميع العناصر ونجمعها، وفي النهاية نقسم على <code>arr.length</code>.
+    </p>
+    <div class="code-block">
+<span class="kw">int</span> sum = 0;
+<span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; arr.length; i++) {
+    sum += arr[i];
+}
+<span class="kw">double</span> avg = (<span class="kw">double</span>) sum / arr.length;
+    </div>
+  </div>
+
+  <!-- 3.3 LINEAR SEARCH -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.3 البحث الخطي (Linear Search)</span>
+      <span class="pill pill-acc">أفضل حالة: O(1) · أسوأ حالة: O(n)</span>
+    </div>
+    <p>
+      نفحص العناصر عنصراً تلو الآخر من البداية حتى نجد القيمة المطلوبة فنخرج فوراً بـ <code>break</code>، أو تنتهي المصفوفة فنرجع <code>-1</code>.
+    </p>
+    <div class="code-block">
+<span class="kw">int</span> target = 25, foundIndex = -1;
+<span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; arr.length; i++) {
+    <span class="kw">if</span> (arr[i] == target) {
+        foundIndex = i;
+        <span class="kw">break</span>; <span class="cm">// وجدنا القيمة، نخرج فوراً</span>
+    }
+}
+    </div>
+    <div class="grid-2" style="margin-top: 10px; font-size: 12.5px;">
+      <div class="card-box" style="margin: 0;">
+        <b>أفضل حالة (Best Case): O(1)</b><br>
+        عندما يكون العنصر في الخانة الأولى <code>arr[0]</code>.
+      </div>
+      <div class="card-box" style="margin: 0;">
+        <b>أسوأ حالة (Worst Case): O(n)</b><br>
+        عندما يكون العنصر في آخر خانة أو غير موجود إطلاقاً.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.4 MIN & MAX -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.4 إيجاد أكبر وأصغر قيمة (Min & Max)</span>
+      <span class="pill pill-acc">التعقيد الزمني: O(n) · المكاني: O(1)</span>
+    </div>
+    <p>
+      نفترض أن أول عنصر <code>arr[0]</code> هو الأكبر والأصغر مبدئياً، ثم نمر في حلقة واحدة من الفهرس 1 لتحديثهما:
+    </p>
+    <div class="code-block">
+<span class="kw">int</span> max = arr[0], min = arr[0];
+<span class="kw">for</span> (<span class="kw">int</span> i = 1; i &lt; arr.length; i++) {
+    <span class="kw">if</span> (arr[i] &gt; max) max = arr[i];
+    <span class="kw">if</span> (arr[i] &lt; min) min = arr[i];
+}
+    </div>
+  </div>
+
+  <!-- 3.5 REVERSE -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.5 عكس المصفوفة مكانياً (In-Place Reverse)</span>
+      <span class="pill pill-ok">المكاني: O(1) · الزمني: O(n)</span>
+    </div>
+    <p>
+      نستخدم مؤشرين (Two Pointers): <code>left = 0</code> و <code>right = length - 1</code> ونبدل بينهما بمتغير وسيط <code>temp</code> دون إنشاء مصفوفة ثانية:
+    </p>
+    <div class="code-block">
+<span class="kw">int</span> left = 0, right = arr.length - 1;
+<span class="kw">while</span> (left &lt; right) {
+    <span class="kw">int</span> temp = arr[left];
+    arr[left] = arr[right];
+    arr[right] = temp;
+    left++;
+    right--;
+}
+    </div>
+  </div>
+
+  <!-- ================= SECTION 4: INSERTION & DELETION ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">4. العمليات الهيكلية: الإضافة والحذف بالتفصيل</h2>
+
+  <div class="warn-box">
+    <b>لماذا الإضافة والحذف يتطلبان O(n) زمناً ومكاناً في مصفوفات Java؟</b><br>
+    لأن حجم المصفوفة ثابت تماماً (Fixed Size) في الذاكرة الفيزيائية. لا يمكن توسيع الخانات في مكانها ولا تقليصها، لذا لا بد من: 
+    <b>حجز مصفوفة جديدة بالكامل ونقل العناصر إليها مع إزاحة المواقع.</b>
+  </div>
+
+  <!-- INSERTION -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">4.1 عملية الإضافة في موقع محدد (Insertion at Position)</span>
+      <span class="pill pill-bad">التعقيد الزمني: O(n) · المكاني: O(n)</span>
+    </div>
+    
+    <p><b>تتم الإضافة وفق 3 مراحل واضحة:</b></p>
+    <ol class="step-list">
+      <li><b>المرحلة 1 (النسخ المباشر):</b> حجز مصفوفة جديدة بحجم <code>result[n + 1]</code> ونسخ العناصر السابقة لموقع الإضافة (من الفهرس 0 إلى pos-1) كما هي.</li>
+      <li><b>المرحلة 2 (غرس العنصر الجديد):</b> وضع القيمة الجديدة في موقعها المخصص: <code>result[pos] = val;</code></li>
+      <li><b>المرحلة 3 (الإزاحة لليمين):</b> نسخ ما تبقى من العناصر ونقل كل عنصر إلى <code>result[i + 1]</code> (إزاحة خانة واحدة لليمين).</li>
+    </ol>
+
+    <div class="diagram-stage">
+      <div style="font-weight: 700; font-size: 12.5px; margin-bottom: 8px;">مخطط إزاحة الذاكرة أثناء الإضافة:</div>
+      <div class="array-strip">
+        <div class="array-item">
+          <div class="box">10</div>
+          <span class="idx">[0]</span>
+        </div>
+        <div class="array-item">
+          <div class="box highlight">
+            <span>99</span>
+            <span class="tag">(جديد)</span>
+          </div>
+          <span class="idx">[1] (pos)</span>
+        </div>
+        <div class="array-item">
+          <div class="box">
+            <span>20</span>
+            <span class="tag" style="color: var(--accent);">(مُزاح)</span>
+          </div>
+          <span class="idx">[2]</span>
+        </div>
+        <div class="array-item">
+          <div class="box">
+            <span>30</span>
+            <span class="tag" style="color: var(--accent);">(مُزاح)</span>
+          </div>
+          <span class="idx">[3]</span>
+        </div>
+        <div class="array-item">
+          <div class="box">
+            <span>40</span>
+            <span class="tag" style="color: var(--accent);">(مُزاح)</span>
+          </div>
+          <span class="idx">[4]</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+<span class="kw">public static int</span>[] insert(<span class="kw">int</span>[] arr, <span class="kw">int</span> pos, <span class="kw">int</span> val) {
+    <span class="cm">// 1. حجز مصفوفة جديدة أطول بخانة واحدة</span>
+    <span class="kw">int</span>[] result = <span class="kw">new int</span>[arr.length + 1];
+
+    <span class="cm">// 2. نسخ العناصر السابقة لموقع الإضافة كما هي</span>
+    <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; pos; i++) {
+        result[i] = arr[i];
+    }
+
+    <span class="cm">// 3. وضع القيمة الجديدة في مكانها المخصص</span>
+    result[pos] = val;
+
+    <span class="cm">// 4. نسخ العناصر اللاحقة مع إزاحتها لليمين (+1)</span>
+    <span class="kw">for</span> (<span class="kw">int</span> i = pos; i &lt; arr.length; i++) {
+        result[i + 1] = arr[i];
+    }
+
+    <span class="kw">return</span> result; <span class="cm">// إرجاع المصفوفة الجديدة</span>
+}
+    </div>
+  </div>
+
+  <!-- DELETION -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">4.2 عملية الحذف من موقع محدد (Deletion at Position)</span>
+      <span class="pill pill-bad">التعقيد الزمني: O(n) · المكاني: O(n)</span>
+    </div>
+
+    <p><b>يتم الحذف وفق 3 مراحل واضحة:</b></p>
+    <ol class="step-list">
+      <li><b>المرحلة 1 (النسخ المباشر):</b> حجز مصفوفة جديدة بحجم <code>result[n - 1]</code> ونسخ العناصر السابقة لموقع الحذف (من 0 إلى pos-1) كما هي.</li>
+      <li><b>المرحلة 2 (التخطي):</b> تخطي العنصر المحذوف <code>arr[pos]</code> تماماً وعدم نسخه للمصفوفة الجديدة.</li>
+      <li><b>المرحلة 3 (الإزاحة لليسار):</b> نسخ بقية العناصر ونقل كل منها إلى <code>result[i - 1]</code> لملء الفراغ.</li>
+    </ol>
+
+    <div class="diagram-stage">
+      <div style="font-weight: 700; font-size: 12.5px; margin-bottom: 8px;">مخطط سحب العناصر لملء الفراغ أثناء الحذف:</div>
+      <div class="array-strip">
+        <div class="array-item">
+          <div class="box">10</div>
+          <span class="idx">[0]</span>
+        </div>
+        <div class="array-item">
+          <div class="box">20</div>
+          <span class="idx">[1]</span>
+        </div>
+        <div class="array-item">
+          <div class="box danger">
+            <span style="text-decoration: line-through;">30</span>
+            <span class="tag">(حُذف)</span>
+          </div>
+          <span class="idx">[2] (pos)</span>
+        </div>
+        <div class="array-item">
+          <div class="box success">
+            <span>40</span>
+            <span class="tag">← يسار</span>
+          </div>
+          <span class="idx">[2] بدلاً من [3]</span>
+        </div>
+        <div class="array-item">
+          <div class="box success">
+            <span>50</span>
+            <span class="tag">← يسار</span>
+          </div>
+          <span class="idx">[3] بدلاً من [4]</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+<span class="kw">public static int</span>[] delete(<span class="kw">int</span>[] arr, <span class="kw">int</span> pos) {
+    <span class="cm">// 1. حجز مصفوفة جديدة أصغر بخانة واحدة</span>
+    <span class="kw">int</span>[] result = <span class="kw">new int</span>[arr.length - 1];
+
+    <span class="cm">// 2. نسخ العناصر السابقة لموقع الحذف كما هي</span>
+    <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; pos; i++) {
+        result[i] = arr[i];
+    }
+
+    <span class="cm">// 3. نسخ العناصر اللاحقة مع إزاحتها لليسار خانة (-1) لملء الفراغ</span>
+    <span class="kw">for</span> (<span class="kw">int</span> i = pos + 1; i &lt; arr.length; i++) {
+        result[i - 1] = arr[i];
+    }
+
+    <span class="kw">return</span> result; <span class="cm">// إرجاع المصفوفة بعد الحذف</span>
+}
+    </div>
+  </div>
+
+  <!-- ================= SECTION 5: CRUD CHEAT SHEET ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">5. مرجع الأكواد الأساسية الجاهزة (CRUD Operations)</h2>
+  <p class="lead">
+    برنامج Java متكامل يجمع الدوال الأربع الرئيسية (إضافة، تعديل، حذف، بحث) مع دالة <code>main</code> توضح كيفية استدعائها بالتسلسل:
+  </p>
+
+  <div class="code-block">
+<span class="cm">/**
+ * مختبر هياكل البيانات والخوارزميات (Data Structures Lab)
+ * جامعة عدن - كلية علوم الحاسوب وتكنولوجيا المعلومات - قسم نظم المعلومات (الجانب العملي)
+ * إعداد وتطوير: م. عبدالحميد هلال دعبان
+ * موضوع المعمل: العمليات الأساسية على المصفوفات الأحادية (Array CRUD & Analysis)
+ */</span>
+<span class="kw">public class</span> ArrayCRUD {
+
+    <span class="cm">// 1. الإضافة: حجز مصفوفة جديدة وإزاحة العناصر لليمين O(n)</span>
+    <span class="kw">public static int</span>[] insert(<span class="kw">int</span>[] arr, <span class="kw">int</span> pos, <span class="kw">int</span> val) {
+        <span class="kw">int</span>[] res = <span class="kw">new int</span>[arr.length + 1];
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; pos; i++) {
+            res[i] = arr[i];
+        }
+        res[pos] = val;
+        <span class="kw">for</span> (<span class="kw">int</span> i = pos; i &lt; arr.length; i++) {
+            res[i + 1] = arr[i];
+        }
+        <span class="kw">return</span> res;
+    }
+
+    <span class="cm">// 2. التعديل: وصول مباشر وتغيير القيمة في خطوة واحدة O(1)</span>
+    <span class="kw">public static void</span> update(<span class="kw">int</span>[] arr, <span class="kw">int</span> index, <span class="kw">int</span> newVal) {
+        <span class="kw">if</span> (index &gt;= 0 &amp;&amp; index &lt; arr.length) {
+            arr[index] = newVal;
+        }
+    }
+
+    <span class="cm">// 3. الحذف: حجز مصفوفة جديدة وإزاحة العناصر لليسار O(n)</span>
+    <span class="kw">public static int</span>[] delete(<span class="kw">int</span>[] arr, <span class="kw">int</span> pos) {
+        <span class="kw">int</span>[] res = <span class="kw">new int</span>[arr.length - 1];
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; pos; i++) {
+            res[i] = arr[i];
+        }
+        <span class="kw">for</span> (<span class="kw">int</span> i = pos + 1; i &lt; arr.length; i++) {
+            res[i - 1] = arr[i];
+        }
+        <span class="kw">return</span> res;
+    }
+
+    <span class="cm">// 4. البحث: مقارنة تسلسلية خطوة بخطوة O(n)</span>
+    <span class="kw">public static int</span> search(<span class="kw">int</span>[] arr, <span class="kw">int</span> target) {
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; arr.length; i++) {
+            <span class="kw">if</span> (arr[i] == target) {
+                <span class="kw">return</span> i;
+            }
+        }
+        <span class="kw">return</span> -1;
+    }
+
+    <span class="cm">// برنامج تجريبي لتشغيل العمليات:</span>
+    <span class="kw">public static void</span> main(String[] args) {
+        <span class="kw">int</span>[] arr = {10, 20, 30, 40};
+
+        <span class="cm">// أ. إضافة 99 في الموقع 1:</span>
+        arr = insert(arr, 1, 99);        <span class="cm">// النتيجة: {10, 99, 20, 30, 40}</span>
+
+        <span class="cm">// ب. تعديل العنصر في الفهرس 0:</span>
+        update(arr, 0, 55);              <span class="cm">// النتيجة: {55, 99, 20, 30, 40}</span>
+
+        <span class="cm">// ج. حذف العنصر في الموقع 2:</span>
+        arr = delete(arr, 2);            <span class="cm">// النتيجة: {55, 99, 30, 40}</span>
+
+        <span class="cm">// د. البحث عن الرقم 30:</span>
+        <span class="kw">int</span> idx = search(arr, 30);       <span class="cm">// يرجع الفهرس 2</span>
+        System.out.println(<span class="str">"الموقع: "</span> + idx);
+    }
+}
+  </div>
+
+  <!-- ================= SECTION 6: SUMMARY TABLE ================= -->
+  <h2 class="sec-heading">6. جدول المقارنة والمراجعة الشاملة لجميع العمليات</h2>
+  <table>
+    <tr>
+      <th style="width: 25%;">العملية (Operation)</th>
+      <th style="width: 15%;">أفضل حالة</th>
+      <th style="width: 15%;">الحالة المتوسطة</th>
+      <th style="width: 15%;">أسوأ حالة</th>
+      <th style="width: 15%;">التعقيد المكاني</th>
+      <th style="width: 15%;">السبب المعماري</th>
+    </tr>
+    <tr>
+      <td><b>الوصول / التعديل بالفهرس</b></td>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td>حساب فيزيائي مباشر للعنوان</td>
+    </tr>
+    <tr>
+      <td><b>المرور وحساب المجموع</b></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td>زيارة كل عنصر مرة واحدة</td>
+    </tr>
+    <tr>
+      <td><b>البحث الخطي (Linear Search)</b></td>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td>أفضل: أول خانة / أسوأ: غير موجود</td>
+    </tr>
+    <tr>
+      <td><b>إيجاد الأكبر / الأصغر</b></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td>فحص جميع العناصر للمقارنة</td>
+    </tr>
+    <tr>
+      <td><b>عكس المصفوفة مكانياً</b></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td>تبديل $n/2$ بالمؤشرين</td>
+    </tr>
+    <tr>
+      <td><b>الإضافة (Insertion)</b></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-bad">O(n)</span></td>
+      <td><span class="pill pill-bad">O(n)</span></td>
+      <td>حجز مصفوفة جديدة ونسخ العناصر</td>
+    </tr>
+    <tr>
+      <td><b>الحذف (Deletion)</b></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-bad">O(n)</span></td>
+      <td><span class="pill pill-bad">O(n)</span></td>
+      <td>حجز مصفوفة جديدة وسحب العناصر</td>
+    </tr>
+    <tr>
+      <td><b>الترتيب الفقاعي (Bubble Sort)</b></td>
+      <td><span class="pill pill-acc">O(n)</span></td>
+      <td><span class="pill pill-bad">O(n²)</span></td>
+      <td><span class="pill pill-bad">O(n²)</span></td>
+      <td><span class="pill pill-ok">O(1)</span></td>
+      <td>حلقتان متداخلتان لمقارنة الجيران</td>
+    </tr>
+  </table>
+
+  <div class="note-box" style="margin-top: 30px; text-align: center;">
+    <b>جامعة عدن - كلية علوم الحاسوب وتكنولوجيا المعلومات - قسم نظم المعلومات (الجانب العملي)</b><br>
+    <span style="font-size: 13px; color: var(--muted);">تم إعداد وبرمجة هذه الملزمة التطبيقية بواسطة: <b>م. عبدالحميد هلال دعبان</b> · مخصصة للتدريب العملي في مختبر البرمجة وهياكل البيانات.</span>
+  </div>
+
+  <!-- علامة مائية مخفية ذكية لحفظ حقوق الملكية الفكرية -->
+  <div style="opacity: 0.05; font-size: 9px; text-align: center; margin-top: 15px; user-select: none; pointer-events: none;" aria-hidden="true" data-author="Abdulhamid-Helal-Daban" data-university="University of Aden - Faculty of Computer Science and Information Technology">
+    حقوق الملكية الفكرية والبرمجية محفوظة © 2026-2027م م. عبدالحميد هلال دعبان | جامعة عدن - كلية علوم الحاسوب وتكنولوجيا المعلومات - قسم نظم المعلومات (IS Practical Lab)
+  </div>
+
+</div>
+
+</body>
+</html>
