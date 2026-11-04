@@ -169,27 +169,136 @@ tr:last-child td{border-bottom:none}
 .row-label{font:800 13px Cairo;color:var(--muted);text-align:center}
 .arr-row{display:flex;justify-content:center;gap:12px;direction:ltr;flex-wrap:wrap}
 
-.cell{display:flex;flex-direction:column;align-items:center;min-width:62px}
-.cell .ptr{height:22px;font:800 12px "Fira Code";color:var(--accent);white-space:nowrap}
-.cell .box{width:62px;height:62px;border:2.5px solid var(--brand);border-radius:14px;background:var(--paper);display:flex;align-items:center;justify-content:center;font:800 20px "Fira Code";transition:all .35s cubic-bezier(.34,1.56,.64,1)}
-.cell .ix{font:700 12px "Fira Code";color:var(--muted);margin-top:6px}
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 66px;
+  position: relative;
+  transition: all .25s ease;
+}
 
-.cell.empty .box{border-style:dashed;color:var(--muted);opacity:.5}
-.cell.active .box{background:var(--accent);border-color:#d97706;color:#000;transform:translateY(-8px) scale(1.09);box-shadow:0 12px 22px -6px rgba(245,158,11,.5)}
-.cell.compare .box{background:#fde047;border-color:#ca8a04;color:#000;transform:translateY(-6px)}
-.cell.swap .box{background:var(--bad);border-color:#b91c1c;color:#fff;transform:translateY(-8px) rotate(-3deg)}
-.cell.found .box{background:var(--ok);border-color:#047857;color:#fff;transform:scale(1.09)}
-.cell.done .box{background:var(--ok-soft);border-color:var(--ok)}
-.cell.visited .box{opacity:.4}
-.cell.new .box{background:var(--brand-soft);border-color:var(--brand)}
-.cell.removed .box{background:var(--bad-soft);border-color:var(--bad);text-decoration:line-through;opacity:.6}
+/* Pointer tag (الرقم أو المؤشر التعريفي في الأعلى) */
+.cell .ptr {
+  min-height: 24px;
+  font: 800 12px "Fira Code", monospace;
+  color: var(--muted);
+  white-space: nowrap;
+  margin-bottom: 6px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: transparent;
+  transition: all .25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* تفاعل الرقم والمؤشر مع الحقل النشط ليبرز بوضوح دون تداخل */
+.cell.active .ptr {
+  color: #fff;
+  background: var(--brand);
+  box-shadow: 0 4px 10px rgba(30, 58, 138, 0.35);
+  transform: translateY(-4px) scale(1.08);
+}
+.cell.compare .ptr {
+  color: #b45309;
+  background: var(--accent-soft);
+  border: 1px solid rgba(217, 119, 6, 0.4);
+  transform: translateY(-3px);
+}
+.cell.swap .ptr {
+  color: #fff;
+  background: var(--bad);
+  transform: translateY(-4px);
+}
+.cell.found .ptr {
+  color: #fff;
+  background: var(--ok);
+  transform: translateY(-4px);
+}
+
+/* صندوق خانة المصفوفة: الحدود ثابتة باللون الأزرق الكحلي --brand واللون الداخلي يتغير بنعومة */
+.cell .box {
+  width: 64px;
+  height: 60px;
+  border: 2.5px solid var(--brand) !important; /* الحدود ثابتة لا تتغير */
+  border-radius: 14px;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 800 20px "Fira Code", monospace;
+  color: var(--ink);
+  transition: background-color .3s ease, transform .25s ease, box-shadow .25s ease, color .25s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.cell .ix {
+  font: 700 12px "Fira Code", monospace;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.cell.empty .box {
+  border-style: dashed !important;
+  color: var(--muted);
+  opacity: .5;
+  background: transparent;
+}
+
+/* الحالة النشطة active: لون داخلي أزرق ناعم وجميل بدلاً من الأصفر الكامل الصارخ، مع ثبات الحدود */
+.cell.active .box {
+  background: var(--brand-soft);
+  color: var(--brand);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px -4px rgba(30, 58, 138, 0.25);
+}
+
+/* المقارنة compare: إضاءة كهرمانية ذهبية ناعمة للداخل مع ثبات الحدود */
+.cell.compare .box {
+  background: var(--accent-soft);
+  color: var(--accent);
+  transform: translateY(-3px);
+}
+
+/* التبديل swap: لون أحمر ناعم جداً للداخل مع ثبات الحدود */
+.cell.swap .box {
+  background: #fef2f2;
+  color: var(--bad);
+  transform: translateY(-4px);
+}
+
+/* العنصر المطلوب found / المكتمل done: لون زمردي ناعم للداخل */
+.cell.found .box {
+  background: #ecfdf5;
+  color: var(--ok);
+  transform: translateY(-4px);
+}
+.cell.done .box {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.cell.visited .box {
+  opacity: .5;
+}
+.cell.new .box {
+  background: var(--brand-soft);
+}
+.cell.removed .box {
+  background: var(--bad-soft);
+  color: var(--bad);
+  text-decoration: line-through;
+  opacity: .6;
+}
 
 .matrix{display:inline-grid;gap:10px;direction:ltr;margin:0 auto}
 .mcell{width:68px;height:60px;border:2px solid var(--brand);border-radius:12px;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;font:800 18px "Fira Code";transition:.3s}
 .mcell small{font:600 10px "Fira Code";color:var(--muted)}
 .mcell.row{background:var(--brand-soft)}
 .mcell.done{background:var(--ok-soft);border-color:var(--ok)}
-.mcell.active{background:var(--accent);border-color:#d97706;color:#000;transform:scale(1.1)}
+.mcell.active{background:var(--brand-soft);border-color:var(--brand);color:var(--brand);transform:scale(1.06);}
 
 .msg{margin-top:16px;background:var(--code);color:#7dd3fc;border-radius:14px;padding:16px 20px;font-weight:700;font-size:15px;min-height:56px;line-height:1.7}
 .player{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap}
