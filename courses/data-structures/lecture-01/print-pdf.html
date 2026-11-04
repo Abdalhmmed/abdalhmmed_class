@@ -11,22 +11,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap');
 
 :root {
+  --bg: #f8fafc;
+  --paper: #ffffff;
   --ink: #0f172a;
-  --muted: #475569;
-  --line: #cbd5e1;
-  --line-light: #e2e8f0;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --line-light: #f1f5f9;
   --bg-soft: #f8fafc;
-  --brand: #1d4ed8;
-  --brand-dark: #0f2b6b;
+  --brand: #1e3a8a;
+  --brand-dark: #0b1329;
   --brand-light: #eff6ff;
-  --accent: #b45309;
+  --brand-soft: #eff6ff;
+  --accent: #d97706;
   --accent-light: #fffbeb;
-  --ok: #047857;
+  --accent-soft: #fffbeb;
+  --ok: #059669;
   --ok-light: #ecfdf5;
-  --bad: #b91c1c;
+  --ok-soft: #ecfdf5;
+  --bad: #ef4444;
   --bad-light: #fef2f2;
-  --code-bg: #0f172a;
-  --code-ink: #f8fafc;
+  --bad-soft: #fef2f2;
+  --code-bg: #0b0f19;
+  --code-ink: #f1f5f9;
+  --radius: 16px;
+  --shadow: 0 10px 25px -5px rgba(15,23,42,.07);
 }
 
 * { box-sizing: border-box; }
@@ -34,7 +42,7 @@ html { font-size: 14px; }
 body {
   margin: 0;
   padding: 0;
-  background: #f1f5f9;
+  background: var(--bg);
   color: var(--ink);
   font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
   line-height: 1.8;
@@ -50,16 +58,18 @@ code, .mono {
 
 /* Screen Action Bar (hidden on print) */
 .action-bar {
-  background: #0f172a;
+  background: rgba(15,23,42,.94);
+  backdrop-filter: blur(12px);
   color: #fff;
-  padding: 14px 28px;
+  padding: 12px 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 999;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
 }
 .action-bar b { font-size: 16px; }
 .btn-print {
@@ -90,14 +100,15 @@ code, .mono {
 
 /* Cover Page */
 .cover-page {
-  border: 2px solid var(--line);
-  border-radius: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   padding: 60px 48px;
   margin-bottom: 50px;
   background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
   position: relative;
   page-break-after: always;
   break-after: page;
+  box-shadow: var(--shadow);
 }
 .cover-header {
   display: flex;
@@ -234,7 +245,7 @@ p {
 .note-box {
   background: var(--brand-light);
   border-right: 5px solid var(--brand);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 14px 18px;
   margin: 18px 0;
   font-size: 13.5px;
@@ -244,7 +255,7 @@ p {
 .warn-box {
   background: var(--accent-light);
   border-right: 5px solid var(--accent);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 14px 18px;
   margin: 18px 0;
   font-size: 13.5px;
@@ -254,7 +265,7 @@ p {
 .success-box {
   background: var(--ok-light);
   border-right: 5px solid var(--ok);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 14px 18px;
   margin: 18px 0;
   font-size: 13.5px;
@@ -354,8 +365,8 @@ th {
   min-width: 58px;
   height: 52px;
   padding: 0 8px;
-  border: 2px solid var(--brand);
-  border-radius: 8px;
+  border: 2.5px solid var(--brand);
+  border-radius: 12px;
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -366,6 +377,7 @@ th {
   font-family: 'Fira Code', monospace;
   box-sizing: border-box;
   white-space: nowrap;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
 }
 .array-item .box .tag {
   font-size: 10px;
@@ -401,7 +413,7 @@ th {
 .code-block {
   background: var(--code-bg);
   color: var(--code-ink);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 14px 18px;
   margin: 14px 0;
   direction: ltr;
@@ -561,7 +573,7 @@ th {
   .doc-container {
     padding: 18px 14px;
     margin: 10px auto;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: none;
   }
   .cover-page {
@@ -640,23 +652,24 @@ th {
 }
 
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
 <!-- Top Action Bar for PDF export -->
 <div class="action-bar">
   <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-    <a href="../../../index.html" class="btn-print" style="background:#334155;text-decoration:none;display:inline-flex;align-items:center;gap:6px" title="الرجوع إلى البوابة الرئيسية">
-      🏠 الرئيسية
+    <a href="../../../index.html" class="btn-print" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);text-decoration:none;" title="الرجوع إلى البوابة الرئيسية">
+      <i class="fa-solid fa-house"></i> الرئيسية
     </a>
-    <a href="interactive.html" class="btn-print" style="background:#1d4ed8;text-decoration:none;display:inline-flex;align-items:center;gap:6px" title="الانتقال إلى الشرح التفاعلي">
-      🚀 الشرح التفاعلي
+    <a href="interactive.html" class="btn-print" style="background:#2563eb;text-decoration:none;" title="الانتقال إلى الشرح التفاعلي">
+      <i class="fa-solid fa-laptop-code"></i> الشرح التفاعلي
     </a>
-    <b>📄 ملزمة الطباعة والحفظ PDF | م. عبدالحميد هلال دعبان</b>
+    <b><i class="fa-solid fa-file-pdf" style="color:#60a5fa;margin-left:6px;"></i> ملزمة الطباعة والحفظ PDF | م. عبدالحميد هلال دعبان</b>
   </div>
   <div>
     <button class="btn-print" style="background:#059669;" onclick="window.print()" title="طباعة أو حفظ مباشر">
-      🖨️ طباعة / حفظ مباشر بتنسيق PDF
+      <i class="fa-solid fa-print"></i> طباعة / حفظ مباشر بتنسيق PDF
     </button>
   </div>
 </div>
@@ -721,26 +734,26 @@ th {
   <h2 class="sec-heading">1. مدخل التعقيد: ما هو رمز Big-O وكيف نقيس كفاءة الكود؟</h2>
 
   <div class="note-box">
-    <b>💡 ما هو رمز Big-O وما هو اختصار له؟</b><br>
+    <b><i class="fa-solid fa-lightbulb" style="color:var(--accent);margin-left:6px;"></i> ما هو رمز Big-O وما هو اختصار له؟</b><br>
     الحرف <b>O</b> هو اختصار لكلمة <b>"Order of Growth"</b> (رتبة أو وتيرة نمو العمليات). هو لغة ومقياس رياضي عالمي موحد يجيب عن السؤال الجوهري: 
     <i>«إذا زاد حجم البيانات المدخلة للبرنامج (n)، فبأي وتيرة ومعدل سيزداد عدد العمليات والخطوات التي ينفذها المعالج؟»</i>
   </div>
 
   <div class="grid-3">
     <div class="card-box" style="border-top: 4px solid var(--bad);">
-      <h4>❌ لماذا لا نقيس الكفاءة بالثواني؟</h4>
+      <h4><i class="fa-solid fa-circle-xmark" style="color:var(--bad);margin-left:6px;"></i> لماذا لا نقيس الكفاءة بالثواني؟</h4>
       <p style="font-size: 13px; color: var(--muted); margin: 0;">
         لأن الثواني مقياس خادع يعتمد على سرعة المعالج، نوع نظام التشغيل، وحجم الذاكرة. نفس الكود قد يستغرق 0.05 ثانية على حاسوب متطور و 4 ثوانٍ على جهاز بطيء.
       </p>
     </div>
     <div class="card-box" style="border-top: 4px solid var(--ok);">
-      <h4>✅ لماذا نستخدم رمز Big-O؟</h4>
+      <h4><i class="fa-solid fa-circle-check" style="color:var(--ok);margin-left:6px;"></i> لماذا نستخدم رمز Big-O؟</h4>
       <p style="font-size: 13px; color: var(--muted); margin: 0;">
         لأنه يقيس <b>الخطوات والعمليات المنطقية</b> المستقلة عن العتاد، ويعطينا تقييماً ثابتاً وموضوعياً لجودة الفكرة التصميمية للخوارزمية.
       </p>
     </div>
     <div class="card-box" style="border-top: 4px solid var(--brand);">
-      <h4>🔍 ماذا يمثل الحرف (n)؟</h4>
+      <h4><i class="fa-solid fa-magnifying-glass" style="color:var(--brand);margin-left:6px;"></i> ماذا يمثل الحرف (n)؟</h4>
       <p style="font-size: 13px; color: var(--muted); margin: 0;">
         <b>n</b> يمثل <b>حجم المدخلات</b> (عدد العناصر). في المصفوفات: إذا كانت المصفوفة تحتوي على 5 عناصر فإن <code>n = 5</code>، وإذا كانت 1000 عنصر فإن <code>n = 1000</code>.
       </p>
@@ -750,17 +763,17 @@ th {
   <h3 class="sub-heading">ماذا نعدّ بالضبط داخل الكود لحساب التعقيد؟</h3>
   <div class="grid-4">
     <div class="card-box" style="text-align: center;">
-      <span style="font-size: 20px;">🔍</span>
+      <i class="fa-solid fa-code-compare" style="font-size: 20px; color: var(--accent);"></i>
       <h4>المقارنات (Comparisons)</h4>
       <p style="font-size: 12px; color: var(--muted); margin: 0;">شروط الحلقات <code>i &lt; n</code> وفحص <code>if</code>.</p>
     </div>
     <div class="card-box" style="text-align: center;">
-      <span style="font-size: 20px;">📖</span>
+      <i class="fa-solid fa-book-open-reader" style="font-size: 20px; color: var(--brand);"></i>
       <h4>القراءات (Reads)</h4>
       <p style="font-size: 12px; color: var(--muted); margin: 0;">الوصول لقيمة من خانة المصفوفة <code>arr[i]</code>.</p>
     </div>
     <div class="card-box" style="text-align: center;">
-      <span style="font-size: 20px;">✍️</span>
+      <i class="fa-solid fa-pencil" style="font-size: 20px; color: var(--ok);"></i>
       <h4>الكتابات (Writes)</h4>
       <p style="font-size: 12px; color: var(--muted); margin: 0;">تخزين وإسناد في متغير أو خانة <code>arr[i] = x</code>.</p>
     </div>
@@ -836,7 +849,7 @@ th {
   <h3 class="sub-heading">2.1 مشكلة المتغيرات المنفصلة وحلها بالمصفوفة</h3>
   <div class="grid-2">
     <div class="card-box" style="border-top: 4px solid var(--bad);">
-      <h4>❌ بدون مصفوفة (كابوس برمجي)</h4>
+      <h4><i class="fa-solid fa-circle-xmark" style="color:var(--bad);margin-left:6px;"></i> بدون مصفوفة (كابوس برمجي)</h4>
       <div class="code-block">
 <span class="kw">int</span> mark1 = 85;
 <span class="kw">int</span> mark2 = 92;
@@ -852,7 +865,7 @@ th {
     </div>
 
     <div class="card-box" style="border-top: 4px solid var(--ok);">
-      <h4>✅ مع مصفوفة (الحل الذكي والمنظم)</h4>
+      <h4><i class="fa-solid fa-circle-check" style="color:var(--ok);margin-left:6px;"></i> مع مصفوفة (الحل الذكي والمنظم)</h4>
       <div class="code-block">
 <span class="kw">int</span>[] marks = {85, 92, 78, 64, 90};
 
