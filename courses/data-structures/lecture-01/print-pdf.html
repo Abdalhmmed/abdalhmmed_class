@@ -6,7 +6,8 @@
 <meta name="author" content="عبدالحميد هلال دعبان - Abdulhamid Helal Daban">
 <meta name="description" content="ملزمة هياكل البيانات والمصفوفات بلغة Java - إعداد م. عبدالحميد هلال دعبان">
 <meta name="description" content="ملزمة هياكل البيانات العملية بلغة Java - جامعة عدن - كلية علوم الحاسوب وتكنولوجيا المعلومات - إعداد عبدالحميد هلال دعبان">
-<title>ملزمة المصفوفات والتعقيد (Java) - جاهز للطباعة PDF | م. عبدالحميد هلال دعبان</title>
+<title>المصفوفات في Java وتحليل كفاءة الخوارزميات Big-O - م. عبدالحميد هلال دعبان</title>
+<link rel="icon" type="image/jpeg" href="../../../assets/abdalhmmed.jfif">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap');
 
@@ -114,12 +115,22 @@ code, .mono {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
   border-bottom: 2px solid var(--line);
   padding-bottom: 16px;
   margin-bottom: 40px;
   font-size: 13px;
   font-weight: 700;
   color: var(--muted);
+  line-height: 1.6;
+}
+.cover-header > span:first-child {
+  color: var(--brand);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.cover-header > span:last-child {
+  text-align: left;
 }
 .cover-title {
   font-size: 36px;
@@ -511,6 +522,28 @@ th {
     margin: 0 !important;
     max-width: none !important;
   }
+  .cover-header {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 16px !important;
+    padding-bottom: 14px !important;
+    margin-bottom: 30px !important;
+    font-size: 11pt !important;
+    border-bottom: 1.5pt solid #cbd5e1 !important;
+  }
+  .cover-header > span:first-child {
+    white-space: nowrap !important;
+    font-weight: 800 !important;
+    color: #1e3a8a !important;
+  }
+  .cover-header > span:last-child {
+    text-align: left !important;
+    font-size: 10pt !important;
+    color: #475569 !important;
+    line-height: 1.4 !important;
+  }
   .cover-page {
     height: 94vh;
     box-sizing: border-box;
@@ -533,11 +566,29 @@ th {
     background: #0f172a !important;
     color: #f8fafc !important;
     border: 1px solid #334155 !important;
-    font-size: 9.5pt !important;
+    font-size: 8.5pt !important;
+    line-height: 1.5 !important;
+    padding: 10px 14px !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
   }
-  .op-card, .card-box, table, .diagram-stage {
+  .code-block.keep-together {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
+  }
+  .op-card, .card-box, .diagram-stage {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  table {
+    page-break-inside: auto !important;
+  }
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  thead {
+    display: table-header-group !important;
   }
   h2.sec-heading, h3.sub-heading {
     page-break-after: avoid !important;
@@ -668,8 +719,8 @@ th {
     <b><i class="fa-solid fa-file-pdf" style="color:#60a5fa;margin-left:6px;"></i> ملزمة الطباعة والحفظ PDF | م. عبدالحميد هلال دعبان</b>
   </div>
   <div>
-    <button class="btn-print" style="background:#059669;" onclick="window.print()" title="طباعة أو حفظ مباشر">
-      <i class="fa-solid fa-print"></i> طباعة / حفظ مباشر بتنسيق PDF
+    <button class="btn-print" style="background:#059669;" onclick="exportDirectPDF()" title="تصدير وحفظ الملزمة بصيغة PDF">
+      <i class="fa-solid fa-file-arrow-down"></i> تصدير PDF
     </button>
   </div>
 </div>
@@ -679,8 +730,8 @@ th {
   <!-- ================= COVER PAGE ================= -->
   <div class="cover-page">
     <div class="cover-header">
-      <span>مختبر هياكل البيانات والخوارزميات (Data Structures in Java)</span>
-      <span>مختبر هياكل البيانات والخوارزميات بلغة Java (الجانب العملي) · العام الجامعي 2026-2027م</span>
+      <span>مختبر هياكل البيانات والخوارزميات (Java)</span>
+      <span>الجانب التطبيقي العملي · العام الجامعي 2026-2027م</span>
     </div>
 
     <div>
@@ -833,12 +884,12 @@ th {
     <tr>
       <td><span class="pill pill-acc">الحالة المتوسطة (Average Case)</span></td>
       <td>الأداء المتوقع عند تشغيل البرنامج على بيانات عشوائية.</td>
-      <td>العنصر في منتصف المصفوفة تقريباً ($n/2$).</td>
+      <td>العنصر في منتصف المصفوفة تقريباً (n/2).</td>
     </tr>
     <tr>
       <td><span class="pill pill-bad">أسوأ حالة (Worst Case)</span></td>
       <td>أصعب سيناريو ممكن؛ أعلى سقف للعمليات (Upper Bound).</td>
-      <td>العنصر المطلوب في آخر خانة أو غير موجود إطلاقاً ($n$).</td>
+      <td>العنصر المطلوب في آخر خانة أو غير موجود إطلاقاً (n).</td>
     </tr>
   </table>
 
@@ -921,7 +972,7 @@ th {
       </div>
     </div>
     <div style="font-size: 12.5px; color: var(--muted); margin-top: 6px;">
-      كل عنصر نوع <code>int</code> يستهلك 4 بايت. الخانة الأولى إزاحتها 0 ($\text{Base} + 0 \times 4 = \text{Base}$)، لذلك الفهرس يبدأ من 0.
+      كل عنصر نوع <code>int</code> يستهلك 4 بايت. الخانة الأولى إزاحتها 0 (Base + 0 × 4 = Base)، لذلك الفهرس يبدأ من 0.
     </div>
   </div>
 
@@ -1076,7 +1127,6 @@ arr[2] = 88;       <span class="cm">// تعديل القيمة في خطوة و�
   </div>
 
   <!-- ================= SECTION 4: INSERTION & DELETION ================= -->
-  <div class="page-break"></div>
   <h2 class="sec-heading">4. العمليات الهيكلية: الإضافة والحذف بالتفصيل</h2>
 
   <div class="warn-box">
@@ -1231,7 +1281,7 @@ arr[2] = 88;       <span class="cm">// تعديل القيمة في خطوة و�
 
   <!-- ================= SECTION 5: CRUD CHEAT SHEET ================= -->
   <div class="page-break"></div>
-  <h2 class="sec-heading">5. مرجع الأكواد الأساسية الجاهزة (CRUD Operations)</h2>
+  <h2 class="sec-heading" style="margin-top:0;">5. مرجع الأكواد الأساسية الجاهزة (CRUD Operations)</h2>
   <p class="lead">
     برنامج Java متكامل يجمع الدوال الأربع الرئيسية (إضافة، تعديل، حذف، بحث) مع دالة <code>main</code> توضح كيفية استدعائها بالتسلسل:
   </p>
@@ -1355,7 +1405,7 @@ arr[2] = 88;       <span class="cm">// تعديل القيمة في خطوة و�
       <td><span class="pill pill-acc">O(n)</span></td>
       <td><span class="pill pill-acc">O(n)</span></td>
       <td><span class="pill pill-ok">O(1)</span></td>
-      <td>تبديل $n/2$ بالمؤشرين</td>
+      <td>تبديل n/2 بالمؤشرين</td>
     </tr>
     <tr>
       <td><b>الإضافة (Insertion)</b></td>
@@ -1383,7 +1433,7 @@ arr[2] = 88;       <span class="cm">// تعديل القيمة في خطوة و�
     </tr>
   </table>
 
-  <div class="note-box" style="margin-top: 30px; text-align: center;">
+  <div class="note-box" style="margin-top: 20px; text-align: center; page-break-inside: avoid !important; break-inside: avoid !important;">
     <b>بوابة الملازم والمختبرات البرمجية | م. عبدالحميد هلال دعبان</b><br>
     <span style="font-size: 13px; color: var(--muted);">إعداد وبرمجة: <b>م. عبدالحميد هلال دعبان</b> (بكالوريوس علوم حاسوب · جامعة عدن) · مخصصة للتدريب العملي لكافة التخصصات التقنية.</span>
   </div>
@@ -1395,5 +1445,18 @@ arr[2] = 88;       <span class="cm">// تعديل القيمة في خطوة و�
 
 </div>
 
+<script>
+// إسناد اسم الملف الثابت بشكل دائم ومباشر للصفحة والمستند
+const ACADEMIC_PDF_FILENAME = "المصفوفات في Java وتحليل كفاءة الخوارزميات Big-O - م. عبدالحميد هلال دعبان";
+
+function exportDirectPDF() {
+  document.title = ACADEMIC_PDF_FILENAME;
+  window.print();
+}
+
+window.addEventListener('beforeprint', () => {
+  document.title = ACADEMIC_PDF_FILENAME;
+});
+</script>
 </body>
 </html>
