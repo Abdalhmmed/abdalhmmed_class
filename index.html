@@ -1028,71 +1028,143 @@ a {
 }
 
 
-/* ================= NEW COMPACT COURSE SECTION & LECTURE CARDS ================= */
+/* ================= UNIFIED COURSE SECTIONS & LECTURE CARDS ================= */
 .course-section {
-  margin-bottom: 40px;
+  margin-bottom: 45px;
 }
+
+/* --- Course Section Color Themes (Light & Dark) --- */
+/* 1. Data Structures Theme (Royal Blue) */
+.course-section.theme-ds {
+  --sec-color: #2563eb;
+  --sec-color-hover: #1d4ed8;
+  --sec-color-soft: #eff6ff;
+  --sec-border: #bfdbfe;
+  --sec-glow: rgba(37, 99, 235, 0.16);
+  --sec-badge-bg: #eff6ff;
+  --sec-badge-text: #1d4ed8;
+}
+[data-theme="dark"] .course-section.theme-ds {
+  --sec-color: #3b82f6;
+  --sec-color-hover: #60a5fa;
+  --sec-color-soft: rgba(37, 99, 235, 0.15);
+  --sec-border: rgba(59, 130, 246, 0.35);
+  --sec-glow: rgba(59, 130, 246, 0.25);
+  --sec-badge-bg: rgba(37, 99, 235, 0.22);
+  --sec-badge-text: #93c5fd;
+}
+
+/* 2. Cybersecurity & Cryptography Theme (Cyber Emerald Green) */
+.course-section.theme-cyber {
+  --sec-color: #059669;
+  --sec-color-hover: #047857;
+  --sec-color-soft: #ecfdf5;
+  --sec-border: #a7f3d0;
+  --sec-glow: rgba(5, 150, 105, 0.16);
+  --sec-badge-bg: #ecfdf5;
+  --sec-badge-text: #047857;
+}
+[data-theme="dark"] .course-section.theme-cyber {
+  --sec-color: #10b981;
+  --sec-color-hover: #34d399;
+  --sec-color-soft: rgba(5, 150, 105, 0.15);
+  --sec-border: rgba(16, 185, 129, 0.35);
+  --sec-glow: rgba(16, 185, 129, 0.25);
+  --sec-badge-bg: rgba(5, 150, 105, 0.22);
+  --sec-badge-text: #6ee7b7;
+}
+
+/* 3. Unity & Game Dev Theme (Amber / Golden - Future & Unlisted Support) */
+.course-section.theme-amber {
+  --sec-color: #d97706;
+  --sec-color-hover: #b45309;
+  --sec-color-soft: #fffbeb;
+  --sec-border: #fde68a;
+  --sec-glow: rgba(217, 119, 6, 0.16);
+  --sec-badge-bg: #fffbeb;
+  --sec-badge-text: #b45309;
+}
+[data-theme="dark"] .course-section.theme-amber {
+  --sec-color: #f59e0b;
+  --sec-color-hover: #fbbf24;
+  --sec-color-soft: rgba(217, 119, 6, 0.15);
+  --sec-border: rgba(245, 158, 11, 0.35);
+  --sec-glow: rgba(245, 158, 11, 0.25);
+  --sec-badge-bg: rgba(217, 119, 6, 0.22);
+  --sec-badge-text: #fcd34d;
+}
+
+/* --- Course Header --- */
 .course-section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
   border-bottom: 2px solid var(--border);
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
 }
 .course-title-group {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 .course-badge-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  background: var(--primary-soft);
-  color: var(--primary);
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--sec-color-soft);
+  color: var(--sec-color);
+  border: 1px solid var(--sec-border);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
+  box-shadow: 0 4px 12px var(--sec-glow);
+  transition: var(--transition);
+  flex-shrink: 0;
 }
 .course-title-group h3 {
   font-size: 20px;
   font-weight: 800;
   color: var(--text-main);
-  line-height: 1.2;
+  line-height: 1.3;
 }
 .course-title-group span {
-  font-size: 12.5px;
+  font-size: 13px;
   color: var(--text-muted);
   font-weight: 600;
 }
 .course-tag {
-  font-family: 'Fira Code', monospace;
+  font-family: 'Fira Code', 'Cairo', monospace;
   font-size: 12px;
   font-weight: 700;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 4px 12px;
+  background: var(--sec-badge-bg);
+  border: 1px solid var(--sec-border);
+  padding: 6px 14px;
   border-radius: 20px;
-  color: var(--primary);
+  color: var(--sec-badge-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
 }
 
-/* Compact Lecture Grid */
+/* --- Lectures Grid --- */
 .lectures-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  gap: 22px;
 }
 
-/* Compact Lecture Card */
+/* --- Unified Lecture Card --- */
 .compact-card {
   background: var(--surface);
   border: 1.5px solid var(--border);
+  border-top: 4px solid var(--sec-color);
   border-radius: var(--radius-md);
-  padding: 20px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1101,47 +1173,91 @@ a {
   position: relative;
 }
 .compact-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--primary-light);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: var(--sec-border);
+  border-top-color: var(--sec-color-hover);
+  box-shadow: 0 12px 28px -6px var(--sec-glow), var(--shadow-md);
 }
 
+/* Top Meta Row */
 .compact-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 .lec-number-tag {
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 800;
-  padding: 3px 10px;
+  padding: 4px 10px;
   border-radius: 6px;
-  background: var(--primary-soft);
-  color: var(--primary);
+  background: var(--sec-badge-bg);
+  color: var(--sec-badge-text);
+  border: 1px solid var(--sec-border);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 .lec-topic-tag {
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--sec-badge-text);
+  background: var(--sec-badge-bg);
+  border: 1px solid var(--sec-border);
+  border-radius: 6px;
+  padding: 4px 10px;
   font-family: 'Fira Code', monospace;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
+/* Title & Description */
 .compact-card h4 {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 800;
   color: var(--text-main);
-  margin-bottom: 8px;
-  line-height: 1.4;
+  margin-bottom: 10px;
+  line-height: 1.45;
+  transition: color 0.2s ease;
+}
+.compact-card:hover h4 {
+  color: var(--sec-color);
 }
 .compact-card p {
   font-size: 13.5px;
   color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 18px;
+  line-height: 1.7;
+  margin-bottom: 16px;
   flex-grow: 1;
 }
 
+/* Meta Chips Row */
+.compact-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  flex-wrap: wrap;
+}
+.compact-meta span {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.compact-meta span i {
+  color: var(--sec-color);
+  font-size: 13px;
+}
+
+/* Unified Action Buttons */
 .compact-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1150,34 +1266,49 @@ a {
   border-top: 1px solid var(--border);
 }
 .btn-compact {
-  padding: 9px 12px;
+  padding: 10px 14px;
   border-radius: 8px;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 800;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
   text-decoration: none;
   transition: var(--transition);
   cursor: pointer;
 }
 .btn-compact-interactive {
-  background: var(--primary);
-  color: #fff;
+  background: var(--sec-color);
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px var(--sec-glow);
+  border: 1px solid transparent;
 }
 .btn-compact-interactive:hover {
-  background: #1d4ed8;
-  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+  background: var(--sec-color-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--sec-glow);
 }
 .btn-compact-pdf {
   background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--accent) !important;
   border: 1px solid rgba(217, 119, 6, 0.3);
 }
 .btn-compact-pdf:hover {
   background: var(--accent);
-  color: #fff;
+  color: #ffffff !important;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+}
+[data-theme="dark"] .btn-compact-pdf {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24 !important;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+[data-theme="dark"] .btn-compact-pdf:hover {
+  background: #d97706;
+  color: #ffffff !important;
 }
 
 @media (max-width: 600px) {
@@ -1296,7 +1427,7 @@ a {
     </div>
 
     <!-- Course Section 1: Data Structures -->
-    <div class="course-section">
+    <div class="course-section theme-ds">
       <div class="course-section-header">
         <div class="course-title-group">
           <div class="course-badge-icon">
@@ -1307,34 +1438,38 @@ a {
             <span>المختبر البرمجي والشروحات التطبيقية بلغة Java</span>
           </div>
         </div>
-        <div class="course-tag">Java · Data Structures</div>
+        <div class="course-tag"><i class="fa-brands fa-java"></i> Java · Data Structures</div>
       </div>
 
-      <!-- Lectures Grid for this course -->
+      <!-- Lectures Grid for Data Structures -->
       <div class="lectures-grid">
 
         <!-- Lecture Card 1: Arrays & Big-O -->
         <div class="compact-card">
           <div>
             <div class="compact-top">
-              <span class="lec-number-tag">الدرس الأول</span>
+              <span class="lec-number-tag"><i class="fa-solid fa-bookmark"></i> الدرس الأول</span>
               <span class="lec-topic-tag">Arrays & Big-O</span>
             </div>
             <h4>المصفوفات (Arrays) وتحليل كفاءة الخوارزميات</h4>
             <p>
               شرح معمارية المصفوفة الأحادية في الذاكرة الفيزيائية، وتطبيق العمليات الأساسية (الوصول، التعديل، المجموع، البحث الخطي، الإدراج، والحذف مع إزاحة الذاكرة) مع تحليل التعقيد الزمني والمكاني.
             </p>
+            <div class="compact-meta">
+              <span><i class="fa-solid fa-layer-group"></i> محاكاة الذاكرة والتعقيد</span>
+              <span><i class="fa-solid fa-code"></i> Java SE</span>
+            </div>
           </div>
 
           <div class="compact-actions">
             <!-- Button 1: Interactive -->
-            <a href="courses/data-structures/lecture-01/interactive.html" class="btn-compact btn-compact-interactive" title="فتح الشرح التفاعلي والمحاكاة">
-              <i class="fa-solid fa-play"></i> الشرح التفاعلي
+            <a href="courses/data-structures/lecture-01/interactive.html" class="btn-compact btn-compact-interactive" title="فتح المختبر التفاعلي والمحاكاة">
+              <i class="fa-solid fa-play"></i> المختبر التفاعلي
             </a>
 
             <!-- Button 2: PDF -->
-            <a href="courses/data-structures/lecture-01/print-pdf.html" class="btn-compact btn-compact-pdf" title="الانتقال إلى نسخة PDF للطباعة">
-              <i class="fa-solid fa-file-pdf"></i> نسخة PDF
+            <a href="courses/data-structures/lecture-01/print-pdf.html" class="btn-compact btn-compact-pdf" target="_blank" title="الانتقال إلى ملزمة PDF للطباعة">
+              <i class="fa-solid fa-file-pdf"></i> ملزمة PDF
             </a>
           </div>
         </div>
@@ -1342,11 +1477,11 @@ a {
       </div>
     </div>
 
-    <!-- Course Section: Cybersecurity & Cryptography -->
-    <div class="course-section">
+    <!-- Course Section 2: Cybersecurity & Cryptography -->
+    <div class="course-section theme-cyber">
       <div class="course-section-header">
         <div class="course-title-group">
-          <div class="course-badge-icon" style="background: rgba(5, 150, 105, 0.15); color: #059669;">
+          <div class="course-badge-icon">
             <i class="fa-solid fa-shield-halved"></i>
           </div>
           <div>
@@ -1354,33 +1489,37 @@ a {
             <span>مختبر هندسة الخوارزميات الأمنية لطلبة السنة الثالثة علوم حاسوب</span>
           </div>
         </div>
-        <div class="course-tag" style="background: #ecfdf5; color: #059669; border-color: #a7f3d0;">سنة 3 CS · أمن سيبراني</div>
+        <div class="course-tag"><i class="fa-solid fa-shield-cat"></i> سنة 3 CS · أمن سيبراني</div>
       </div>
 
       <!-- Lectures Grid for Cybersecurity -->
       <div class="lectures-grid">
 
         <!-- Lecture Card 1: Cryptography -->
-        <div class="compact-card" style="border-top: 4px solid #059669;">
+        <div class="compact-card">
           <div>
             <div class="compact-top">
-              <span class="lec-number-tag" style="background: #ecfdf5; color: #059669;">الدرس الأول</span>
-              <span class="lec-topic-tag" style="background: rgba(5, 150, 105, 0.1); color: #059669;">Cryptography & Security</span>
+              <span class="lec-number-tag"><i class="fa-solid fa-bookmark"></i> الدرس الأول</span>
+              <span class="lec-topic-tag">Cryptography & Security</span>
             </div>
             <h4>أسس علم التشفير وهندسة الخوارزميات الأمنية</h4>
             <p>
               دراسة تفاعلية متقدمة تغطي مبادئ CIA ومبدأ كيركهوفس، حساب الموديلار، ومحاكاة 7 خوارزميات رئيسية (قيصر، لوحة المرة الواحدة OTP، معيار AES، خوارزمية RSA، تبادل المفاتيح DH، دوال الهاش SHA-256، والتوقيع الرقمي).
             </p>
+            <div class="compact-meta">
+              <span><i class="fa-solid fa-shield-halved"></i> 7 خوارزميات أمنية</span>
+              <span><i class="fa-solid fa-lock"></i> كتل وتدفق</span>
+            </div>
           </div>
 
           <div class="compact-actions">
             <!-- Button 1: Interactive -->
-            <a href="courses/cybersecurity/lecture-01/interactive.html" class="btn-compact btn-compact-interactive" style="background: #059669;" title="فتح مختبر التشفير التفاعلي">
+            <a href="courses/cybersecurity/lecture-01/interactive.html" class="btn-compact btn-compact-interactive" title="فتح المختبر التفاعلي والمحاكاة">
               <i class="fa-solid fa-play"></i> المختبر التفاعلي
             </a>
 
             <!-- Button 2: PDF -->
-            <a href="courses/cybersecurity/lecture-01/print-pdf.html" class="btn-compact btn-compact-pdf" title="الانتقال إلى ملزمة PDF للطباعة">
+            <a href="courses/cybersecurity/lecture-01/print-pdf.html" class="btn-compact btn-compact-pdf" target="_blank" title="الانتقال إلى ملزمة PDF للطباعة">
               <i class="fa-solid fa-file-pdf"></i> ملزمة PDF
             </a>
           </div>
