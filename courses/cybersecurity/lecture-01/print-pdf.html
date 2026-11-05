@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="م. عبدالحميد هلال دعبان - Eng. Abdulhamid Helal Daban">
+<meta name="description" content="ملزمة أسس علم التشفير وهندسة الخوارزميات الأمنية لمقرر الأمن السيبراني (سنة ثالثة علوم حاسوب) - إعداد م. عبدالحميد هلال دعبان">
+<meta name="academic-year" content="2026-2027م">
+<title>ملزمة التشفير والأمن السيبراني (A4 PDF) - م. عبدالحميد هلال دعبان</title>
+<link rel="icon" type="image/jpeg" href="../../../assets/abdalhmmed.jfif">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #f8fafc;
+  --paper: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --line-light: #f1f5f9;
+  --bg-soft: #f8fafc;
+  
+  --brand: #059669;           /* أخضر زمردي سيبراني */
+  --brand-dark: #022013;
+  --brand-light: #ecfdf5;
+  --brand-soft: #ecfdf5;
+  --accent: #d97706;
+  --accent-light: #fffbeb;
+  --ok: #10b981;
+  --ok-light: #ecfdf5;
+  --bad: #ef4444;
+  --bad-light: #fef2f2;
+  --violet: #7c3aed;
+  --violet-light: #f5f3ff;
+  
+  --code-bg: #061510;
+  --code-ink: #f0fdf4;
+  --radius: 16px;
+  --shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.08);
+}
+
+* { box-sizing: border-box; }
+html { font-size: 14px; }
+body {
+  margin: 0; padding: 0;
+  background: var(--bg); color: var(--ink);
+  font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.8;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+code, .mono { font-family: 'Fira Code', Consolas, monospace; direction: ltr; unicode-bidi: embed; }
+
+/* Screen Action Bar (hidden on print) */
+.action-bar {
+  background: rgba(6, 21, 16, 0.94);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  padding: 12px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+.action-bar b { font-size: 16px; }
+.btn-print {
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font: 800 14px 'Cairo', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(5,150,105,0.3);
+  transition: all 0.2s;
+}
+.btn-print:hover { background: #047857; transform: translateY(-1px); }
+
+/* Document Container */
+.doc-container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #fff;
+  box-shadow: 0 10px 35px rgba(5,150,105,0.08);
+  border-radius: 12px;
+  padding: 50px 60px;
+}
+
+/* Cover Page */
+.cover-page {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 60px 48px;
+  margin-bottom: 50px;
+  background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+  position: relative;
+  page-break-after: always;
+  break-after: page;
+  box-shadow: var(--shadow);
+}
+.cover-header {
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  border-bottom: 2px solid var(--line); padding-bottom: 16px; margin-bottom: 40px;
+  font-size: 13px; font-weight: 700; color: var(--muted); line-height: 1.6;
+}
+.cover-header > span:first-child { color: var(--brand); font-weight: 800; }
+.cover-title {
+  font-size: 34px; font-weight: 900; color: var(--brand-dark); line-height: 1.4; margin: 0 0 16px;
+}
+.cover-subtitle {
+  font-size: 18.5px; color: var(--muted); font-weight: 700; margin: 0 0 28px; line-height: 1.6;
+}
+.cover-divider {
+  width: 90px; height: 5px; background: var(--brand); border-radius: 4px; margin-bottom: 30px;
+}
+.cover-desc {
+  font-size: 15px; line-height: 1.9; color: var(--ink); max-width: 700px; margin-bottom: 40px;
+}
+.cover-meta {
+  background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; font-size: 13px;
+}
+.cover-meta div strong { display: block; color: var(--brand); margin-bottom: 4px; }
+
+/* Table of Contents */
+.toc-box {
+  background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px;
+  padding: 24px 30px; margin: 30px 0 50px; page-break-after: always; break-after: page;
+}
+.toc-box h3 {
+  margin: 0 0 18px; font-size: 18px; color: var(--brand-dark); border-bottom: 2px solid var(--line); padding-bottom: 8px;
+}
+.toc-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+.toc-list li {
+  font-size: 13.5px; font-weight: 700; padding: 4px 0; border-bottom: 1px dashed var(--line-light);
+  display: flex; justify-content: space-between;
+}
+.toc-list li span.num { color: var(--brand); font-family: 'Fira Code', monospace; }
+
+/* Headings */
+h2.sec-heading {
+  font-size: 22px; font-weight: 900; color: var(--brand-dark); border-right: 6px solid var(--brand);
+  padding-right: 14px; margin: 40px 0 18px; page-break-after: avoid; break-after: avoid;
+}
+h3.sub-heading {
+  font-size: 16.5px; font-weight: 800; color: var(--brand); margin: 24px 0 12px; page-break-after: avoid; break-after: avoid;
+}
+h4 { font-size: 14.5px; font-weight: 800; margin: 0 0 6px; }
+p { margin: 10px 0 14px; line-height: 1.85; }
+
+/* Boxes & Badges */
+.card-box {
+  border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; margin: 18px 0;
+  background: #fff; page-break-inside: avoid; break-inside: avoid;
+}
+.note-box {
+  background: var(--brand-light); border-right: 5px solid var(--brand); border-radius: 12px;
+  padding: 14px 18px; margin: 18px 0; font-size: 13.5px; page-break-inside: avoid; break-inside: avoid;
+}
+.warn-box {
+  background: var(--accent-light); border-right: 5px solid var(--accent); border-radius: 12px;
+  padding: 14px 18px; margin: 18px 0; font-size: 13.5px; page-break-inside: avoid; break-inside: avoid;
+}
+.analogy-box {
+  background: var(--violet-light); border-right: 5px solid var(--violet); border-radius: 12px;
+  padding: 14px 18px; margin: 18px 0; font-size: 13.5px; page-break-inside: avoid; break-inside: avoid;
+}
+
+.pill {
+  display: inline-block; padding: 2px 10px; border-radius: 16px; font-size: 11.5px;
+  font-weight: 800; font-family: 'Fira Code', monospace; direction: ltr;
+}
+.pill-ok { background: var(--ok-light); color: var(--brand); border: 1px solid #a7f3d0; }
+.pill-acc { background: var(--accent-light); color: var(--accent); border: 1px solid #fde68a; }
+.pill-bad { background: var(--bad-light); color: var(--bad); border: 1px solid #fecaca; }
+
+/* Diagram Stage for Print */
+.diagram-stage {
+  border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin: 16px 0;
+  background: var(--bg-soft); text-align: center; page-break-inside: avoid; break-inside: avoid;
+}
+.array-strip { display: inline-flex; gap: 12px; direction: ltr; margin: 10px 0; flex-wrap: wrap; justify-content: center; }
+.array-item { display: flex; flex-direction: column; align-items: center; min-width: 60px; }
+.array-item .addr { font-size: 10.5px; color: var(--brand); font-weight: 700; font-family: 'Fira Code', monospace; margin-bottom: 4px; }
+.array-item .box {
+  min-width: 58px; height: 50px; padding: 0 8px; border: 2.5px solid var(--brand);
+  border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 800; font-family: 'Fira Code', monospace;
+}
+.array-item .box.found { background: var(--ok-light); border-color: var(--ok); color: var(--brand); }
+.array-item .box.compare { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+.array-item .box.swap { background: var(--bad-light); border-color: var(--bad); color: var(--bad); }
+.array-item .idx { font-size: 11px; color: var(--muted); font-weight: 700; font-family: 'Fira Code', monospace; margin-top: 6px; }
+
+/* Code Listings */
+.code-block {
+  background: var(--code-bg); color: var(--code-ink); border-radius: 12px; padding: 14px 18px;
+  margin: 14px 0; direction: ltr; text-align: left; font-family: 'Fira Code', Consolas, monospace;
+  font-size: 12px; line-height: 1.7; white-space: pre-wrap; word-break: break-word;
+  page-break-inside: avoid; break-inside: avoid; border: 1px solid #143527;
+}
+.code-block .kw { color: #34d399; font-weight: 700; }
+.code-block .cm { color: #64748b; font-style: italic; }
+.code-block .str { color: #86efac; }
+.code-block .num { color: #fca5a5; }
+
+.op-card {
+  border: 1px solid var(--line); border-radius: 12px; padding: 24px; margin: 24px 0;
+  background: #fff; page-break-inside: avoid; break-inside: avoid;
+}
+.op-card-header {
+  display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--bg-soft);
+  padding-bottom: 12px; margin-bottom: 14px;
+}
+.op-card-title { font-size: 17px; font-weight: 900; color: var(--brand-dark); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+
+table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 13px; page-break-inside: avoid; break-inside: avoid; }
+th, td { border: 1px solid var(--line); padding: 10px 14px; text-align: right; }
+th { background: var(--bg-soft); font-weight: 800; color: var(--brand-dark); }
+
+.formula {
+  background: var(--code-bg); color: #a7f3d0; border-radius: 12px; padding: 14px 18px;
+  font: 600 13.5px "Fira Code"; direction: ltr; text-align: left; margin: 12px 0; border: 1px solid #143527;
+}
+
+/* Page break helper */
+.page-break { page-break-after: always; break-after: page; }
+
+/* Responsive on Screens (Tablets / Mobile) */
+@media screen and (max-width: 768px) {
+  .action-bar { padding: 10px 14px; flex-direction: column; align-items: stretch; gap: 10px; }
+  .action-bar > div:first-child { flex-wrap: wrap; gap: 8px; }
+  .doc-container { padding: 20px 14px; margin: 10px auto; border-radius: 8px; }
+  .cover-page { padding: 28px 18px; min-height: auto; }
+  .cover-title { font-size: 24px; }
+  .cover-subtitle { font-size: 15px; }
+  .cover-meta { grid-template-columns: 1fr; gap: 12px; }
+  .toc-list { grid-template-columns: 1fr; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .diagram-stage { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+/* Print Specific Rules */
+@media print {
+  @page { size: A4 portrait; margin: 14mm 16mm; }
+  body { background: #fff !important; font-size: 11.5pt; color: #000; }
+  .action-bar { display: none !important; }
+  .doc-container { box-shadow: none !important; border-radius: 0 !important; padding: 0 !important; margin: 0 !important; max-width: none !important; }
+  .cover-page { height: 94vh; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 0; page-break-after: always; break-after: page; }
+  .toc-box { page-break-after: always; break-after: page; }
+  .op-card, .diagram-stage, table, .card-box { page-break-inside: avoid !important; break-inside: avoid !important; }
+  h2.sec-heading, h3.sub-heading { page-break-after: avoid !important; break-after: avoid !important; }
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- Top Action Bar -->
+<div class="action-bar">
+  <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+    <a href="../../../index.html" class="btn-print" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);text-decoration:none;" title="الرجوع إلى البوابة الرئيسية">
+      <i class="fa-solid fa-house"></i> الرئيسية
+    </a>
+    <a href="interactive.html" class="btn-print" style="background:#059669;text-decoration:none;" title="الانتقال إلى الشرح التفاعلي">
+      <i class="fa-solid fa-laptop-code"></i> المختبر التفاعلي
+    </a>
+    <b><i class="fa-solid fa-file-pdf" style="color:#a7f3d0;margin-left:6px;"></i> ملزمة الطباعة والحفظ PDF | م. عبدالحميد هلال دعبان</b>
+  </div>
+  <div>
+    <button class="btn-print" style="background:#10b981;" onclick="exportDirectPDF()" title="تصدير وحفظ الملزمة بصيغة PDF">
+      <i class="fa-solid fa-file-arrow-down"></i> تصدير وحفظ PDF
+    </button>
+  </div>
+</div>
+
+<div class="doc-container">
+
+  <!-- ================= COVER PAGE ================= -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <span>مختبر الأمن السيبراني وعلم التشفير (Cybersecurity)</span>
+      <span>الجانب التطبيقي والنظري · العام الجامعي 2026-2027م</span>
+    </div>
+
+    <div>
+      <span class="pill pill-ok" style="font-size: 13px; padding: 4px 14px;">دليل أكاديمي جامعي شامل</span>
+      <h1 class="cover-title">أسس علم التشفير وهندسة الخوارزميات الأمنية<br>(Foundations of Cryptography & Modern Security)</h1>
+      <h2 class="cover-subtitle">دليل عملي تحليلي يركز على الفهم الرياضي العميق، تتبع البتات، والتطبيق البرمجي بلغة Java</h2>
+      <div class="cover-divider"></div>
+      <p class="cover-desc">
+        ملزمة أكاديمية قياسية تغطي بالتفصيل: أهداف الأمن السيبراني ومثلث CIA، مبدأ كيركهوفس، فضاء المفاتيح (Keyspace)، حساب الموديلار وخوارزمية إقليدس الموسعة، تفكيك 7 خوارزميات رئيسية (قيصر، لوحة المرة الواحدة OTP/XOR، معيار AES، خوارزمية RSA، بروتوكول Diffie-Hellman، دوال الهاش SHA-256، والتوقيع الرقمي)، مع الأكواد النموذجية الكاملة لطلبة علوم الحاسوب.
+      </p>
+    </div>
+
+    <div class="cover-meta">
+      <div>
+        <strong>إعداد وتطوير:</strong>
+        م. عبدالحميد هلال دعبان (بكالوريوس علوم حاسوب)
+      </div>
+      <div>
+        <strong>الموضوع الأساسي:</strong>
+        التشفير والأمن السيبراني (Cryptography)
+      </div>
+      <div>
+        <strong>الفئة المستهدفة:</strong>
+        طلبة علوم الحاسوب (Computer Science) - سنة ثالثة
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TABLE OF CONTENTS ================= -->
+  <div class="toc-box">
+    <h3><i class="fa-solid fa-list-ol"></i> فهرس محتويات الملزمة الأكاديمية</h3>
+    <ul class="toc-list">
+      <li><span>1. المبادئ التأسيسية للأمن السيبراني وفضاء المفاتيح</span> <span class="num">01</span></li>
+      <li><span>2. الرياضيات المتقطعة وحساب الموديلار للتشفير</span> <span class="num">02</span></li>
+      <li><span>3. شفرة قيصر التاريخية وهجمات التحليل التكراري</span> <span class="num">03</span></li>
+      <li><span>4. تشفير التدفق ونظرية شانون للسرية التامة (OTP)</span> <span class="num">04</span></li>
+      <li><span>5. معمارية تشفير الكتل AES وشبكة SPN</span> <span class="num">05</span></li>
+      <li><span>6. خوارزمية RSA والتشفير غير المتماثل</span> <span class="num">06</span></li>
+      <li><span>7. بروتوكول تبادل المفاتيح ديفي-هيلمان (Diffie-Hellman)</span> <span class="num">07</span></li>
+      <li><span>8. دوال الهاش التشفيرية وأثر الانهيار الثلجي (SHA-256)</span> <span class="num">08</span></li>
+      <li><span>9. التوقيع الرقمي وإثبات عدم الإنكار (Digital Signatures)</span> <span class="num">09</span></li>
+      <li><span>10. الأكواد المعيارية بلغة Java وجدول المقارنة الشامل</span> <span class="num">10</span></li>
+    </ul>
+  </div>
+
+  <!-- ================= 1. SECURITY FOUNDATIONS ================= -->
+  <h2 class="sec-heading">1. المبادئ التأسيسية للأمن السيبراني وفضاء المفاتيح</h2>
+  <p>
+    في علوم الحاسوب المتقدمة، لا يُقاس أمان أي نظام تشفيري بمدى تعقيد الكود البرمجي أو محاولة إخفاء طريقة عمله، بل يستند إلى قاعدتين لا حياد عنهما:
+  </p>
+  <div class="note-box">
+    <b>مبدأ كيركهوفس (Kerckhoffs's Principle):</b> «أمان النظام يجب ألا يعتمد على سرية الخوارزمية، بل على سرية المفتاح فقط.» جميع الخوارزميات القياسية (AES, RSA, SHA-256) علنية ومفتوحة المصدر ومفحوصة عالمياً.
+  </div>
+
+  <h3 class="sub-heading">مثلث أمن المعلومات (CIA Triad) وتوسيع AAA</h3>
+  <div class="grid-3">
+    <div class="card-box" style="border-top: 4px solid var(--brand); margin: 0;">
+      <h4>السرية (Confidentiality)</h4>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">
+        منع الوصول غير المصرح به لقراءة محتوى البيانات، ويتحقق عبر خوارزميات التشفير المتماثل (AES) وغير المتماثل (RSA).
+      </p>
+    </div>
+    <div class="card-box" style="border-top: 4px solid var(--accent); margin: 0;">
+      <h4>السلامة (Integrity)</h4>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">
+        التيقن من أن البيانات لم يتم التلاعب بها أو تعديلها أثناء النقل أو التخزين، ويتحقق عبر دوال الهاش (SHA-256).
+      </p>
+    </div>
+    <div class="card-box" style="border-top: 4px solid var(--ok); margin: 0;">
+      <h4>الإتاحة (Availability)</h4>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">
+        ضمان قدرة المستخدمين المصرح لهم على الوصول للخدمة والبيانات في أي وقت ومنع هجمات حجب الخدمة (DoS).
+      </p>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">حساب فضاء المفاتيح (Keyspace Exploration) وهجمات القوة الغاشمة</h3>
+  <p>
+    فضاء المفاتيح هو إجمالي عدد المفاتيح الممكنة لخوارزمية ما، ويساوي $2^k$ حيث $k$ يمثل طول المفتاح بالبتات:
+  </p>
+  <table>
+    <tr>
+      <th>طول المفتاح (k)</th>
+      <th>عدد الاحتمالات ($2^k$)</th>
+      <th>الزمن المتوقع للكسر (بسرعة 1 تريليون مفتاح/ثانية)</th>
+      <th>حكم الأمن السيبراني</th>
+    </tr>
+    <tr>
+      <td><b>8 بت</b></td>
+      <td>256</td>
+      <td>&lt; 0.000001 ثانية (لحظي)</td>
+      <td><span class="pill pill-bad">مكسور تافه</span></td>
+    </tr>
+    <tr>
+      <td><b>56 بت (DES القديم)</b></td>
+      <td>$7.2 \times 10^{16}$</td>
+      <td>~ 20 ساعة بحاسوب مخصص</td>
+      <td><span class="pill pill-bad">مكسور عملياً منذ 1999</span></td>
+    </tr>
+    <tr>
+      <td><b>128 بت (AES-128)</b></td>
+      <td>$3.4 \times 10^{38}$</td>
+      <td>&gt; مليار مليار سنة!</td>
+      <td><span class="pill pill-ok">آمن تجارياً وعالمياً</span></td>
+    </tr>
+    <tr>
+      <td><b>256 بت (AES-256)</b></td>
+      <td>$1.15 \times 10^{77}$</td>
+      <td>يفوق عمر الكون بمليارات المرات</td>
+      <td><span class="pill pill-ok">مناعة عسكرية وفلكية</span></td>
+    </tr>
+  </table>
+
+  <!-- ================= 2. MODULAR ARITHMETIC ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">2. الرياضيات المتقطعة وحساب الموديلار للتشفير</h2>
+  <p>
+    الحساب النمطي (Modular Arithmetic) هو حجر الزاوية لكل أنظمة التشفير الحديثة؛ حيث يحصر النتائج داخل حلقة منتهية $\mathbb{Z}_m = \{0, 1, 2, \dots, m-1\}$ مما يمنع حدوث فيضان الذاكرة (Buffer Overflow):
+  </p>
+  
+  <div class="formula">
+    a ≡ b (mod m)  ⟺  m divides (a - b)
+  </div>
+
+  <h3 class="sub-heading">خوارزمية إقليدس الموسعة (Extended Euclidean Algorithm)</h3>
+  <p>
+    تُستخدم لحساب المعكوس الضربي التشفيري $d = e^{-1} \pmod{\phi(n)}$، والذي يحقق الشرط الأساسي: $e \cdot d \equiv 1 \pmod{\phi(n)}$. بدون هذه الخوارزمية يستحيل توليد مفاتيح RSA في زمن معقول.
+  </p>
+  <div class="code-block"><span class="cm">// حساب المعكوس الضربي التشفيري d = e^-1 mod phi</span>
+<span class="kw">public static int</span> modInverse(<span class="kw">int</span> e, <span class="kw">int</span> phi) {
+    <span class="kw">int</span> t = 0, newT = 1;
+    <span class="kw">int</span> r = phi, newR = e;
+    <span class="kw">while</span> (newR != 0) {
+        <span class="kw">int</span> q = r / newR;
+        <span class="kw">int</span> tempT = t - q * newT; t = newT; newT = tempT;
+        <span class="kw">int</span> tempR = r - q * newR; r = newR; newR = tempR;
+    }
+    <span class="kw">if</span> (r &gt; 1) <span class="kw">return</span> -1; <span class="cm">// لا يوجد معكوس</span>
+    <span class="kw">if</span> (t &lt; 0) t += phi;
+    <span class="kw">return</span> t;
+}</div>
+
+  <h3 class="sub-heading">الأس السريع بالحساب الموديلاري (Fast Modular Exponentiation)</h3>
+  <p>
+    لحساب $C = M^e \pmod n$ عندما تكون الأرقام مكونة من آلاف البتات، لا يمكن رفع العدد أولاً ثم أخذ باقي القسمة (لأن الناتج سيتطلب ذاكرة هائلة). نستخدم خوارزمية التربيع والضرب (Square-and-Multiply) التي تنفذ العملية بزمن $O(\log e)$ فقط.
+  </p>
+
+  <!-- ================= 3. CAESAR CIPHER ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">3. شفرة قيصر التاريخية وهجمات التحليل التكراري</h2>
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">العملية 1: شفرة قيصر (Caesar Shift Cipher)</span>
+      <span class="pill pill-bad">مكسورة بالكامل / تعليمية</span>
+    </div>
+    
+    <div class="analogy-box">
+      <b><i class="fa-solid fa-brain" style="color:var(--violet)"></i> تشبيه يقرّب المفهوم:</b> مثل قرص ساعة مرقم بـ 26 حرفاً؛ تدير المؤشر للأمام بمقدار k خطوة لكل حرف، ولإعادته تديره للخلف بنفس المقدار.
+    </div>
+
+    <p><b>القانون الرياضي:</b> $C = (P + k) \pmod{26}$ | فك التشفير: $P = (C - k + 26) \pmod{26}$.</p>
+
+    <div class="diagram-stage">
+      <div class="array-strip">
+        <div class="array-item"><span class="addr">P[0]</span><div class="box">S (18)</div><span class="idx">+3 mod 26</span></div>
+        <div class="array-item"><span class="addr">➔</span><div class="box found">V (21)</div><span class="idx">C[0]</span></div>
+        <div class="array-item"><span class="addr">P[1]</span><div class="box">E (4)</div><span class="idx">+3 mod 26</span></div>
+        <div class="array-item"><span class="addr">➔</span><div class="box found">H (7)</div><span class="idx">C[1]</span></div>
+        <div class="array-item"><span class="addr">P[2]</span><div class="box">C (2)</div><span class="idx">+3 mod 26</span></div>
+        <div class="array-item"><span class="addr">➔</span><div class="box found">F (5)</div><span class="idx">C[2]</span></div>
+      </div>
+    </div>
+
+    <div class="code-block"><span class="kw">public static</span> String encryptCaesar(String text, <span class="kw">int</span> k) {
+    StringBuilder result = <span class="kw">new</span> StringBuilder();
+    <span class="kw">for</span> (<span class="kw">char</span> c : text.toUpperCase().toCharArray()) {
+        <span class="kw">if</span> (c &gt;= <span class="str">'A'</span> &amp;&amp; c &lt;= <span class="str">'Z'</span>) {
+            <span class="kw">int</span> p = c - <span class="str">'A'</span>;
+            <span class="kw">int</span> cVal = (p + k) % 26;
+            result.append((<span class="kw">char</span>) (<span class="str">'A'</span> + cVal));
+        }
+    }
+    <span class="kw">return</span> result.toString();
+}</div>
+
+    <div class="grid-2">
+      <div class="card-box" style="margin: 0;">
+        <b>نقاط الضعف التشفيرية:</b>
+        <ul style="font-size: 13px; padding-right: 20px; margin: 6px 0;">
+          <li>فضاء المفاتيح 25 احتمالاً فقط (تجربة فورية).</li>
+          <li>عدم تغيير التردد الإحصائي لحروف اللغة.</li>
+        </ul>
+      </div>
+      <div class="card-box" style="margin: 0;">
+        <b>أسلوب الهجوم والكسر:</b>
+        <p style="font-size: 13px; color: var(--muted); margin: 0;">
+          التحليل التكراري (Frequency Analysis): الحرف الأكثر تكراراً في النص المشفر يقابل غالباً الحرف E في الإنجليزية.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 4. STREAM & OTP ================= -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">العملية 2: تشفير التدفق ولوحة المرة الواحدة (One-Time Pad & Stream XOR)</span>
+      <span class="pill pill-ok">سرية تامة رياضياً (Perfect Secrecy)</span>
+    </div>
+
+    <div class="analogy-box">
+      <b><i class="fa-solid fa-brain" style="color:var(--violet)"></i> تشبيه يقرّب المفهوم:</b> مثل قفل ثنائي سحري؛ إذا كان بت المفتاح 1 يقلب البت (0 يصبح 1 و 1 يصبح 0)، وعند إعادة تطبيق نفس المفتاح يعود لأصله فوراً.
+    </div>
+
+    <p><b>القانون البتي:</b> $C_i = P_i \oplus K_i$ | فك التشفير: $P_i = C_i \oplus K_i$.</p>
+
+    <div class="diagram-stage">
+      <div class="array-strip">
+        <div class="array-item"><span class="addr">P ('C')</span><div class="box">01000011</div><span class="idx">ASCII</span></div>
+        <div class="array-item"><span class="addr">K (Key)</span><div class="box compare">01011010</div><span class="idx">0x5A</span></div>
+        <div class="array-item"><span class="addr">C (P ⊕ K)</span><div class="box found">00011001</div><span class="idx">0x19</span></div>
+      </div>
+    </div>
+
+    <div class="code-block"><span class="kw">public static byte</span>[] xorCipher(<span class="kw">byte</span>[] data, <span class="kw">byte</span>[] key) {
+    <span class="kw">byte</span>[] cipher = <span class="kw">new byte</span>[data.length];
+    <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; data.length; i++) {
+        cipher[i] = (<span class="kw">byte</span>) (data[i] ^ key[i]); <span class="cm">// XOR بتية في دورة ساعة واحدة</span>
+    }
+    <span class="kw">return</span> cipher;
+}</div>
+
+    <div class="warn-box">
+      <b>كارثة إعادة استخدام المفتاح (Two-Time Pad Trap):</b> إذا شُفر نصان $P_1, P_2$ بنفس المفتاح $K$:
+      $$C_1 \oplus C_2 = (P_1 \oplus K) \oplus (P_2 \oplus K) = P_1 \oplus P_2$$
+      يلغي المفتاح نفسه تماماً، ويصبح كشف النصوص الأصلية ممكناً بسهولة عبر التحليل اللغوي!
+    </div>
+  </div>
+
+  <!-- ================= 5. AES BLOCK CIPHER ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">4. معمارية تشفير الكتل AES وشبكة SPN</h2>
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">العملية 3: معيار التشفير المتقدم (AES - Rijndael)</span>
+      <span class="pill pill-ok">المعيار الذهبي العالمي المعتمد</span>
+    </div>
+
+    <p>
+      يعتمد معيار AES على كتلة ثابتة بحجم 128-بت مقسمة في مصفوفة حالة $4 \times 4$ من البايتات (State Matrix). تمر الكتلة عبر 10 جولات (لمفتاح 128-بت) أو 14 جولة (لمفتاح 256-بت):
+    </p>
+
+    <div class="grid-2">
+      <div class="card-box" style="margin: 0;">
+        <b>1. SubBytes (الاستبدال غير الخطي):</b>
+        <p style="font-size: 13px; color: var(--muted); margin: 6px 0 0;">
+          استبدال كل بايت في المصفوفة ببايت آخر عبر جدول S-Box المشتق من المعكوس في حقل غالوا $GF(2^8)$ لإحباط التحليل التفاضلي والخطي (Confusion).
+        </p>
+      </div>
+      <div class="card-box" style="margin: 0;">
+        <b>2. ShiftRows (إزاحة الصفوف دورياً):</b>
+        <p style="font-size: 13px; color: var(--muted); margin: 6px 0 0;">
+          إزاحة الصف 0 بمقدار 0، والصف 1 بمقدار بايت لليسار، والصف 2 بمقدار بايتين، والصف 3 بثلاثة بايتات لضمان انتشار البايتات بين الأعمدة (Diffusion).
+        </p>
+      </div>
+    </div>
+
+    <div class="diagram-stage">
+      <b>مصفوفة الحالة $4 \times 4$ بايت في جولة AES:</b>
+      <div class="array-strip" style="margin-top: 10px;">
+        <div class="array-item"><span class="addr">S[0,0]</span><div class="box">1A</div></div>
+        <div class="array-item"><span class="addr">S[0,1]</span><div class="box">CB</div></div>
+        <div class="array-item"><span class="addr">S[0,2]</span><div class="box">2C</div></div>
+        <div class="array-item"><span class="addr">S[0,3]</span><div class="box">6E</div></div>
+      </div>
+    </div>
+
+    <div class="code-block"><span class="cm">// دورة الجولة النموذجية في AES</span>
+<span class="kw">void</span> aesRound(<span class="kw">byte</span>[][] state, <span class="kw">byte</span>[][] roundKey) {
+    subBytes(state);    <span class="cm">// 1. تشويش غير خطي</span>
+    shiftRows(state);   <span class="cm">// 2. انتشار بين الأعمدة</span>
+    mixColumns(state);  <span class="cm">// 3. خلط رياضي في حقل GF(2^8)</span>
+    addRoundKey(state, roundKey); <span class="cm">// 4. دمج المفتاح بـ XOR</span>
+}</div>
+  </div>
+
+  <!-- ================= 6. RSA ASYMMETRIC ================= -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">العملية 4: خوارزمية RSA للتشفير غير المتماثل (Rivest–Shamir–Adleman)</span>
+      <span class="pill pill-ok">Asymmetric Public-Key</span>
+    </div>
+
+    <p><b>الخطوات الرياضية الصارمة لتوليد المفاتيح والتشفير:</b></p>
+    <ol style="font-size: 13.5px; line-height: 1.8;">
+      <li>اختيار عددين أوليين سريين ضخمين $p$ و $q$، وحساب المعامل العام: $n = p \times q$.</li>
+      <li>حساب دالة أويلر للمؤشر: $\phi(n) = (p - 1)(q - 1)$.</li>
+      <li>اختيار المفتاح العام $e$ (عادة 65537) بحيث يكون أولياً نسبياً مع $\phi(n)$؛ أي $\gcd(e, \phi(n)) = 1$.</li>
+      <li>حساب المفتاح الخاص السري $d = e^{-1} \pmod{\phi(n)}$ عبر خوارزمية إقليدس الموسعة.</li>
+      <li><b>التشفير:</b> $C = M^e \pmod n$ | <b>فك التشفير:</b> $M = C^d \pmod n$.</li>
+    </ol>
+
+    <div class="code-block"><span class="cm">// تطبيق RSA باستخدام فئة BigInteger في Java</span>
+BigInteger n = p.multiply(q);
+BigInteger phi = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
+BigInteger d = e.modInverse(phi); <span class="cm">// المفتاح الخاص السري</span>
+
+BigInteger C = M.modPow(e, n);     <span class="cm">// التشفير بالمفتاح العام (e, n)</span>
+BigInteger decrypted = C.modPow(d, n); <span class="cm">// فك التشفير بالمفتاح الخاص (d, n)</span></div>
+  </div>
+
+  <!-- ================= 7. DIFFIE-HELLMAN ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">5. بروتوكول تبادل المفاتيح ديفي-هيلمان (Diffie-Hellman)</h2>
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">العملية 5: بروتوكول ديفي-هيلمان (Diffie-Hellman Key Agreement)</span>
+      <span class="pill pill-ok">PFS / TLS 1.3 Key Exchange</span>
+    </div>
+
+    <div class="analogy-box">
+      <b><i class="fa-solid fa-brain" style="color:var(--violet)"></i> تشبيه خلط الألوان:</b> يتفق الطرفان علناً على لون أصفر، يضيف كل منهما لوناً سرياً خاصاً به (أزرق وأحمر). يتبادلان المزيج علناً، ثم يضيف كل طرف لونه السري الخاص للمزيج المستلم؛ فيحصل كلاهما على نفس اللون البني المشترك دون أن يستطيع المتنصت معرفة التركيبة!
+    </div>
+
+    <div class="diagram-stage">
+      <div class="array-strip">
+        <div class="array-item"><span class="addr">أليس (Alice)</span><div class="box">a = 6 (سري)</div><span class="idx">A = 5^6 mod 23 = 8</span></div>
+        <div class="array-item"><span class="addr">قناة عامة</span><div class="box compare">A=8 ⇄ B=19</div><span class="idx">معلن للمتنصت</span></div>
+        <div class="array-item"><span class="addr">بوب (Bob)</span><div class="box">b = 15 (سري)</div><span class="idx">B = 5^15 mod 23 = 19</span></div>
+      </div>
+      <div style="margin-top: 10px; font-weight: 800; color: var(--brand);">
+        المفتاح المشترك المحسوب: $K = 19^6 \pmod{23} = 8^{15} \pmod{23} = 2$!
+      </div>
+    </div>
+
+    <p><b>الأساس الأمني:</b> يعتمد على استحالة حل مسألة اللوغاريتم المنفصل (Discrete Logarithm Problem) في الأعداد الكبيرة.</p>
+  </div>
+
+  <!-- ================= 8. SHA-256 HASH ================= -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">العملية 6: دوال الهاش التشفيرية وأثر الانهيار الثلجي (SHA-256)</span>
+      <span class="pill pill-ok">One-Way / Avalanche Effect</span>
+    </div>
+
+    <p>
+      دالة رياضية أحادية الاتجاه تنتج بصمة بطول ثابت 256 بت (64 حرفاً ست عشرياً). تتميز بـ <b>أثر الانهيار الثلجي (Avalanche Effect)</b>:
+    </p>
+
+    <table>
+      <tr>
+        <th>المدخل (Plaintext)</th>
+        <th>بصمة الهاش الناتجة (SHA-256 Digest)</th>
+        <th>ملاحظات البتات</th>
+      </tr>
+      <tr>
+        <td><code>Cyber</code></td>
+        <td class="mono" style="font-size: 11px;">f729abbf1227241982861257964f79f3edde2a3a5d4bddc477ed478548166936</td>
+        <td>بصمة المدخل الأول</td>
+      </tr>
+      <tr>
+        <td><code>cyber</code> (تغير بت واحد فقط!)</td>
+        <td class="mono" style="font-size: 11px;">b4bf5d7e5fcf89ef8adb64ec9c624db850d10f2afef020ed9ef23892df0833af</td>
+        <td><span class="pill pill-ok">انقلب 137 بتاً (53.5%)!</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ================= 9. DIGITAL SIGNATURE ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">6. التوقيع الرقمي وإثبات عدم الإنكار (Digital Signatures)</h2>
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">العملية 7: التوقيع الرقمي والمصادقة (Digital Signatures & Non-Repudiation)</span>
+      <span class="pill pill-ok">Authenticity & Integrity</span>
+    </div>
+
+    <p>
+      يدمج التوقيع الرقمي بين <b>دوال الهاش (SHA-256)</b> و<b>التشفير غير المتماثل (RSA / ECDSA)</b>:
+    </p>
+
+    <div class="diagram-stage">
+      <div class="array-strip">
+        <div class="array-item"><span class="addr">الوثيقة M</span><div class="box">العقد المالي</div><span class="idx">نص الوثيقة</span></div>
+        <div class="array-item"><span class="addr">SHA-256</span><div class="box compare">H(M)</div><span class="idx">البصمة</span></div>
+        <div class="array-item"><span class="addr">تشفير بـ PrivKey</span><div class="box found">التوقيع S</div><span class="idx">Signature</span></div>
+      </div>
+    </div>
+
+    <p>
+      <b>خاصية عدم الإنكار (Non-Repudiation):</b> نظراً لأن المفتاح الخاص سري ومحفوظ لدى الموقع وحده، فإنه يعجز قانونياً وبرمجياً عن إنكار توقيعه للوثيقة في حال ثبوت صحة التوقيع عبر مفتاحه العام.
+    </p>
+  </div>
+
+  <!-- ================= 10. JAVA ARCHITECTURE REFERENCE ================= -->
+  <h2 class="sec-heading">7. الأكواد المعيارية بلغة Java لحزم `javax.crypto`</h2>
+  <div class="code-block"><span class="cm">/**
+ * مختبر الأمن السيبراني وعلم التشفير بلغة Java
+ * إعداد: م. عبدالحميد هلال دعبان - العام الجامعي 2026-2027م
+ */</span>
+<span class="kw">import</span> javax.crypto.Cipher;
+<span class="kw">import</span> javax.crypto.KeyGenerator;
+<span class="kw">import</span> javax.crypto.SecretKey;
+<span class="kw">import</span> javax.crypto.spec.GCMParameterSpec;
+<span class="kw">import</span> java.security.KeyPair;
+<span class="kw">import</span> java.security.KeyPairGenerator;
+<span class="kw">import</span> java.security.MessageDigest;
+<span class="kw">import</span> java.security.Signature;
+
+<span class="kw">public class</span> MasterCryptoReference {
+    <span class="cm">// 1. تشفير متماثل AES-256 بوضع GCM المصادق</span>
+    <span class="kw">public static byte</span>[] encryptAES(<span class="kw">byte</span>[] data, SecretKey key, <span class="kw">byte</span>[] iv) <span class="kw">throws</span> Exception {
+        Cipher cipher = Cipher.getInstance(<span class="str">"AES/GCM/NoPadding"</span>);
+        cipher.init(Cipher.ENCRYPT_MODE, key, <span class="kw">new</span> GCMParameterSpec(128, iv));
+        <span class="kw">return</span> cipher.doFinal(data);
+    }
+
+    <span class="cm">// 2. بصمة الهاش SHA-256</span>
+    <span class="kw">public static byte</span>[] hashSHA256(<span class="kw">byte</span>[] data) <span class="kw">throws</span> Exception {
+        MessageDigest md = MessageDigest.getInstance(<span class="str">"SHA-256"</span>);
+        <span class="kw">return</span> md.digest(data);
+    }
+
+    <span class="cm">// 3. التوقيع الرقمي بـ RSA-2048</span>
+    <span class="kw">public static byte</span>[] signData(<span class="kw">byte</span>[] data, KeyPair pair) <span class="kw">throws</span> Exception {
+        Signature signer = Signature.getInstance(<span class="str">"SHA256withRSA"</span>);
+        signer.initSign(pair.getPrivate());
+        signer.update(data);
+        <span class="kw">return</span> signer.sign();
+    }
+}</div>
+
+  <!-- FOOTER -->
+  <div class="note-box" style="margin-top: 30px; text-align: center;">
+    <b>منصة الملازم الأكاديمية والمختبرات البرمجية | م. عبدالحميد هلال دعبان</b><br>
+    <span style="font-size: 13px; color: var(--muted);">مقرر الأمن السيبراني والتشفير · السنة الثالثة علوم حاسوب · العام الجامعي 2026-2027م.</span>
+  </div>
+
+  <div style="opacity: 0.05; font-size: 9px; text-align: center; margin-top: 15px; user-select: none; pointer-events: none;" aria-hidden="true" data-author="Abdulhamid-Helal-Daban">
+    حقوق الملكية الفكرية والبرمجية محفوظة © 2026-2027م م. عبدالحميد هلال دعبان | جامعة عدن - كلية علوم الحاسوب وتكنولوجيا المعلومات
+  </div>
+
+</div>
+
+<script>
+const ACADEMIC_PDF_FILENAME = "ملزمة التشفير والأمن السيبراني - م. عبدالحميد هلال دعبان";
+function exportDirectPDF() {
+  document.title = ACADEMIC_PDF_FILENAME;
+  window.print();
+}
+window.addEventListener('beforeprint', () => {
+  document.title = ACADEMIC_PDF_FILENAME;
+});
+</script>
+</body>
+</html>
