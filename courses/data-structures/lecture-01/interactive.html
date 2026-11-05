@@ -406,137 +406,280 @@ a.tool{text-decoration:none}
 }
 
 
-/* ===== Enhanced Mobile View for Interactive Lecture ===== */
+/* ===== Comprehensive Mobile Responsiveness for Interactive Lecture ===== */
 @media (max-width: 768px) {
   .topbar {
-    padding: 10px 14px;
+    padding: 8px 12px;
     gap: 8px;
   }
   .topbar > div:first-child {
     width: 100%;
-    justify-content: flex-start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 6px;
+    flex-wrap: nowrap;
   }
-  .topbar .tag {
-    font-size: 10px;
-    padding: 2px 8px;
-    margin-left: 4px;
-  }
-  .topbar b {
-    font-size: 12.5px;
-    line-height: 1.3;
+  .nav-back-btn, .nav-pdf-btn {
+    padding: 5px 9px !important;
+    font-size: 11px !important;
+    white-space: nowrap;
   }
   .tools {
     width: 100%;
+    display: flex;
     justify-content: space-between;
-    gap: 6px;
+    gap: 5px;
     overflow-x: auto;
     padding-bottom: 2px;
   }
   .tool {
-    padding: 5px 10px;
-    font-size: 11.5px;
+    padding: 5px 8px;
+    font-size: 11px;
     flex-shrink: 0;
   }
   .wrap {
-    padding: 14px 10px 60px;
+    padding: 12px 8px 60px;
   }
   .card {
-    padding: 20px 14px;
-    margin-bottom: 24px;
-    border-radius: 14px;
+    padding: 18px 12px;
+    margin-bottom: 20px;
+    border-radius: 12px;
   }
   .hero {
-    padding: 26px 18px;
+    padding: 22px 14px;
+    border-radius: 14px;
   }
   .hero h1 {
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1.4;
   }
   .hero p {
-    font-size: 14px;
+    font-size: 13.5px;
     line-height: 1.7;
   }
-  .hero .chips span {
-    font-size: 11px;
-    padding: 3px 10px;
-    margin: 2px 3px 2px 0;
-  }
-  .hub-head {
-    padding: 18px 16px;
-  }
-  .hub-head h2 {
-    font-size: 18px;
-  }
-  .ops {
-    padding: 10px 12px;
+  .hero .chips {
+    display: flex;
+    flex-wrap: wrap;
     gap: 6px;
   }
-  .op-btn {
-    padding: 7px 12px;
-    font-size: 12px;
+  .hero .chips span {
+    font-size: 10.5px;
+    padding: 3px 8px;
+    margin: 0;
   }
-  .slides-nav {
-    padding: 14px 14px 10px;
-    gap: 8px;
+  
+  /* Hub & Operations */
+  .hub {
+    border-radius: 14px;
   }
-  .sl-btn {
-    padding: 6px 10px;
-    font-size: 12.5px;
+  .hub-head {
+    padding: 16px 14px;
   }
-  .op-title {
-    width: 100%;
-    font-size: 15px;
-    margin-bottom: 6px;
+  .hub-head h2 {
+    font-size: 17px;
   }
-  .slide {
-    padding: 18px 14px 24px;
-  }
-  .inputs {
-    padding: 10px 12px;
-    gap: 8px;
-  }
-  .inputs input.arr {
-    width: 100%;
-  }
-  .btn {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-  .code {
-    font-size: 11.5px !important;
-    padding: 12px 10px !important;
+  .ops {
+    padding: 8px 10px;
+    gap: 6px;
+    display: flex;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+  .op-btn {
+    padding: 6px 10px;
+    font-size: 11.5px;
+    min-width: 100px;
+  }
+  .slides-nav {
+    padding: 10px 10px 8px;
+    gap: 6px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .sl-btn {
+    padding: 6px 8px;
+    font-size: 11.5px;
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+  }
+  .sl-btn .n {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    margin-left: 4px;
+  }
+  .op-title {
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .slide {
+    padding: 16px 10px 20px;
+  }
+
+  /* Grid Layouts in Run & Idea */
+  .run-grid, .idea-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+  .inputs {
+    padding: 10px;
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .inputs > div, .inputs label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.5px;
+  }
+  .inputs input.arr, .inputs input.num, .inputs select {
+    width: 100% !important;
+    box-sizing: border-box;
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+  .inputs .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  /* Array Stage & Horizontal Scrolling */
+  .stage {
+    padding: 16px 8px;
+    min-height: auto;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .arr-row {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    padding: 10px 4px 6px !important;
+    min-width: min-content;
+  }
+  .cell {
+    min-width: 48px;
+  }
+  .cell .ptr {
+    font-size: 10px;
+    min-height: 20px;
+    padding: 1px 4px;
+    margin-bottom: 4px;
+  }
+  .cell .box {
+    width: 46px !important;
+    height: 44px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+  }
+  .cell .ix {
+    font-size: 10.5px;
+    margin-top: 4px;
+  }
+
+  /* Simulation Player Bar */
+  .player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 14px;
+  }
+  .player .btn {
+    width: 36px !important;
+    height: 34px !important;
+    min-width: 36px !important;
+    font-size: 12px !important;
+  }
+  .player .btn.acc {
+    width: auto !important;
+    padding: 0 12px !important;
+  }
+  .player .prog {
+    min-width: 80px;
+    margin: 0 4px;
+  }
+  .player .cnt {
+    font-size: 11px;
+    width: 100%;
+    text-align: center;
+    margin-top: 4px;
+  }
+  .speed {
+    width: 100%;
+    justify-content: center;
+    margin-top: 6px;
+    font-size: 11.5px;
+  }
+
+  /* Code and Tracing Panel */
+  .code {
+    font-size: 11px !important;
+    padding: 12px 8px !important;
+    line-height: 1.6 !important;
+    border-radius: 10px;
+  }
+  .code .ln {
+    padding: 0 8px;
+  }
+  .code .ln i {
+    width: 20px;
+  }
+
+  /* Counters Grid */
+  .counters {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .counter {
+    padding: 8px 6px;
+    border-radius: 10px;
+  }
+  .counter .v {
+    font-size: 18px;
+  }
+  .counter .l {
+    font-size: 11px;
+  }
+
+  /* Responsive Tables and TOC */
   table {
     display: block;
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    font-size: 12px;
+    font-size: 11.5px;
   }
   th, td {
-    padding: 8px 10px;
+    padding: 7px 9px;
     white-space: nowrap;
   }
-  .mem {
+  .toc {
+    grid-template-columns: 1fr;
     gap: 8px;
   }
-  .mem .box {
-    width: 52px;
-    height: 48px;
-    font-size: 16px;
+  .toc a {
+    padding: 10px 12px;
+    font-size: 13px;
   }
-  .stage {
-    padding: 12px 6px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  .cases {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
-  .cell .box {
-    width: 50px;
-    height: 48px;
-    font-size: 15px;
+  .bar-row {
+    grid-template-columns: 55px 1fr 1fr;
+    gap: 8px;
+    font-size: 11px;
   }
 }
 
