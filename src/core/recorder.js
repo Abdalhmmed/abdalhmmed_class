@@ -11,12 +11,15 @@ export const fill = (from, to, c, o = {}) => {
 }
 
 export function Recorder(init = {}, metricsOnly = false) {
+  const isCrypto = init.isCrypto || Boolean(init.cipher)
   const st = {
     a: init.a ? init.a.slice() : null,
     b: init.b ? init.b.slice() : null,
     m: init.m ? init.m.map((r) => r.slice()) : null,
     v: {},
-    c: { cmp: 0, rd: 0, wr: 0, ops: 0 }
+    c: isCrypto
+      ? { ops: 0, keys: 0, flips: 0 }
+      : { cmp: 0, rd: 0, wr: 0 }
   }
   const S = []
 

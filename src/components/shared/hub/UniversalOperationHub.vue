@@ -26,6 +26,13 @@ const langKey = computed(() => (activeEn.value ? 'en' : 'ar'))
 
 const sim = useSimulationInstance(props.op, props.opIndex)
 
+const isCryptoOp = computed(() => {
+  return props.stageType === 'crypto' ||
+    Boolean(props.op.isCrypto) ||
+    Boolean(props.op.security) ||
+    Boolean(sim.currentStep.value?.cipher)
+})
+
 // Localized helper to extract property either from [prefs.lang] or { ar, en }
 function getLoc(field) {
   if (!field) return ''
@@ -378,21 +385,21 @@ defineExpose({
           </div>
           <slot name="counters" :step="sim.currentStep.value" :is-en="activeEn">
             <!-- If Crypto counters -->
-            <div v-if="sim.currentStep.value.c && sim.currentStep.value.c.ops !== undefined" class="counters">
+            <div v-if="isCryptoOp" class="counters">
               <div class="counter">
-                <div class="v">{{ sim.currentStep.value.c.ops }}</div>
+                <div class="v">{{ sim.currentStep.value.c?.ops ?? 0 }}</div>
                 <div class="l"><i class="fa-solid fa-rotate"></i> {{ activeEn ? 'Bitwise Ops' : 'عمليات بتية' }}</div>
               </div>
               <div class="counter">
-                <div class="v">{{ sim.currentStep.value.c.keys }}</div>
+                <div class="v">{{ sim.currentStep.value.c?.keys ?? 0 }}</div>
                 <div class="l"><i class="fa-solid fa-key"></i> {{ activeEn ? 'Key Space' : 'احتمالات المفتاح' }}</div>
               </div>
               <div class="counter">
-                <div class="v">{{ sim.currentStep.value.c.flips }}</div>
+                <div class="v">{{ sim.currentStep.value.c?.flips ?? 0 }}</div>
                 <div class="l"><i class="fa-solid fa-bolt"></i> {{ activeEn ? 'Bits Flipped' : 'بتات متقلبة' }}</div>
               </div>
               <div class="counter total">
-                <div class="v">{{ (sim.currentStep.value.c.ops || 0) + (sim.currentStep.value.c.keys || 0) + (sim.currentStep.value.c.flips || 0) }}</div>
+                <div class="v">{{ (sim.currentStep.value.c?.ops || 0) + (sim.currentStep.value.c?.keys || 0) + (sim.currentStep.value.c?.flips || 0) }}</div>
                 <div class="l">{{ activeEn ? 'Total Effort Σ' : 'Σ المجهود الكلي' }}</div>
               </div>
             </div>
@@ -400,21 +407,21 @@ defineExpose({
             <!-- If Data Structures counters -->
             <div v-else-if="sim.currentStep.value.c" class="counters">
               <div class="counter">
-                <div class="v">{{ sim.currentStep.value.c.cmp }}</div>
+                <div class="v">{{ sim.currentStep.value.c.cmp ?? 0 }}</div>
                 <div class="l">
                   <i class="fa-solid fa-magnifying-glass"></i>
                   {{ activeEn ? 'Comparisons' : 'مقارنات' }}
                 </div>
               </div>
               <div class="counter">
-                <div class="v">{{ sim.currentStep.value.c.rd }}</div>
+                <div class="v">{{ sim.currentStep.value.c.rd ?? 0 }}</div>
                 <div class="l">
                   <i class="fa-solid fa-book-open"></i>
                   {{ activeEn ? 'Reads' : 'قراءات' }}
                 </div>
               </div>
               <div class="counter">
-                <div class="v">{{ sim.currentStep.value.c.wr }}</div>
+                <div class="v">{{ sim.currentStep.value.c.wr ?? 0 }}</div>
                 <div class="l">
                   <i class="fa-solid fa-pen"></i>
                   {{ activeEn ? 'Writes' : 'كتابات' }}
