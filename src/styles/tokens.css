@@ -1,0 +1,327 @@
+/* ==========================================================================
+   1. DESIGN TOKENS, SUBJECT THEMES & DARK/LIGHT MODES
+   Unified token system bridging Main Portal (index.html) & Interactive Lecture
+   ========================================================================== */
+
+:root {
+  /* Core Brand Palette: Royal Blue (Original Default) */
+  --brand: #1e3a8a;
+  --brand-mid: #2563eb;
+  --brand-light: #3b82f6;
+  --brand-dark: #091024;
+  --brand-soft: #eff6ff;
+  --brand-border: #bfdbfe;
+  --brand-glow: rgba(30, 58, 138, 0.25);
+
+  /* Accent: Academic Amber / Gold */
+  --accent: #d97706;
+  --accent-hover: #b45309;
+  --accent-soft: #fffbeb;
+
+  /* Semantic Status Colors */
+  --ok: #059669;
+  --ok-soft: #ecfdf5;
+  --bad: #ef4444;
+  --bad-soft: #fef2f2;
+  --violet: #7c3aed;
+  --violet-soft: #f5f3ff;
+
+  /* Surfaces & Ink (Light Mode) */
+  --bg: #f8fafc;
+  --paper: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --code: #0b0f19;
+  --code-ink: #f1f5f9;
+
+  /* Aliases for Main Portal (index.html compatibility) */
+  --primary: #1e3a8a;
+  --primary-light: #3b82f6;
+  --primary-soft: #eff6ff;
+  --secondary: #0f172a;
+  --success: #059669;
+  --success-soft: #ecfdf5;
+  --bg-page: var(--bg);
+  --surface: var(--paper);
+  --border: var(--line);
+  --text-main: var(--ink);
+  --text-muted: var(--muted);
+
+  /* Radii, Shadows & Transitions */
+  --radius: 16px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.07);
+  --shadow-sm: 0 4px 6px -1px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 20px 35px -10px rgba(30, 58, 138, 0.15);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================= DARK THEME OVERRIDES ================= */
+[data-theme="dark"] {
+  --bg: #0b0f19;
+  --paper: #131b2e;
+  --ink: #f1f5f9;
+  --muted: #94a3b8;
+  --line: #1e293b;
+  --brand: #3b82f6;
+  --brand-mid: #2563eb;
+  --brand-light: #60a5fa;
+  --brand-soft: #172554;
+  --primary: #3b82f6;
+  --primary-light: #60a5fa;
+  --primary-soft: #172554;
+  --secondary: #f8fafc;
+  --accent: #f59e0b;
+  --accent-soft: #451a03;
+  --ok-soft: #064e3b;
+  --bad-soft: #450a0a;
+  --violet-soft: #2e1065;
+  --code: #060913;
+  --code-ink: #f8fafc;
+  --shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   SUBJECT / CURRICULUM COLOR THEMES (Configurable in Code per Course/Card)
+   Can be applied to .course-section, .compact-card, or .lecture-page
+   ========================================================================== */
+
+/* 1. Data Structures / Java (Royal Blue - Default) */
+.theme-ds,
+.theme-blue {
+  --sec-color: #2563eb;
+  --sec-color-hover: #1d4ed8;
+  --sec-color-soft: #eff6ff;
+  --sec-border: #bfdbfe;
+  --sec-glow: rgba(37, 99, 235, 0.16);
+  --sec-badge-bg: #eff6ff;
+  --sec-badge-text: #1d4ed8;
+}
+[data-theme="dark"] .theme-ds,
+[data-theme="dark"] .theme-blue {
+  --sec-color: #3b82f6;
+  --sec-color-hover: #60a5fa;
+  --sec-color-soft: rgba(37, 99, 235, 0.15);
+  --sec-border: rgba(59, 130, 246, 0.35);
+  --sec-glow: rgba(59, 130, 246, 0.25);
+  --sec-badge-bg: rgba(37, 99, 235, 0.22);
+  --sec-badge-text: #93c5fd;
+}
+
+/* 2. Cybersecurity & Cryptography (Cyber Emerald Green) */
+.theme-cyber,
+.theme-emerald {
+  --sec-color: #059669;
+  --sec-color-hover: #047857;
+  --sec-color-soft: #ecfdf5;
+  --sec-border: #a7f3d0;
+  --sec-glow: rgba(5, 150, 105, 0.16);
+  --sec-badge-bg: #ecfdf5;
+  --sec-badge-text: #047857;
+}
+[data-theme="dark"] .theme-cyber,
+[data-theme="dark"] .theme-emerald {
+  --sec-color: #10b981;
+  --sec-color-hover: #34d399;
+  --sec-color-soft: rgba(5, 150, 105, 0.15);
+  --sec-border: rgba(16, 185, 129, 0.35);
+  --sec-glow: rgba(16, 185, 129, 0.25);
+  --sec-badge-bg: rgba(5, 150, 105, 0.22);
+  --sec-badge-text: #6ee7b7;
+}
+
+/* 3. Amber Gold (Generic) */
+.theme-amber {
+  --sec-color: #d97706;
+  --sec-color-hover: #b45309;
+  --sec-color-soft: #fffbeb;
+  --sec-border: #fde68a;
+  --sec-glow: rgba(217, 119, 6, 0.16);
+  --sec-badge-bg: #fffbeb;
+  --sec-badge-text: #b45309;
+}
+[data-theme="dark"] .theme-amber {
+  --sec-color: #f59e0b;
+  --sec-color-hover: #fbbf24;
+  --sec-color-soft: rgba(217, 119, 6, 0.15);
+  --sec-border: rgba(245, 158, 11, 0.35);
+  --sec-glow: rgba(245, 158, 11, 0.25);
+  --sec-badge-bg: rgba(217, 119, 6, 0.22);
+  --sec-badge-text: #fcd34d;
+}
+
+/* 3.1 Unity & Game Development (Vibrant Signature Orange - Clean Neutral Background on Portal) */
+.theme-unity {
+  --sec-color: #ea580c;
+  --sec-color-hover: #c2410c;
+  --sec-color-soft: var(--surface);
+  --sec-border: #fed7aa;
+  --sec-glow: rgba(234, 88, 12, 0.16);
+  --sec-badge-bg: var(--surface);
+  --sec-badge-text: #ea580c;
+}
+[data-theme="dark"] .theme-unity {
+  --sec-color: #fb923c;
+  --sec-color-hover: #fdba74;
+  --sec-color-soft: var(--surface);
+  --sec-border: rgba(251, 146, 60, 0.35);
+  --sec-glow: rgba(251, 146, 60, 0.25);
+  --sec-badge-bg: var(--surface);
+  --sec-badge-text: #fb923c;
+}
+
+/* 4. Artificial Intelligence & Python (Royal Violet) */
+.theme-violet,
+.theme-ai {
+  --sec-color: #7c3aed;
+  --sec-color-hover: #6d28d9;
+  --sec-color-soft: #f5f3ff;
+  --sec-border: #ddd6fe;
+  --sec-glow: rgba(124, 58, 237, 0.16);
+  --sec-badge-bg: #f5f3ff;
+  --sec-badge-text: #6d28d9;
+}
+[data-theme="dark"] .theme-violet,
+[data-theme="dark"] .theme-ai {
+  --sec-color: #a78bfa;
+  --sec-color-hover: #c4b5fd;
+  --sec-color-soft: rgba(124, 58, 237, 0.15);
+  --sec-border: rgba(167, 139, 250, 0.35);
+  --sec-glow: rgba(167, 139, 250, 0.25);
+  --sec-badge-bg: rgba(124, 58, 237, 0.22);
+  --sec-badge-text: #ddd6fe;
+}
+
+/* 5. Databases & Information Systems (Academic Teal) */
+.theme-teal,
+.theme-db {
+  --sec-color: #0d9488;
+  --sec-color-hover: #0f766e;
+  --sec-color-soft: #f0fdfa;
+  --sec-border: #99f6e4;
+  --sec-glow: rgba(13, 148, 136, 0.16);
+  --sec-badge-bg: #f0fdfa;
+  --sec-badge-text: #0f766e;
+}
+[data-theme="dark"] .theme-teal,
+[data-theme="dark"] .theme-db {
+  --sec-color: #2dd4bf;
+  --sec-color-hover: #5eead4;
+  --sec-color-soft: rgba(13, 148, 136, 0.15);
+  --sec-border: rgba(45, 212, 191, 0.35);
+  --sec-glow: rgba(45, 212, 191, 0.25);
+  --sec-badge-bg: rgba(13, 148, 136, 0.22);
+  --sec-badge-text: #99f6e4;
+}
+
+/* 6. Software Engineering & Web (Crimson Rose) */
+.theme-rose,
+.theme-web {
+  --sec-color: #e11d48;
+  --sec-color-hover: #be123c;
+  --sec-color-soft: #fff1f2;
+  --sec-border: #fecdd3;
+  --sec-glow: rgba(225, 29, 72, 0.16);
+  --sec-badge-bg: #fff1f2;
+  --sec-badge-text: #be123c;
+}
+[data-theme="dark"] .theme-rose,
+[data-theme="dark"] .theme-web {
+  --sec-color: #fb7185;
+  --sec-color-hover: #fda4af;
+  --sec-color-soft: rgba(225, 29, 72, 0.15);
+  --sec-border: rgba(251, 113, 133, 0.35);
+  --sec-glow: rgba(251, 113, 133, 0.25);
+  --sec-badge-bg: rgba(225, 29, 72, 0.22);
+  --sec-badge-text: #fecdd3;
+}
+
+/* If a lecture page itself is assigned a course theme in code (e.g., <div class="lecture-page theme-cyber">),
+   its brand colors automatically adapt to that course's identity! */
+.lecture-page.theme-cyber,
+.lecture-page.theme-emerald,
+.lecture-page.theme-amber,
+.lecture-page.theme-unity,
+.lecture-page.theme-violet,
+.lecture-page.theme-ai,
+.lecture-page.theme-teal,
+.lecture-page.theme-db,
+.lecture-page.theme-rose,
+.lecture-page.theme-web {
+  --brand: var(--sec-color);
+  --brand-mid: var(--sec-color-hover);
+  --brand-soft: var(--sec-color-soft);
+  --brand-border: var(--sec-border);
+  --brand-glow: var(--sec-glow);
+  --primary: var(--sec-color);
+}
+.lecture-page.theme-unity {
+  --brand-soft: #fff7ed;
+}
+[data-theme="dark"] .lecture-page.theme-unity {
+  --brand-soft: rgba(234, 88, 12, 0.16);
+}
+
+/* ================= GLOBAL RESET & TYPOGRAPHY ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Cairo', Tahoma, sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  line-height: 1.85;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+html[lang="en"] body,
+html[lang="en"] h1,
+html[lang="en"] h2,
+html[lang="en"] h3,
+html[lang="en"] h4,
+html[lang="en"] .hero-title,
+html[lang="en"] .btn,
+html[lang="en"] .tool,
+html[lang="en"] .op-btn,
+html[lang="en"] .sl-btn {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.15px;
+}
+
+code,
+.mono {
+  font-family: 'Fira Code', Consolas, monospace;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Font Awesome Icons Harmony */
+i[class*="fa-"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: -0.125em;
+  line-height: 1;
+}

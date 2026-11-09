@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="أ. محمد علي (إعداد ومحتوى) - م. عبدالحميد هلال دعبان (تصميم وتطوير المنصة)">
-<meta name="description" content="مختبر عملي تفاعلي خطي: إنشاء Tilemap ورسم العوالم بـ Rule Tile والتحريك في Unity 2D - إعداد: أ. محمد علي | تصميم: م. عبدالحميد هلال دعبان">
+<meta name="author" content="م. محمد علي">
+<meta name="description" content="مختبر عملي تفاعلي: إنشاء Tilemap ورسم العوالم بـ Rule Tile والتحريك في Unity 2D - أستاذ المقرر: م. محمد علي">
 <meta name="academic-year" content="2026-2027م">
 <title>الدرس العملي: إنشاء Tilemap ورسم العالم بـ Rule Tile ومقدمة في Animation داخل Unity 2D</title>
 
@@ -19,13 +19,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-/* ================= DESIGN SYSTEM TOKENS (YELLOW / AMBER THEME) ================= */
+/* ================= DESIGN SYSTEM TOKENS (VIBRANT ORANGE THEME) ================= */
 :root {
-  --brand: #d97706;          /* كهرماني ذهبي أكاديمي أساسي */
-  --brand-hover: #b45309;    /* كهرماني داكن للتفاعل */
-  --brand-soft: #fef3c7;     /* خلفية صفراء ناعمة وهادئة */
-  --brand-border: #fcd34d;   /* حدود صفراء ذهبية ناعمة */
-  --brand-glow: rgba(217, 119, 6, 0.25);
+  --brand: #ea580c;          /* برتقالي حيوي مميز خاص بمقرر الألعاب */
+  --brand-hover: #c2410c;    /* برتقالي داكن للتفاعل */
+  --brand-soft: #fff7ed;     /* خلفية برتقالية ناعمة ونقية */
+  --brand-border: #fed7aa;   /* حدود برتقالية باستيل ناعمة */
+  --brand-glow: rgba(234, 88, 12, 0.2);
 
   --accent-yellow: #f59e0b;  /* أصفر مشرق للحالات النشطة */
   --accent-yellow-light: #fefce8;
@@ -71,11 +71,11 @@
   --text-main: #fafaf9;
   --text-muted: #a8a29e;
 
-  --brand: #f59e0b;          /* أصفر ذهبي ساطع في الوضع الليلي */
-  --brand-hover: #fbbf24;
-  --brand-soft: rgba(245, 158, 11, 0.15);
-  --brand-border: #d97706;
-  --brand-glow: rgba(245, 158, 11, 0.35);
+  --brand: #fb923c;          /* برتقالي نيون مشرق في الوضع الليلي */
+  --brand-hover: #fdba74;
+  --brand-soft: rgba(234, 88, 12, 0.16);
+  --brand-border: rgba(251, 146, 60, 0.4);
+  --brand-glow: rgba(251, 146, 60, 0.3);
 
   --accent-yellow: #fbbf24;
   --accent-yellow-light: rgba(251, 191, 36, 0.12);
@@ -330,14 +330,46 @@ body.big {
   color: var(--text-main);
 }
 .callout.tip {
-  background: var(--unity-green-soft);
-  border-color: var(--unity-green);
+  background: var(--brand-soft);
+  border-color: var(--brand);
   color: var(--text-main);
 }
 .callout.warn {
   background: var(--unity-red-soft);
   border-color: var(--unity-red);
   color: var(--text-main);
+}
+
+[data-theme="dark"] .callout.yellow {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: #f59e0b;
+  color: #fef3c7;
+}
+[data-theme="dark"] .callout.teacher {
+  background: rgba(217, 119, 6, 0.15);
+  border-color: #f59e0b;
+  color: #fef3c7;
+}
+[data-theme="dark"] .callout.tip {
+  background: rgba(217, 119, 6, 0.15);
+  border-color: #f59e0b;
+  color: #fef3c7;
+}
+[data-theme="dark"] .callout.warn {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #fee2e2;
+}
+[data-theme="dark"] .callout code {
+  background: rgba(0, 0, 0, 0.4);
+  color: #fde047;
+  border: 1px solid rgba(253, 224, 71, 0.25);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+[data-theme="dark"] .callout.tip code {
+  color: #6ee7b7;
+  border-color: rgba(110, 231, 183, 0.25);
 }
 
 /* ================= GRID COMPARISON ================= */
@@ -620,6 +652,27 @@ body.big {
   cursor: default;
 }
 
+[data-theme="dark"] .matrix-cell.this {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #86efac;
+}
+[data-theme="dark"] .matrix-cell.not-this {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+[data-theme="dark"] .matrix-cell.dont-care {
+  background: #1c1917;
+  border-color: #44403c;
+  color: #a8a29e;
+}
+[data-theme="dark"] .matrix-cell.center-cell {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: #f59e0b;
+  color: #fde047;
+}
+
 .rule-result-box {
   display: flex;
   flex-direction: column;
@@ -899,8 +952,6 @@ body.big {
   align-items: center;
   justify-content: center;
   gap: 8px;
-}
-  font-size: 14px;
 }
 
 /* ================= TABLES ================= */
@@ -1336,6 +1387,17 @@ body.big {
   color: #b91c1c !important;
   border-color: #ef4444 !important;
 }
+
+[data-theme="dark"] .quiz-opt-btn.correct {
+  background: rgba(16, 185, 129, 0.25) !important;
+  color: #86efac !important;
+  border-color: #10b981 !important;
+}
+[data-theme="dark"] .quiz-opt-btn.wrong {
+  background: rgba(239, 68, 68, 0.25) !important;
+  color: #fca5a5 !important;
+  border-color: #ef4444 !important;
+}
 .quiz-feedback-txt {
   margin-top: 8px;
   font-size: 12.5px;
@@ -1362,6 +1424,111 @@ body.big {
   background: var(--brand-soft);
   border-color: var(--brand);
 }
+
+
+/* ================= STAGE INDEX / TOC (DATA STRUCTURES & CYBERSECURITY STYLE) ================= */
+.toc-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow-sm);
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  background: var(--bg-muted);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+.toc-item:hover {
+  background: var(--brand-soft);
+  border-color: var(--brand);
+  color: var(--brand);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.toc-num {
+  background: var(--brand);
+  color: #fff;
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.toc-item .toc-badge {
+  margin-right: auto;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+html[dir="ltr"] .toc-item .toc-badge {
+  margin-right: 0;
+  margin-left: auto;
+}
+html[dir="ltr"] h1 i, html[dir="ltr"] h2 i, html[dir="ltr"] h3 i, html[dir="ltr"] h4 i, 
+html[dir="ltr"] .linear-title i, html[dir="ltr"] .tool i, html[dir="ltr"] .chips span i {
+  margin-left: 0;
+  margin-right: 8px;
+}
+
+/* ================= ENGLISH LTR SUPPORT ================= */
+html[dir="ltr"] body {
+  font-family: 'Inter', 'Cairo', system-ui, -apple-system, sans-serif;
+}
+html[dir="ltr"] .callout {
+  border-right: none;
+  border-left: 5px solid var(--brand);
+}
+html[dir="ltr"] .callout.tip {
+  border-left-color: var(--brand);
+}
+html[dir="ltr"] .callout.warn {
+  border-left-color: var(--unity-red);
+}
+html[dir="ltr"] .fab-container {
+  left: auto;
+  right: 24px;
+}
+html[dir="ltr"] .standard-table th,
+html[dir="ltr"] .standard-table td {
+  text-align: left;
+}
+html[dir="ltr"] .quiz-opt-btn {
+  text-align: left;
+}
+html[dir="ltr"] .search-input-wrap i {
+  right: auto;
+  left: 14px;
+}
+html[dir="ltr"] .search-box {
+  padding: 12px 16px 12px 42px;
+}
+html[dir="ltr"] .hidden-answer {
+  border-right: none;
+  border-left: 3px solid var(--brand);
+  border-radius: 8px 0 0 8px;
+}
 </style>
 </head>
 <body>
@@ -1374,24 +1541,25 @@ body.big {
 <!-- ================= TOPBAR (SAME STRUCTURE AS DATA STRUCTURES) ================= -->
 <header class="topbar">
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-    <a href="../../../index.html" class="tool nav-back-btn" title="الرجوع إلى البوابة الرئيسية">
-      <i class="fa-solid fa-house"></i> الرئيسية
+    <a href="../../../#/" class="tool nav-back-btn" id="btnPortalBack" title="الرجوع إلى البوابة الرئيسية">
+      <i class="fa-solid fa-house"></i> <span id="txtPortalBack">الرئيسية</span>
     </a>
-    <a href="print-pdf.html" class="tool nav-pdf-btn" title="الانتقال إلى النسخة المجهزة للطباعة والحفظ PDF">
-      <i class="fa-solid fa-file-pdf"></i> نسخة PDF للطباعة
+    <a href="print-pdf.html" class="tool nav-pdf-btn" id="btnPdfPrint" title="الانتقال إلى النسخة المجهزة للطباعة والحفظ PDF">
+      <i class="fa-solid fa-file-pdf"></i> <span id="txtPdfPrint">نسخة PDF للطباعة</span>
     </a>
     <div style="display:inline-flex;align-items:center;gap:8px;background:var(--brand-soft);border:1px solid rgba(217,119,6,0.25);border-radius:20px;padding:3px 12px;font-size:12.5px;font-weight:800;color:var(--brand);">
       <div style="width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;">
         <i class="fa-solid fa-chalkboard-user"></i>
       </div>
-      <span>م. محمد علي</span>
+      <span id="txtInstructorBadge">م. محمد علي</span>
     </div>
   </div>
   <div class="tools">
-    <button class="tool" id="tBig" onclick="toggleBig()" title="تكبير الخط وعرض القاعة"><i class="fa-solid fa-display"></i> وضع العرض</button>
-    <button class="tool" id="tPen" onclick="togglePen()" title="الكتابة على الشاشة"><i class="fa-solid fa-pen-nib"></i> قلم الشرح</button>
-    <button class="tool" id="tClr" onclick="clearPen()" style="display:none" title="مسح"><i class="fa-solid fa-trash-can"></i> مسح</button>
+    <button class="tool" id="tBig" onclick="toggleBig()" title="تكبير الخط وعرض القاعة"><i class="fa-solid fa-display"></i> <span id="tBigTxt">وضع العرض</span></button>
+    <button class="tool" id="tPen" onclick="togglePen()" title="الكتابة على الشاشة"><i class="fa-solid fa-pen-nib"></i> <span id="tPenTxt">قلم الشرح</span></button>
+    <button class="tool" id="tClr" onclick="clearPen()" style="display:none" title="مسح"><i class="fa-solid fa-trash-can"></i> <span id="tClrTxt">مسح</span></button>
     <button class="tool" id="tTheme" onclick="toggleTheme()" title="تبديل الوضع الليلي"><i class="fa-solid fa-moon"></i> <span id="tThemeTxt">ليلي</span></button>
+    <button class="tool" id="tLang" onclick="toggleLang()" title="Switch Language / تبديل اللغة"><i class="fa-solid fa-globe"></i> <span id="tLangTxt">EN</span></button>
   </div>
 </header>
 
@@ -1401,20 +1569,85 @@ body.big {
   <!-- ================= HERO CARD (MATCHING DATA STRUCTURES LECTURE 01) ================= -->
   <section class="card hero" id="sec-hero">
     <div style="font-size:12.5px;color:#fef08a;font-weight:800;margin-bottom:6px">
-      مختبر تطوير الألعاب باستخدام Unity 2D · إعداد: أ. محمد علي | تصميم: م. عبدالحميد هلال دعبان
+      بوابة الملازم والمختبرات البرمجية · مختبر Unity 2D · أستاذ المقرر: أ. محمد علي
     </div>
     <h1>الدرس العملي: إنشاء Tilemap ورسم العالم بـ Rule Tile<br>ومقدمة في Animation داخل Unity 2D</h1>
     <p>
       دليل معملي تطبيقي شامل خطوة بخطوة: بناء بيئة اللعبة ثنائية الأبعاد، تنظيم الطبقات بين الأرضية والزينة والخلفية، أتمتة حواف التضاريس والزوايا تلقائياً عبر <b>Rule Tile</b> دون رسم يدوي مجهد، تفعيل التصادم الفيزيائي <b>Tilemap Collider 2D</b> مع <b>Composite Collider</b>، ثم إنشاء أول حركة شخصية بـ <b>Animation Clip</b> مع ضبط الإطارات والتكرار، واختبار المشهد وفق معايير التقييم الـ 18.
     </p>
     <div class="chips">
-      <span><i class="fa-solid fa-chalkboard-user"></i> إعداد: م. محمد علي</span>
+      <span><i class="fa-solid fa-chalkboard-user"></i> أستاذ المقرر: م. محمد علي</span>
+      <span><i class="fa-solid fa-globe"></i> بوابة الملازم والمختبرات البرمجية</span>
       <span><i class="fa-brands fa-unity"></i> Unity 2D Engine</span>
       <span><i class="fa-solid fa-wand-magic-sparkles"></i> Rule Tile أتمتة الجوار</span>
       <span><i class="fa-solid fa-shield-halved"></i> Composite Collider 2D</span>
       <span><i class="fa-solid fa-film"></i> 2D Sprite Animation</span>
       <span><i class="fa-solid fa-calculator"></i> مهمة المعمل: 18 درجة</span>
       <span><i class="fa-solid fa-graduation-cap"></i> العام الجامعي 2026-2027م</span>
+    </div>
+  </section>
+
+
+  <!-- ================= STAGES INDEX & QUICK JUMP ================= -->
+  <section class="toc-card" id="sec-index">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h2 style="font-size:22px;font-weight:900;color:var(--text-main);margin-bottom:6px;display:flex;align-items:center;gap:10px;">
+          <i class="fa-solid fa-list-check" style="color:var(--brand);"></i> <span id="tocHeading">فهرس مراحل المختبر العملي (9 مراحل تطبيقية)</span>
+        </h2>
+        <p style="font-size:14px;color:var(--text-muted);margin:0;" id="tocDesc">
+          تسلسل خطي مدروس يبدأ من ضبط البيئة الرسومية، ثم بناء العالم، وصولاً للفيزياء والحركة والتقييم النهائي:
+        </p>
+      </div>
+      <span class="analogy-badge" style="font-family:var(--font-mono);font-size:12px;">Unity 2D Complete Lab</span>
+    </div>
+
+    <div class="toc-grid">
+      <a href="#sec-concepts" class="toc-item">
+        <span class="toc-num">01</span>
+        <span>المثلث المفهومي (Grid / Tilemap / Tile)</span>
+        <span class="toc-badge">مفاهيم</span>
+      </a>
+      <a href="#sec-import" class="toc-item">
+        <span class="toc-num">02</span>
+        <span>استيراد الصور وضبط PPU وفلاتر Pixel Art</span>
+        <span class="toc-badge">Inspector</span>
+      </a>
+      <a href="#sec-tilemap" class="toc-item">
+        <span class="toc-num">03</span>
+        <span>محاكي لوحة Tile Palette ورسم العالم</span>
+        <span class="toc-badge">محاكاة تفاعلية</span>
+      </a>
+      <a href="#sec-rule-tile" class="toc-item">
+        <span class="toc-num">04</span>
+        <span>أتمتة الحواف والزوايا (Rule Tile 3×3)</span>
+        <span class="toc-badge">مصفوفة ذكية</span>
+      </a>
+      <a href="#sec-physics" class="toc-item">
+        <span class="toc-num">05</span>
+        <span>فيزياء التصادمات وترتيب الطبقات (Sorting)</span>
+        <span class="toc-badge">Composite</span>
+      </a>
+      <a href="#sec-animation" class="toc-item">
+        <span class="toc-num">06</span>
+        <span>محاكي نافذة Animation واستوديو التحريك</span>
+        <span class="toc-badge">Timeline Dope Sheet</span>
+      </a>
+      <a href="#sec-task" class="toc-item">
+        <span class="toc-num">07</span>
+        <span>المهمة النهائية وحاسبة الدرجات (18 درجة)</span>
+        <span class="toc-badge">تقييم الطلاب</span>
+      </a>
+      <a href="#sec-troubleshoot" class="toc-item">
+        <span class="toc-num">08</span>
+        <span>دليل المشكلات الشائعة والبحث الفوري</span>
+        <span class="toc-badge">Troubleshooting</span>
+      </a>
+      <a href="#sec-teacher-plan" class="toc-item">
+        <span class="toc-num">09</span>
+        <span>خطة التدريس والبطاقات والاختبار الذاتي</span>
+        <span class="toc-badge">Quiz &amp; Flashcards</span>
+      </a>
     </div>
   </section>
 
@@ -1587,9 +1820,6 @@ body.big {
           </button>
           <button class="action-btn" id="toolErase" onclick="setPainterTool('erase')">
             <i class="fa-solid fa-eraser"></i> ممحاة (Erase Tool)
-          </button>
-          <button class="action-btn" onclick="copyMapData()" title="نسخ تشكيل الخريطة بصيغة مصفوفة">
-            <i class="fa-solid fa-copy"></i> تصدير بيانات الخريطة
           </button>
           <button class="action-btn" onclick="clearTileGrid()" style="margin-top:6px;color:var(--unity-red);">
             <i class="fa-solid fa-trash-can"></i> مسح الخريطة بالكامل
@@ -1898,14 +2128,14 @@ body.big {
             <i class="fa-solid fa-play" style="color:var(--brand);"></i> أزرار التحكم بالتشغيل
           </div>
           <div class="playback-btn-group">
-            <button class="action-btn" onclick="stepFrame(-1)" title="الإطار السابق">
-              <i class="fa-solid fa-forward-step"></i> السابق
+            <button class="action-btn" id="animPrevBtn" onclick="stepFrame(-1)" title="الإطار السابق">
+              <i id="animPrevIcon" class="fa-solid fa-forward-step"></i> <span id="animPrevTxt">السابق</span>
             </button>
             <button class="action-btn active" id="playPauseBtn" onclick="toggleAnimPlay()" style="background:var(--brand);color:#000;font-weight:800;padding:9px 18px;">
-              <i class="fa-solid fa-pause"></i> إيقاف مؤقت
+              <i id="playPauseIcon" class="fa-solid fa-pause"></i> <span id="playPauseTxt">إيقاف مؤقت</span>
             </button>
-            <button class="action-btn" onclick="stepFrame(1)" title="الإطار التالي">
-              التالي <i class="fa-solid fa-backward-step"></i>
+            <button class="action-btn" id="animNextBtn" onclick="stepFrame(1)" title="الإطار التالي">
+              <span id="animNextTxt">التالي</span> <i id="animNextIcon" class="fa-solid fa-backward-step"></i>
             </button>
           </div>
           <div style="text-align:center;font-size:12px;color:var(--text-muted);font-weight:700;" id="playbackStateTxt">
@@ -1947,10 +2177,6 @@ body.big {
             <option value="coin">🪙 دوران عملة ذهبية (Coin Spin - 4 إطارات)</option>
             <option value="fire">🔥 شعلة نار بيئية (Torch Flame - 4 إطارات)</option>
           </select>
-          <input type="file" id="spriteSheetUpload" accept="image/*" style="display:none;" onchange="loadCustomSpriteSheet(event)">
-          <button class="action-btn" onclick="$('spriteSheetUpload').click()" style="width:100%;justify-content:center;background:var(--brand-soft);border-color:var(--brand);color:var(--brand);font-weight:800;padding:9px 12px;">
-            <i class="fa-solid fa-file-import"></i> استيراد شريط خارجي وتقطيعه (PNG)
-          </button>
         </div>
       </div>
 
@@ -2217,9 +2443,9 @@ body.big {
   <!-- ================= ACADEMIC FOOTER ================= -->
   <footer class="academic-footer">
     <p>
-      <b>بوابة المقررات والمختبرات البرمجية</b> · مقرر تطوير الألعاب باستخدام Unity (Game Development)<br>
-      إعداد ومحتوى وأستاذ المقرر: <b>أ. محمد علي</b> · تصميم وبرمجة وإخراج المنصة: <b>م. عبدالحميد هلال دعبان</b><br>
-      العام الجامعي 2026-2027م · جميع الحقوق الأكاديمية والبرمجية محفوظة ©
+      <b>بوابة الملازم والمختبرات البرمجية</b> (جامعة عدن) · مقرر تطوير الألعاب باستخدام Unity 2D<br>
+      أستاذ المقرر وإعداد المحتوى العلمي: <b>م. محمد علي</b><br>
+      العام الجامعي 2026-2027م · جميع الحقوق الأكاديمية محفوظة ©
     </p>
   </footer>
 
@@ -2229,25 +2455,387 @@ body.big {
 <script>
 const $ = id => document.getElementById(id);
 
-/* 1. Theme Management */
+/* 1. Theme & Language Management */
+let currentLang = localStorage.getItem('agy_lang') || 'ar';
+let isEn = currentLang === 'en';
+
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   const target = current === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', target);
   localStorage.setItem('portal_theme', target);
   updateThemeIcon(target);
+  showToast(target === 'dark' ? (isEn ? 'Dark mode enabled' : 'تم تفعيل الوضع الليلي') : (isEn ? 'Light mode enabled' : 'تم تفعيل الوضع النهاري'));
 }
 
 function updateThemeIcon(theme) {
   const btn = $('tTheme');
-  const txt = $('tThemeTxt');
   if (btn) {
     if (theme === 'dark') {
-      btn.innerHTML = '<i class="fa-solid fa-sun"></i> <span>نهاري</span>';
+      btn.innerHTML = `<i class="fa-solid fa-sun"></i> <span>${isEn ? 'Light' : 'نهاري'}</span>`;
     } else {
-      btn.innerHTML = '<i class="fa-solid fa-moon"></i> <span>ليلي</span>';
+      btn.innerHTML = `<i class="fa-solid fa-moon"></i> <span>${isEn ? 'Dark' : 'ليلي'}</span>`;
     }
   }
+}
+
+const AR_TEXT_CACHE = new Map();
+
+const EN_EXACT_MAP = {
+
+  // Table of Contents
+  'فهرس مراحل المختبر العملي (9 مراحل تطبيقية)': 'Practical Lab Stages Index (9 Guided Stages)',
+  'تسلسل خطي مدروس يبدأ من ضبط البيئة الرسومية، ثم بناء العالم، وصولاً للفيزياء والحركة والتقييم النهائي:':
+    'A methodical linear curriculum: from sprite import and asset setup to level construction, physics, animation, and final grading:',
+  'المثلث المفهومي (Grid / Tilemap / Tile)': '1. Conceptual Triad (Grid / Tilemap / Tile)',
+  'استيراد الصور وضبط PPU وفلاتر Pixel Art': '2. Sprites, PPU & Pixel Art Filter Settings',
+  'محاكي لوحة Tile Palette ورسم العالم': '3. Interactive Tile Palette & Painter Simulator',
+  'أتمتة الحواف والزوايا (Rule Tile 3×3)': '4. Automating Edges & Corners (Rule Tile 3×3)',
+  'فيزياء التصادمات وترتيب الطبقات (Sorting)': '5. 2D Physics Colliders & Scene Sorting Layers',
+  'محاكي نافذة Animation واستوديو التحريك': '6. Live Animation Window & Dope Sheet Simulator',
+  'المهمة النهائية وحاسبة الدرجات (18 درجة)': '7. Final Lab Assignment & 18-Point Calculator',
+  'دليل المشكلات الشائعة والبحث الفوري': '8. Troubleshooting Guide & Live Search Filter',
+  'خطة التدريس والبطاقات والاختبار الذاتي': '9. Teacher Playbook, Flashcards & Quiz',
+  'مفاهيم': 'Concepts',
+  'محاكاة تفاعلية': 'Simulator',
+  'مصفوفة ذكية': 'Smart Matrix',
+  'تقييم الطلاب': 'Rubric Calculator',
+
+  // Hero & Headings
+  'بوابة الملازم والمختبرات البرمجية · مختبر Unity 2D · أستاذ المقرر: م. محمد علي':
+    'Programming Lectures & Labs Portal · Unity 2D Lab · Course Instructor: Eng. Mohammed Ali',
+  'دليل معملي تطبيقي شامل خطوة بخطوة: بناء بيئة اللعبة ثنائية الأبعاد، تنظيم الطبقات بين الأرضية والزينة والخلفية، أتمتة حواف التضاريس والزوايا تلقائياً عبر Rule Tile دون رسم يدوي مجهد، تفعيل التصادم الفيزيائي Tilemap Collider 2D مع Composite Collider، ثم إنشاء أول حركة شخصية بـ Animation Clip مع ضبط الإطارات والتكرار، واختبار المشهد وفق معايير التقييم الـ 18.':
+    'A comprehensive hands-on lab guide: building 2D game worlds, organizing Ground, Decoration, and Background layers, automating terrain edges and corners with Rule Tile, merging physics collisions via Tilemap Collider 2D & Composite Collider, creating 2D Sprite Animation Clips on the Dope Sheet timeline, and evaluating the final 18-point scene.',
+  'أستاذ المقرر: م. محمد علي': 'Course Instructor: Eng. Mohammed Ali',
+  'بوابة الملازم والمختبرات البرمجية': 'Programming Lectures & Labs Portal',
+  'Rule Tile أتمتة الجوار': 'Rule Tile Automation',
+  'مهمة المعمل: 18 درجة': 'Lab Task: 18 Pts',
+  'العام الجامعي 2026-2027م': 'Academic Year 2026-2027',
+
+  // Section 1
+  '1. المثلث المفهومي: Grid مقابل Tilemap مقابل Tile': '1. The Conceptual Triad: Grid vs. Tilemap vs. Tile',
+  'المرحلة 01': 'Stage 01',
+  'المرحلة 02': 'Stage 02',
+  'المرحلة 03': 'Stage 03',
+  'المرحلة 04': 'Stage 04',
+  'المرحلة 05': 'Stage 05',
+  'المرحلة 06': 'Stage 06',
+  'المرحلة 07': 'Stage 07',
+  'المرحلة 08': 'Stage 08',
+  'المرحلة 09': 'Stage 09',
+  'قبل فتح القوائم داخل محرك Unity، يجب أن يدرك الطالب الفرق الجوهري بين هذه الكيانات الثلاثة حتى لا تختلط إعدادات المشهد ببعضها:':
+    'Before opening menus in Unity, you must understand the architectural distinction between these three core components so your scene hierarchy remains clean:',
+  'الهيكل الرياضي': 'Mathematical Coordinate Grid',
+  'Grid (الشبكة)': 'Grid (Parent Container)',
+  'هو الكائن الحاوي الأب (Parent GameObject) الذي يحدد أبعاد الخلايا ونظام الإحداثيات الرياضي لمواقع القطع.':
+    'The parent GameObject that defines cell dimensions and the mathematical coordinate system for snapping tiles.',
+  'التشبيه: دفتر المربعات الهندسي': 'Analogy: Graph Paper',
+  'الطبقة والسطح': 'Layer & Visual Surface',
+  'Tilemap (خريطة القطع)': 'Tilemap (Layer Canvas)',
+  'هي الطبقة التابعة لـ Grid التي نحدد فيها نوع السطح (أرضية، زينة، خلفية) وعليها يتم تطبيق التصادمات والرسم.':
+    'A child layer of the Grid representing a specific surface (Ground, Decoration, Background) where tiles are painted and colliders are attached.',
+  'التشبيه: الصفحة الشفافة التي نرسم عليها': 'Analogy: Transparent Drawing Sheet',
+  'الوحدة الرسومية': 'Graphical Building Block',
+  'Tile (القطعة)': 'Tile (Asset Unit)',
+  'هي الرسمة المربعة أو المستطيلة المشتقة من Sprite، التي نضعها داخل خلية معينة في الـ Tilemap.':
+    'The individual square/rectangular asset derived from a Sprite that gets stamped into a specific cell on the Tilemap.',
+  'التشبيه: الختم أو الرسمة داخل المربع الواحد': 'Analogy: The Stamp Inside One Cell',
+
+  // Section 2
+  '2. استيراد الصور وضبط PPU وفلاتر Pixel Art': '2. Importing Sprites, PPU & Pixel Art Filter Settings',
+  'قبل وضع أي رسمة في اللوحة، يجب مراجعة نافذة Inspector لضبط إعدادات الصورة لتفادي التشوه والضبابية الشائعة في معمل الحاسوب:':
+    'Before painting any sprite onto the scene, inspect its Import Settings in the Inspector to prevent blurry edges or mismatched tile sizes:',
+  'عينات البلاط الرسومي المولدة للمعمل (Generated Pixel Art Tiles)': 'Generated Pixel Art Lab Tiles (PPU = 16)',
+  'بلاطة العشب (Grass Tile)': 'Grass Tile',
+  'بلاطة التراب (Dirt Tile)': 'Dirt Tile',
+  'بلاطة الصخر (Stone Tile)': 'Stone Tile',
+  'الخاصية في Inspector': 'Inspector Property',
+  'القيمة الموصى بها': 'Recommended Value',
+  'التأثير والسبب العملي': 'Practical Effect & Engineering Reason',
+  'يحوّل ملف الصورة العادي إلى أصل رسومي يفهمه محرك 2D في Unity.':
+    'Converts a raw image texture into a 2D graphical asset usable by Unity Sprite Renderers and Tilemaps.',
+  'عدد بكسلات الصورة التي تعادل وحدة عالمية واحدة (1 Unit). توحيدها يضمن عدم ظهور عشب ضخم بجانب شجرة قزمة!':
+    'How many image pixels fit into 1 Unity world unit. Keeping PPU consistent ensures tiles align seamlessly.',
+  'يمنع الضغط الذي قد يسبب تلطيخاً في ألوان البيكسل.':
+    'Disables lossy texture compression that can introduce color artifacts into crisp Pixel Art.',
+
+  // Section 3
+  '3. محاكي لوحة Tile Palette والرسم بالأصول المولدة': '3. Interactive Tile Palette & World Painter Simulator',
+  'لوحة القطع (Tiles)': 'Tile Palette Brushes',
+  'عشب (Grass)': 'Grass',
+  'تراب (Dirt)': 'Dirt',
+  'صخر (Stone)': 'Stone',
+  'فارغ (Erase)': 'Empty (Erase)',
+  'نماذج سريعة جاهزة': 'Quick Level Presets',
+  'جزيرة معلقة (Floating Island)': 'Floating Island',
+  'مضمار قفز وتلال': 'Parkour Stairs & Hills',
+  'جرفان مع هوة (Pit & Cliffs)': 'Twin Cliffs & Chasm',
+  'أدوات الرسم': 'Palette Painting Tools',
+  'فرشاة الرسم (Paint)': 'Paint Brush (B)',
+  'ملء مستطيل (Box Fill)': 'Box Fill Tool (U)',
+  'ممحاة (Erase Tool)': 'Eraser Tool (D)',
+  'مسح الخريطة بالكامل': 'Clear Entire Grid',
+
+  // Section 4
+  '4. أتمتة الحواف والزوايا: محاكي قواعد Rule Tile': '4. Automating Edges & Corners: Interactive Rule Tile Simulator',
+  'شبكة فحص الجيران (Neighbor Matrix)': '3×3 Neighbor Inspection Matrix',
+  'حافة علوية': 'Top Edge',
+  'حافة يمنى': 'Right Edge',
+  'حافة يسرى': 'Left Edge',
+  'وسط الأرض': 'Inner Center',
+  'زاوية علوية': 'Top Corner',
+  'قطعة منفردة': 'Single Floating',
+  'النتيجة التلقائية المحسوبة': 'Automatically Selected Sprite Output',
+
+  // Section 5
+  '5. فيزياء التصادمات وترتيب طبقات المشهد (Sorting Layers)': '5. 2D Collision Physics & Scene Sorting Layers',
+  'مجرد رسم الأرضيات بالـ Tilemap يعطي شكلاً بصرياً فقط، لكن اللاعب سيسقط في الفراغ ما لم نضيف مكوّنات التصادم المناسبة.':
+    'Painting a Tilemap only creates visual graphics; the player character will fall right through the floor unless physics colliders are configured:',
+  'الخطوة 1': 'Step 1',
+  'الخطوة 2': 'Step 2',
+  'الخطوة 3': 'Step 3',
+  'يقوم بدمج حدود الخلايا المتجاورة في مضلع تصادم واحد ناعم، لتجنب تعثر أقدام اللاعب بين الفواصل.':
+    'Merges adjacent cell colliders into one unified, seamless polygon so the player never snags on internal seams.',
+  'محاكي فحص الفوارق الفيزيائية: تعثر الفواصل (Internal Edge Snagging)':
+    'Interactive Physics Seam Lab: Individual Colliders vs. Composite Collider',
+  'تجربة حركة اللاعب (Test Move)': 'Run Player Physics Test',
+  '1. بدون دمج (Tilemap Collider بمفرده)': '1. Unmerged (Tilemap Collider Only)',
+  '2. مع دمج (Used by Composite)': '2. Merged (Used by Composite)',
+  'جدول ترتيب طبقات الرؤية (Sorting Layers & Order in Layer)': 'Sorting Layers & Order in Layer Reference Table',
+  'اسم الـ Tilemap': 'Tilemap / GameObject',
+  'الـ Sorting Layer المقترحة': 'Recommended Sorting Layer',
+  'التصادم (Collider)': 'Collider Configuration',
+  'بدون Collider (خلفية بصرية فقط)': 'No Collider (Visual background only)',
+  'Tilemap Collider + Composite (أرض صلبة)': 'Tilemap Collider 2D + Composite (Solid ground)',
+  'بدون Collider (أعشاب وحجارة تجميلية)': 'No Collider (Cosmetic foliage & props)',
+  'Player (الشخصية)': 'Player (Character)',
+  'Rigidbody 2D (Dynamic) + Capsule Collider': 'Rigidbody 2D (Dynamic) + Capsule Collider 2D',
+
+  // Section 6
+  '6. صناعة حركة الـ 2D Sprite Animation ومحاكي نافذة Animation في Unity':
+    '6. 2D Sprite Animation & Unity Dope Sheet Timeline Simulator',
+  'محاكاة نافذة Animation في Unity وعرض الكوادر': 'Live Unity Animation Window & Frame Slicer Simulation',
+  'كوادر الـ Sprite Sheet (انقر لفحص أي كادر):': 'Sprite Sheet Frames (Click any frame to inspect):',
+  'نافذة Animation (مسار: SpriteRenderer.Sprite)': 'Unity Animation Dope Sheet (Property: SpriteRenderer.Sprite)',
+  'أزرار التحكم بالتشغيل': 'Playback Controls',
+  'السابق': 'Prev',
+  'التالي': 'Next',
+  'إيقاف مؤقت': 'Pause',
+  'تشغيل الحركة': 'Play Clip',
+  'السرعة ومعدل الإطارات': 'Frame Rate (Samples / FPS)',
+  'معدل الإطارات (Samples / FPS)': 'Sample Rate (Samples / FPS)',
+  '4 (كلاسيكي)': '4 (Retro)',
+  '8 (معياري)': '8 (Standard)',
+  '12 (سلس)': '12 (Smooth)',
+  'تكرار الحركة دون توقف (Loop Time)': 'Loop Animation Continuously (Loop Time)',
+  'اختيار كليب الحركة': 'Select Animation Clip',
+  'اختر كليب الحركة للعرض:': 'Select Animation Clip:',
+  '🚶‍♂️ مشي الشخصية الكلاسيكي (Hero Walk - 6 إطارات)': '🚶‍♂️ Classic Hero Walk (6 Frames)',
+  '🏃‍♂️ جري سريع وانسيابي (Hero Sprint - 6 إطارات)': '🏃‍♂️ Fast Hero Sprint (6 Frames)',
+  '⚔️ هجوم وضربة سيف (Sword Slash - 4 إطارات)': '⚔️ Sword Slash Attack (4 Frames)',
+  '🪙 دوران عملة ذهبية (Coin Spin - 4 إطارات)': '🪙 Spinning Gold Coin (4 Frames)',
+  '🔥 شعلة نار بيئية (Torch Flame - 4 إطارات)': '🔥 Environmental Torch Flame (4 Frames)',
+
+  // Section 7
+  '7. المهمة النهائية وحاسبة التقييم (18 درجة)': '7. Final Lab Assignment & Interactive Grading Rubric (18 Points)',
+  'حاسبة التقييم التفاعلية للأستاذ والطالب:': 'Interactive Lab Grading Calculator (18 Points Total):',
+  'إنشاء كائن Grid وتنظيم الـ Tilemaps في طبقات مستقلة (أرضية، زينة، خلفية)':
+    'Create Grid parent and organize separate Tilemap layers (Ground, Decoration, Background)',
+  'استيراد صور الـ Sprites وضبط PPU و Point (no filter) وتقطيع الـ Sprite Sheet':
+    'Import Sprites, configure unified PPU & Point (no filter), and slice the Sprite Sheet',
+  'إنشاء Tile Palette واستخدام أدوات الرسم (Paint, Erase, Box Fill)':
+    'Create a Tile Palette and build the level using Paint, Erase, and Box Fill tools',
+  'تثبيت 2D Tilemap Extras وإنشاء Rule Tile وضبط قواعد اتصال الحواف والزوايا بنجاح':
+    'Create a Rule Tile asset and configure neighbor rules for automated edges and corners',
+  'تفعيل Tilemap Collider و Composite واختبار استقرار اللاعب فوق الأرضية عند التشغيل':
+    'Configure Tilemap Collider 2D + Composite Collider 2D (Static Rigidbody) and test player movement',
+  'إنشاء Animation Clip لشخصية أو عنصر وضبط سرعة الإطارات (Samples) وتكرار Loop':
+    'Create a 2D Sprite Animation Clip, adjust frame Samples (FPS), and enable Loop Time',
+  'تنظيم مجلدات المشروع (Art, Tiles, Animations) وحفظ المشهد بالاسم المعتمد':
+    'Organize project folders (Art, Tiles, Animations) and save scene as Tilemap_Animation_Task',
+  '2 درجات': '2 Pts',
+  '3 درجات': '3 Pts',
+  '4 درجات': '4 Pts',
+  '1 درجة': '1 Pt',
+  'الدرجة المستحقة الإجمالية:': 'Total Lab Score:',
+
+  // Section 8
+  '8. دليل المشكلات الشائعة والحلول الفورية (Troubleshooting)': '8. Common Unity 2D Troubleshooting Guide',
+  'المشكلة الشائعة': 'Common Issue in Lab',
+  'السبب المحتمل في Unity': 'Root Cause in Unity',
+  'الحل العملي الفوري': 'Immediate Practical Fix',
+  'الصور لا تظهر كـ Sprites': 'Images do not appear as Sprites',
+  'نوع الصورة لم يُضبط في Inspector.': 'Texture Type was not configured in Inspector.',
+  'الصورة كلها تظهر كقطعة واحدة ضخمة': 'Entire Sprite Sheet appears as one giant tile',
+  'لم يتم تقطيع الـ Sprite Sheet.': 'Sprite Sheet was not sliced in Sprite Editor.',
+  'القطع تظهر ضبابية وباهتة الحواف': 'Pixel Art tiles look blurry and smudged',
+  'فلتر التنعيم مفعّل على صور Pixel Art.': 'Bilinear filtering and compression are active.',
+  'القطع لا تتطابق في الحجم عند الرسم': 'Tiles appear too small or too large in grid cells',
+  'قيمة Pixels Per Unit غير موحدة.': 'Pixels Per Unit (PPU) does not match cell resolution.',
+  'لا يمكن الرسم على الـ Tilemap': 'Cannot paint tiles onto the Scene view',
+  'لم يتم تحديد Tilemap نشطة في Hierarchy أو Palette.': 'Target Active Tilemap is not selected in Tile Palette.',
+  'اللاعب يسقط ويخترق الأرضية': 'Player falls straight through the ground',
+  'لا يوجد مصادم أو إعداد Rigidbody خاطئ.': 'Missing Tilemap Collider 2D or wrong Rigidbody2D Body Type.',
+  'Rule Tile لا يغير أشكال الحواف': 'Rule Tile does not auto-switch edge sprites',
+  'قواعد الجيران (Rules) غير مرتبة أو متعارضة.': 'Neighbor rules (This / Not This) are misordered.',
+  'الأنيميشن لا يعمل في المشهد': 'Animation does not play in Play Mode',
+  'الكائن يفتقر إلى مكوّن Animator أو Clip غير مرتبط.': 'GameObject is missing Animator component or Controller.',
+  'الحركة سريعة جداً كالوميض': 'Animation plays way too fast',
+  'معدل الإطارات (Samples) مرتفع جداً.': 'Sample rate (Samples / FPS) is set too high (e.g., 60).',
+  'الحركة تعمل مرة واحدة ثم تتوقف': 'Animation plays once and freezes',
+  'خيار التكرار غير مفعل في الكليب.': 'Loop Time is unchecked on the Animation Clip asset.',
+
+  // Section 9
+  '9. خطة التدريس المعملية وأسئلة الفحص السريع للأستاذ محمد علي':
+    '9. Instructor Lab Playbook, Flashcards & Self-Check Quiz',
+  'حاول الإجابة ذهنياً أولاً ثم اضغط للتحقق:': 'Think of the answer first, then click to reveal:',
+  'س1: ما الفرق بين Sprite و Tile؟': 'Q1: What is the difference between a Sprite and a Tile?',
+  'س2: لماذا نستخدم Rule Tile؟': 'Q2: Why do we use a Rule Tile instead of standard Tiles?',
+  'س3: ما وظيفة Composite Collider؟': 'Q3: What problem does Composite Collider 2D solve?',
+  'اختبار الفحص المعملي الذاتي (Quick Quiz)': 'Interactive Self-Check Lab Quiz',
+  '1. لمنع تشوه رسومات Pixel Art وجعل الحواف حادة دون ضبابية، نضبط Filter Mode على:':
+    '1. To keep Pixel Art crisp and prevent blurry edges, set Filter Mode in the Inspector to:',
+  'Bilinear (افتراضي)': 'Bilinear (Default)',
+  '2. عند إضافة Composite Collider 2D لطبقة الأرضية، يجب ضبط مكوّن Rigidbody 2D المرفق على:':
+    '2. When adding Composite Collider 2D to Ground_Tilemap, set its Rigidbody 2D Body Type to:',
+  'Dynamic (ديناميكي)': 'Dynamic (Gravity-affected)',
+  'Static (ثابت غير متحرك)': 'Static (Immovable ground)',
+  'Kinematic (حركي برمجي)': 'Kinematic (Script-driven)',
+  'حذف مكوّن Rigidbody تماماً': 'Remove Rigidbody 2D completely',
+  '3. إذا أردت أن تتكرر حركة المشي أو دوران العملة إلى ما لا نهاية في المشهد، يجب تفعيل:':
+    '3. To make a Walk or Coin Spin animation repeat continuously during gameplay, enable:',
+  'Loop Time في Animation Clip': 'Loop Time on the Animation Clip'
+};
+
+function applyLanguageUI() {
+  isEn = currentLang === 'en';
+  document.documentElement.lang = currentLang;
+  document.documentElement.dir = isEn ? 'ltr' : 'rtl';
+  document.title = isEn
+    ? 'Unity 2D Lab: Tilemap, Rule Tile & Sprite Animation - Eng. Mohammed Ali | Eng. Abdulhamid Helal Daban'
+    : 'الدرس العملي: إنشاء Tilemap ورسم العالم بـ Rule Tile ومقدمة في Animation داخل Unity 2D';
+
+  // Topbar buttons
+  if ($('txtPortalBack')) $('txtPortalBack').innerText = isEn ? 'Portal Home' : 'الرئيسية';
+  if ($('txtPdfPrint')) $('txtPdfPrint').innerText = isEn ? 'Print PDF Handout' : 'نسخة PDF للطباعة';
+  if ($('txtInstructorBadge')) $('txtInstructorBadge').innerText = isEn ? 'Eng. Mohammed Ali' : 'م. محمد علي';
+  if ($('tBigTxt')) $('tBigTxt').innerText = isEn ? 'Stage Mode' : 'وضع العرض';
+  if ($('tPenTxt')) $('tPenTxt').innerText = isEn ? 'Draw Pen' : 'قلم الشرح';
+  if ($('tClrTxt')) $('tClrTxt').innerText = isEn ? 'Clear' : 'مسح';
+  if ($('tLangTxt')) $('tLangTxt').innerText = isEn ? 'عربي' : 'EN';
+  updateThemeIcon(document.documentElement.getAttribute('data-theme') || 'light');
+
+  // Hero H1 & P
+  const RICH_HTML_MAP = [
+    ['#sec-hero h1', 'Practical Lab: Building 2D Worlds with Tilemap &amp; Rule Tile<br>and Introduction to Sprite Animation in Unity 2D'],
+    ['#sec-hero > p', 'A comprehensive hands-on lab guide: building 2D game worlds, organizing Ground, Decoration, and Background layers, automating terrain edges and corners with <b>Rule Tile</b> without tedious manual placement, merging physics collisions via <b>Tilemap Collider 2D</b> &amp; <b>Composite Collider</b>, creating your first character <b>Animation Clip</b> with frame-rate and loop control, and testing the scene against the 18-point grading rubric.'],
+    ['#sec-concepts .callout.teacher', '<i class="fa-solid fa-quote-right"></i> <b>Instructor Guidance (Eng. Mohammed Ali):</b><br>"Always remember: never paint all game elements onto a single Tilemap! Separate solid ground into <code>Ground_Tilemap</code>, plants and props into <code>Decoration_Tilemap</code>, and sky/mountains into <code>Background_Tilemap</code>. This separation is essential for configuring Sorting Layers and preventing physics collision conflicts."'],
+    ['#sec-import table tbody tr:nth-child(2) td:nth-child(2)', '<code>Single</code> or <code>Multiple</code>'],
+    ['#sec-import table tbody tr:nth-child(2) td:nth-child(3)', 'Use <code>Multiple</code> when the image contains a grid of frames (Sprite Sheet) that must be sliced in the Sprite Editor.'],
+    ['#sec-import table tbody tr:nth-child(3) td:nth-child(2)', '16 or 32 (Unified across all assets)'],
+    ['#sec-import table tbody tr:nth-child(4) td:nth-child(3)', 'Crucial for <b>Pixel Art</b> assets to eliminate bilinear blur and keep pixel edges razor-sharp.'],
+    ['#sec-import .callout.tip', '<i class="fa-solid fa-lightbulb"></i> <b>Pro Tip for <bdi>(Sprite Slicing)</bdi>:</b><br>When a Sprite Sheet is arranged in uniform cells, select <code>Grid By Cell Size</code> inside the Sprite Editor, enter the cell dimensions (e.g., 16×16 or 32×32), click <b>Slice</b>, and finish with <b>Apply</b>.'],
+    ['#sec-tilemap > p', 'The <b>Tile Palette</b> window lets you pick tiles and use painting tools (Brush, Eraser, Box Fill) to construct levels rapidly instead of placing individual Sprite GameObjects. Try the interactive simulator below with generated pixel art tiles:'],
+    ['#sec-tilemap .callout.yellow', '<b>Lab Exercise:</b> Paint an 8-cell wide dirt base, then top it with a layer of grass tiles to form a platform.'],
+    ['#sec-tilemap .board-header > div:first-child', '<span style="font-weight:800;font-size:15px;"><i class="fa-solid fa-layer-group"></i> Active Layer: <span class="copy-pill" onclick="copyText(\'Ground_Tilemap\')">Ground_Tilemap <i class="fa-solid fa-copy"></i></span></span>'],
+    ['#sec-tilemap .painter-board > div:last-child', '<i class="fa-solid fa-hand-pointer"></i> <b>Quick Drag Paint:</b> Click and hold while dragging the mouse across cells to paint continuously.'],
+    ['#sec-rule-tile > p', '<b>Rule Tile</b> is an intelligent asset from 2D Tilemap Extras that inspects the 8 neighboring cells and automatically selects the matching Sprite (top edge, right wall, corner, or inner center) without manual edge swapping!'],
+    ['#sec-rule-tile .rule-tile-sim > div:first-child > p', 'Click any neighboring cell to cycle its condition: <span style="color:#15803d;font-weight:700;"><i class="fa-solid fa-check"></i> Connected (This)</span> / <span style="color:#b91c1c;font-weight:700;"><i class="fa-solid fa-xmark"></i> Empty (Not This)</span> / <span style="color:var(--text-muted);font-weight:700;"><i class="fa-solid fa-minus"></i> Ignore (Don\'t Care)</span>.'],
+    ['#sec-rule-tile .matrix-cell.center-cell', 'X<br><small>Center Tile</small>'],
+    ['#sec-rule-tile .callout.teacher', '<b>Golden Rule (Eng. Mohammed Ali):</b> "Rule Tile is a top-to-bottom condition matcher. If two rules conflict, Unity executes whichever rule sits higher in the Inspector list—so always place specific corner and edge rules at the top, and general fill rules at the bottom!"'],
+    ['#sec-physics .three-cols .concept-box:nth-child(1) p', 'Added to <code>Ground_Tilemap</code>; automatically generates a collider shape around every painted tile cell.'],
+    ['#sec-physics .three-cols .concept-box:nth-child(3) p', 'Automatically added alongside Composite Collider 2D; you must set its Body Type to <b>Static</b> so the ground does not fall under gravity!'],
+    ['#sec-animation > p', '<b>2D Sprite Animation</b> works by playing a sequence of sliced Sprite frames at a specific sample rate (Samples / FPS). Use this interactive studio simulator modeled after Unity\'s <b>Animation Window &amp; Dope Sheet Timeline</b>:'],
+    ['#sec-animation .callout.yellow', '<i class="fa-solid fa-circle-info"></i> <b>Unity Engine Core Rule:</b> When you drag multiple selected Sprite frames into the Scene view, Unity prompts you to save two linked assets: a <code>.anim</code> file (the Animation Clip storing keyframes and sample rate) and a <code>.controller</code> file (the Animator Controller managing state transitions).'],
+    ['#sec-task .callout.yellow', '<b>Required Student Submission:</b><br>Create a 2D scene named <code>Tilemap_Animation_Task</code> containing a solid ground layer painted with a Rule Tile and merged collider, a decoration layer, and a character or interactive prop playing at least one 2D Animation Clip.'],
+    ['#troubleTable tbody tr:nth-child(1) td:nth-child(3)', 'Select the texture, set <code>Texture Type = Sprite (2D and UI)</code>, and click <b>Apply</b>.'],
+    ['#troubleTable tbody tr:nth-child(2) td:nth-child(3)', 'Change <code>Sprite Mode</code> to <code>Multiple</code>, open <b>Sprite Editor</b>, and click <b>Slice</b>.'],
+    ['#troubleTable tbody tr:nth-child(3) td:nth-child(3)', 'Set <code>Filter Mode</code> to <code>Point (no filter)</code> and <code>Compression = None</code>.'],
+    ['#troubleTable tbody tr:nth-child(4) td:nth-child(3)', 'Unify <code>Pixels Per Unit (PPU)</code> across all sprites in the set (e.g., 16 or 32).'],
+    ['#troubleTable tbody tr:nth-child(5) td:nth-child(3)', 'Ensure <code>Ground_Tilemap</code> is selected as the Active Tilemap in the Tile Palette window.'],
+    ['#troubleTable tbody tr:nth-child(6) td:nth-child(3)', 'Add <code>Tilemap Collider 2D</code> and set the ground\'s Rigidbody 2D Body Type to <b>Static</b>.'],
+    ['#troubleTable tbody tr:nth-child(7) td:nth-child(3)', 'Verify neighbor arrows (This / Not This) and reorder specific corner rules above general rules.'],
+    ['#troubleTable tbody tr:nth-child(8) td:nth-child(3)', 'Attach an <code>Animator</code> component and assign the Animator Controller containing your clip.'],
+    ['#troubleTable tbody tr:nth-child(9) td:nth-child(3)', 'Open the Animation window and lower <code>Samples</code> to 8 or 12 FPS.'],
+    ['#troubleTable tbody tr:nth-child(10) td:nth-child(3)', 'Select the Animation Clip asset in the Project window and check <code>Loop Time</code> in the Inspector.'],
+    ['#sec-teacher-plan .callout.teacher', '<b>Lab Teaching Methodology <bdi>(Check-and-Go Strategy)</bdi>:</b><br>1. <b>Show the Final Result First:</b> Demonstrate the completed playable stage in Unity to spark curiosity.<br>2. <b>Explain the Concept Visually:</b> Sketch Grid vs. Tilemap vs. Tile before clicking menus.<br>3. <b>Execute One Step at a Time:</b> Have students complete each phase before moving to the next.<br>4. <b>Ask Quick Verification Questions:</b> Use the interactive flashcards below to confirm understanding.<br>5. <b>Demonstrate Common Mistakes Intentionally:</b> Uncheck Loop Time or leave Rigidbody Dynamic so students see how to debug.'],
+    ['#sec-teacher-plan > h3', '<i class="fa-solid fa-layer-group"></i> Interactive Self-Check Flashcards:'],
+    ['#ans1', '<b>Model Answer:</b> A <code>Sprite</code> is the raw 2D graphic texture slice in the Project window, whereas a <code>Tile</code> is the Unity Tilemap asset that wraps a Sprite along with collider and tint rules to be stamped onto grid cells.'],
+    ['#ans2', '<b>Model Answer:</b> To automate selecting the right edge, corner, or center terrain sprite based on inspecting the 8 neighboring cells—eliminating slow manual edge placement.'],
+    ['#ans3', '<b>Model Answer:</b> It merges individual adjacent Tilemap cell colliders into a single continuous polygon collider so the player never snags or stutters on internal tile seams.'],
+    ['footer.academic-footer p', '<b>Programming Lectures &amp; Interactive Labs Portal</b> (University of Aden) · Unity 2D Game Development Course<br>Course Instructor: <b>Eng. Mohammed Ali</b><br>Academic Year 2026–2027 · All Rights Reserved ©']
+  ];
+
+  RICH_HTML_MAP.forEach(([selector, enHtml]) => {
+    const el = document.querySelector(selector);
+    if (!el) return;
+    if (!AR_TEXT_CACHE.has(el)) AR_TEXT_CACHE.set(el, el.innerHTML);
+    el.innerHTML = isEn ? enHtml : AR_TEXT_CACHE.get(el);
+  });
+
+  // Update reveal buttons text based on open/closed state
+  ['ans1', 'ans2', 'ans3'].forEach(id => {
+    const ansEl = $(id);
+    if (!ansEl) return;
+    const btn = ansEl.previousElementSibling;
+    if (!btn) return;
+    const isVisible = window.getComputedStyle(ansEl).display !== 'none';
+    btn.innerHTML = isVisible
+      ? (isEn ? '<i class="fa-solid fa-eye-slash"></i> Hide Answer' : '<i class="fa-solid fa-eye-slash"></i> إخفاء الإجابة')
+      : (isEn ? '<i class="fa-solid fa-eye"></i> Reveal Model Answer' : '<i class="fa-solid fa-eye"></i> كشف الإجابة النموذجية');
+  });
+
+  // Update quiz score badge
+  const qScoreEl = $('quizScore');
+  if (qScoreEl) {
+    const answeredCount = Object.values(quizAnswered).filter(Boolean).length;
+    const totalCorrect = Object.values(quizAnswers).filter(Boolean).length;
+    qScoreEl.innerText = answeredCount === 0
+      ? (isEn ? 'Score: -- / 3' : 'النتيجة: -- / 3')
+      : (isEn ? `Score: ${totalCorrect} / 3` : `النتيجة: ${totalCorrect} / 3`);
+  }
+
+  // Search box placeholder
+  const searchInput = $('troubleSearch');
+  if (searchInput) {
+    searchInput.placeholder = isEn
+      ? 'Search common issues (e.g., blurry, collider, animation, slice, Rule Tile...)'
+      : 'ابحث عن المشكلة فورياً (مثال: ضبابية، تصادم، انيميشن، تقطيع، Rule Tile...)';
+  }
+
+  // Translate leaf elements and text nodes via EN_EXACT_MAP
+  const walker = document.createTreeWalker(document.querySelector('main.wrap'), NodeFilter.SHOW_TEXT, null);
+  let node;
+  while ((node = walker.nextNode())) {
+    const raw = node.nodeValue;
+    const trimmed = raw.trim();
+    if (!trimmed) continue;
+    if (!AR_TEXT_CACHE.has(node)) {
+      AR_TEXT_CACHE.set(node, raw);
+    }
+    const origRaw = AR_TEXT_CACHE.get(node);
+    const origTrimmed = origRaw.trim();
+    if (isEn && EN_EXACT_MAP[origTrimmed]) {
+      node.nodeValue = origRaw.replace(origTrimmed, EN_EXACT_MAP[origTrimmed]);
+    } else if (!isEn) {
+      node.nodeValue = origRaw;
+    }
+  }
+
+  // Re-render dynamic interactive widgets in active language
+  renderGrid();
+  updateMatrixUI();
+  evaluateRule();
+  setPhysicsMode(currentPhysMode);
+  updatePlayBtn();
+  renderAnimFrame();
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'ar' ? 'en' : 'ar';
+  localStorage.setItem('agy_lang', currentLang);
+  applyLanguageUI();
+  showToast(currentLang === 'en' ? 'Switched to English' : 'تم التحويل إلى اللغة العربية');
 }
 
 (function initTheme() {
@@ -2366,16 +2954,7 @@ function loadLevelPreset(preset) {
     }
   }
   renderGrid();
-  showToast('تم تحميل النموذج: ' + preset);
-}
-
-function copyMapData() {
-  const summary = {
-    gridWidth: GRID_COLS,
-    gridHeight: GRID_ROWS,
-    tiles: gridData.map((t, idx) => ({ x: idx % GRID_COLS, y: Math.floor(idx / GRID_COLS), type: t })).filter(t => t.type !== 'empty')
-  };
-  copyText(JSON.stringify(summary, null, 2));
+  showToast((isEn ? 'Loaded preset: ' : 'تم تحميل النموذج: ') + preset);
 }
 
 function selectTileType(type, elem) {
@@ -2429,7 +3008,7 @@ function renderGrid() {
     if (val !== 'empty') count++;
   });
   const stat = $('tileStats');
-  if (stat) stat.innerText = 'القطع المرسومة: ' + count;
+  if (stat) stat.innerText = isEn ? 'Painted Tiles: ' + count : 'القطع المرسومة: ' + count;
 }
 
 function clearTileGrid() {
@@ -2465,9 +3044,11 @@ function updateMatrixUI() {
     if (!el) return;
     el.className = 'matrix-cell ' + neighborStates[dir];
     let label = dir;
-    let arName = { NW:'أعلى-يسار', N:'أعلى', NE:'أعلى-يمين', W:'يسار', E:'يمين', SW:'أسفل-يسار', S:'أسفل', SE:'أسفل-يمين' }[dir];
+    let dirName = isEn
+      ? { NW:'Top-Left', N:'Top', NE:'Top-Right', W:'Left', E:'Right', SW:'Bot-Left', S:'Bottom', SE:'Bot-Right' }[dir]
+      : { NW:'أعلى-يسار', N:'أعلى', NE:'أعلى-يمين', W:'يسار', E:'يمين', SW:'أسفل-يسار', S:'أسفل', SE:'أسفل-يمين' }[dir];
     let icon = neighborStates[dir] === 'this' ? '<i class="fa-solid fa-check"></i>' : (neighborStates[dir] === 'not-this' ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-minus"></i>');
-    el.innerHTML = `${label} [${icon}]<br><small>${arName}</small>`;
+    el.innerHTML = `${label} [${icon}]<br><small>${dirName}</small>`;
   });
 }
 
@@ -2478,37 +3059,53 @@ function evaluateRule() {
   const W = neighborStates.W;
 
   let spriteHtml = '<div class="preview-tile-graphic grass-top"><i class="fa-solid fa-arrow-up"></i></div>';
-  let title = 'حافة علوية (Top Edge)';
-  let desc = 'الأرض متصلة من الجوانب والأسفل، والأعلى فارغ؛ هذا هو السطح الطبيعي الذي يقف عليه اللاعب.';
+  let title = isEn ? 'Top Edge Tile' : 'حافة علوية (Top Edge)';
+  let desc = isEn
+    ? 'Neighbors on the left, right, and bottom are connected while the top is empty (Not This); Unity selects the top grass surface.'
+    : 'الأرض متصلة من الجوانب والأسفل، والأعلى فارغ؛ هذا هو السطح الطبيعي الذي يقف عليه اللاعب.';
 
   if (N === 'not-this' && W === 'not-this' && E === 'this' && S === 'this') {
     spriteHtml = '<div class="preview-tile-graphic corner-tl"><i class="fa-solid fa-turn-up"></i></div>';
-    title = 'زاوية علوية يسرى (Top-Left Corner)';
-    desc = 'الجانب العلوي والأيسر فارغان؛ يقوم Rule Tile بوضع قطعة الزاوية المنحنية.';
+    title = isEn ? 'Top-Left Corner Tile' : 'زاوية علوية يسرى (Top-Left Corner)';
+    desc = isEn
+      ? 'Top and Left neighbors are empty while Right and Bottom are connected; Rule Tile places the top-left corner sprite.'
+      : 'الجانب العلوي والأيسر فارغان؛ يقوم Rule Tile بوضع قطعة الزاوية المنحنية.';
   } else if (N === 'not-this' && E === 'not-this' && W === 'this' && S === 'this') {
     spriteHtml = '<div class="preview-tile-graphic corner-tr"><i class="fa-solid fa-turn-up fa-flip-horizontal"></i></div>';
-    title = 'زاوية علوية يمنى (Top-Right Corner)';
-    desc = 'الجانب العلوي والأيمن فارغان؛ يختار المحرك زاوية الحافة اليمنى المنتهية.';
+    title = isEn ? 'Top-Right Corner Tile' : 'زاوية علوية يمنى (Top-Right Corner)';
+    desc = isEn
+      ? 'Top and Right neighbors are empty; the engine automatically selects the top-right corner tile.'
+      : 'الجانب العلوي والأيمن فارغان؛ يختار المحرك زاوية الحافة اليمنى المنتهية.';
   } else if (N === 'this' && S === 'this' && E === 'not-this' && W === 'this') {
     spriteHtml = '<div class="preview-tile-graphic grass-top" style="transform:rotate(90deg);"><i class="fa-solid fa-arrow-right"></i></div>';
-    title = 'حافة يمنى (Right Edge Tile)';
-    desc = 'الجهة اليمنى فارغة بينما بقية الجهات متصلة؛ يضع Rule Tile جدار الحافة اليمنى للأرضية.';
+    title = isEn ? 'Right Edge Tile' : 'حافة يمنى (Right Edge Tile)';
+    desc = isEn
+      ? 'Right neighbor is empty while Top, Bottom, and Left are connected; Rule Tile places the right wall edge.'
+      : 'الجهة اليمنى فارغة بينما بقية الجهات متصلة؛ يضع Rule Tile جدار الحافة اليمنى للأرضية.';
   } else if (N === 'this' && S === 'this' && W === 'not-this' && E === 'this') {
     spriteHtml = '<div class="preview-tile-graphic grass-top" style="transform:rotate(-90deg);"><i class="fa-solid fa-arrow-left"></i></div>';
-    title = 'حافة يسرى (Left Edge Tile)';
-    desc = 'الجهة اليسرى فارغة بينما بقية الجهات متصلة؛ يضع Rule Tile جدار الحافة اليسرى للأرضية.';
+    title = isEn ? 'Left Edge Tile' : 'حافة يسرى (Left Edge Tile)';
+    desc = isEn
+      ? 'Left neighbor is empty while other sides are connected; Rule Tile places the left wall edge.'
+      : 'الجهة اليسرى فارغة بينما بقية الجهات متصلة؛ يضع Rule Tile جدار الحافة اليسرى للأرضية.';
   } else if (N === 'this' && S === 'this' && E === 'this' && W === 'this') {
     spriteHtml = '<div class="preview-tile-graphic dirt-center"><i class="fa-solid fa-border-all"></i></div>';
-    title = 'وسط الأرضية (Inner Center Dirt)';
-    desc = 'كل الجيران الأربعة متصلون بالكامل؛ يتم استخدام قطعة التراب/الصخر الداخلية العميقة.';
+    title = isEn ? 'Inner Center Dirt Tile' : 'وسط الأرضية (Inner Center Dirt)';
+    desc = isEn
+      ? 'All 4 cardinal neighbors are connected (This); Unity fills the cell with the deep inner dirt/stone sprite.'
+      : 'كل الجيران الأربعة متصلون بالكامل؛ يتم استخدام قطعة التراب/الصخر الداخلية العميقة.';
   } else if (N === 'not-this' && S === 'not-this' && E === 'not-this' && W === 'not-this') {
     spriteHtml = '<div class="preview-tile-graphic single-float"><i class="fa-solid fa-cube"></i></div>';
-    title = 'قطعة مفردة معلقة (Floating Single Tile)';
-    desc = 'لا يوجد أي جار متصل؛ يعرض المحرك قطعة حرة صغيرة محاطة بجميع الحواف.';
+    title = isEn ? 'Floating Single Tile' : 'قطعة مفردة معلقة (Floating Single Tile)';
+    desc = isEn
+      ? 'No adjacent neighbors are connected; Unity renders an isolated floating block.'
+      : 'لا يوجد أي جار متصل؛ يعرض المحرك قطعة حرة صغيرة محاطة بجميع الحواف.';
   } else if (N === 'this' && S === 'not-this') {
     spriteHtml = '<div class="preview-tile-graphic dirt-bottom"><i class="fa-solid fa-arrow-down"></i></div>';
-    title = 'حافة سفلية (Bottom Edge)';
-    desc = 'الجهة السفلية فارغة؛ يُعرض قاع الأرضية أو الصخور السفلية.';
+    title = isEn ? 'Bottom Ceiling Edge' : 'حافة سفلية (Bottom Edge)';
+    desc = isEn
+      ? 'Bottom neighbor is empty; Unity renders the underside rocky edge.'
+      : 'الجهة السفلية فارغة؛ يُعرض قاع الأرضية أو الصخور السفلية.';
   }
 
   $('ruleSpriteDisplay').innerHTML = spriteHtml;
@@ -2682,26 +3279,31 @@ const ANIM_DATA = {
   character_walk: {
     frames: [0, 1, 2, 3, 4, 5].map(makeWalkHeroSvg),
     name: 'حركة المشي الكلاسيكية (Hero Walk - 6 إطارات)',
+    nameEn: 'Classic Hero Walk (6 Frames)',
     shadowScales: [1.0, 1.15, 0.85, 1.0, 1.15, 0.85]
   },
   character_run: {
     frames: [0, 1, 2, 3, 4, 5].map(makeRunHeroSvg),
     name: 'حركة الجري السريع (Hero Sprint - 6 إطارات)',
+    nameEn: 'Fast Hero Sprint (6 Frames)',
     shadowScales: [1.2, 0.9, 1.1, 1.2, 0.9, 1.1]
   },
   sword_attack: {
     frames: [0, 1, 2, 3].map(makeAttackHeroSvg),
     name: 'حركة الهجوم وضربة السيف (Sword Slash - 4 إطارات)',
+    nameEn: 'Sword Slash Attack (4 Frames)',
     shadowScales: [1.0, 1.1, 1.3, 1.0]
   },
   coin: {
     frames: [0, 1, 2, 3].map(makeCoinSvg),
     name: 'دوران عملة ذهبية (Coin Spin - 4 إطارات)',
+    nameEn: 'Spinning Gold Coin (4 Frames)',
     shadowScales: [1.0, 0.8, 0.4, 0.8]
   },
   fire: {
     frames: [0, 1, 2, 3].map(makeFireSvg),
     name: 'شعلة نار بيئية (Torch Flame - 4 إطارات)',
+    nameEn: 'Environmental Torch Flame (4 Frames)',
     shadowScales: [1.0, 1.1, 1.05, 1.1]
   }
 };
@@ -2733,8 +3335,12 @@ function renderAnimFrame() {
   const shadow = $('animShadow');
 
   if (stage) stage.innerHTML = data.frames[currentFrame];
-  if (label) label.innerText = data.name;
-  if (indicator) indicator.innerText = `الإطار الحالي: ${currentFrame + 1} من ${data.frames.length}`;
+  if (label) label.innerText = isEn ? (data.nameEn || data.name) : data.name;
+  if (indicator) {
+    indicator.innerText = isEn
+      ? `Current Frame: ${currentFrame + 1} of ${data.frames.length}`
+      : `الإطار الحالي: ${currentFrame + 1} من ${data.frames.length}`;
+  }
   if (shadow && data.shadowScales) shadow.style.transform = `scaleX(${data.shadowScales[currentFrame]})`;
 
   // Render Frame Slices Strip dynamically
@@ -2760,7 +3366,7 @@ function renderAnimFrame() {
     data.frames.forEach((_, idx) => {
       const d = document.createElement('div');
       d.className = 'keyframe-diamond' + (idx === currentFrame ? ' active' : '');
-      d.title = `انقر للانتقال إلى الإطار ${idx + 1}`;
+      d.title = isEn ? `Click to jump to Frame ${idx + 1}` : `انقر للانتقال إلى الإطار ${idx + 1}`;
       d.onclick = () => selectFrame(idx);
       diamondsRow.appendChild(d);
     });
@@ -2800,49 +3406,6 @@ function selectFrame(index) {
   renderAnimFrame();
 }
 
-function loadCustomSpriteSheet(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const img = new Image();
-    img.onload = function() {
-      const frameCount = 4;
-      const frameW = Math.floor(img.width / frameCount);
-      const frameH = img.height;
-      const customFrames = [];
-      for (let i = 0; i < frameCount; i++) {
-        const c = document.createElement('canvas');
-        c.width = frameW;
-        c.height = frameH;
-        const ctx = c.getContext('2d');
-        ctx.drawImage(img, i * frameW, 0, frameW, frameH, 0, 0, frameW, frameH);
-        customFrames.push(`<img src="${c.toDataURL()}" style="max-height:76px;object-fit:contain;image-rendering:pixelated;display:block;margin:0 auto;">`);
-      }
-      ANIM_DATA['custom'] = {
-        frames: customFrames,
-        name: 'شريط مخصص: ' + file.name.substring(0, 16),
-        shadowScales: [1.0, 1.0, 1.0, 1.0]
-      };
-      const select = $('animTypeSelect');
-      if (select && !select.querySelector('option[value="custom"]')) {
-        const opt = document.createElement('option');
-        opt.value = 'custom';
-        opt.innerText = '📁 ' + file.name.substring(0, 20);
-        select.appendChild(opt);
-      }
-      if (select) select.value = 'custom';
-      animMode = 'custom';
-      currentFrame = 0;
-      renderAnimFrame();
-      startAnimation();
-      showToast('تم تقطيع واستيراد الـ Sprite Sheet بنجاح!');
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-}
-
 function toggleAnimPlay() {
   isPlaying = !isPlaying;
   updatePlayBtn();
@@ -2854,15 +3417,36 @@ function toggleAnimPlay() {
 function updatePlayBtn() {
   const btn = $('playPauseBtn');
   const txt = $('playbackStateTxt');
+  const prevBtn = $('animPrevBtn');
+  const nextBtn = $('animNextBtn');
+
+  if (prevBtn) {
+    prevBtn.title = isEn ? 'Previous Frame' : 'الإطار السابق';
+    prevBtn.innerHTML = isEn
+      ? '<i class="fa-solid fa-backward-step"></i> <span>Prev</span>'
+      : '<i class="fa-solid fa-forward-step"></i> <span>السابق</span>';
+  }
+
+  if (nextBtn) {
+    nextBtn.title = isEn ? 'Next Frame' : 'الإطار التالي';
+    nextBtn.innerHTML = isEn
+      ? '<span>Next</span> <i class="fa-solid fa-forward-step"></i>'
+      : '<span>التالي</span> <i class="fa-solid fa-backward-step"></i>';
+  }
+
   if (!btn) return;
   if (isPlaying) {
-    btn.innerHTML = '<i class="fa-solid fa-pause"></i> إيقاف مؤقت';
+    btn.innerHTML = isEn ? '<i class="fa-solid fa-pause"></i> <span>Pause</span>' : '<i class="fa-solid fa-pause"></i> <span>إيقاف مؤقت</span>';
     btn.classList.add('active');
-    if (txt) txt.innerText = isLoop ? 'الحالة: قيد الحركة المستمرة (Loop)' : 'الحالة: تشغيل مرة واحدة';
+    if (txt) {
+      txt.innerText = isEn
+        ? (isLoop ? 'State: Playing Continuously (Loop)' : 'State: Playing Once')
+        : (isLoop ? 'الحالة: قيد الحركة المستمرة (Loop)' : 'الحالة: تشغيل مرة واحدة');
+    }
   } else {
-    btn.innerHTML = '<i class="fa-solid fa-play"></i> تشغيل الحركة';
+    btn.innerHTML = isEn ? '<i class="fa-solid fa-play"></i> <span>Play Clip</span>' : '<i class="fa-solid fa-play"></i> <span>تشغيل الحركة</span>';
     btn.classList.remove('active');
-    if (txt) txt.innerText = 'الحالة: متوقف مؤقتاً';
+    if (txt) txt.innerText = isEn ? 'State: Paused' : 'الحالة: متوقف مؤقتاً';
   }
 }
 
@@ -2938,7 +3522,9 @@ function setPhysicsMode(mode) {
     blocks.forEach(b => b.classList.add('seam-mode'));
     if (banner) {
       banner.className = 'phys-status-banner danger';
-      banner.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <span><b>الوضع الحالي <bdi>(بدون Composite)</bdi>:</b> كل بلاطة تمتلك Box Collider منفصل، وتظهر خطوط حمراء بين البلاطات قد تجعل كوليدر اللاعب يعلق عند الفواصل أثناء الحركة السريعة.</span>';
+      banner.innerHTML = isEn
+        ? '<i class="fa-solid fa-triangle-exclamation"></i> <span><b>Current Mode (No Composite):</b> Each tile has its own separate Box Collider with red internal seams where the player collider can snag during movement.</span>'
+        : '<i class="fa-solid fa-triangle-exclamation"></i> <span><b>الوضع الحالي <bdi>(بدون Composite)</bdi>:</b> كل بلاطة تمتلك Box Collider منفصل، وتظهر خطوط حمراء بين البلاطات قد تجعل كوليدر اللاعب يعلق عند الفواصل أثناء الحركة السريعة.</span>';
     }
   } else {
     tabComp.classList.add('active');
@@ -2947,7 +3533,9 @@ function setPhysicsMode(mode) {
     blocks.forEach(b => b.classList.remove('seam-mode'));
     if (banner) {
       banner.className = 'phys-status-banner success';
-      banner.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span><b>الوضع الحالي <bdi>(Used by Composite)</bdi>:</b> تم دمج جميع كوليدرات الخلايا في مضلع أخضر متصل واحد؛ لا توجد أي فواصل داخلية وتتحرك الشخصية بسلاسة مطلقة.</span>';
+      banner.innerHTML = isEn
+        ? '<i class="fa-solid fa-circle-check"></i> <span><b>Current Mode (Used by Composite):</b> All adjacent tile colliders are merged into one unified green polygon; zero internal seams and smooth movement.</span>'
+        : '<i class="fa-solid fa-circle-check"></i> <span><b>الوضع الحالي <bdi>(Used by Composite)</bdi>:</b> تم دمج جميع كوليدرات الخلايا في مضلع أخضر متصل واحد؛ لا توجد أي فواصل داخلية وتتحرك الشخصية بسلاسة مطلقة.</span>';
     }
   }
 }
@@ -2969,7 +3557,7 @@ function runPhysicsTest() {
       player.style.left = '42%';
       setTimeout(() => {
         player.classList.add('snagged');
-        showToast('⚠️ تعثر اللاعب عند الفاصل الداخلي!');
+        showToast(isEn ? '⚠️ Player snagged on internal collider seam!' : '⚠️ تعثر اللاعب عند الفاصل الداخلي!');
         setTimeout(() => {
           player.classList.remove('snagged');
           isPhysTesting = false;
@@ -2979,7 +3567,7 @@ function runPhysicsTest() {
       player.style.transition = 'left 2.2s cubic-bezier(0.25, 1, 0.5, 1)';
       player.style.left = 'calc(100% - 70px)';
       setTimeout(() => {
-        showToast('✅ انزلاق ناعم ومثالي بفضل Composite Collider!');
+        showToast(isEn ? '✅ Smooth movement with Composite Collider 2D!' : '✅ انزلاق ناعم ومثالي بفضل Composite Collider!');
         isPhysTesting = false;
       }, 2300);
     }
@@ -2993,7 +3581,9 @@ function toggleAnswer(id, btn) {
   const isHidden = window.getComputedStyle(el).display === 'none';
   el.style.display = isHidden ? 'block' : 'none';
   if (btn) {
-    btn.innerHTML = isHidden ? '<i class="fa-solid fa-eye-slash"></i> إخفاء الإجابة' : '<i class="fa-solid fa-eye"></i> كشف الإجابة النموذجية';
+    btn.innerHTML = isHidden
+      ? (isEn ? '<i class="fa-solid fa-eye-slash"></i> Hide Answer' : '<i class="fa-solid fa-eye-slash"></i> إخفاء الإجابة')
+      : (isEn ? '<i class="fa-solid fa-eye"></i> Reveal Model Answer' : '<i class="fa-solid fa-eye"></i> كشف الإجابة النموذجية');
   }
 }
 
@@ -3024,14 +3614,16 @@ function checkQuiz(qNum, optIdx, isCorrect, btn) {
   if (feed) {
     feed.style.display = 'block';
     feed.style.color = isCorrect ? '#15803d' : '#b91c1c';
-    feed.innerHTML = isCorrect ? '<i class="fa-solid fa-check"></i> إجابة صحيحة وممتازة!' : '<i class="fa-solid fa-xmark"></i> إجابة غير صحيحة، راجع الشرح في الدرس أعلاه.';
+    feed.innerHTML = isCorrect
+      ? (isEn ? '<i class="fa-solid fa-check"></i> Correct answer! Well done.' : '<i class="fa-solid fa-check"></i> إجابة صحيحة وممتازة!')
+      : (isEn ? '<i class="fa-solid fa-xmark"></i> Incorrect answer, review the section above.' : '<i class="fa-solid fa-xmark"></i> إجابة غير صحيحة، راجع الشرح في الدرس أعلاه.');
   }
 
   const totalCorrect = Object.values(quizAnswers).filter(Boolean).length;
   const answeredCount = Object.values(quizAnswered).filter(Boolean).length;
-  $('quizScore').innerText = `النتيجة: ${totalCorrect} / 3`;
+  $('quizScore').innerText = isEn ? `Score: ${totalCorrect} / 3` : `النتيجة: ${totalCorrect} / 3`;
   if (answeredCount === 3) {
-    showToast(`أنهيت الاختبار الذاتي: ${totalCorrect} من 3`);
+    showToast(isEn ? `Quiz Completed: ${totalCorrect} / 3` : `أنهيت الاختبار الذاتي: ${totalCorrect} من 3`);
   }
 }
 
@@ -3060,12 +3652,12 @@ function showToast(msg) {
 function copyText(text) {
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(() => {
-      showToast('تم النسخ: ' + text);
+      showToast((isEn ? 'Copied: ' : 'تم النسخ: ') + text);
     }).catch(() => {
-      prompt('انسخ النص التالي:', text);
+      prompt(isEn ? 'Copy text:' : 'انسخ النص التالي:', text);
     });
   } else {
-    prompt('انسخ النص التالي:', text);
+    prompt(isEn ? 'Copy text:' : 'انسخ النص التالي:', text);
   }
 }
 
@@ -3076,6 +3668,7 @@ window.addEventListener('DOMContentLoaded', () => {
   evaluateRule();
   renderAnimFrame();
   startAnimation();
+  applyLanguageUI();
 });
 </script>
 

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="م. عبدالحميد هلال دعبان - Eng. Abdulhamid Helal Daban">
-<meta name="description" content="ملزمة أسس علم التشفير وهندسة الخوارزميات الأمنية لمقرر الأمن السيبراني (سنة ثالثة علوم حاسوب) - إعداد م. عبدالحميد هلال دعبان">
-<meta name="academic-year" content="2026-2027م">
-<title>ملزمة التشفير والأمن السيبراني (A4 PDF) - م. عبدالحميد هلال دعبان</title>
+<meta name="author" content="Eng. Abdulhamid Helal Daban">
+<meta name="description" content="Foundations of Cryptography & Security Algorithms Engineering (3rd Year Computer Science) - Prepared by Eng. Abdulhamid Helal Daban">
+<meta name="academic-year" content="2026-2027">
+<title>Cryptography & Cybersecurity Handout (A4 PDF) - Eng. Abdulhamid Helal Daban</title>
 <link rel="icon" type="image/jpeg" href="../../../assets/abdalhmmed.jfif">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap');
 
 :root {
   --bg: #f8fafc;
@@ -20,7 +21,7 @@
   --line-light: #f1f5f9;
   --bg-soft: #f8fafc;
   
-  --brand: #059669;           /* أخضر زمردي سيبراني */
+  --brand: #059669;           /* Cyber Emerald Green */
   --brand-dark: #022013;
   --brand-light: #ecfdf5;
   --brand-soft: #ecfdf5;
@@ -44,16 +45,16 @@ html { font-size: 14px; }
 body {
   margin: 0; padding: 0;
   background: var(--bg); color: var(--ink);
-  font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
-  line-height: 1.8;
+  font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.75;
   -webkit-print-color-adjust: exact !important;
   print-color-adjust: exact !important;
 }
 
 code, .mono { font-family: 'Fira Code', Consolas, monospace; direction: ltr; unicode-bidi: embed; }
 
-/* Screen Action Bar (hidden on print) */
-.action-bar {
+/* Screen Topbar (Exact match to Interactive Lecture Navigation) */
+.topbar {
   background: rgba(6, 21, 16, 0.94);
   backdrop-filter: blur(12px);
   color: #fff;
@@ -65,24 +66,70 @@ code, .mono { font-family: 'Fira Code', Consolas, monospace; direction: ltr; uni
   top: 0;
   z-index: 999;
   border-bottom: 1px solid rgba(16, 185, 129, 0.2);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  gap: 12px;
+  flex-wrap: wrap;
 }
-.action-bar b { font-size: 16px; }
-.btn-print {
-  background: var(--brand);
-  color: #fff;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 8px;
-  font: 800 14px 'Cairo', sans-serif;
-  cursor: pointer;
+.topbar-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.topbar-author-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 10px rgba(5,150,105,0.3);
-  transition: all 0.2s;
+  background: rgba(5, 150, 105, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #a7f3d0;
 }
-.btn-print:hover { background: #047857; transform: translateY(-1px); }
+.topbar-author-badge img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #10b981;
+  flex-shrink: 0;
+}
+.tools {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.tool {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 6px 14px;
+  font: 700 13px 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.tool:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  color: #fff;
+}
+.tool.cta-print {
+  background: #059669;
+  border-color: #10b981;
+  color: #fff;
+}
+.tool.cta-print:hover {
+  background: #047857;
+  border-color: #059669;
+}
 
 /* Document Container */
 .doc-container {
@@ -113,16 +160,16 @@ code, .mono { font-family: 'Fira Code', Consolas, monospace; direction: ltr; uni
 }
 .cover-header > span:first-child { color: var(--brand); font-weight: 800; }
 .cover-title {
-  font-size: 34px; font-weight: 900; color: var(--brand-dark); line-height: 1.4; margin: 0 0 16px;
+  font-size: 33px; font-weight: 900; color: var(--brand-dark); line-height: 1.3; margin: 14px 0 16px;
 }
 .cover-subtitle {
-  font-size: 18.5px; color: var(--muted); font-weight: 700; margin: 0 0 28px; line-height: 1.6;
+  font-size: 18px; color: var(--muted); font-weight: 700; margin: 0 0 28px; line-height: 1.55;
 }
 .cover-divider {
   width: 90px; height: 5px; background: var(--brand); border-radius: 4px; margin-bottom: 30px;
 }
 .cover-desc {
-  font-size: 15px; line-height: 1.9; color: var(--ink); max-width: 700px; margin-bottom: 40px;
+  font-size: 14.5px; line-height: 1.85; color: var(--ink); max-width: 720px; margin-bottom: 40px;
 }
 .cover-meta {
   background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px;
@@ -140,21 +187,21 @@ code, .mono { font-family: 'Fira Code', Consolas, monospace; direction: ltr; uni
 }
 .toc-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
 .toc-list li {
-  font-size: 13.5px; font-weight: 700; padding: 4px 0; border-bottom: 1px dashed var(--line-light);
-  display: flex; justify-content: space-between;
+  font-size: 13px; font-weight: 700; padding: 4px 0; border-bottom: 1px dashed var(--line-light);
+  display: flex; justify-content: space-between; gap: 8px;
 }
 .toc-list li span.num { color: var(--brand); font-family: 'Fira Code', monospace; }
 
 /* Headings */
 h2.sec-heading {
-  font-size: 22px; font-weight: 900; color: var(--brand-dark); border-right: 6px solid var(--brand);
-  padding-right: 14px; margin: 40px 0 18px; page-break-after: avoid; break-after: avoid;
+  font-size: 21px; font-weight: 900; color: var(--brand-dark); border-left: 6px solid var(--brand);
+  padding-left: 14px; margin: 40px 0 18px; page-break-after: avoid; break-after: avoid;
 }
 h3.sub-heading {
-  font-size: 16.5px; font-weight: 800; color: var(--brand); margin: 24px 0 12px; page-break-after: avoid; break-after: avoid;
+  font-size: 16px; font-weight: 800; color: var(--brand); margin: 24px 0 12px; page-break-after: avoid; break-after: avoid;
 }
-h4 { font-size: 14.5px; font-weight: 800; margin: 0 0 6px; }
-p { margin: 10px 0 14px; line-height: 1.85; }
+h4 { font-size: 14px; font-weight: 800; margin: 0 0 6px; }
+p { margin: 10px 0 14px; line-height: 1.8; }
 
 /* Boxes & Badges */
 .card-box {
@@ -162,15 +209,15 @@ p { margin: 10px 0 14px; line-height: 1.85; }
   background: #fff; page-break-inside: avoid; break-inside: avoid;
 }
 .note-box {
-  background: var(--brand-light); border-right: 5px solid var(--brand); border-radius: 12px;
+  background: var(--brand-light); border-left: 5px solid var(--brand); border-radius: 12px;
   padding: 14px 18px; margin: 18px 0; font-size: 13.5px; page-break-inside: avoid; break-inside: avoid;
 }
 .warn-box {
-  background: var(--accent-light); border-right: 5px solid var(--accent); border-radius: 12px;
+  background: var(--accent-light); border-left: 5px solid var(--accent); border-radius: 12px;
   padding: 14px 18px; margin: 18px 0; font-size: 13.5px; page-break-inside: avoid; break-inside: avoid;
 }
 .analogy-box {
-  background: var(--violet-light); border-right: 5px solid var(--violet); border-radius: 12px;
+  background: var(--violet-light); border-left: 5px solid var(--violet); border-radius: 12px;
   padding: 14px 18px; margin: 18px 0; font-size: 13.5px; page-break-inside: avoid; break-inside: avoid;
 }
 
@@ -220,13 +267,13 @@ p { margin: 10px 0 14px; line-height: 1.85; }
   display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--bg-soft);
   padding-bottom: 12px; margin-bottom: 14px;
 }
-.op-card-title { font-size: 17px; font-weight: 900; color: var(--brand-dark); }
+.op-card-title { font-size: 16.5px; font-weight: 900; color: var(--brand-dark); }
 
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
 
 table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 13px; page-break-inside: avoid; break-inside: avoid; }
-th, td { border: 1px solid var(--line); padding: 10px 14px; text-align: right; }
+th, td { border: 1px solid var(--line); padding: 10px 14px; text-align: left; }
 th { background: var(--bg-soft); font-weight: 800; color: var(--brand-dark); }
 
 .formula {
@@ -256,37 +303,599 @@ th { background: var(--bg-soft); font-weight: 800; color: var(--brand-dark); }
 @media print {
   @page { size: A4 portrait; margin: 14mm 16mm; }
   body { background: #fff !important; font-size: 11.5pt; color: #000; }
-  .action-bar { display: none !important; }
+  .topbar, .action-bar { display: none !important; }
   .doc-container { box-shadow: none !important; border-radius: 0 !important; padding: 0 !important; margin: 0 !important; max-width: none !important; }
   .cover-page { height: 94vh; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 0; page-break-after: always; break-after: page; }
   .toc-box { page-break-after: always; break-after: page; }
   .op-card, .diagram-stage, table, .card-box { page-break-inside: avoid !important; break-inside: avoid !important; }
   h2.sec-heading, h3.sub-heading { page-break-after: avoid !important; break-after: avoid !important; }
 }
+
+/* ================= BILINGUAL DUAL-MODE SUPPORT ================= */
+html[lang="ar"] body {
+  font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+}
+html[lang="en"] body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html[lang="ar"] .lang-en { display: none !important; }
+html[lang="ar"] .lang-ar { display: block !important; }
+html[lang="en"] .lang-ar { display: none !important; }
+html[lang="en"] .lang-en { display: block !important; }
+
+html[lang="ar"] span.lang-ar,
+html[lang="ar"] strong.lang-ar,
+html[lang="ar"] b.lang-ar,
+html[lang="ar"] i.lang-ar {
+  display: inline !important;
+}
+html[lang="en"] span.lang-en,
+html[lang="en"] strong.lang-en,
+html[lang="en"] b.lang-en,
+html[lang="en"] i.lang-en {
+  display: inline !important;
+}
+
+/* Directional Logical Borders */
+html[dir="rtl"] h2.sec-heading {
+  border-left: none;
+  border-right: 6px solid var(--brand);
+  padding-left: 0;
+  padding-right: 14px;
+}
+html[dir="ltr"] h2.sec-heading {
+  border-right: none;
+  border-left: 6px solid var(--brand);
+  padding-right: 0;
+  padding-left: 14px;
+}
+
+html[dir="rtl"] .note-box {
+  border-left: none;
+  border-right: 5px solid var(--brand);
+}
+html[dir="ltr"] .note-box {
+  border-right: none;
+  border-left: 5px solid var(--brand);
+}
+
+html[dir="rtl"] .warn-box {
+  border-left: none;
+  border-right: 5px solid var(--accent);
+}
+html[dir="ltr"] .warn-box {
+  border-right: none;
+  border-left: 5px solid var(--accent);
+}
+
+html[dir="rtl"] .success-box {
+  border-left: none;
+  border-right: 5px solid var(--ok);
+}
+html[dir="ltr"] .success-box {
+  border-right: none;
+  border-left: 5px solid var(--ok);
+}
+
+html[dir="rtl"] .op-header {
+  border-left: none;
+  border-right: 5px solid var(--brand);
+  padding-left: 0;
+  padding-right: 14px;
+}
+html[dir="ltr"] .op-header {
+  border-right: none;
+  border-left: 5px solid var(--brand);
+  padding-right: 0;
+  padding-left: 14px;
+}
+
+.tool.lang-btn {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #6ee7b7;
+  font-weight: 800;
+}
+.tool.lang-btn:hover {
+  background: #059669;
+  color: #fff;
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 <body>
 
-<!-- Top Action Bar -->
-<div class="action-bar">
-  <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-    <a href="../../../index.html" class="btn-print" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);text-decoration:none;" title="الرجوع إلى البوابة الرئيسية">
-      <i class="fa-solid fa-house"></i> الرئيسية
+<!-- Topbar Navigation (Matching Interactive Lecture Standards + Bilingual Switcher) -->
+<header class="topbar">
+  <div class="topbar-nav-group">
+    <a href="../../../index.html" class="tool nav-back-btn" title="الرئيسية / Portal Home">
+      <i class="fa-solid fa-house"></i>
+      <span class="lang-en">Portal Home</span>
+      <span class="lang-ar">البوابة الرئيسية</span>
     </a>
-    <a href="interactive.html" class="btn-print" style="background:#059669;text-decoration:none;" title="الانتقال إلى الشرح التفاعلي">
-      <i class="fa-solid fa-laptop-code"></i> المختبر التفاعلي
+
+    <a href="../../../index.html#/courses/cybersecurity/lecture-01" class="tool nav-interactive-btn" title="المختبر التفاعلي / Interactive Lab">
+      <i class="fa-solid fa-laptop-code"></i>
+      <span class="lang-en">Interactive Lab</span>
+      <span class="lang-ar">المختبر التفاعلي</span>
     </a>
-    <b><i class="fa-solid fa-file-pdf" style="color:#a7f3d0;margin-left:6px;"></i> ملزمة الطباعة والحفظ PDF | م. عبدالحميد هلال دعبان</b>
+
+    <div class="topbar-author-badge">
+      <img src="../../../assets/abdalhmmed.jfif" alt="Eng. Abdulhamid Helal Daban">
+      <span class="lang-en">Eng. Abdulhamid Helal Daban</span>
+      <span class="lang-ar">م. عبدالحميد هلال دعبان</span>
+    </div>
   </div>
-  <div>
-    <button class="btn-print" style="background:#10b981;" onclick="exportDirectPDF()" title="تصدير وحفظ الملزمة بصيغة PDF">
-      <i class="fa-solid fa-file-arrow-down"></i> تصدير وحفظ PDF
+
+  <div class="tools">
+    <button type="button" class="tool lang-btn" id="langToggleBtn" onclick="toggleLanguage()" title="Switch Language / تبديل لغة الطباعة">
+      <i class="fa-solid fa-language"></i>
+      <span id="langBtnText">العربية</span>
+    </button>
+
+    <button type="button" class="tool cta-print" onclick="window.print()" title="Print A4 / طباعة ملزمة A4">
+      <i class="fa-solid fa-file-arrow-down"></i>
+      <span class="lang-en">Print / Save PDF (A4)</span>
+      <span class="lang-ar">طباعة / حفظ PDF (A4)</span>
     </button>
   </div>
+</header>
+
+<div class="doc-container lang-en">
+
+
+  <!-- ================= COVER PAGE ================= -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <span>Cybersecurity &amp; Cryptography Lab</span>
+      <span>Theoretical &amp; Practical Module · Academic Year 2026–2027</span>
+    </div>
+
+    <div>
+      <span class="pill pill-ok" style="font-size: 13px; padding: 4px 14px;">Comprehensive University Lab Handout</span>
+      <h1 class="cover-title">Foundations of Cryptography &amp;<br>Security Algorithms Engineering</h1>
+      <h2 class="cover-subtitle">An Analytical &amp; Practical Guide Focusing on Mathematical Foundations, Bit-Level Tracing, and Java Implementations</h2>
+      <div class="cover-divider"></div>
+      <p class="cover-desc">
+        This standard academic handout covers core cybersecurity principles in detail: the CIA Triad, Kerckhoffs's Principle, Keyspace &amp; Brute-Force bounds, Modular Arithmetic &amp; the Extended Euclidean Algorithm, and a step-by-step breakdown of 7 foundational algorithms (Caesar Cipher, One-Time Pad / Stream XOR, AES Block Cipher, RSA Public-Key Cryptography, Diffie-Hellman Key Exchange, SHA-256 Cryptographic Hashing, and Digital Signatures), complete with production-ready Java code.
+      </p>
+    </div>
+
+    <div class="cover-meta">
+      <div>
+        <strong>Prepared &amp; Developed By:</strong>
+        Eng. Abdulhamid Helal Daban (B.Sc. in Computer Science)
+      </div>
+      <div>
+        <strong>Core Subject:</strong>
+        Cryptography &amp; Cybersecurity
+      </div>
+      <div>
+        <strong>Target Audience:</strong>
+        3rd Year Computer Science (CS) Students
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TABLE OF CONTENTS ================= -->
+  <div class="toc-box">
+    <h3><i class="fa-solid fa-list-ol"></i> Table of Contents</h3>
+    <ul class="toc-list">
+      <li><span>1. Foundational Cybersecurity Principles &amp; Keyspace Analysis</span> <span class="num">01</span></li>
+      <li><span>2. Discrete Mathematics &amp; Modular Arithmetic for Cryptography</span> <span class="num">02</span></li>
+      <li><span>3. Historical Caesar Shift Cipher &amp; Frequency Analysis Attacks</span> <span class="num">03</span></li>
+      <li><span>4. Stream Ciphers &amp; Shannon's Perfect Secrecy (One-Time Pad)</span> <span class="num">04</span></li>
+      <li><span>5. AES Block Cipher Architecture &amp; SPN Rounds</span> <span class="num">05</span></li>
+      <li><span>6. RSA Asymmetric Public-Key Cryptography</span> <span class="num">06</span></li>
+      <li><span>7. Diffie-Hellman Key Agreement Protocol (PFS)</span> <span class="num">07</span></li>
+      <li><span>8. Cryptographic Hash Functions &amp; Avalanche Effect (SHA-256)</span> <span class="num">08</span></li>
+      <li><span>9. Digital Signatures &amp; Cryptographic Non-Repudiation</span> <span class="num">09</span></li>
+      <li><span>10. Standard Java Reference Implementations (javax.crypto)</span> <span class="num">10</span></li>
+    </ul>
+  </div>
+
+  <!-- ================= 1. SECURITY FOUNDATIONS ================= -->
+  <h2 class="sec-heading">1. Foundational Cybersecurity Principles &amp; Keyspace Analysis</h2>
+  <p>
+    In modern computer science, the security of any cryptographic system is never measured by keeping its source code or algorithm secret ("Security by Obscurity"), but rests on rigorous mathematical principles:
+  </p>
+  <div class="note-box">
+    <b>Kerckhoffs's Principle:</b> "A cryptosystem should be secure even if everything about the system, except the key, is public knowledge." All modern standards (AES, RSA, SHA-256) are publicly peer-reviewed algorithms.
+  </div>
+
+  <h3 class="sub-heading">The Information Security Triad (CIA Triad)</h3>
+  <div class="grid-3">
+    <div class="card-box" style="border-top: 4px solid var(--brand); margin: 0;">
+      <h4>Confidentiality</h4>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">
+        Preventing unauthorized disclosure of sensitive data, enforced via symmetric (AES) and asymmetric (RSA) encryption.
+      </p>
+    </div>
+    <div class="card-box" style="border-top: 4px solid var(--accent); margin: 0;">
+      <h4>Integrity</h4>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">
+        Guaranteeing that data has not been altered or tampered with in transit or at rest, verified via cryptographic hashes (SHA-256) and MACs.
+      </p>
+    </div>
+    <div class="card-box" style="border-top: 4px solid var(--ok); margin: 0;">
+      <h4>Availability</h4>
+      <p style="font-size: 13px; color: var(--muted); margin: 0;">
+        Ensuring authorized users have reliable, timely access to information and services while mitigating Denial-of-Service (DoS) attacks.
+      </p>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">Keyspace Exploration &amp; Brute-Force Resistance</h3>
+  <p>
+    The keyspace is the total number of possible distinct keys for an algorithm, equal to 2<sup>k</sup> where <i>k</i> is the key length in bits:
+  </p>
+  <table>
+    <tr>
+      <th>Key Length (k)</th>
+      <th>Total Keyspace (2<sup>k</sup>)</th>
+      <th>Estimated Brute-Force Time (at 10<sup>12</sup> keys/sec)</th>
+      <th>Security Verdict</th>
+    </tr>
+    <tr>
+      <td><b>8-bit</b></td>
+      <td>256</td>
+      <td>&lt; 0.000001 seconds (Instant)</td>
+      <td><span class="pill pill-bad">Trivially Broken</span></td>
+    </tr>
+    <tr>
+      <td><b>56-bit (Legacy DES)</b></td>
+      <td>7.2 &times; 10<sup>16</sup></td>
+      <td>~ 20 hours on dedicated hardware</td>
+      <td><span class="pill pill-bad">Broken Since 1999</span></td>
+    </tr>
+    <tr>
+      <td><b>128-bit (AES-128)</b></td>
+      <td>3.4 &times; 10<sup>38</sup></td>
+      <td>&gt; 10<sup>19</sup> years (Quintillions of years)</td>
+      <td><span class="pill pill-ok">Globally Secure</span></td>
+    </tr>
+    <tr>
+      <td><b>256-bit (AES-256)</b></td>
+      <td>1.15 &times; 10<sup>77</sup></td>
+      <td>Exceeds the age of the universe by orders of magnitude</td>
+      <td><span class="pill pill-ok">Military / Post-Quantum Grade</span></td>
+    </tr>
+  </table>
+
+  <!-- ================= 2. MODULAR ARITHMETIC ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">2. Discrete Mathematics &amp; Modular Arithmetic for Cryptography</h2>
+  <p>
+    Modular arithmetic is the mathematical cornerstone of modern cryptography. It bounds all operations within a finite ring Z<sub>m</sub> = {0, 1, 2, ..., m - 1}, preventing numeric overflow and creating one-way trapdoor functions:
+  </p>
+  
+  <div class="formula">
+    a &equiv; b (mod m)  &hArr;  m divides (a - b)
+  </div>
+
+  <h3 class="sub-heading">Extended Euclidean Algorithm</h3>
+  <p>
+    Used to compute the modular multiplicative inverse <code>d = e<sup>-1</sup> mod &phi;(n)</code> satisfying <code>(e &middot; d) mod &phi;(n) = 1</code>. Without this algorithm, RSA private key generation would be computationally infeasible.
+  </p>
+  <div class="code-block"><span class="cm">// Compute modular multiplicative inverse: d = e^-1 mod phi</span>
+<span class="kw">public static int</span> modInverse(<span class="kw">int</span> e, <span class="kw">int</span> phi) {
+    <span class="kw">int</span> t = 0, newT = 1;
+    <span class="kw">int</span> r = phi, newR = e;
+    <span class="kw">while</span> (newR != 0) {
+        <span class="kw">int</span> q = r / newR;
+        <span class="kw">int</span> tempT = t - q * newT; t = newT; newT = tempT;
+        <span class="kw">int</span> tempR = r - q * newR; r = newR; newR = tempR;
+    }
+    <span class="kw">if</span> (r &gt; 1) <span class="kw">return</span> -1; <span class="cm">// Not invertible</span>
+    <span class="kw">if</span> (t &lt; 0) t += phi;
+    <span class="kw">return</span> t;
+}</div>
+
+  <h3 class="sub-heading">Fast Modular Exponentiation (Square-and-Multiply)</h3>
+  <p>
+    To evaluate <code>C = M<sup>e</sup> mod n</code> over 2048-bit integers, we cannot compute <code>M<sup>e</sup></code> directly (the intermediate result would exceed all memory on Earth). Instead, the <b>Square-and-Multiply</b> algorithm reduces modulo <code>n</code> at every step, completing in logarithmic time <code>O(log e)</code>.
+  </p>
+
+  <!-- ================= 3. CAESAR CIPHER ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">3. Historical Caesar Shift Cipher &amp; Frequency Analysis</h2>
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">Algorithm 1: Caesar Shift Cipher</span>
+      <span class="pill pill-bad">Broken / Educational Only</span>
+    </div>
+    
+    <div class="analogy-box">
+      <b><i class="fa-solid fa-brain" style="color:var(--violet)"></i> Intuitive Analogy:</b> Imagine a 26-letter dial wheel; encryption rotates the wheel forward by <i>k</i> positions for every letter, and decryption rotates it backward by <i>k</i> positions.
+    </div>
+
+    <p><b>Mathematical Formula:</b> Encryption: <code>C = (P + k) mod 26</code> | Decryption: <code>P = (C - k + 26) mod 26</code>.</p>
+
+    <div class="diagram-stage">
+      <div class="array-strip">
+        <div class="array-item"><span class="addr">P[0]</span><div class="box">S (18)</div><span class="idx">+3 mod 26</span></div>
+        <div class="array-item"><span class="addr">&rarr;</span><div class="box found">V (21)</div><span class="idx">C[0]</span></div>
+        <div class="array-item"><span class="addr">P[1]</span><div class="box">E (4)</div><span class="idx">+3 mod 26</span></div>
+        <div class="array-item"><span class="addr">&rarr;</span><div class="box found">H (7)</div><span class="idx">C[1]</span></div>
+        <div class="array-item"><span class="addr">P[2]</span><div class="box">C (2)</div><span class="idx">+3 mod 26</span></div>
+        <div class="array-item"><span class="addr">&rarr;</span><div class="box found">F (5)</div><span class="idx">C[2]</span></div>
+      </div>
+    </div>
+
+    <div class="code-block"><span class="kw">public static</span> String encryptCaesar(String text, <span class="kw">int</span> k) {
+    StringBuilder result = <span class="kw">new</span> StringBuilder();
+    <span class="kw">for</span> (<span class="kw">char</span> c : text.toUpperCase().toCharArray()) {
+        <span class="kw">if</span> (c &gt;= <span class="str">'A'</span> &amp;&amp; c &lt;= <span class="str">'Z'</span>) {
+            <span class="kw">int</span> p = c - <span class="str">'A'</span>;
+            <span class="kw">int</span> cVal = (p + k) % 26;
+            result.append((<span class="kw">char</span>) (<span class="str">'A'</span> + cVal));
+        }
+    }
+    <span class="kw">return</span> result.toString();
+}</div>
+
+    <div class="grid-2">
+      <div class="card-box" style="margin: 0;">
+        <b>Cryptographic Weaknesses:</b>
+        <ul style="font-size: 13px; padding-left: 20px; margin: 6px 0;">
+          <li>Tiny keyspace of only 25 non-trivial keys.</li>
+          <li>Preserves the statistical letter frequency distribution of the language.</li>
+        </ul>
+      </div>
+      <div class="card-box" style="margin: 0;">
+        <b>Cryptanalysis &amp; Attack Vector:</b>
+        <p style="font-size: 13px; color: var(--muted); margin: 0;">
+          <b>Frequency Analysis:</b> The most frequent letter in English ciphertext almost certainly maps to 'E' (~12.7% occurrence), immediately revealing shift key <i>k</i>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 4. STREAM & OTP ================= -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">Algorithm 2: Stream Cipher &amp; One-Time Pad (XOR)</span>
+      <span class="pill pill-ok">Information-Theoretic Perfect Secrecy</span>
+    </div>
+
+    <div class="analogy-box">
+      <b><i class="fa-solid fa-brain" style="color:var(--violet)"></i> Intuitive Analogy:</b> A reversible binary toggle switch—wherever the key bit is <code>1</code>, the plaintext bit flips; applying the exact same key stream a second time flips it right back to the original bit.
+    </div>
+
+    <p><b>Bitwise Law:</b> Encryption: <code>C<sub>i</sub> = P<sub>i</sub> &oplus; K<sub>i</sub></code> | Decryption: <code>P<sub>i</sub> = C<sub>i</sub> &oplus; K<sub>i</sub></code>.</p>
+
+    <div class="diagram-stage">
+      <div class="array-strip">
+        <div class="array-item"><span class="addr">P ('C')</span><div class="box">01000011</div><span class="idx">ASCII</span></div>
+        <div class="array-item"><span class="addr">K (Key)</span><div class="box compare">01011010</div><span class="idx">0x5A</span></div>
+        <div class="array-item"><span class="addr">C (P &oplus; K)</span><div class="box found">00011001</div><span class="idx">0x19</span></div>
+      </div>
+    </div>
+
+    <div class="code-block"><span class="kw">public static byte</span>[] xorCipher(<span class="kw">byte</span>[] data, <span class="kw">byte</span>[] key) {
+    <span class="kw">byte</span>[] cipher = <span class="kw">new byte</span>[data.length];
+    <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; data.length; i++) {
+        cipher[i] = (<span class="kw">byte</span>) (data[i] ^ key[i]); <span class="cm">// Single-cycle hardware bitwise XOR</span>
+    }
+    <span class="kw">return</span> cipher;
+}</div>
+
+    <div class="warn-box">
+      <b>Fatal Key Reuse Vulnerability (Two-Time Pad Trap):</b> If two messages P<sub>1</sub> and P<sub>2</sub> are encrypted with the same key stream K:
+      <br><code>C<sub>1</sub> &oplus; C<sub>2</sub> = (P<sub>1</sub> &oplus; K) &oplus; (P<sub>2</sub> &oplus; K) = P<sub>1</sub> &oplus; P<sub>2</sub></code><br>
+      The secret key cancels out completely, allowing attackers to recover both plaintexts!
+    </div>
+  </div>
+
+  <!-- ================= 5. AES BLOCK CIPHER ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">4. AES Block Cipher Architecture &amp; SPN Network</h2>
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">Algorithm 3: Advanced Encryption Standard (AES - Rijndael)</span>
+      <span class="pill pill-ok">Global Symmetric Gold Standard</span>
+    </div>
+
+    <p>
+      AES processes data in fixed 128-bit blocks organized as a 4 &times; 4 byte <b>State Matrix</b>. The state undergoes 10 rounds (for 128-bit keys), 12 rounds (192-bit), or 14 rounds (256-bit), executing four transformations per round:
+    </p>
+
+    <div class="grid-2">
+      <div class="card-box" style="margin: 0;">
+        <b>1. SubBytes (Non-Linear Confusion):</b>
+        <p style="font-size: 13px; color: var(--muted); margin: 6px 0 0;">
+          Replaces each byte using the Rijndael S-Box derived from multiplicative inverses in Galois Field GF(2<sup>8</sup>) to defeat linear and differential cryptanalysis.
+        </p>
+      </div>
+      <div class="card-box" style="margin: 0;">
+        <b>2. ShiftRows &amp; 3. MixColumns (Diffusion):</b>
+        <p style="font-size: 13px; color: var(--muted); margin: 6px 0 0;">
+          Cyclically shifts rows (by 0, 1, 2, 3 bytes) and multiplies columns over GF(2<sup>8</sup>) so a single bit change diffuses across the entire 16-byte state.
+        </p>
+      </div>
+    </div>
+
+    <div class="diagram-stage">
+      <b>4 &times; 4 Byte State Matrix (Row 0 Slice in AES Round):</b>
+      <div class="array-strip" style="margin-top: 10px;">
+        <div class="array-item"><span class="addr">S[0,0]</span><div class="box">1A</div></div>
+        <div class="array-item"><span class="addr">S[0,1]</span><div class="box">CB</div></div>
+        <div class="array-item"><span class="addr">S[0,2]</span><div class="box">2C</div></div>
+        <div class="array-item"><span class="addr">S[0,3]</span><div class="box">6E</div></div>
+      </div>
+    </div>
+
+    <div class="code-block"><span class="cm">// Structure of a Standard AES Encryption Round</span>
+<span class="kw">void</span> aesRound(<span class="kw">byte</span>[][] state, <span class="kw">byte</span>[][] roundKey) {
+    subBytes(state);              <span class="cm">// 1. Non-linear byte substitution (Confusion)</span>
+    shiftRows(state);             <span class="cm">// 2. Row-wise cyclic permutation (Diffusion)</span>
+    mixColumns(state);            <span class="cm">// 3. Column mixing in Galois Field GF(2^8)</span>
+    addRoundKey(state, roundKey); <span class="cm">// 4. XOR state with derived Round Key</span>
+}</div>
+  </div>
+
+  <!-- ================= 6. RSA ASYMMETRIC ================= -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">Algorithm 4: RSA Public-Key Cryptography (Rivest–Shamir–Adleman)</span>
+      <span class="pill pill-ok">Asymmetric Public-Key</span>
+    </div>
+
+    <p><b>Formal Mathematical Steps for RSA Key Generation &amp; Encryption:</b></p>
+    <ol style="font-size: 13.5px; line-height: 1.8;">
+      <li>Generate two large distinct secret primes <i>p</i> and <i>q</i>, and compute the public modulus <code>n = p &times; q</code>.</li>
+      <li>Compute Euler's totient function: <code>&phi;(n) = (p - 1)(q - 1)</code>.</li>
+      <li>Choose public exponent <i>e</i> (commonly <code>65537</code>) such that <code>gcd(e, &phi;(n)) = 1</code>.</li>
+      <li>Compute secret private key <code>d = e<sup>-1</sup> mod &phi;(n)</code> using the Extended Euclidean Algorithm.</li>
+      <li><b>Encryption:</b> <code>C = M<sup>e</sup> mod n</code> | <b>Decryption:</b> <code>M = C<sup>d</sup> mod n</code>.</li>
+    </ol>
+
+    <div class="code-block"><span class="cm">// RSA Implementation using Java BigInteger</span>
+BigInteger n = p.multiply(q);
+BigInteger phi = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
+BigInteger d = e.modInverse(phi);      <span class="cm">// Secret Private Exponent</span>
+
+BigInteger C = M.modPow(e, n);         <span class="cm">// Encrypt with Public Key (e, n)</span>
+BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private Key (d, n)</span></div>
+  </div>
+
+  <!-- ================= 7. DIFFIE-HELLMAN ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">5. Diffie-Hellman Key Agreement &amp; Cryptographic Hashing</h2>
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">Algorithm 5: Diffie-Hellman Key Exchange Protocol</span>
+      <span class="pill pill-ok">PFS / TLS 1.3 Key Exchange</span>
+    </div>
+
+    <div class="analogy-box">
+      <b><i class="fa-solid fa-brain" style="color:var(--violet)"></i> Paint Mixing Analogy:</b> Alice and Bob publicly agree on a common yellow base paint. Each mixes in their own secret color (blue vs. red) and exchanges the mixture over an insecure channel. Finally, each adds their own secret color to the partner's mixture—arriving at the exact same shared brown pigment without ever transmitting their secret color!
+    </div>
+
+    <div class="diagram-stage">
+      <div class="array-strip">
+        <div class="array-item"><span class="addr">Alice</span><div class="box">a = 6 (Secret)</div><span class="idx">A = 5^6 mod 23 = 8</span></div>
+        <div class="array-item"><span class="addr">Public Channel</span><div class="box compare">A=8 &harr; B=19</div><span class="idx">Visible to Eavesdropper</span></div>
+        <div class="array-item"><span class="addr">Bob</span><div class="box">b = 15 (Secret)</div><span class="idx">B = 5^15 mod 23 = 19</span></div>
+      </div>
+      <div style="margin-top: 10px; font-weight: 800; color: var(--brand);">
+        Identical Shared Secret Derived: K = 19<sup>6</sup> mod 23 = 8<sup>15</sup> mod 23 = 2
+      </div>
+    </div>
+
+    <p><b>Security Foundation:</b> Relies on the computational intractability of the <b>Discrete Logarithm Problem (DLP)</b> over large prime fields.</p>
+  </div>
+
+  <!-- ================= 8. SHA-256 HASH ================= -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">Algorithm 6: Cryptographic Hash Functions &amp; Avalanche Effect (SHA-256)</span>
+      <span class="pill pill-ok">One-Way / Avalanche Effect</span>
+    </div>
+
+    <p>
+      A deterministic, one-way mathematical function that compresses arbitrary-length input into a fixed 256-bit (64-hex-character) digest. It exhibits the strict <b>Avalanche Effect</b>:
+    </p>
+
+    <table>
+      <tr>
+        <th>Input (Plaintext)</th>
+        <th>Output SHA-256 Digest (Hexadecimal)</th>
+        <th>Bit-Level Observation</th>
+      </tr>
+      <tr>
+        <td><code>Cyber</code></td>
+        <td class="mono" style="font-size: 11px;">f729abbf1227241982861257964f79f3edde2a3a5d4bddc477ed478548166936</td>
+        <td>Baseline 256-bit digest</td>
+      </tr>
+      <tr>
+        <td><code>cyber</code> (1-bit flip!)</td>
+        <td class="mono" style="font-size: 11px;">b4bf5d7e5fcf89ef8adb64ec9c624db850d10f2afef020ed9ef23892df0833af</td>
+        <td><span class="pill pill-ok">137 bits flipped (53.5%)!</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ================= 9. DIGITAL SIGNATURE ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">6. Digital Signatures &amp; Cryptographic Non-Repudiation</h2>
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">Algorithm 7: Digital Signatures &amp; Authenticity Verification</span>
+      <span class="pill pill-ok">Authenticity &amp; Integrity</span>
+    </div>
+
+    <p>
+      Digital signatures combine <b>Cryptographic Hashing (SHA-256)</b> with <b>Asymmetric Public-Key Cryptography (RSA / ECDSA)</b>:
+    </p>
+
+    <div class="diagram-stage">
+      <div class="array-strip">
+        <div class="array-item"><span class="addr">Document M</span><div class="box">Contract</div><span class="idx">Raw Message</span></div>
+        <div class="array-item"><span class="addr">SHA-256</span><div class="box compare">H(M)</div><span class="idx">256-bit Digest</span></div>
+        <div class="array-item"><span class="addr">Sign with PrivKey</span><div class="box found">Signature S</div><span class="idx">S = H(M)^d mod n</span></div>
+      </div>
+    </div>
+
+    <p>
+      <b>Non-Repudiation Guarantee:</b> Because the Private Key is held exclusively by the signer, the signer cannot legally or mathematically deny having signed the document once anyone verifies the signature using the signer's Public Key.
+    </p>
+  </div>
+
+  <!-- ================= 10. JAVA ARCHITECTURE REFERENCE ================= -->
+  <h2 class="sec-heading">7. Standard Java Cryptographic Reference (javax.crypto &amp; java.security)</h2>
+  <div class="code-block"><span class="cm">/**
+ * Cybersecurity &amp; Cryptography Engineering Lab in Java
+ * Prepared by: Eng. Abdulhamid Helal Daban — Academic Year 2026–2027
+ */</span>
+<span class="kw">import</span> javax.crypto.Cipher;
+<span class="kw">import</span> javax.crypto.SecretKey;
+<span class="kw">import</span> javax.crypto.spec.GCMParameterSpec;
+<span class="kw">import</span> java.security.KeyPair;
+<span class="kw">import</span> java.security.MessageDigest;
+<span class="kw">import</span> java.security.Signature;
+
+<span class="kw">public class</span> MasterCryptoReference {
+    <span class="cm">// 1. Authenticated Symmetric Encryption: AES-256 in GCM Mode</span>
+    <span class="kw">public static byte</span>[] encryptAES(<span class="kw">byte</span>[] data, SecretKey key, <span class="kw">byte</span>[] iv) <span class="kw">throws</span> Exception {
+        Cipher cipher = Cipher.getInstance(<span class="str">"AES/GCM/NoPadding"</span>);
+        cipher.init(Cipher.ENCRYPT_MODE, key, <span class="kw">new</span> GCMParameterSpec(128, iv));
+        <span class="kw">return</span> cipher.doFinal(data);
+    }
+
+    <span class="cm">// 2. Cryptographic Hashing: SHA-256 Digest</span>
+    <span class="kw">public static byte</span>[] hashSHA256(<span class="kw">byte</span>[] data) <span class="kw">throws</span> Exception {
+        MessageDigest md = MessageDigest.getInstance(<span class="str">"SHA-256"</span>);
+        <span class="kw">return</span> md.digest(data);
+    }
+
+    <span class="cm">// 3. Digital Signature Generation: SHA256withRSA</span>
+    <span class="kw">public static byte</span>[] signData(<span class="kw">byte</span>[] data, KeyPair pair) <span class="kw">throws</span> Exception {
+        Signature signer = Signature.getInstance(<span class="str">"SHA256withRSA"</span>);
+        signer.initSign(pair.getPrivate());
+        signer.update(data);
+        <span class="kw">return</span> signer.sign();
+    }
+}</div>
+
+  <!-- FOOTER -->
+  <div class="note-box" style="margin-top: 30px; text-align: center;">
+    <b>Academic Programming Lectures &amp; Interactive Labs Portal | Eng. Abdulhamid Helal Daban</b><br>
+    <span style="font-size: 13px; color: var(--muted);">Cybersecurity &amp; Cryptography Course · 3rd Year Computer Science · Academic Year 2026–2027.</span>
+  </div>
+
+  <div style="opacity: 0.05; font-size: 9px; text-align: center; margin-top: 15px; user-select: none; pointer-events: none;" aria-hidden="true" data-author="Abdulhamid-Helal-Daban">
+    Intellectual Property &amp; Software Rights Reserved &copy; 2026–2027 Eng. Abdulhamid Helal Daban | University of Aden - Faculty of Computer Science &amp; Information Technology
+  </div>
+
+
 </div>
 
-<div class="doc-container">
+<div class="doc-container lang-ar">
+
 
   <!-- ================= COVER PAGE ================= -->
   <div class="cover-page">
@@ -734,17 +1343,36 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// فك التشفير �
     حقوق الملكية الفكرية والبرمجية محفوظة © 2026-2027م م. عبدالحميد هلال دعبان | جامعة عدن - كلية علوم الحاسوب وتكنولوجيا المعلومات
   </div>
 
+
 </div>
 
 <script>
-const ACADEMIC_PDF_FILENAME = "ملزمة التشفير والأمن السيبراني - م. عبدالحميد هلال دعبان";
-function exportDirectPDF() {
-  document.title = ACADEMIC_PDF_FILENAME;
-  window.print();
+function setLanguage(lang) {
+  const isEn = (lang === 'en');
+  document.documentElement.lang = isEn ? 'en' : 'ar';
+  document.documentElement.dir = isEn ? 'ltr' : 'rtl';
+  localStorage.setItem('agy_lang', isEn ? 'en' : 'ar');
+
+  const btnText = document.getElementById('langBtnText');
+  if (btnText) {
+    btnText.textContent = isEn ? 'العربية' : 'English';
+  }
+  document.title = isEn
+    ? 'Foundations of Cryptography & Security Algorithms Engineering - Eng. Abdulhamid Helal Daban'
+    : 'أسس علم التشفير وهندسة الخوارزميات الأمنية - م. عبدالحميد هلال دعبان';
 }
-window.addEventListener('beforeprint', () => {
-  document.title = ACADEMIC_PDF_FILENAME;
-});
+
+function toggleLanguage() {
+  const current = document.documentElement.lang || localStorage.getItem('agy_lang') || 'ar';
+  const next = (current === 'en') ? 'ar' : 'en';
+  setLanguage(next);
+}
+
+// Initialize on page load from saved preference
+(function initLang() {
+  const saved = localStorage.getItem('agy_lang') || 'ar';
+  setLanguage(saved);
+})();
 </script>
 </body>
 </html>

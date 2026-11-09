@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="أ. محمد علي (إعداد ومحتوى) - م. عبدالحميد هلال دعبان (تصميم وتطوير)">
-<meta name="description" content="الملزمة الأكاديمية الرسمية: إنشاء Tilemap ورسم العالم باستخدام Rule Tile والأنيميشن في Unity 2D - إعداد: أ. محمد علي | تصميم: م. عبدالحميد هلال دعبان">
-<meta name="academic-year" content="2026-2027م">
-<title>ملزمة معمل Unity 2D: Tilemap و Rule Tile و Animation - أ. محمد علي | م. عبدالحميد هلال دعبان</title>
+<meta name="author" content="Eng. Mohammed Ali (Curriculum Author) - Eng. Abdulhamid Helal Daban (Platform Architecture & Design)">
+<meta name="description" content="Official Certified Academic Lab Handout: Building 2D Worlds with Tilemap, Automated Rule Tiles, Composite Physics Colliders & Sprite Animation in Unity 2D Engine">
+<meta name="academic-year" content="2026-2027">
+<title>Unity 2D Lab Handout: Tilemap, Rule Tile & Animation - Eng. Mohammed Ali | Eng. Abdulhamid Helal Daban</title>
 
 <!-- Favicon -->
 <link rel="icon" type="image/jpeg" href="../../../assets/abdalhmmed.jfif">
@@ -15,30 +15,36 @@
 <!-- Google Fonts & Font Awesome 6 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-/* ================= A4 PAGE SETUP ================= */
+/* ================= A4 PAGE SETUP & PRINT OPTIMIZATIONS ================= */
 @page {
   size: A4 portrait;
-  margin: 14mm 16mm;
+  margin: 12mm 14mm 14mm 14mm;
 }
 
 :root {
-  --primary: #b45309;       /* كهرماني داكن عالي التباين للطباعة */
-  --primary-light: #d97706; /* كهرماني ذهبي */
-  --secondary: #1c1917;     /* كحلي حجري داكن */
-  --accent: #f59e0b;        /* أصفر مشرق */
+  --primary: #c2410c;       /* Dark Orange for Headers & High Contrast Print */
+  --primary-light: #ea580c; /* Vibrant Orange */
+  --primary-soft: #fff7ed;  /* Soft Warm Peach/Orange */
+  --primary-border: #fed7aa;
+  --secondary: #1c1917;     /* Deep Stone Slate */
+  --accent: #f97316;        /* Bright Orange Accent */
   --surface: #ffffff;
   --bg-page: #fafaf9;
-  --border: #fcd34d;        /* حدود ذهبية ناعمة */
+  --bg-soft: #f8fafc;
+  --border: #e2e8f0;
   --border-light: #fef08a;
-  --text-main: #1c1917;
-  --text-muted: #57534e;
-  --radius: 8px;
-  --font-arabic: 'Cairo', system-ui, -apple-system, sans-serif;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'Fira Code', 'Consolas', monospace;
+  --shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
 
 * {
@@ -48,217 +54,325 @@
 }
 
 body {
-  font-family: var(--font-arabic);
+  font-family: var(--font-main);
   background-color: var(--bg-page);
   color: var(--text-main);
-  line-height: 1.75;
-  font-size: 13.5px;
+  line-height: 1.7;
+  font-size: 13px;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
 }
 
 code, .mono {
   font-family: var(--font-mono);
   direction: ltr;
   unicode-bidi: embed;
+  font-size: 12px;
+  background: #f1f5f9;
+  color: #b45309;
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
 }
 
 /* Screen Top Bar */
-.screen-actions {
+/* Screen Topbar (Exact match to Interactive Lecture Navigation) */
+.topbar {
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  padding: 12px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: sticky;
   top: 0;
-  z-index: 100;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  padding: 10px 24px;
+  z-index: 999;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.topbar-nav-group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 10px;
+  flex-wrap: wrap;
 }
-.screen-actions a, .screen-actions button {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 6px;
-  padding: 6px 14px;
-  font-family: var(--font-arabic);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: none;
+.topbar-author-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: 0.2s;
+  background: rgba(217, 119, 6, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #fde68a;
 }
-.screen-actions a:hover, .screen-actions button:hover {
-  background: rgba(255, 255, 255, 0.22);
+.tools {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
 }
-.btn-print {
-  background: #d97706 !important;
-  border-color: #f59e0b !important;
-  color: #000 !important;
-  font-weight: 800 !important;
+.tool {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 6px 14px;
+  font: 700 13px 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.tool:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  color: #fff;
+}
+.tool.cta-print {
+  background: #ea580c;
+  border-color: #f97316;
+  color: #fff;
+  font-weight: 800;
+}
+.tool.cta-print:hover {
+  background: #b45309;
+  color: #fff;
 }
 
 /* Document Container */
 .doc-container {
-  max-width: 820px;
+  max-width: 860px;
   margin: 24px auto;
   background: #fff;
-  padding: 32px 42px;
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  padding: 36px 48px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  border-radius: var(--radius-md);
 }
 
 /* ================= COVER PAGE ================= */
 .cover-page {
-  min-height: 850px;
+  min-height: 870px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
   border: 2px solid var(--primary);
-  border-radius: 12px;
-  padding: 50px 36px;
-  margin-bottom: 40px;
+  border-radius: 14px;
+  padding: 44px 36px;
+  margin-bottom: 36px;
+  background: linear-gradient(145deg, #ffffff 0%, #fefce8 45%, #fffbeb 100%);
   break-after: page;
   page-break-after: always;
+  box-shadow: var(--shadow);
 }
 .cover-header {
-  border-bottom: 2px solid var(--primary);
-  padding-bottom: 20px;
+  border-bottom: 2px solid var(--primary-border);
+  padding-bottom: 18px;
 }
 .uni-title {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 900;
   color: var(--primary);
+  letter-spacing: -0.3px;
 }
 .faculty-title {
-  font-size: 14.5px;
+  font-size: 13.5px;
   color: var(--text-muted);
   font-weight: 700;
+  margin-top: 4px;
 }
 
 .cover-body {
-  margin: 40px 0;
+  margin: 32px 0;
 }
 .cover-badge {
-  display: inline-block;
-  background: #fef3c7;
-  border: 1px solid #fcd34d;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary-soft);
+  border: 1px solid var(--primary-border);
   color: #92400e;
   font-weight: 800;
   font-size: 13px;
-  padding: 4px 16px;
+  padding: 5px 18px;
   border-radius: 20px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .cover-main-title {
   font-size: 26px;
   font-weight: 900;
   color: var(--secondary);
-  line-height: 1.5;
+  line-height: 1.45;
   margin-bottom: 14px;
 }
 .cover-subtitle {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-muted);
-  max-width: 650px;
+  max-width: 680px;
   margin: 0 auto;
   line-height: 1.8;
 }
 
+/* Table of Contents Box on Cover Page */
+.cover-toc-box {
+  background: #ffffff;
+  border: 1px solid #fcd34d;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 22px auto 0;
+  max-width: 720px;
+  text-align: left;
+}
+.cover-toc-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px dashed #fcd34d;
+  padding-bottom: 6px;
+}
+.cover-toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px 14px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #334155;
+}
+
 .cover-credits {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  border: 1px solid var(--border-light);
-  background: #f8fafc;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  border: 1.5px solid var(--primary-border);
+  background: #ffffff;
   border-radius: 10px;
-  padding: 18px 24px;
-  text-align: right;
-  margin: 30px auto 0;
-  max-width: 650px;
+  padding: 16px 18px;
+  text-align: left;
+  margin: 24px auto 0;
+  max-width: 720px;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.08);
 }
 .credit-col h5 {
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--primary);
   font-weight: 800;
   margin-bottom: 4px;
+  text-transform: uppercase;
 }
 .credit-col p {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 900;
   color: var(--secondary);
+  margin: 0;
 }
 
 .cover-footer {
-  border-top: 1px solid var(--border-light);
-  padding-top: 16px;
-  font-size: 12.5px;
+  border-top: 1px solid var(--primary-border);
+  padding-top: 14px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 700;
 }
 
 /* ================= SECTION HEADINGS ================= */
 h2.sec-heading {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 900;
   color: var(--primary);
-  border-right: 5px solid var(--primary);
-  padding-right: 12px;
-  margin: 32px 0 14px;
+  border-left: 5px solid var(--primary);
+  padding-left: 12px;
+  margin: 28px 0 12px;
   line-height: 1.4;
+  page-break-after: avoid;
+  break-after: avoid;
 }
 h3.sub-heading {
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 800;
   color: var(--secondary);
-  margin: 20px 0 10px;
+  margin: 18px 0 8px;
+  page-break-after: avoid;
+  break-after: avoid;
 }
 
 p {
+  margin-bottom: 10px;
+}
+
+ul, ol {
+  padding-left: 20px;
   margin-bottom: 12px;
-  text-align: justify;
+}
+li {
+  margin-bottom: 4px;
 }
 
 /* Avoid page break inside essential blocks */
-.box-section, table, .rubric-table, .callout-box, .diagram-matrix {
+.box-section, table, .rubric-table, .callout-box, .diagram-matrix, .interactive-replica-card {
   break-inside: avoid !important;
   page-break-inside: avoid !important;
 }
 
-/* ================= CALLOUT BOXES ================= */
+/* ================= CALLOUT BOXES (MATCHING INTERACTIVE UI) ================= */
 .callout-box {
   background: #f8fafc;
-  border-right: 4px solid var(--primary);
-  border-radius: 6px;
-  padding: 14px 18px;
-  margin: 16px 0;
-  font-size: 13px;
-  line-height: 1.8;
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin: 14px 0;
+  font-size: 12.5px;
+  line-height: 1.75;
 }
 .callout-box.tip {
-  border-color: #10b981;
-  background: #f0fdf4;
+  border-color: #ea580c;
+  background: #fff7ed;
+  color: #9a3412;
+}
+.callout-box.tip code {
+  color: #c2410c;
+  background: #ffedd5;
+  border-color: #fed7aa;
 }
 .callout-box.teacher {
-  border-color: #8b5cf6;
-  background: #faf5ff;
+  border-color: #ea580c;
+  background: #fff7ed;
+  color: #9a3412;
+}
+.callout-box.teacher code {
+  color: #c2410c;
+  background: #fef3c7;
+  border-color: #fde68a;
+}
+.callout-box.warn {
+  border-color: #ef4444;
+  background: #fef2f2;
+  color: #7f1d1d;
 }
 
 /* ================= TABLES ================= */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 16px 0;
-  font-size: 12.5px;
+  margin: 14px 0;
+  font-size: 12px;
 }
 th, td {
-  border: 1px solid var(--border);
-  padding: 8px 12px;
-  text-align: right;
+  border: 1px solid #cbd5e1;
+  padding: 7px 11px;
+  text-align: left;
 }
 th {
   background: #f1f5f9;
@@ -266,31 +380,183 @@ th {
   color: var(--secondary);
 }
 
-/* ================= DIAGRAM MATRIX ================= */
-.matrix-visual {
-  display: inline-grid;
-  grid-template-columns: repeat(3, 50px);
-  grid-template-rows: repeat(3, 50px);
-  gap: 4px;
-  margin: 10px 0;
-  direction: ltr;
+/* ================= INTERACTIVE SIMULATOR REPLICAS ================= */
+.interactive-replica-card {
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  padding: 16px 18px;
+  margin: 16px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
-.matrix-node {
-  border: 1px solid var(--border);
-  background: #f8fafc;
+.replica-header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+.replica-title {
+  font-size: 13.5px;
   font-weight: 800;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.replica-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+
+/* 3x3 Neighbor Matrix Replica */
+.matrix-3x3-replica {
+  display: grid;
+  grid-template-columns: repeat(3, 72px);
+  grid-template-rows: repeat(3, 56px);
+  gap: 6px;
+  justify-content: center;
+  margin: 12px 0;
+}
+.matrix-cell-rep {
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+}
+.matrix-cell-rep.this {
+  background: #dcfce7;
+  border-color: #16a34a;
+  color: #15803d;
+}
+.matrix-cell-rep.not-this {
+  background: #fee2e2;
+  border-color: #dc2626;
+  color: #b91c1c;
+}
+.matrix-cell-rep.dont-care {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #64748b;
+}
+.matrix-cell-rep.center-cell {
+  background: #ffedd5;
+  border-color: #ea580c;
+  color: #c2410c;
+}
+
+/* Physics Snagging Comparison */
+.physics-compare-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 12px 0;
+}
+.phys-mode-card {
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #f8fafc;
+}
+.phys-mode-card.seams {
+  border-color: #fca5a5;
+  background: #fff5f5;
+}
+.phys-mode-card.composite {
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+.phys-mode-title {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Animation Timeline & Strip Replica */
+.anim-strip-rep {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+.anim-frame-pill {
+  flex: 1;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 4px;
+  text-align: center;
+  background: #f8fafc;
   font-size: 11px;
 }
-.matrix-node.c-this { background: #dcfce7; color: #15803d; border-color: #86efac; }
-.matrix-node.c-not { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
-.matrix-node.c-mid { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+.anim-frame-pill.active {
+  border-color: #ea580c;
+  background: #ffedd5;
+  font-weight: 800;
+  color: #c2410c;
+}
+
+/* Playback bar replica */
+.timeline-bar-rep {
+  background: #0f172a;
+  color: #fff;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+/* Flashcards & Self-Check Replica */
+.flashcards-grid-rep {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 12px 0;
+}
+.flashcard-box-rep {
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fafaf9;
+}
+.flashcard-q {
+  font-size: 12px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+.flashcard-a {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #475569;
+  background: #ffffff;
+  padding: 6px 8px;
+  border-left: 3px solid var(--primary);
+  border-radius: 4px;
+}
 
 /* ================= PRINT MEDIA ================= */
 @media print {
-  .screen-actions {
+  .topbar, .screen-actions {
     display: none !important;
   }
   body {
@@ -305,321 +571,449 @@ th {
   }
   .cover-page {
     border-color: #000 !important;
-    min-height: 98vh !important;
+    min-height: 96vh !important;
   }
 }
 </style>
 </head>
 <body>
 
-<!-- Screen Top Navigation & Print Trigger -->
-<div class="screen-actions">
-  <div>
-    <a href="../../../index.html" title="الرئيسية"><i class="fa-solid fa-home"></i> الرئيسية</a>
-    <a href="interactive.html" title="المحاكي التفاعلي"><i class="fa-solid fa-play"></i> الشرح التفاعلي</a>
+<!-- Topbar Navigation (Matching Interactive Lecture Standards) -->
+<header class="topbar">
+  <div class="topbar-nav-group">
+    <a href="../../../index.html" class="tool nav-back-btn" title="Return to Portal Home">
+      <i class="fa-solid fa-house"></i>
+      <span>Portal Home</span>
+    </a>
+
+    <a href="../../../index.html#/courses/unity-game-dev/lecture-01" class="tool nav-interactive-btn" title="Open Interactive Lab Simulator">
+      <i class="fa-solid fa-laptop-code"></i>
+      <span>Interactive Lab</span>
+    </a>
+
+    <div class="topbar-author-badge">
+      <i class="fa-solid fa-chalkboard-user" style="color: #f59e0b; margin-right: 4px;"></i>
+      <span>Eng. Mohammed Ali</span>
+    </div>
   </div>
-  <div>
-    <button class="btn-print" onclick="window.print()">
-      <i class="fa-solid fa-print"></i> طباعة الملزمة الورقية (A4)
+
+  <div class="tools">
+    <button type="button" class="tool cta-print" onclick="exportDirectPDF()" title="Print A4 Handout / Export PDF">
+      <i class="fa-solid fa-file-arrow-down"></i>
+      <span>Export PDF / Print</span>
     </button>
   </div>
-</div>
+</header>
 
 <div class="doc-container">
 
   <!-- ================= COVER PAGE ================= -->
   <div class="cover-page">
     <div class="cover-header">
-      <div class="uni-title">بوابة المختبرات والمناهج البرمجية التخصصية</div>
-      <div class="faculty-title">قسم علوم الحاسوب وتكنولوجيا المعلومات · مسار تطوير الألعاب</div>
+      <div class="uni-title">Specialized Programming Labs &amp; Curriculum Portal</div>
+      <div class="faculty-title">Department of Computer Science &amp; Information Technology · Game Development Track</div>
     </div>
 
     <div class="cover-body">
-      <span class="cover-badge"><i class="fa-brands fa-unity"></i> مقرر تطوير الألعاب باستخدام Unity</span>
+      <span class="cover-badge"><i class="fa-brands fa-unity"></i> Unity 2D Game Development Curriculum</span>
       <h1 class="cover-main-title">
-        الدرس العملي 01: إنشاء Tilemap ورسم العالم<br>
-        باستخدام Rule Tile ومقدمة في Animation
+        Practical Lab 01: Creating a 2D Tilemap, Level Design<br>
+        with Rule Tiles &amp; Introduction to Sprite Animation
       </h1>
       <p class="cover-subtitle">
-        دليل معملي تطبيقي شامل خطوة بخطوة؛ لبناء البيئات ثنائية الأبعاد، تنظيم طبقات المشهد، إعداد قواعد اتصال الجوار التلقائي، تفعيل مصادمات الفيزياء، وبرمجة إطارات الحركة.
+        A comprehensive, step-by-step laboratory guide to building 2D game worlds, organizing multi-layer hierarchies, configuring automated 8-neighbor Rule Tiles, setting up composite physics colliders, and authoring keyframe sprite animations.
       </p>
+
+      <!-- Table of Contents Breakdown -->
+      <div class="cover-toc-box">
+        <div class="cover-toc-title">
+          <i class="fa-solid fa-list-check"></i> Lab Modules &amp; Experimental Outline:
+        </div>
+        <div class="cover-toc-grid">
+          <div>1. Objectives &amp; Outcomes</div>
+          <div>2. Technical Setup &amp; PPU</div>
+          <div>3. Grid vs. Tilemap vs. Tile</div>
+          <div>4. Import &amp; Pixel Art Rules</div>
+          <div>5. Interactive Tile Palette</div>
+          <div>6. Rule Tile 8-Neighbor Matrix</div>
+          <div>7. Composite Physics Colliders</div>
+          <div>8. 2D Sprite Animation Clips</div>
+          <div>9. 18-Pt Rubric &amp; Self-Check</div>
+        </div>
+      </div>
 
       <div class="cover-credits">
         <div class="credit-col">
-          <h5>إعداد ومحتوى المختبر:</h5>
-          <p><i class="fa-solid fa-chalkboard-user"></i> م. محمد علي</p>
+          <h5>Course Instructor &amp; Author:</h5>
+          <p><i class="fa-solid fa-chalkboard-user"></i> Eng. Mohammed Ali</p>
         </div>
         <div class="credit-col">
-          <h5>تصميم وإخراج الواجهة الأكاديمية:</h5>
-          <p><i class="fa-solid fa-code"></i> م. عبدالحميد هلال دعبان</p>
+          <h5>Official Academic Website:</h5>
+          <p><i class="fa-solid fa-globe"></i> Programming Labs Portal</p>
         </div>
       </div>
     </div>
 
     <div class="cover-footer">
-      العام الجامعي 2026-2027م · وثيقة معتمدة للمختبرات والتطبيقات العملية
+      Programming Lectures &amp; Interactive Labs Portal (University of Aden) · Academic Year 2026–2027 · All Website, Design &amp; Academic Rights Reserved ©
     </div>
   </div>
 
   <!-- ================= SECTION 1 ================= -->
-  <h2 class="sec-heading">1. أهداف الدرس ومخرجات التعلم</h2>
-  <p>بنهاية هذا التطبيق العملي، يُفترض أن يكون الطالب قادراً على تحقيق المخرجات التالية بكفاءة:</p>
+  <h2 class="sec-heading">1. Lab Objectives &amp; Learning Outcomes</h2>
+  <p>By the end of this hands-on laboratory session, students will be able to:</p>
   <ul>
-    <li>شرح الفرق المفاهيمي بين <b>Grid</b>، و <b>Tilemap</b>، و <b>Tile</b>.</li>
-    <li>استيراد حزم الـ Sprites وتجهيزها في Sprite Editor وضبط PPU وفلاتر الـ Pixel Art.</li>
-    <li>إنشاء لوحة Tile Palette واستخدام أدوات الرسم (Paint, Erase, Box Fill, Pick).</li>
-    <li>فهم وإعداد <b>Rule Tile</b> لربط الحواف والزوايا تلقائياً بالاعتماد على مصفوفة الجوار الـ 8.</li>
-    <li>تفعيل التصادم الفيزيائي المدمج عبر <code>Tilemap Collider 2D</code> و <code>Composite Collider 2D</code>.</li>
-    <li>إنشاء كليب حركة (Animation Clip) من إطارات متتابعة وضبط سرعة الإطارات (Samples) والتكرار (Loop).</li>
+    <li>Explain the architectural distinction between <b>Grid</b>, <b>Tilemap</b>, and <b>Tile</b> assets in the Unity engine.</li>
+    <li>Import 2D Sprite Sheets, configure Pixels Per Unit (PPU), apply Point (no filter), and slice uniform sprites in the Sprite Editor.</li>
+    <li>Create a <b>Tile Palette</b> and build 2D levels using Paint, Erase, Box Fill, and Pick tools.</li>
+    <li>Configure automated <b>Rule Tiles</b> that select edges and corners dynamically based on the 8-neighbor adjacency matrix.</li>
+    <li>Enable optimized 2D physics collisions using <code>Tilemap Collider 2D</code> combined with <code>Composite Collider 2D</code>.</li>
+    <li>Create an <b>Animation Clip</b> from sequential sprite frames and tune playback frame rate (Samples / FPS) and looping.</li>
   </ul>
 
   <!-- ================= SECTION 2 ================= -->
-  <h2 class="sec-heading">2. التحضير الفني ومتطلبات المعمل</h2>
+  <h2 class="sec-heading">2. Technical Prerequisites &amp; Lab Setup</h2>
   <div class="callout-box">
-    <b>المتطلبات التقنية:</b>
-    <ul style="margin-right:20px;margin-top:6px;">
-      <li>محرك Unity مع باقات الـ 2D مثبّتة مسبقاً.</li>
-      <li>حزمة <b>2D Tilemap Extras</b> من خلال Unity Package Manager لتفعيل ميزة Rule Tile.</li>
-      <li>مجلد أصول منظم يحوي: <code>Art/Tiles/</code> للخرائط، <code>Characters/</code> للشخصيات، و <code>Animations/</code> لحفظ الكليبات.</li>
+    <b>Required Environment &amp; Packages:</b>
+    <ul style="margin-top:6px;margin-bottom:0;">
+      <li>Unity Editor (2022.3 LTS or 2023 LTS) with 2D feature set.</li>
+      <li><b>2D Tilemap Extras</b> package installed via Unity Package Manager (enables <code>Rule Tile</code> creation).</li>
+      <li>Standard project directory architecture: <code>Assets/Art/Tiles/</code>, <code>Assets/Characters/</code>, and <code>Assets/Animations/</code>.</li>
     </ul>
   </div>
 
   <!-- ================= SECTION 3 ================= -->
-  <h2 class="sec-heading">3. المفاهيم الأساسية: Grid و Tilemap و Tile</h2>
+  <h2 class="sec-heading">3. The Conceptual Triad: Grid vs. Tilemap vs. Tile</h2>
   <table class="box-section">
     <thead>
       <tr>
-        <th>المفهوم</th>
-        <th>الوظيفة في المحرك</th>
-        <th>التشبيه الواقعي</th>
+        <th style="width:20%;">Component</th>
+        <th style="width:50%;">Engine Role in Unity</th>
+        <th style="width:30%;">Real-World Analogy</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><b>Grid</b></td>
-        <td>الكائن الأب الحاوي الذي يحدد مقاسات وأبعاد خلايا الشبكة.</td>
-        <td>دفتر المربعات الهندسي.</td>
+        <td>The parent container GameObject that defines cell dimensions, orientation, and coordinate snapping.</td>
+        <td>Graph paper notebook grid lines.</td>
       </tr>
       <tr>
         <td><b>Tilemap</b></td>
-        <td>الطبقة التابعة لـ Grid التي نرسم عليها القطع ونضبط عليها التصادمات.</td>
-        <td>الورقة الشفافة التي نرسم عليها.</td>
+        <td>Child layer under Grid where tiles are painted and colliders are attached. Supports independent sorting layers.</td>
+        <td>Transparent drawing acetate layer.</td>
       </tr>
       <tr>
         <td><b>Tile</b></td>
-        <td>القطعة الرسومية الفردية المشتقة من Sprite والموضوعة داخل خلية.</td>
-        <td>الختم أو الرسمة داخل المربع الواحد.</td>
+        <td>Individual visual data asset derived from a Sprite slice that gets stamped into specific coordinates.</td>
+        <td>An ink stamp placed inside one cell.</td>
       </tr>
     </tbody>
   </table>
 
+  <div class="callout-box teacher">
+    <b>Instructor Guidance (Eng. Mohammed Ali):</b><br>
+    "Never paint all game elements onto a single Tilemap! Separate solid ground into <code>Ground_Tilemap</code>, plants and props into <code>Decoration_Tilemap</code>, and sky/mountains into <code>Background_Tilemap</code>. This separation is essential for configuring Sorting Layers and preventing physics collision conflicts."
+  </div>
+
   <!-- ================= SECTION 4 ================= -->
-  <h2 class="sec-heading">4. هيكلة المشهد وضبط إعدادات الصور</h2>
-  <p>يتم تنظيم المشهد داخل نافذة Hierarchy في طبقات مستقلة:</p>
-  <pre style="background:#f1f5f9;padding:12px;border-radius:6px;font-family:var(--font-mono);direction:ltr;font-size:12px;margin-bottom:14px;">
-Grid
-├── Ground_Tilemap        (الأرضيات الصلبة المصادمة)
-├── Decoration_Tilemap    (الأعشاب والصخور التجميلية)
-└── Background_Tilemap    (السماء والجبال البعيدة)
+  <h2 class="sec-heading">4. Scene Hierarchy &amp; Sprite Import Settings</h2>
+  <p>Organize your scene inside the Hierarchy window using dedicated sorting layers:</p>
+  <pre style="background:#f1f5f9;padding:10px 14px;border-radius:6px;font-family:var(--font-mono);direction:ltr;font-size:11.5px;margin-bottom:12px;border:1px solid #cbd5e1;">
+Grid (Parent Container)
+├── Ground_Tilemap        [Sorting Layer: Default | Order: 0 | Tilemap + Composite Collider 2D]
+├── Decoration_Tilemap    [Sorting Layer: Default | Order: 1 | No Collider (Visual Props)]
+└── Background_Tilemap    [Sorting Layer: Background | Order: 0 | No Collider (Distant Scenery)]
   </pre>
 
-  <h3 class="sub-heading">جدول إعدادات استيراد صور الـ Sprites:</h3>
+  <h3 class="sub-heading">Standard Sprite Sheet Import Settings:</h3>
   <table>
     <thead>
       <tr>
-        <th>الخاصية</th>
-        <th>القيمة المعتمدة</th>
-        <th>السبب الهندسي</th>
+        <th>Inspector Property</th>
+        <th>Recommended Value</th>
+        <th>Practical Effect &amp; Engineering Reason</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Texture Type</td>
+        <td><b>Texture Type</b></td>
         <td><code>Sprite (2D and UI)</code></td>
-        <td>لتحويل الخامة إلى كائن 2D مدعوم.</td>
+        <td>Converts raw texture into a 2D renderable sprite asset.</td>
       </tr>
       <tr>
-        <td>Sprite Mode</td>
+        <td><b>Sprite Mode</b></td>
         <td><code>Multiple</code></td>
-        <td>إذا كانت الصورة تضم عدة قطع تحتاج للتقطيع (Slice).</td>
+        <td>Required when an atlas image contains multiple tiles/frames to slice.</td>
       </tr>
       <tr>
-        <td>Pixels Per Unit</td>
-        <td>16 أو 32 (موحدة)</td>
-        <td>توحيد مقياس الرسم لجميع القطع دون تشويه.</td>
+        <td><b>Pixels Per Unit (PPU)</b></td>
+        <td><code>16</code> or <code>32</code> (Unified)</td>
+        <td>How many image pixels fit into 1 Unity world unit. Keeping PPU unified ensures tiles align seamlessly.</td>
       </tr>
       <tr>
-        <td>Filter Mode</td>
+        <td><b>Filter Mode</b></td>
         <td><code>Point (no filter)</code></td>
-        <td>الحفاظ على حدة حواف البكسل في رسوم Pixel Art.</td>
+        <td>Crucial for Pixel Art assets to eliminate bilinear blur and keep pixel edges razor-sharp.</td>
       </tr>
       <tr>
-        <td>Compression</td>
+        <td><b>Compression</b></td>
         <td><code>None</code></td>
-        <td>منع تلطيخ ألوان البيكسل الدقيقة.</td>
+        <td>Disables lossy compression to prevent color bleeding on pixel boundaries.</td>
       </tr>
     </tbody>
   </table>
 
-  <!-- Generated Assets Strip for Lab Printout -->
-  <div style="display:flex;justify-content:space-around;background:#fefce8;border:1px solid #fcd34d;border-radius:8px;padding:12px;margin:16px 0;text-align:center;">
+  <!-- Visual Asset Showcase -->
+  <div style="display:flex;justify-content:space-around;background:#fffbeb;border:1.5px solid #fcd34d;border-radius:8px;padding:12px;margin:14px 0;text-align:center;">
     <div>
-      <img src="assets/grass_tile.jpg" alt="Grass Tile" style="width:70px;height:70px;object-fit:cover;border-radius:6px;border:1.5px solid #22c55e;">
-      <div style="font-size:11px;font-weight:800;margin-top:4px;">عشب (Grass)</div>
+      <img src="assets/grass_tile.jpg" alt="Grass Tile" style="width:68px;height:68px;object-fit:cover;border-radius:6px;border:2px solid #22c55e;">
+      <div style="font-size:11px;font-weight:800;margin-top:4px;">Grass Tile</div>
+      <div style="font-size:9.5px;color:#64748b;font-family:var(--font-mono);">grass_tile.jpg · PPU: 16</div>
     </div>
     <div>
-      <img src="assets/dirt_tile.jpg" alt="Dirt Tile" style="width:70px;height:70px;object-fit:cover;border-radius:6px;border:1.5px solid #92400e;">
-      <div style="font-size:11px;font-weight:800;margin-top:4px;">تراب (Dirt)</div>
+      <img src="assets/dirt_tile.jpg" alt="Dirt Tile" style="width:68px;height:68px;object-fit:cover;border-radius:6px;border:2px solid #92400e;">
+      <div style="font-size:11px;font-weight:800;margin-top:4px;">Dirt Tile</div>
+      <div style="font-size:9.5px;color:#64748b;font-family:var(--font-mono);">dirt_tile.jpg · PPU: 16</div>
     </div>
     <div>
-      <img src="assets/stone_tile.jpg" alt="Stone Tile" style="width:70px;height:70px;object-fit:cover;border-radius:6px;border:1.5px solid #64748b;">
-      <div style="font-size:11px;font-weight:800;margin-top:4px;">صخر (Stone)</div>
+      <img src="assets/stone_tile.jpg" alt="Stone Tile" style="width:68px;height:68px;object-fit:cover;border-radius:6px;border:2px solid #64748b;">
+      <div style="font-size:11px;font-weight:800;margin-top:4px;">Stone Tile</div>
+      <div style="font-size:9.5px;color:#64748b;font-family:var(--font-mono);">stone_tile.jpg · PPU: 16</div>
     </div>
+  </div>
+
+  <div class="callout-box tip">
+    <i class="fa-solid fa-lightbulb"></i> <b>Pro Tip for Sprite Slicing:</b><br>
+    Inside the Sprite Editor, select <code>Grid By Cell Size</code>, enter cell dimensions (e.g., 16×16 or 32×32), click <b>Slice</b>, and finish with <b>Apply</b>.
   </div>
 
   <!-- ================= SECTION 5 ================= -->
-  <h2 class="sec-heading">5. مفهوم وإعداد الـ Rule Tile</h2>
-  <p>
-    بدلاً من وضع كل قطعة وزاوية يدوياً، تتيح <b>Rule Tile</b> فحص الجيران الثمانية وتطبيق الشروط:
-  </p>
-  <ul>
-    <li><b>This (<i class="fa-solid fa-check" style="color:#15803d;"></i>):</b> يجب أن يكون الجار من نفس نوع الـ Tile.</li>
-    <li><b>Not This (<i class="fa-solid fa-xmark" style="color:#b91c1c;"></i>):</b> يجب ألا يكون الجار من هذا النوع (فراغ أو سطح آخر).</li>
-    <li><b>Don't Care (<i class="fa-solid fa-minus" style="color:#64748b;"></i>):</b> لا يهم محتوى هذا الاتجاه.</li>
-  </ul>
-
-  <div class="callout-box tip">
-    <b>مصفوفة اتجاهات الجوار الـ 8:</b><br>
-    <code>NW (أعلى-يسار) · N (أعلى) · NE (أعلى-يمين)</code><br>
-    <code>W (يسار) · [X: الخلية الحالية] · E (يمين)</code><br>
-    <code>SW (أسفل-يسار) · S (أسفل) · SE (أسفل-يمين)</code>
+  <h2 class="sec-heading">5. Interactive Tile Palette &amp; World Painter Simulator</h2>
+  <div class="interactive-replica-card">
+    <div class="replica-header">
+      <div class="replica-title">
+        <i class="fa-solid fa-paint-brush"></i> Tile Palette Tools &amp; Drawing Controls
+      </div>
+      <span class="replica-badge">Active Layer: Ground_Tilemap</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;text-align:center;font-size:11.5px;font-weight:700;">
+      <div style="border:1px solid #cbd5e1;padding:8px;border-radius:6px;background:#f8fafc;">
+        <i class="fa-solid fa-paint-brush" style="color:#ea580c;"></i><br>Paint Brush (B)
+      </div>
+      <div style="border:1px solid #cbd5e1;padding:8px;border-radius:6px;background:#f8fafc;">
+        <i class="fa-solid fa-vector-square" style="color:#ea580c;"></i><br>Box Fill (U)
+      </div>
+      <div style="border:1px solid #cbd5e1;padding:8px;border-radius:6px;background:#f8fafc;">
+        <i class="fa-solid fa-eraser" style="color:#ea580c;"></i><br>Eraser (D)
+      </div>
+      <div style="border:1px solid #cbd5e1;padding:8px;border-radius:6px;background:#f8fafc;">
+        <i class="fa-solid fa-eye-dropper" style="color:#ea580c;"></i><br>Picker Tool (I)
+      </div>
+    </div>
   </div>
 
   <!-- ================= SECTION 6 ================= -->
-  <h2 class="sec-heading">6. التصادمات الفيزيائية (Physics 2D)</h2>
-  <p>لتحويل الأرضيات من مجرد رسومات إلى سطح مادي صلب يقف عليه اللاعب:</p>
-  <ol style="margin-right:20px;line-height:1.9;">
-    <li>أضف <code>Tilemap Collider 2D</code> إلى كائن <code>Ground_Tilemap</code>.</li>
-    <li>أضف <code>Composite Collider 2D</code> لدمج الحواف المتجاورة وتجنب تعثر أقدام اللاعب.</li>
-    <li>تأكد من جعل نوع <b>Body Type</b> في <code>Rigidbody 2D</code> على <b>Static</b> حتى لا تسقط الأرضية بالجاذبية!</li>
-    <li>فعّل خيار <code>Used By Composite</code> في مكوّن Tilemap Collider 2D.</li>
-  </ol>
+  <h2 class="sec-heading">6. Rule Tile Architecture &amp; 8-Neighbor Inspection Matrix</h2>
+  <p>
+    Instead of manually picking top, corner, and interior tiles while painting, a <b>Rule Tile</b> inspects its 8 surrounding neighbors and automatically places the matching sprite:
+  </p>
+
+  <div class="interactive-replica-card">
+    <div class="replica-header">
+      <div class="replica-title">
+        <i class="fa-solid fa-compass"></i> 3×3 Neighbor Inspection Matrix (Top-Edge Rule Example)
+      </div>
+      <span class="replica-badge">Condition Matcher Engine</span>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-around;gap:20px;flex-wrap:wrap;">
+      <!-- Matrix Replica -->
+      <div class="matrix-3x3-replica">
+        <div class="matrix-cell-rep dont-care">NW<br><small>Ignore</small></div>
+        <div class="matrix-cell-rep not-this">N<br><small>Not This ✗</small></div>
+        <div class="matrix-cell-rep dont-care">NE<br><small>Ignore</small></div>
+
+        <div class="matrix-cell-rep this">W<br><small>This ✓</small></div>
+        <div class="matrix-cell-rep center-cell">X<br><small>Target Tile</small></div>
+        <div class="matrix-cell-rep this">E<br><small>This ✓</small></div>
+
+        <div class="matrix-cell-rep dont-care">SW<br><small>Ignore</small></div>
+        <div class="matrix-cell-rep this">S<br><small>This ✓</small></div>
+        <div class="matrix-cell-rep dont-care">SE<br><small>Ignore</small></div>
+      </div>
+
+      <!-- Result Box Replica -->
+      <div style="border:1px solid #cbd5e1;border-radius:8px;padding:12px 18px;text-align:center;background:#f8fafc;min-width:240px;">
+        <div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;">Selected Output Sprite</div>
+        <div style="margin:8px auto;width:60px;height:60px;border:2.5px solid #ea580c;border-radius:8px;background:url('assets/grass_tile.jpg') center/cover;border-top:4px solid #22c55e;"></div>
+        <div style="font-size:13px;font-weight:900;color:#c2410c;">Top Edge Grass Tile</div>
+        <div style="font-size:10.5px;color:#64748b;margin-top:2px;">Top is empty (Not This); Left, Right &amp; Bottom connected.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout-box teacher">
+    <b>Golden Rule (Eng. Mohammed Ali):</b><br>
+    "Rule Tile is a top-to-bottom condition matcher. If two rules conflict, Unity executes whichever rule sits higher in the Inspector list—so always place specific corner and edge rules at the top, and general fill rules at the bottom!"
+  </div>
 
   <!-- ================= SECTION 7 ================= -->
-  <h2 class="sec-heading">7. صناعة حركة الـ 2D Animation</h2>
-  <table class="box-section">
-    <thead>
-      <tr>
-        <th>المصطلح</th>
-        <th>المعنى والتأثير</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><b>Frame</b></td>
-        <td>صورة مفردة تمثل وضعية الشخصية في جزء من الثانية.</td>
-      </tr>
-      <tr>
-        <td><b>Animation Clip</b></td>
-        <td>الملف الحاوي لتسلسل الإطارات ومنحنى التوقيت.</td>
-      </tr>
-      <tr>
-        <td><b>Samples</b></td>
-        <td>عدد الإطارات في الثانية (FPS)؛ زيادتها تسرّع الحركة ونقصانها يبطئها.</td>
-      </tr>
-      <tr>
-        <td><b>Loop Time</b></td>
-        <td>خاصية تكرار تشغيل الحركة باستمرار دون توقف.</td>
-      </tr>
-    </tbody>
-  </table>
+  <h2 class="sec-heading">7. 2D Physics Collisions: Internal Seams vs. Composite Collider</h2>
+  <p>To turn visual ground tiles into a solid physical surface that characters can walk and jump on smoothly:</p>
+
+  <div class="physics-compare-box">
+    <div class="phys-mode-card seams">
+      <div class="phys-mode-title" style="color:#b91c1c;">
+        <i class="fa-solid fa-triangle-exclamation"></i> 1. Without Composite (Tilemap Collider Only)
+      </div>
+      <p style="font-size:11.5px;color:#7f1d1d;line-height:1.6;margin:0;">
+        Each tile has its own separate Box Collider. As the player character moves rapidly, physics solvers can snag on internal vertical seams, causing stuttering and false stops.
+      </p>
+    </div>
+    <div class="phys-mode-card composite">
+      <div class="phys-mode-title" style="color:#15803d;">
+        <i class="fa-solid fa-circle-check"></i> 2. With Composite Collider 2D (Merged)
+      </div>
+      <p style="font-size:11.5px;color:#064e3b;line-height:1.6;margin:0;">
+        All adjacent cell colliders are merged into one continuous polygon outline. Zero internal seams, perfectly smooth character locomotion, and reduced physics overhead.
+      </p>
+    </div>
+  </div>
+
+  <ol style="line-height:1.8;font-size:12.5px;">
+    <li>Attach <code>Tilemap Collider 2D</code> to <code>Ground_Tilemap</code>.</li>
+    <li>Add a <code>Composite Collider 2D</code> component (which automatically adds a <code>Rigidbody 2D</code>).</li>
+    <li>Set <code>Rigidbody 2D</code> <b>Body Type</b> to <b>Static</b> so the ground remains fixed in space.</li>
+    <li>Check <code>Used By Composite</code> on the <code>Tilemap Collider 2D</code>.</li>
+  </ol>
 
   <!-- ================= SECTION 8 ================= -->
-  <h2 class="sec-heading">8. المهمة العملية ومعايير التقييم (18 درجة)</h2>
+  <h2 class="sec-heading">8. 2D Sprite Animation &amp; Unity Dope Sheet Timeline</h2>
+  <div class="interactive-replica-card">
+    <div class="replica-header">
+      <div class="replica-title">
+        <i class="fa-solid fa-film"></i> Unity Animation Window &amp; Dope Sheet Timeline
+      </div>
+      <span class="replica-badge">Property: SpriteRenderer.Sprite</span>
+    </div>
+
+    <!-- Timeline Playhead Bar -->
+    <div class="timeline-bar-rep">
+      <div><i class="fa-brands fa-unity" style="color:#f59e0b;"></i> Hero_Walk.anim</div>
+      <div style="color:#fcd34d;">0:00 (0.00s) · Keyframe F1</div>
+    </div>
+
+    <!-- Sliced Sprite Strip Replica -->
+    <div class="anim-strip-rep">
+      <div class="anim-frame-pill active">Frame 1<br><small>Contact</small></div>
+      <div class="anim-frame-pill">Frame 2<br><small>Recoil</small></div>
+      <div class="anim-frame-pill">Frame 3<br><small>Passing</small></div>
+      <div class="anim-frame-pill">Frame 4<br><small>High Point</small></div>
+      <div class="anim-frame-pill">Frame 5<br><small>Contact</small></div>
+      <div class="anim-frame-pill">Frame 6<br><small>Passing</small></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;margin-top:10px;font-size:11.5px;">
+      <div style="border:1px solid #e2e8f0;padding:8px;border-radius:6px;background:#f8fafc;">
+        <b>Samples / FPS:</b> 8 FPS (Standard)
+      </div>
+      <div style="border:1px solid #e2e8f0;padding:8px;border-radius:6px;background:#f8fafc;">
+        <b>Loop Time:</b> Checked (Infinite Loop)
+      </div>
+      <div style="border:1px solid #e2e8f0;padding:8px;border-radius:6px;background:#f8fafc;">
+        <b>Controller:</b> Player_Animator.controller
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SECTION 9 ================= -->
+  <h2 class="sec-heading">9. Practical Lab Assignment &amp; Grading Rubric (18 Points)</h2>
   <table class="rubric-table">
     <thead>
       <tr>
-        <th>المعيار المطلوب تنفيذه في المشروع</th>
-        <th style="width:18%;text-align:center;">الدرجة المستحقة</th>
+        <th style="width:78%;">Required Practical Deliverable</th>
+        <th style="width:22%;text-align:center;">Score Weight</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>إنشاء كائن Grid وتنظيم الـ Tilemaps في طبقات (Ground, Decoration, Background)</td>
-        <td style="text-align:center;font-weight:800;">2</td>
+        <td>1. Create Grid parent and organize separate Tilemaps (Ground, Decoration, Background)</td>
+        <td style="text-align:center;font-weight:800;">2 Pts</td>
       </tr>
       <tr>
-        <td>استيراد الصور وضبط PPU وفلتر Point وتقطيع الـ Sprite Sheet بنجاح</td>
-        <td style="text-align:center;font-weight:800;">2</td>
+        <td>2. Import Sprites, configure unified PPU (16/32), Point (no filter), and slice Sprite Sheet cleanly</td>
+        <td style="text-align:center;font-weight:800;">2 Pts</td>
       </tr>
       <tr>
-        <td>استخدام Tile Palette وأدوات الرسم وتصميم منصات وأرضيات متناسقة</td>
-        <td style="text-align:center;font-weight:800;">3</td>
+        <td>3. Create Tile Palette and paint a cohesive multi-platform 2D world using Paint, Box Fill &amp; Erase</td>
+        <td style="text-align:center;font-weight:800;">3 Pts</td>
       </tr>
       <tr>
-        <td>إنشاء Rule Tile وبرمجة قواعد الجوار للحواف والزوايا بنجاح</td>
-        <td style="text-align:center;font-weight:800;">4</td>
+        <td>4. Create Rule Tile asset and configure neighbor adjacency rules for edges, corners, and inner ground</td>
+        <td style="text-align:center;font-weight:800;">4 Pts</td>
       </tr>
       <tr>
-        <td>تفعيل Tilemap Collider و Composite واختبار استقرار اللاعب عليه</td>
-        <td style="text-align:center;font-weight:800;">2</td>
+        <td>5. Configure Tilemap Collider 2D + Composite Collider 2D (Static Rigidbody 2D) and test collision</td>
+        <td style="text-align:center;font-weight:800;">2 Pts</td>
       </tr>
       <tr>
-        <td>إنشاء Animation Clip لشخصية أو عنصر وتفعيل التكرار وضبط السرعة</td>
-        <td style="text-align:center;font-weight:800;">4</td>
+        <td>6. Create a 2D Sprite Animation Clip, tune Samples (8-12 FPS), and enable continuous Loop Time</td>
+        <td style="text-align:center;font-weight:800;">4 Pts</td>
       </tr>
       <tr>
-        <td>تنظيم المشروع وحفظ المشهد باسم <code>Tilemap_Animation_Task</code></td>
-        <td style="text-align:center;font-weight:800;">1</td>
+        <td>7. Organize project directory structure and save scene as <code>Tilemap_Animation_Task</code></td>
+        <td style="text-align:center;font-weight:800;">1 Pt</td>
       </tr>
       <tr style="background:#eff6ff;font-weight:900;">
-        <td>المجموع الكلي</td>
-        <td style="text-align:center;color:var(--primary);font-size:15px;">18 درجة</td>
+        <td>Total Lab Grade</td>
+        <td style="text-align:center;color:var(--primary);font-size:14px;">18 Points Total</td>
       </tr>
     </tbody>
   </table>
 
-  <!-- ================= SECTION 9 ================= -->
-  <h2 class="sec-heading">9. جدول المشكلات الشائعة والحلول الفورية</h2>
-  <table>
-    <thead>
-      <tr>
-        <th style="width:28%;">العَرَض أو المشكلة</th>
-        <th style="width:32%;">السبب الشائع</th>
-        <th style="width:40%;">الإجراء التصحيحي الفوري</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>الصور غير قابلة للتقطيع</td>
-        <td>Sprite Mode مضبوط على Single</td>
-        <td>حوّله إلى Multiple ثم افتح Sprite Editor واضغط Slice.</td>
-      </tr>
-      <tr>
-        <td>القطع باهتة وضبابية</td>
-        <td>فلتر التنعيم مفعّل</td>
-        <td>غيّر Filter Mode إلى <code>Point (no filter)</code> و Compression إلى None.</td>
-      </tr>
-      <tr>
-        <td>سقوط اللاعب عبر الأرض</td>
-        <td>غياب المصادم أو حركة الأرض</td>
-        <td>أضف Tilemap Collider 2D واجعل Rigidbody 2D على <b>Static</b>.</td>
-      </tr>
-      <tr>
-        <td>الأنيميشن يتوقف بعد لفة واحدة</td>
-        <td>Loop Time غير مفعّل</td>
-        <td>حدّد ملف الـ Clip في Project وفعّل خيار <b>Loop Time</b>.</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- ================= SECTION 10 ================= -->
+  <h2 class="sec-heading">10. Quick Verification Flashcards &amp; Self-Check</h2>
+  <div class="flashcards-grid-rep">
+    <div class="flashcard-box-rep">
+      <div class="flashcard-q">Q1: Sprite vs. Tile?</div>
+      <div class="flashcard-a">
+        <b>Model Answer:</b> A <code>Sprite</code> is the raw graphic slice texture. A <code>Tile</code> is the Unity data asset wrapping that sprite with collider rules for grid stamping.
+      </div>
+    </div>
+    <div class="flashcard-box-rep">
+      <div class="flashcard-q">Q2: Why Rule Tile?</div>
+      <div class="flashcard-a">
+        <b>Model Answer:</b> Automates selecting the correct edge, corner, or inner tile based on inspecting neighboring cells without tedious manual placement.
+      </div>
+    </div>
+    <div class="flashcard-box-rep">
+      <div class="flashcard-q">Q3: Why Composite Collider?</div>
+      <div class="flashcard-a">
+        <b>Model Answer:</b> Merges individual cell colliders into one continuous polygon outline, completely eliminating internal edge snagging.
+      </div>
+    </div>
+  </div>
 
   <!-- Document Footer -->
-  <div style="margin-top:40px;border-top:1px solid var(--border);padding-top:16px;text-align:center;font-size:11.5px;color:var(--text-muted);">
-    <b>بوابة المناهج والمختبرات البرمجية</b> · مقرر تطوير الألعاب باستخدام Unity<br>
-    إعداد ومحتوى المختبر: <b>م. محمد علي</b> · تصميم وإخراج وبرمجة المنصة: <b>م. عبدالحميد هلال دعبان</b> · العام الجامعي 2026-2027م
+  <div style="margin-top:36px;border-top:1.5px solid var(--border);padding-top:14px;text-align:center;font-size:11.5px;color:var(--text-muted);">
+    <b>Specialized Programming Labs &amp; Curriculum Portal</b> · Department of Computer Science (University of Aden)<br>
+    Course Instructor: <b>Eng. Mohammed Ali</b> · Academic Year 2026–2027
   </div>
 
 </div>
 
+<script>
+const ACADEMIC_PDF_FILENAME = "Unity 2D Lab Handout - Tilemap, Rule Tile and Animation - Eng. Mohammed Ali";
+
+function exportDirectPDF() {
+  document.title = ACADEMIC_PDF_FILENAME;
+  window.print();
+}
+
+window.addEventListener('beforeprint', () => {
+  document.title = ACADEMIC_PDF_FILENAME;
+});
+</script>
 </body>
 </html>

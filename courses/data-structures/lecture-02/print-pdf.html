@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Eng. Abdulhamid Helal Daban">
+<meta name="description" content="Data Structures & Algorithms in Java: Two-Dimensional Arrays & Matrices - Prepared by Eng. Abdulhamid Helal Daban">
+<meta name="academic-year" content="2026-2027">
+<title>2D Arrays & Matrices in Java | Memory Architecture, Grid Algorithms & Complexity - Eng. Abdulhamid Helal Daban</title>
+<link rel="icon" type="image/jpeg" href="../../../assets/abdalhmmed.jfif">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #f8fafc;
+  --paper: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --line-light: #f1f5f9;
+  --bg-soft: #f8fafc;
+  --brand: #1e3a8a;
+  --brand-dark: #0b1329;
+  --brand-light: #eff6ff;
+  --brand-soft: #eff6ff;
+  --accent: #d97706;
+  --accent-light: #fffbeb;
+  --accent-soft: #fffbeb;
+  --ok: #059669;
+  --ok-light: #ecfdf5;
+  --ok-soft: #ecfdf5;
+  --bad: #ef4444;
+  --bad-light: #fef2f2;
+  --bad-soft: #fef2f2;
+  --code-bg: #0b0f19;
+  --code-ink: #f1f5f9;
+  --radius: 16px;
+  --shadow: 0 10px 25px -5px rgba(15,23,42,.07);
+}
+
+* { box-sizing: border-box; }
+html { font-size: 14px; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.75;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+code, .mono {
+  font-family: 'Fira Code', Consolas, monospace;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* Screen Topbar (Exact match to Interactive Lecture Navigation) */
+.topbar {
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  padding: 12px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.topbar-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.topbar-author-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(30, 58, 138, 0.25);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #93c5fd;
+}
+.topbar-author-badge img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #3b82f6;
+  flex-shrink: 0;
+}
+.tools {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.tool {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 6px 14px;
+  font: 700 13px 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.tool:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  color: #fff;
+}
+.tool.cta-print {
+  background: #059669;
+  border-color: #10b981;
+  color: #fff;
+}
+.tool.cta-print:hover {
+  background: #047857;
+  border-color: #059669;
+}
+
+/* Document Container */
+.doc-container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #fff;
+  box-shadow: 0 10px 35px rgba(15,23,42,0.1);
+  border-radius: 12px;
+  padding: 50px 60px;
+}
+
+/* Cover Page */
+.cover-page {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 60px 48px;
+  margin-bottom: 50px;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  position: relative;
+  page-break-after: always;
+  break-after: page;
+  box-shadow: var(--shadow);
+}
+.cover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 16px;
+  margin-bottom: 40px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.cover-header > span:first-child {
+  color: var(--brand);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.cover-header > span:last-child {
+  text-align: right;
+}
+.cover-title {
+  font-size: 33px;
+  font-weight: 900;
+  color: var(--brand-dark);
+  line-height: 1.3;
+  margin: 14px 0 16px;
+}
+.cover-subtitle {
+  font-size: 17.5px;
+  color: var(--muted);
+  font-weight: 700;
+  margin: 0 0 28px;
+  line-height: 1.55;
+}
+.cover-divider {
+  width: 90px;
+  height: 5px;
+  background: var(--brand);
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+.cover-desc {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--ink);
+  max-width: 740px;
+  margin-bottom: 40px;
+}
+.cover-meta {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  font-size: 13px;
+}
+.cover-meta div strong {
+  display: block;
+  color: var(--brand);
+  margin-bottom: 4px;
+}
+
+/* Table of Contents */
+.toc-box {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px 30px;
+  margin: 30px 0 50px;
+  page-break-after: always;
+  break-after: page;
+}
+.toc-box h3 {
+  margin: 0 0 18px;
+  font-size: 18px;
+  color: var(--brand-dark);
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 8px;
+}
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 24px;
+}
+.toc-list li {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--line-light);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.toc-list li span.num {
+  color: var(--brand);
+  font-family: 'Fira Code', monospace;
+}
+
+/* Headings */
+h2.sec-heading {
+  font-size: 21px;
+  font-weight: 900;
+  color: var(--brand-dark);
+  border-left: 6px solid var(--brand);
+  padding-left: 14px;
+  margin: 40px 0 18px;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+h3.sub-heading {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--brand);
+  margin: 24px 0 12px;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+h4 {
+  font-size: 14px;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+p {
+  margin: 10px 0 14px;
+  line-height: 1.8;
+}
+
+/* Callout Boxes */
+.card-box {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 18px 0;
+  background: #fff;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.note-box {
+  background: var(--brand-light);
+  border-left: 5px solid var(--brand);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-size: 13.5px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.warn-box {
+  background: var(--accent-light);
+  border-left: 5px solid var(--accent);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-size: 13.5px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.success-box {
+  background: var(--ok-light);
+  border-left: 5px solid var(--ok);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-size: 13.5px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* Grid Layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 16px 0;
+}
+
+/* Badges / Pills */
+.pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 16px;
+  font-size: 11.5px;
+  font-weight: 800;
+  font-family: 'Fira Code', monospace;
+  direction: ltr;
+}
+.pill-ok { background: var(--ok-light); color: var(--ok); border: 1px solid #a7f3d0; }
+.pill-acc { background: var(--accent-light); color: var(--accent); border: 1px solid #fde68a; }
+.pill-bad { background: var(--bad-light); color: var(--bad); border: 1px solid #fecaca; }
+.pill-brand { background: var(--brand-light); color: var(--brand); border: 1px solid #bfdbfe; }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 13px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: middle;
+}
+th {
+  background: var(--bg-soft);
+  font-weight: 800;
+  color: var(--brand-dark);
+}
+
+/* Visual Diagrams (Print-ready) */
+.diagram-stage {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+  background: var(--bg-soft);
+  text-align: center;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.matrix-grid {
+  display: inline-grid;
+  gap: 8px;
+  direction: ltr;
+  margin: 10px auto;
+}
+.m-cell {
+  min-width: 66px;
+  height: 52px;
+  padding: 4px 8px;
+  border: 2px solid var(--brand);
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fira Code', monospace;
+  font-weight: 800;
+  font-size: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.m-cell small {
+  font-size: 9.5px;
+  color: var(--muted);
+  font-weight: 700;
+}
+.m-cell.highlight {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.m-cell.success {
+  background: var(--ok-light);
+  border-color: var(--ok);
+  color: var(--ok);
+}
+.m-cell.brand {
+  background: var(--brand-light);
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+/* Code Listings */
+.code-block {
+  background: var(--code-bg);
+  color: var(--code-ink);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  direction: ltr;
+  text-align: left;
+  font-family: 'Fira Code', Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: hidden;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  border: 1px solid #1e293b;
+}
+.code-block .kw { color: #60a5fa; font-weight: 700; }
+.code-block .cm { color: #94a3b8; font-style: italic; }
+.code-block .str { color: #86efac; }
+.code-block .num { color: #fca5a5; }
+
+/* Operation Card in Print */
+.op-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
+  background: #fff;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.op-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--bg-soft);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  direction: ltr;
+}
+.op-card-title {
+  font-size: 16.5px;
+  font-weight: 900;
+  color: var(--brand-dark);
+}
+
+/* Print Specific Rules */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm 16mm;
+  }
+  body {
+    background: #fff !important;
+    font-size: 11.5pt;
+    color: #000;
+  }
+  .topbar, .action-bar { display: none !important; }
+  .doc-container {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
+  .cover-page {
+    height: 94vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 0;
+    page-break-after: always;
+    break-after: page;
+  }
+  .toc-box, .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+  .code-block {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border: 1px solid #334155 !important;
+    font-size: 8.5pt !important;
+    line-height: 1.5 !important;
+    padding: 10px 14px !important;
+  }
+  .op-card, .card-box, .diagram-stage {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .action-bar {
+    padding: 10px 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .doc-container {
+    padding: 18px 14px;
+    margin: 10px auto;
+  }
+  .cover-page {
+    padding: 24px 16px;
+  }
+  .cover-meta, .toc-list, .grid-2, .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Topbar Navigation (Matching Interactive Lecture Standards) -->
+<header class="topbar">
+  <div class="topbar-nav-group">
+    <a href="../../../index.html" class="tool nav-back-btn" title="Return to Portal Home">
+      <i class="fa-solid fa-house"></i>
+      <span>Portal Home</span>
+    </a>
+
+    <a href="../../../index.html#/courses/data-structures/lecture-02" class="tool nav-interactive-btn" title="Open Interactive Lab Simulator">
+      <i class="fa-solid fa-laptop-code"></i>
+      <span>Interactive Lab</span>
+    </a>
+
+    <div class="topbar-author-badge">
+      <img src="../../../assets/abdalhmmed.jfif" alt="Eng. Abdulhamid Helal Daban">
+      <span>Eng. Abdulhamid Helal Daban</span>
+    </div>
+  </div>
+
+  <div class="tools">
+    <button type="button" class="tool cta-print" onclick="exportDirectPDF()" title="Print A4 Handout / Export PDF">
+      <i class="fa-solid fa-file-arrow-down"></i>
+      <span>Export PDF / Print</span>
+    </button>
+  </div>
+</header>
+
+<div class="doc-container">
+
+  <!-- ================= COVER PAGE ================= -->
+  <div class="cover-page">
+    <div>
+      <div class="cover-header">
+        <span>DATA STRUCTURES &amp; ALGORITHMS LAB (JAVA SE)</span>
+        <span>University of Aden &middot; Academic Year 2026&ndash;2027<br>Lecture 02 Handout</span>
+      </div>
+
+      <div style="margin: 16px 0;">
+        <span class="pill pill-brand" style="font-size:12px; padding:4px 14px;">MODULE 02 &middot; TWO-DIMENSIONAL ARRAYS &amp; MATRICES</span>
+      </div>
+
+      <h1 class="cover-title">Two-Dimensional Arrays &amp; Matrices in Java:<br>Memory Architecture, Grid Traversals &amp; Complexity Analysis</h1>
+      <p class="cover-subtitle">Comprehensive Engineering Reference for Heap Array-of-Arrays Layout, Row-Major Addressing, Jagged Matrices, and 9 Core Grid Algorithms</p>
+      <div class="cover-divider"></div>
+
+      <p class="cover-desc">
+        This academic handout provides a rigorous architectural and algorithmic guide to Two-Dimensional Arrays (<code>int[][]</code>) in Java. It contrasts Java's heap-allocated <b>Array of Arrays</b> reference model against flat <b>Row-Major Contiguous Memory</b>, explores <b>Jagged (Ragged) Arrays</b> and CPU cache locality, and analyzes <b>9 essential 2D matrix operations</b> with step-by-step trace diagrams, clean Java implementations, and mathematical Big-O complexity proofs.
+      </p>
+    </div>
+
+    <div class="cover-meta">
+      <div>
+        <strong>Prepared &amp; Instructed By</strong>
+        Eng. Abdulhamid Helal Daban<br>
+        <span style="color:var(--muted); font-size:12px;">B.Sc. in Computer Science</span>
+      </div>
+      <div>
+        <strong>Target Departments</strong>
+        Computer Science (CS)<br>
+        <span style="color:var(--muted); font-size:12px;">Artificial Intelligence (AI) &middot; Information Systems (IS)</span>
+      </div>
+      <div>
+        <strong>Key Complexity Classes</strong>
+        <code>O(1)</code> &middot; <code>O(N)</code> &middot; <code>O(R+C)</code><br>
+        <span style="color:var(--muted); font-size:12px;"><code>O(R&times;C)</code> &middot; <code>O(N&sup2;)</code></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TABLE OF CONTENTS ================= -->
+  <div class="toc-box">
+    <h3>Table of Contents &mdash; Lecture 02: 2D Arrays &amp; Matrices</h3>
+    <ul class="toc-list">
+      <li><span><span class="num">1.0</span> From 1D Strips to 2D Grids</span> <span class="pill pill-brand">Concept</span></li>
+      <li><span><span class="num">1.1</span> Java Array-of-Arrays vs. Row-Major Memory</span> <span class="pill pill-ok">O(1)</span></li>
+      <li><span><span class="num">2.0</span> 2D Lifecycle &amp; Jagged (Ragged) Arrays</span> <span class="pill pill-brand">Memory</span></li>
+      <li><span><span class="num">2.1</span> Nested Loops &amp; CPU Cache Locality</span> <span class="pill pill-acc">O(R&times;C)</span></li>
+      <li><span><span class="num">3.1</span> Direct Coordinate Access &amp; Update</span> <span class="pill pill-ok">O(1)</span></li>
+      <li><span><span class="num">3.2</span> Row-Wise &amp; Column-Wise Sums</span> <span class="pill pill-acc">O(R&times;C)</span></li>
+      <li><span><span class="num">3.3</span> Find 2D Max &amp; Min with Coordinates</span> <span class="pill pill-acc">O(R&times;C)</span></li>
+      <li><span><span class="num">3.4</span> 2D Linear Search (Unsorted Matrix)</span> <span class="pill pill-acc">O(R&times;C)</span></li>
+      <li><span><span class="num">3.5</span> Staircase Search in Sorted 2D Matrix</span> <span class="pill pill-ok">O(R+C)</span></li>
+      <li><span><span class="num">3.6</span> Primary &amp; Secondary Diagonal Sum</span> <span class="pill pill-ok">O(N)</span></li>
+      <li><span><span class="num">3.7</span> In-Place Square Matrix Transpose</span> <span class="pill pill-acc">O(N&sup2;)</span></li>
+      <li><span><span class="num">3.8</span> Horizontal Matrix Flip (Row Reversal)</span> <span class="pill pill-acc">O(R&times;C)</span></li>
+      <li><span><span class="num">3.9</span> Spiral Order Matrix Traversal</span> <span class="pill pill-acc">O(R&times;C)</span></li>
+      <li><span><span class="num">4.0</span> Standard Java Code Reference &amp; Summary Table</span> <span class="pill pill-brand">Java SE</span></li>
+    </ul>
+  </div>
+
+  <!-- ================= SECTION 1: 2D MATRIX CONCEPT & MEMORY ARCHITECTURE ================= -->
+  <h2 class="sec-heading" style="margin-top:0;">1. Concept of 2D Matrices &amp; Physical Memory Architecture</h2>
+  <p>
+    A one-dimensional array (<code>int[]</code>) models a single linear list of values. However, real-world engineering problems—such as digital images (pixels arranged in rows and columns), student gradebooks across multiple subjects, chessboard states, and mathematical matrices—require organizing data across two orthogonal axes: <b>Rows (<code>r</code>)</b> and <b>Columns (<code>c</code>)</b>.
+  </p>
+
+  <div class="diagram-stage">
+    <div style="font-weight:800; color:var(--brand-dark); margin-bottom:10px;">Logical Representation of a 3&times;4 Matrix <code>m[3][4]</code> (R = 3 Rows, C = 4 Columns)</div>
+    <div class="matrix-grid" style="grid-template-columns: repeat(4, auto);">
+      <div class="m-cell brand">10<small>m[0][0]</small></div>
+      <div class="m-cell">20<small>m[0][1]</small></div>
+      <div class="m-cell">30<small>m[0][2]</small></div>
+      <div class="m-cell">40<small>m[0][3]</small></div>
+      <div class="m-cell">50<small>m[1][0]</small></div>
+      <div class="m-cell highlight">60<small>m[1][1]</small></div>
+      <div class="m-cell">70<small>m[1][2]</small></div>
+      <div class="m-cell">80<small>m[1][3]</small></div>
+      <div class="m-cell">90<small>m[2][0]</small></div>
+      <div class="m-cell">15<small>m[2][1]</small></div>
+      <div class="m-cell">25<small>m[2][2]</small></div>
+      <div class="m-cell success">35<small>m[2][3]</small></div>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">1.1 Two Memory Models: Java "Array of Arrays" vs. Contiguous Row-Major Order</h3>
+  <p>
+    Physical RAM is strictly one-dimensional—a flat sequence of byte addresses. Programming languages map a 2D logical grid onto 1D physical RAM using one of two architectural models:
+  </p>
+
+  <div class="grid-2">
+    <div class="card-box" style="margin:0;">
+      <h4 style="color:var(--brand);">Model A: Java Heap "Array of Arrays"</h4>
+      <p style="font-size:13px; margin-bottom:8px;">
+        In Java, <code>int[][] m = new int[3][4]</code> allocates an outer <b>spine array</b> of 3 object references (<code>m[0]</code>, <code>m[1]</code>, <code>m[2]</code>). Each reference points to an independent 1D <code>int[4]</code> array on the Heap:
+      </p>
+      <ul style="font-size:12.5px; padding-left:18px; margin:0; line-height:1.7;">
+        <li><code>m[0] &rarr; 0x2000</code> (stores Row 0: <code>[10, 20, 30, 40]</code>)</li>
+        <li><code>m[1] &rarr; 0x3080</code> (stores Row 1: <code>[50, 60, 70, 80]</code>)</li>
+        <li><code>m[2] &rarr; 0x4120</code> (stores Row 2: <code>[90, 15, 25, 35]</code>)</li>
+      </ul>
+      <div style="margin-top:8px; font-size:12px; color:var(--ok); font-weight:700;">
+        Access Cost: Two O(1) pointer hops &rarr; Total Time = O(1).
+      </div>
+    </div>
+
+    <div class="card-box" style="margin:0;">
+      <h4 style="color:var(--accent);">Model B: Flat Row-Major Contiguous Formula</h4>
+      <p style="font-size:13px; margin-bottom:8px;">
+        In C/C++ or flattened 1D buffers in Java, all rows are stored back-to-back in a single contiguous block of size <code>R &times; C</code>. To jump to <code>(r, c)</code>, we skip <code>r</code> full rows (each of width <code>C</code>) plus <code>c</code> columns:
+      </p>
+      <div style="background:var(--accent-light); border:1px solid #fde68a; border-radius:8px; padding:8px 10px; font-family:'Fira Code',monospace; font-size:12px; font-weight:700; text-align:center;">
+        Address(r, c) = Base + ((r &times; C) + c) &times; size
+      </div>
+      <div style="margin-top:8px; font-size:12px; color:var(--muted);">
+        Example for <code>m[1][1]</code> (Base=<code>1000</code>, C=<code>4</code>, size=<code>4B</code>):<br>
+        <code>1000 + ((1&times;4) + 1)&times;4 = 1000 + 20 = 1020</code>.
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <b>Crucial Distinction Between <code>m.length</code> and <code>m[r].length</code>:</b>
+    In Java, <code>m.length</code> returns the <b>number of rows (<code>R</code>)</b> (the length of the outer spine array), whereas <code>m[r].length</code> returns the <b>number of columns in row <code>r</code> (<code>C</code>)</b>. Always write <code>c &lt; m[r].length</code> in the inner loop so your code safely handles both rectangular and jagged matrices.
+  </div>
+
+  <!-- ================= SECTION 2: LIFECYCLE, JAGGED ARRAYS & NESTED LOOPS ================= -->
+  <h2 class="sec-heading">2. Lifecycle, Jagged Arrays &amp; Nested Loop Traversals</h2>
+
+  <div class="grid-3">
+    <div class="card-box" style="margin:0;">
+      <h4>1. Declaration</h4>
+      <div class="code-block" style="margin:8px 0; padding:8px 12px;"><span class="kw">int</span>[][] m;</div>
+      <p style="font-size:12.5px; margin:0;">Reserves a reference variable <code>m</code> on the Stack (initialized to <code>null</code>).</p>
+    </div>
+    <div class="card-box" style="margin:0;">
+      <h4>2. Heap Allocation</h4>
+      <div class="code-block" style="margin:8px 0; padding:8px 12px;">m = <span class="kw">new int</span>[<span class="num">3</span>][<span class="num">4</span>];</div>
+      <p style="font-size:12.5px; margin:0;">Allocates 3 rows &times; 4 columns on the Heap; all 12 cells default to <code>0</code>.</p>
+    </div>
+    <div class="card-box" style="margin:0;">
+      <h4>3. Literal Initialization</h4>
+      <div class="code-block" style="margin:8px 0; padding:8px 12px;"><span class="kw">int</span>[][] m = {{<span class="num">1</span>,<span class="num">2</span>},{<span class="num">3</span>,<span class="num">4</span>}};</div>
+      <p style="font-size:12.5px; margin:0;">Allocates and populates rows with explicit initial values in one statement.</p>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">2.1 Jagged (Ragged) Arrays in Java</h3>
+  <p>
+    Because Java represents a 2D array as an array of row references, each row can be allocated with a <b>different column length</b>. Such a structure is called a <b>Jagged Array</b> (or Ragged Array), which saves memory when storing triangular matrices or variable-length records:
+  </p>
+  <div class="code-block"><span class="cm">// Allocating a Jagged Array where each row has a different number of columns:</span>
+<span class="kw">int</span>[][] jagged = <span class="kw">new int</span>[<span class="num">3</span>][];   <span class="cm">// Step 1: Allocate spine array of 3 row references</span>
+jagged[<span class="num">0</span>] = <span class="kw">new int</span>[<span class="num">2</span>];          <span class="cm">// Row 0 has 2 columns  (jagged[0].length == 2)</span>
+jagged[<span class="num">1</span>] = <span class="kw">new int</span>[<span class="num">4</span>];          <span class="cm">// Row 1 has 4 columns  (jagged[1].length == 4)</span>
+jagged[<span class="num">2</span>] = <span class="kw">new int</span>[<span class="num">1</span>];          <span class="cm">// Row 2 has 1 column   (jagged[2].length == 1)</span></div>
+
+  <h3 class="sub-heading">2.2 Row-Major vs. Column-Major Nested Loops &amp; CPU Cache Locality</h3>
+  <div class="grid-2">
+    <div class="card-box" style="margin:0;">
+      <h4 style="color:var(--ok);">Row-by-Row Traversal (Cache-Friendly)</h4>
+      <div class="code-block" style="margin:8px 0;"><span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; m.length; r++) {
+    <span class="kw">for</span> (<span class="kw">int</span> c = <span class="num">0</span>; c &lt; m[r].length; c++) {
+        process(m[r][c]);
+    }
+}</div>
+      <p style="font-size:12.5px; margin:0;">
+        Reads contiguous elements inside the same row array <code>m[r]</code> sequentially, maximizing <b>CPU L1/L2 Cache Hits</b>.
+      </p>
+    </div>
+    <div class="card-box" style="margin:0;">
+      <h4 style="color:var(--accent);">Column-by-Column Traversal</h4>
+      <div class="code-block" style="margin:8px 0;"><span class="kw">for</span> (<span class="kw">int</span> c = <span class="num">0</span>; c &lt; m[<span class="num">0</span>].length; c++) {
+    <span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; m.length; r++) {
+        process(m[r][c]);
+    }
+}</div>
+      <p style="font-size:12.5px; margin:0;">
+        Jumps across different row objects on every inner step. Both take <b>O(R&times;C)</b> asymptotic time, but Row-Major is significantly faster in hardware.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= SECTION 3: 9 CORE 2D MATRIX OPERATIONS ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading" style="margin-top:0;">3. Core Operations &amp; Algorithms on 2D Matrices</h2>
+
+  <!-- OP 3.1 -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.1 Direct Coordinate Access &amp; Update (<code>m[r][c]</code>)</span>
+      <div>
+        <span class="pill pill-ok">Time: O(1)</span>
+        <span class="pill pill-ok">Space: O(1)</span>
+      </div>
+    </div>
+    <p>
+      Accessing or modifying any cell <code>m[r][c]</code> requires zero loops. The JVM resolves row reference <code>m[r]</code> and offsets directly to column <code>c</code> in constant time <code>O(1)</code>, regardless of whether the matrix is 3&times;3 or 10,000&times;10,000.
+    </p>
+    <div class="code-block"><span class="cm">// Direct O(1) read and write by (row, col) coordinates:</span>
+<span class="kw">int</span> currentVal = m[r][c];   <span class="cm">// Constant-time read: O(1)</span>
+m[r][c] = newVal;           <span class="cm">// Constant-time in-place update: O(1)</span></div>
+  </div>
+
+  <!-- OP 3.2 -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.2 Row-Wise, Column-Wise &amp; Total Matrix Sum</span>
+      <div>
+        <span class="pill pill-acc">Time: O(R&times;C)</span>
+        <span class="pill pill-ok">Space: O(1)</span>
+      </div>
+    </div>
+    <p>
+      To compute the sum of each individual row, we reset a local accumulator <code>rowSum = 0</code> at the beginning of each outer loop iteration <code>r</code>, accumulate <code>m[r][c]</code> across the inner loop, and add it to <code>totalSum</code>. Every cell is visited exactly once: <code>T(R, C) = R &times; C = O(R&times;C)</code>.
+    </p>
+    <div class="code-block"><span class="kw">int</span> totalSum = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; m.length; r++) {
+    <span class="kw">int</span> rowSum = <span class="num">0</span>; <span class="cm">// Reset accumulator for row r</span>
+    <span class="kw">for</span> (<span class="kw">int</span> c = <span class="num">0</span>; c &lt; m[r].length; c++) {
+        rowSum += m[r][c];
+    }
+    totalSum += rowSum;
+    System.out.println(<span class="str">"Row "</span> + r + <span class="str">" sum = "</span> + rowSum);
+}</div>
+  </div>
+
+  <!-- OP 3.3 -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.3 Find 2D Maximum &amp; Minimum with Coordinates</span>
+      <div>
+        <span class="pill pill-acc">Time: O(R&times;C)</span>
+        <span class="pill pill-ok">Space: O(1)</span>
+      </div>
+    </div>
+    <p>
+      We initialize <code>max = m[0][0]</code> and <code>min = m[0][0]</code> along with their coordinate trackers <code>(maxR, maxC) = (0, 0)</code>. A full nested traversal compares every cell against <code>max</code> and <code>min</code>, updating both the value and its coordinates whenever a new extreme is found.
+    </p>
+    <div class="code-block"><span class="kw">int</span> max = m[<span class="num">0</span>][<span class="num">0</span>], maxR = <span class="num">0</span>, maxC = <span class="num">0</span>;
+<span class="kw">int</span> min = m[<span class="num">0</span>][<span class="num">0</span>], minR = <span class="num">0</span>, minC = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; m.length; r++) {
+    <span class="kw">for</span> (<span class="kw">int</span> c = <span class="num">0</span>; c &lt; m[r].length; c++) {
+        <span class="kw">if</span> (m[r][c] &gt; max) { max = m[r][c]; maxR = r; maxC = c; }
+        <span class="kw">if</span> (m[r][c] &lt; min) { min = m[r][c]; minR = r; minC = c; }
+    }
+}</div>
+  </div>
+
+  <!-- OP 3.4 -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.4 2D Linear Search in an Unsorted Matrix</span>
+      <div>
+        <span class="pill pill-ok">Best: O(1)</span>
+        <span class="pill pill-acc">Worst: O(R&times;C)</span>
+      </div>
+    </div>
+    <p>
+      When a matrix is unsorted, no row or column can be ruled out without inspection. We scan row-by-row until <code>m[r][c] == target</code> (returning <code>new int[]{r, c}</code> immediately) or until all <code>R &times; C</code> cells are exhausted.
+    </p>
+    <div class="code-block"><span class="kw">public static int</span>[] search2D(<span class="kw">int</span>[][] m, <span class="kw">int</span> target) {
+    <span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; m.length; r++) {
+        <span class="kw">for</span> (<span class="kw">int</span> c = <span class="num">0</span>; c &lt; m[r].length; c++) {
+            <span class="kw">if</span> (m[r][c] == target) <span class="kw">return new int</span>[]{r, c};
+        }
+    }
+    <span class="kw">return new int</span>[]{-<span class="num">1</span>, -<span class="num">1</span>};
+}</div>
+  </div>
+
+  <!-- OP 3.5 -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.5 Staircase Search in a Row &amp; Column Sorted Matrix</span>
+      <div>
+        <span class="pill pill-ok">Best: O(1)</span>
+        <span class="pill pill-ok">Worst: O(R+C)</span>
+      </div>
+    </div>
+    <p>
+      When every row is sorted left-to-right and every column is sorted top-to-bottom, starting at the <b>Top-Right Corner <code>(r = 0, c = C - 1)</code></b> turns every comparison into a decisive elimination of an entire row or column:
+    </p>
+    <ul style="font-size:13px; margin:8px 0 12px; padding-left:20px;">
+      <li>If <code>m[r][c] == target</code> &rarr; Found! Return <code>{r, c}</code>.</li>
+      <li>If <code>m[r][c] &gt; target</code> &rarr; Everything below in column <code>c</code> is even larger; eliminate column <code>c</code> by moving left (<code>c--</code>).</li>
+      <li>If <code>m[r][c] &lt; target</code> &rarr; Everything left in row <code>r</code> is even smaller; eliminate row <code>r</code> by moving down (<code>r++</code>).</li>
+    </ul>
+    <p style="font-size:13px;">
+      Because <code>r</code> can increment at most <code>R</code> times and <code>c</code> can decrement at most <code>C</code> times, the worst-case number of steps is bounded by <b><code>R + C = O(R+C)</code></b> (e.g., at most 2,000 steps on a 1,000&times;1,000 matrix instead of 1,000,000!).
+    </p>
+    <div class="code-block"><span class="kw">int</span> r = <span class="num">0</span>, c = m[<span class="num">0</span>].length - <span class="num">1</span>; <span class="cm">// Start at Top-Right corner</span>
+<span class="kw">while</span> (r &lt; m.length &amp;&amp; c &gt;= <span class="num">0</span>) {
+    <span class="kw">if</span> (m[r][c] == target) <span class="kw">return new int</span>[]{r, c};
+    <span class="kw">else if</span> (m[r][c] &gt; target) c--; <span class="cm">// Eliminate column c (move left)</span>
+    <span class="kw">else</span> r++;                       <span class="cm">// Eliminate row r (move down)</span>
+}</div>
+  </div>
+
+  <!-- OP 3.6 -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.6 Primary &amp; Secondary Diagonal Traversal &amp; Sum</span>
+      <div>
+        <span class="pill pill-ok">Time: O(N)</span>
+        <span class="pill pill-ok">Space: O(1)</span>
+      </div>
+    </div>
+    <p>
+      In a square <code>N &times; N</code> matrix, the <b>Primary Diagonal</b> consists of cells where <code>r == c</code> (i.e., <code>m[i][i]</code>), and the <b>Secondary (Anti) Diagonal</b> consists of cells where <code>r + c == N - 1</code> (i.e., <code>m[i][N - 1 - i]</code>). Consequently, we do <b>not</b> need nested loops! A single loop from <code>i = 0</code> to <code>N - 1</code> sums both diagonals in <b><code>O(N)</code></b> time, checking <code>i != N - 1 - i</code> to avoid counting the center cell twice when <code>N</code> is odd.
+    </p>
+    <div class="code-block"><span class="kw">int</span> n = m.length, sum = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+    sum += m[i][i]; <span class="cm">// Primary Diagonal (r == c)</span>
+    <span class="kw">if</span> (i != n - <span class="num">1</span> - i) {
+        sum += m[i][n - <span class="num">1</span> - i]; <span class="cm">// Secondary Diagonal (skip center if odd N)</span>
+    }
+}</div>
+  </div>
+
+  <!-- OP 3.7 -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.7 In-Place Square Matrix Transpose (<code>m[r][c] &harr; m[c][r]</code>)</span>
+      <div>
+        <span class="pill pill-acc">Time: O(N&sup2;)</span>
+        <span class="pill pill-ok">Space: O(1)</span>
+      </div>
+    </div>
+    <p>
+      Transposing a square <code>N &times; N</code> matrix reflects it across its primary diagonal so that rows become columns. The inner loop <b>must start at <code>c = r + 1</code></b> (strictly the upper triangle) to swap <code>m[r][c]</code> with <code>m[c][r]</code> exactly once. Starting at <code>c = 0</code> would swap every pair twice, returning the matrix to its original state! Total swaps = <code>N(N - 1)/2 = O(N&sup2;)</code> with <code>O(1)</code> auxiliary space.
+    </p>
+    <div class="code-block"><span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; n; r++) {
+    <span class="kw">for</span> (<span class="kw">int</span> c = r + <span class="num">1</span>; c &lt; n; c++) { <span class="cm">// Upper triangle only (c &gt; r)</span>
+        <span class="kw">int</span> temp = m[r][c];
+        m[r][c] = m[c][r];
+        m[c][r] = temp;
+    }
+}</div>
+  </div>
+
+  <!-- OP 3.8 -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.8 Horizontal Matrix Flip (Mirror Image / Row Reversal)</span>
+      <div>
+        <span class="pill pill-acc">Time: O(R&times;C)</span>
+        <span class="pill pill-ok">Space: O(1)</span>
+      </div>
+    </div>
+    <p>
+      A horizontal mirror flip reverses each row in-place using the Two-Pointer technique from Lecture 01 (<code>left = 0</code>, <code>right = C - 1</code>). Furthermore, combining <b>In-Place Transpose (3.7)</b> followed by <b>Horizontal Flip (3.8)</b> rotates a square matrix by <b>90&deg; clockwise in-place</b>!
+    </p>
+    <div class="code-block"><span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; m.length; r++) {
+    <span class="kw">int</span> left = <span class="num">0</span>, right = m[r].length - <span class="num">1</span>;
+    <span class="kw">while</span> (left &lt; right) {
+        <span class="kw">int</span> temp = m[r][left];
+        m[r][left] = m[r][right];
+        m[r][right] = temp;
+        left++; right--;
+    }
+}</div>
+  </div>
+
+  <!-- OP 3.9 -->
+  <div class="op-card">
+    <div class="op-card-header">
+      <span class="op-card-title">3.9 Spiral Order Matrix Traversal (Boundary Peeling)</span>
+      <div>
+        <span class="pill pill-acc">Time: O(R&times;C)</span>
+        <span class="pill pill-ok">Aux Space: O(1)</span>
+      </div>
+    </div>
+    <p>
+      To traverse a matrix in a clockwise spiral, we maintain four shrinking boundary pointers: <code>top = 0</code>, <code>bottom = R - 1</code>, <code>left = 0</code>, and <code>right = C - 1</code>. In each cycle, we sweep the top row (&rarr;) and increment <code>top++</code>, sweep the right column (&darr;) and decrement <code>right--</code>, sweep the bottom row (&larr;) and decrement <code>bottom--</code>, and sweep the left column (&uarr;) and increment <code>left++</code>, visiting every cell exactly once in <code>O(R&times;C)</code> time.
+    </p>
+    <div class="code-block"><span class="kw">int</span> top = <span class="num">0</span>, bottom = R - <span class="num">1</span>, left = <span class="num">0</span>, right = C - <span class="num">1</span>;
+<span class="kw">while</span> (top &lt;= bottom &amp;&amp; left &lt;= right) {
+    <span class="kw">for</span> (<span class="kw">int</span> c = left; c &lt;= right; c++) print(m[top][c]);
+    top++;
+    <span class="kw">for</span> (<span class="kw">int</span> r = top; r &lt;= bottom; r++) print(m[r][right]);
+    right--;
+    <span class="kw">if</span> (top &lt;= bottom) {
+        <span class="kw">for</span> (<span class="kw">int</span> c = right; c &gt;= left; c--) print(m[bottom][c]);
+        bottom--;
+    }
+    <span class="kw">if</span> (left &lt;= right) {
+        <span class="kw">for</span> (<span class="kw">int</span> r = bottom; r &gt;= top; r--) print(m[r][left]);
+        left++;
+    }
+}</div>
+  </div>
+
+  <!-- ================= SECTION 4: COMPLETE JAVA CODE REFERENCE & SUMMARY TABLE ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading" style="margin-top:0;">4. Standard Java Code Reference (<code>MatrixMain.java</code>)</h2>
+  <p>
+    A complete, self-contained Java class combining the core 2D matrix methods (row summation, coordinate search, single-loop diagonal sum, and in-place transpose):
+  </p>
+
+  <div class="code-block"><span class="cm">/**
+ * Data Structures &amp; Algorithms Lab — Lecture 02
+ * Prepared by: Eng. Abdulhamid Helal Daban (B.Sc. in Computer Science)
+ * Module: Two-Dimensional Arrays &amp; Matrix Algorithms in Java
+ */</span>
+<span class="kw">public class</span> MatrixMain {
+
+    <span class="cm">// 1. Print matrix and compute each row sum — Time: O(R&times;C), Space: O(1)</span>
+    <span class="kw">public static void</span> printAndSumRows(<span class="kw">int</span>[][] m) {
+        <span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; m.length; r++) {
+            <span class="kw">int</span> rowSum = <span class="num">0</span>;
+            System.out.print(<span class="str">"Row "</span> + r + <span class="str">": [ "</span>);
+            <span class="kw">for</span> (<span class="kw">int</span> c = <span class="num">0</span>; c &lt; m[r].length; c++) {
+                System.out.print(m[r][c] + <span class="str">" "</span>);
+                rowSum += m[r][c];
+            }
+            System.out.println(<span class="str">"] -&gt; Sum = "</span> + rowSum);
+        }
+    }
+
+    <span class="cm">// 2. Search for target and return {row, col} coordinates — Time: O(R&times;C)</span>
+    <span class="kw">public static int</span>[] search2D(<span class="kw">int</span>[][] m, <span class="kw">int</span> target) {
+        <span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; m.length; r++) {
+            <span class="kw">for</span> (<span class="kw">int</span> c = <span class="num">0</span>; c &lt; m[r].length; c++) {
+                <span class="kw">if</span> (m[r][c] == target) <span class="kw">return new int</span>[]{r, c};
+            }
+        }
+        <span class="kw">return new int</span>[]{-<span class="num">1</span>, -<span class="num">1</span>};
+    }
+
+    <span class="cm">// 3. In-place square matrix transpose — Time: O(N&sup2;), Space: O(1)</span>
+    <span class="kw">public static void</span> transposeInPlace(<span class="kw">int</span>[][] m) {
+        <span class="kw">for</span> (<span class="kw">int</span> r = <span class="num">0</span>; r &lt; m.length; r++) {
+            <span class="kw">for</span> (<span class="kw">int</span> c = r + <span class="num">1</span>; c &lt; m.length; c++) {
+                <span class="kw">int</span> tmp = m[r][c];
+                m[r][c] = m[c][r];
+                m[c][r] = tmp;
+            }
+        }
+    }
+
+    <span class="cm">// 4. Sum both primary &amp; secondary diagonals in a single loop — Time: O(N)</span>
+    <span class="kw">public static int</span> sumDiagonals(<span class="kw">int</span>[][] m) {
+        <span class="kw">int</span> n = m.length, sum = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+            sum += m[i][i];
+            <span class="kw">if</span> (i != n - <span class="num">1</span> - i) sum += m[i][n - <span class="num">1</span> - i];
+        }
+        <span class="kw">return</span> sum;
+    }
+
+    <span class="kw">public static void</span> main(String[] args) {
+        <span class="kw">int</span>[][] matrix = {
+            {<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>},
+            {<span class="num">40</span>, <span class="num">50</span>, <span class="num">60</span>},
+            {<span class="num">70</span>, <span class="num">80</span>, <span class="num">90</span>}
+        };
+
+        printAndSumRows(matrix);
+        <span class="kw">int</span>[] pos = search2D(matrix, <span class="num">60</span>);
+        System.out.println(<span class="str">"Found 60 at: ("</span> + pos[<span class="num">0</span>] + <span class="str">", "</span> + pos[<span class="num">1</span>] + <span class="str">")"</span>);
+        System.out.println(<span class="str">"Diagonals Sum = "</span> + sumDiagonals(matrix));
+
+        transposeInPlace(matrix);
+        System.out.println(<span class="str">"--- After Transpose ---"</span>);
+        printAndSumRows(matrix);
+    }
+}</div>
+
+  <h2 class="sec-heading">5. Master Complexity Comparison Table (2D Arrays &amp; Matrices)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 26%;">2D Matrix Operation</th>
+        <th style="width: 12%;">Best Case</th>
+        <th style="width: 14%;">Average Case</th>
+        <th style="width: 14%;">Worst Case</th>
+        <th style="width: 11%;">Space</th>
+        <th style="width: 23%;">Architectural / Algorithmic Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Access / Update (<code>m[r][c]</code>)</b></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td>Direct row pointer + column offset</td>
+      </tr>
+      <tr>
+        <td><b>Row-Wise / Column-Wise Sums</b></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td>Visits every cell once via nested loops</td>
+      </tr>
+      <tr>
+        <td><b>Find 2D Max &amp; Min + Coordinates</b></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td>Inspects all <code>R &times; C</code> cells</td>
+      </tr>
+      <tr>
+        <td><b>2D Linear Search (Unsorted)</b></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td>Best: at <code>(0,0)</code> / Worst: absent</td>
+      </tr>
+      <tr>
+        <td><b>Staircase Search (Sorted 2D)</b></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td><span class="pill pill-ok">O(R+C)</span></td>
+        <td><span class="pill pill-ok">O(R+C)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td>Starts at <code>(0, C-1)</code>; drops row or col</td>
+      </tr>
+      <tr>
+        <td><b>Primary &amp; Secondary Diagonals</b></td>
+        <td><span class="pill pill-ok">O(N)</span></td>
+        <td><span class="pill pill-ok">O(N)</span></td>
+        <td><span class="pill pill-ok">O(N)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td>Single loop using <code>m[i][i]</code> &amp; <code>m[i][N-1-i]</code></td>
+      </tr>
+      <tr>
+        <td><b>In-Place Matrix Transpose</b></td>
+        <td><span class="pill pill-acc">O(N&sup2;)</span></td>
+        <td><span class="pill pill-acc">O(N&sup2;)</span></td>
+        <td><span class="pill pill-acc">O(N&sup2;)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td>Swaps upper triangle <code>(c = r + 1)</code></td>
+      </tr>
+      <tr>
+        <td><b>Horizontal Matrix Flip</b></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td>Two-pointer reversal on each row</td>
+      </tr>
+      <tr>
+        <td><b>Spiral Order Traversal</b></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-acc">O(R&times;C)</span></td>
+        <td><span class="pill pill-ok">O(1)</span></td>
+        <td>4 shrinking walls (<code>top, bottom, left, right</code>)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note-box" style="margin-top: 20px; text-align: center; page-break-inside: avoid !important; break-inside: avoid !important;">
+    <b>Academic Programming Lectures &amp; Interactive Labs Portal | Eng. Abdulhamid Helal Daban</b><br>
+    <span style="font-size: 13px; color: var(--muted);">Prepared &amp; Developed by: <b>Eng. Abdulhamid Helal Daban</b> (B.Sc. in Computer Science &middot; University of Aden) &middot; Practical Lab Handout (Lecture 02).</span>
+  </div>
+
+  <div style="opacity: 0.05; font-size: 9px; text-align: center; margin-top: 15px; user-select: none; pointer-events: none;" aria-hidden="true" data-author="Abdulhamid-Helal-Daban" data-university="University of Aden - Faculty of Computer Science and Information Technology">
+    Intellectual Property &amp; Software Rights Reserved &copy; 2026&ndash;2027 Eng. Abdulhamid Helal Daban | University of Aden - Faculty of Computer Science &amp; Information Technology
+  </div>
+
+</div>
+
+<script>
+const ACADEMIC_PDF_FILENAME = "2D Arrays and Matrices in Java - Eng. Abdulhamid Helal Daban";
+
+function exportDirectPDF() {
+  document.title = ACADEMIC_PDF_FILENAME;
+  window.print();
+}
+
+window.addEventListener('beforeprint', () => {
+  document.title = ACADEMIC_PDF_FILENAME;
+});
+</script>
+</body>
+</html>

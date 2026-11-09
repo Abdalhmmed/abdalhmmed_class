@@ -359,6 +359,72 @@ tr:last-child td { border-bottom: none; }
   font: 600 14.5px "Fira Code"; direction: ltr; text-align: left; margin: 12px 0; border: 1px solid rgba(16,185,129,0.25);
 }
 
+/* ================= OPERATIONS CURRICULUM ROADMAP ================= */
+.cyber-roadmap-list { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+.roadmap-row {
+  display: flex; align-items: center; gap: 18px; padding: 16px 20px;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 14px;
+  text-decoration: none; color: var(--ink); transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative; overflow: hidden;
+}
+.roadmap-row::before {
+  content: ''; position: absolute; inset-inline-start: 0; top: 0; bottom: 0;
+  width: 4px; background: var(--accent, var(--brand)); opacity: 0.8; transition: width 0.2s;
+}
+.roadmap-row:hover {
+  background: var(--paper); border-color: var(--accent, var(--brand));
+  transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+.roadmap-row:hover::before { width: 6px; }
+.roadmap-lead { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.roadmap-num {
+  background: var(--accent, var(--brand)); color: #fff; border-radius: 8px;
+  padding: 3px 10px; font: 800 13px 'Fira Code', monospace; letter-spacing: 0.5px; flex-shrink: 0;
+}
+.roadmap-icon-wrap {
+  width: 40px; height: 40px; border-radius: 10px; display: flex;
+  align-items: center; justify-content: center; font-size: 18px;
+  border: 1px solid rgba(0,0,0,0.06); flex-shrink: 0;
+}
+.roadmap-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.roadmap-title-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.roadmap-title { font-size: 15.5px; font-weight: 800; color: var(--ink); line-height: 1.35; }
+.roadmap-row:hover .roadmap-title { color: var(--accent, var(--brand)); }
+.roadmap-alt-title { font-size: 13px; font-weight: 600; color: var(--muted); }
+.roadmap-math-row { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+.roadmap-math-row i { color: var(--accent, var(--brand)); font-size: 11.5px; }
+.roadmap-formula {
+  background: var(--paper); border: 1px solid var(--line); padding: 2px 8px;
+  border-radius: 6px; font: 700 12px 'Fira Code', monospace; color: var(--ink);
+}
+.roadmap-trailing { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.roadmap-category-pill {
+  font-size: 11.5px; font-weight: 800; padding: 4px 12px; border-radius: 20px;
+  border: 1.5px solid currentColor; background: var(--paper); white-space: nowrap;
+}
+.roadmap-complexity-pill {
+  font: 700 11.5px 'Fira Code', monospace; background: var(--paper);
+  border: 1px solid var(--line); color: var(--muted); padding: 4px 10px;
+  border-radius: 6px; white-space: nowrap;
+}
+.roadmap-launch-btn {
+  display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px;
+  font-weight: 800; color: var(--brand); background: var(--paper);
+  border: 1px solid var(--brand); padding: 6px 14px; border-radius: 8px;
+  transition: all 0.2s; white-space: nowrap;
+}
+.roadmap-row:hover .roadmap-launch-btn { background: var(--brand); color: #fff; transform: scale(1.02); }
+
+@media (max-width: 900px) {
+  .roadmap-row { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .roadmap-trailing { width: 100%; justify-content: space-between; padding-top: 10px; border-top: 1px dashed var(--line); }
+}
+@media (max-width: 600px) {
+  .roadmap-lead { width: 100%; }
+  .roadmap-trailing { flex-wrap: wrap; gap: 8px; }
+  .roadmap-launch-btn { width: 100%; justify-content: center; }
+}
+
 .toc { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 18px; }
 .toc a {
   display: flex; align-items: center; gap: 12px; padding: 14px 18px; border: 1px solid var(--line);
@@ -379,6 +445,248 @@ body.big { font-size: 17.5px; }
 
 /* Font Awesome Icons Margin in RTL */
 h1 i, h2 i, h3 i, h4 i, .panel-title i, .btn i, .tool i, .chips span i { margin-left: 8px; }
+
+/* ================= LTR BILINGUAL SUPPORT ================= */
+html[dir="ltr"] body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 'Cairo', sans-serif;
+  letter-spacing: normal;
+}
+html[dir="ltr"] h2 {
+  border-right: none;
+  border-left: 6px solid var(--brand);
+  padding-right: 0;
+  padding-left: 16px;
+}
+html[dir="ltr"] .note,
+html[dir="ltr"] .mini[style*="border-right"] {
+  border-right: none !important;
+  border-left: 5px solid var(--brand) !important;
+}
+html[dir="ltr"] .warn {
+  border-right: none !important;
+  border-left: 5px solid var(--accent) !important;
+}
+html[dir="ltr"] th, 
+html[dir="ltr"] td {
+  text-align: left;
+}
+html[dir="ltr"] .toc a {
+  padding: 12px 14px 12px 18px;
+}
+html[dir="ltr"] .toc a .num {
+  margin-left: 0;
+  margin-right: 10px;
+}
+html[dir="ltr"] .toc a .pill {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+html[dir="ltr"] h1 i, html[dir="ltr"] h2 i, html[dir="ltr"] h3 i, html[dir="ltr"] h4 i, 
+html[dir="ltr"] .panel-title i, html[dir="ltr"] .btn i, html[dir="ltr"] .tool i, 
+html[dir="ltr"] .chips span i {
+  margin-left: 0;
+  margin-right: 8px;
+}
+html[dir="ltr"] .analogy {
+  border-right: none !important;
+  border-left: 5px solid var(--violet) !important;
+}
+html[dir="ltr"] .idea-steps li {
+  padding: 10px 0 10px 46px !important;
+}
+html[dir="ltr"] .idea-steps li::before {
+  right: auto !important;
+  left: 0 !important;
+}
+html[dir="ltr"] .next-hint {
+  text-align: right !important;
+}
+
+/* ================= FLASHCARDS & QUIZ ================= */
+.flashcard-interactive {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  transition: all 0.25s ease;
+}
+.flashcard-interactive:hover {
+  border-color: var(--brand);
+  box-shadow: 0 6px 18px -4px rgba(5, 150, 105, 0.15);
+}
+.flashcard-q {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.flashcard-btn {
+  background: var(--brand-soft);
+  color: var(--brand);
+  border: 1px solid var(--brand);
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.flashcard-btn:hover {
+  background: var(--brand);
+  color: #fff;
+}
+.flashcard-answer {
+  display: none;
+  background: var(--paper);
+  border-left: 4px solid var(--ok);
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin-top: 14px;
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+html[dir="rtl"] .flashcard-answer {
+  border-left: none;
+  border-right: 4px solid var(--ok);
+}
+
+.quiz-widget {
+  background: var(--bg);
+  border: 1.5px solid var(--brand-border);
+  border-radius: 16px;
+  padding: 28px;
+  margin-top: 24px;
+}
+.quiz-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 18px;
+}
+.quiz-q-title {
+  font-size: 15.5px;
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: var(--ink);
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.quiz-opt-btn {
+  text-align: right;
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: inherit;
+}
+html[dir="ltr"] .quiz-opt-btn {
+  text-align: left;
+}
+.quiz-opt-btn:hover:not(:disabled) {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+.quiz-opt-btn.correct {
+  background: var(--ok-soft) !important;
+  border-color: var(--ok) !important;
+  color: #065f46 !important;
+}
+.quiz-opt-btn.wrong {
+  background: var(--bad-soft) !important;
+  border-color: var(--bad) !important;
+  color: #991b1b !important;
+}
+.quiz-feedback {
+  display: none;
+  margin-top: 10px;
+  font-weight: 800;
+  font-size: 13.5px;
+}
+
+/* ================= FAB & TOAST ================= */
+.fab-container {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 99;
+}
+html[dir="ltr"] .fab-container {
+  left: auto;
+  right: 24px;
+}
+.fab-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.25s ease;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+}
+.fab-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.fab-btn:hover {
+  background: var(--brand-hover);
+  transform: translateY(-3px);
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 50%;
+  transform: translateX(50%) translateY(30px);
+  background: rgba(6, 21, 16, 0.95);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1px solid var(--brand);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(50%) translateY(0);
+  pointer-events: auto;
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -388,11 +696,11 @@ h1 i, h2 i, h3 i, h4 i, .panel-title i, .btn i, .tool i, .chips span i { margin-
 <!-- Topbar Navigation -->
 <header class="topbar">
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-    <a href="../../../index.html" class="tool nav-back-btn" title="الرجوع إلى البوابة الرئيسية">
-      <i class="fa-solid fa-house"></i> الرئيسية
+    <a href="../../../#/" class="tool nav-back-btn" title="الرجوع إلى البوابة الرئيسية">
+      <i class="fa-solid fa-house"></i> <span id="txtPortalBack">الرئيسية</span>
     </a>
     <a href="print-pdf.html" class="tool nav-pdf-btn" title="الانتقال إلى النسخة المجهزة للطباعة والحفظ PDF">
-      <i class="fa-solid fa-file-pdf"></i> ملزمة PDF للطباعة
+      <i class="fa-solid fa-file-pdf"></i> <span id="txtPdfPrint">ملزمة PDF للطباعة</span>
     </a>
     <div style="display:inline-flex;align-items:center;gap:8px;background:var(--brand-soft);border:1px solid rgba(16,185,129,0.3);border-radius:20px;padding:3px 12px;font-size:12.5px;font-weight:800;color:var(--brand);">
       <img src="../../../assets/abdalhmmed.jfif" alt="م. عبدالحميد" style="width:22px;height:22px;border-radius:50%;object-fit:cover;border:1.5px solid var(--brand);">
@@ -465,7 +773,7 @@ h1 i, h2 i, h3 i, h4 i, .panel-title i, .btn i, .tool i, .chips span i { margin-
       </p>
       
       <div class="inputs" style="background:var(--paper);padding:12px 18px">
-        <label style="font-weight:800;font-size:15px">طول المفتاح التشفيري: <b id="keyBitLbl" class="mono" style="color:var(--brand);font-size:18px">56 بت (DES القديم)</b></label>
+        <label style="font-weight:800;font-size:15px"><span id="lblKeyLenTitle">طول المفتاح التشفيري: </span><b id="keyBitLbl" class="mono" style="color:var(--brand);font-size:18px">56 بت (DES القديم)</b></label>
         <select id="keyBitSelect" onchange="updateKeyspace(this.value)" style="font-size:14px;padding:6px 12px">
           <option value="8">8 بت (بدائي جداً - 256 مفتاح)</option>
           <option value="16">16 بت (ضعيف - 65,536 مفتاح)</option>
@@ -477,15 +785,15 @@ h1 i, h2 i, h3 i, h4 i, .panel-title i, .btn i, .tool i, .chips span i { margin-
 
       <div class="grid g3" style="margin-top:14px">
         <div class="mini" style="background:var(--paper)">
-          <h4>عدد الاحتمالات ($2^k$)</h4>
+          <h4 id="lblPossibilities">عدد الاحتمالات ($2^k$)</h4>
           <div class="mono" id="keyspaceVal" style="font-size:17px;font-weight:900;color:var(--brand)">7.2 × 10¹⁶ احتمال</div>
         </div>
         <div class="mini" style="background:var(--paper)">
-          <h4>الزمن المتوقع للكسر</h4>
+          <h4 id="lblCrackTime">الزمن المتوقع للكسر</h4>
           <div class="mono" id="crackTimeVal" style="font-size:16px;font-weight:900;color:var(--bad)">~ 20 ساعة فقط!</div>
         </div>
         <div class="mini" style="background:var(--paper)">
-          <h4>حكم الأمن السيبراني</h4>
+          <h4 id="lblVerdict">حكم الأمن السيبراني</h4>
           <div id="securityVerdict" style="font-size:14px;font-weight:800;color:var(--bad)">
             <i class="fa-solid fa-triangle-exclamation"></i> غير آمن نهائياً ومخترق عملياً.
           </div>
@@ -663,6 +971,104 @@ h1 i, h2 i, h3 i, h4 i, .panel-title i, .btn i, .tool i, .chips span i { margin-
     </div>
     <div class="note" style="margin-top:20px">
       <b>خلاصة الأمن السيبراني:</b> في الأنظمة الحقيقية والحديثة (مثل HTTPS، SSH، و Signal)، لا نستخدم خوارزمية واحدة بمفردها؛ بل ندمج التشفير الهجين (Hybrid Cryptography): نستخدم <b>RSA أو Diffie-Hellman</b> لتبادل المفاتيح، ثم نستخدم <b>AES</b> فائق السرعة لتشفير تدفق البيانات، مع <b>SHA-256 والتوقيع الرقمي</b> لضمان السلامة وإثبات الهوية.
+    </div>
+  </section>
+
+  
+  <!-- 5. INTERACTIVE SELF-CHECK FLASHCARDS & QUIZ -->
+  <section class="card" id="crypto-quiz-section">
+    <div style="font-size:13px;color:var(--brand);font-weight:800;letter-spacing:0.5px">
+      <i class="fa-solid fa-graduation-cap"></i> <span id="lblSelfCheckBadge">الفحص الذاتي والأسئلة الشفوية للمقرر</span>
+    </div>
+    <h2 style="margin-top:6px" id="lblSelfCheckTitle">5. بطاقات المراجعة الذكية والاختبار التفاعلي السريع</h2>
+    <p class="lead" id="lblSelfCheckLead">
+      اختبر فهمك للمفاهيم الأساسية قبل الانتقال للتطبيق العملي، عبر بطاقات الفلاش التفاعلية والاختبار التقييمي المباشر:
+    </p>
+
+    <!-- Flashcards Grid -->
+    <h3 style="margin:24px 0 16px;color:var(--brand);font-size:18px"><i class="fa-solid fa-layer-group"></i> <span id="lblFlashTitle">بطاقات المراجعة الشفوية (حاول الإجابة ذهنياً أولاً):</span></h3>
+    
+    <div class="flashcard-interactive">
+      <div class="flashcard-q">
+        <i class="fa-solid fa-circle-question" style="color:var(--brand);font-size:20px;"></i>
+        <span id="fcQ1">س1: لماذا يعتبر مبدأ كيركهوفس (Kerckhoffs's Principle) حجر الزاوية في التشفير الحديث؟</span>
+      </div>
+      <button class="flashcard-btn" onclick="toggleAnswer('fcA1', this)">
+        <i class="fa-solid fa-eye"></i> <span class="fc-btn-txt">كشف الإجابة النموذجية</span>
+      </button>
+      <div class="flashcard-answer" id="fcA1">
+        <b>الإجابة النموذجية:</b> لأن خوارزميات التشفير (مثل AES و RSA) تكون منشورة ومفتوحة المصدر عالمياً لتدقيقها واختبارها. يرتكز الأمان بالكامل على سرية المفتاح (Key)، فإذا سُرقت الخوارزمية لا يخترق النظام، بينما الاعتماد على إخفاء الخوارزمية (Security through Obscurity) وهم خطير يسقط فور الهندسة العكسية.
+      </div>
+    </div>
+
+    <div class="flashcard-interactive">
+      <div class="flashcard-q">
+        <i class="fa-solid fa-circle-question" style="color:var(--accent);font-size:20px;"></i>
+        <span id="fcQ2">س2: ما الفرق الجوهري في التطبيق بين التشفير المتماثل (AES) والتشفير غير المتماثل (RSA)؟</span>
+      </div>
+      <button class="flashcard-btn" onclick="toggleAnswer('fcA2', this)">
+        <i class="fa-solid fa-eye"></i> <span class="fc-btn-txt">كشف الإجابة النموذجية</span>
+      </button>
+      <div class="flashcard-answer" id="fcA2">
+        <b>الإجابة النموذجية:</b> يستخدم <b>AES</b> نفس المفتاح السري المشترك للتشفير وفك التشفير، ويتميز بسرعة معالجة هائلة تناسب البيانات الضخمة (Gigabytes). أما <b>RSA</b> فيستخدم زوج مفاتيح (عام للتشفير وخاص لفك التشفير)، وهو أبطأ بنحو 1000 مرة، لذا يُستخدم فقط في تبادل مفاتيح الجلسة أو التوقيع الرقمي (Hybrid Cryptography).
+      </div>
+    </div>
+
+    <div class="flashcard-interactive">
+      <div class="flashcard-q">
+        <i class="fa-solid fa-circle-question" style="color:var(--ok);font-size:20px;"></i>
+        <span id="fcQ3">س3: ما هو أثر الانهيار الثلجي (Avalanche Effect) في دوال الهاش مثل SHA-256؟</span>
+      </div>
+      <button class="flashcard-btn" onclick="toggleAnswer('fcA3', this)">
+        <i class="fa-solid fa-eye"></i> <span class="fc-btn-txt">كشف الإجابة النموذجية</span>
+      </button>
+      <div class="flashcard-answer" id="fcA3">
+        <b>الإجابة النموذجية:</b> خاصية تشفيرية تعني أن أي تغيير طفيف في المدخلات (ولو كان بتاً واحداً فقط أو حرفاً صغيراً بدلاً من كبير) يؤدي إلى تغيير جذري وغير متوقع في أكثر من 50% من بتات الهاش الناتجة، مما يمنع المهاجم من التنبؤ بأي نمط بين الرسائل وبصماتها.
+      </div>
+    </div>
+
+    <!-- Quiz Widget -->
+    <div class="quiz-widget">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px;">
+        <h3 style="margin:0;color:var(--brand);font-size:18px;"><i class="fa-solid fa-circle-check"></i> <span id="quizHead">اختبار الفحص السريع (Self-Check Quiz)</span></h3>
+        <span class="pill p-ok" id="quizScore" style="font-size:14px;padding:4px 14px;">النتيجة: 0 / 3</span>
+      </div>
+
+      <!-- Q1 -->
+      <div class="quiz-box" id="qBox1">
+        <div class="quiz-q-title" id="quizQ1Txt">1. ما الخوارزمية الوحيدة التي أثبت كلود شانون أنها تحقق السرية المطلقة رياضياً (Perfect Secrecy)؟</div>
+        <div class="quiz-options">
+          <button class="quiz-opt-btn" onclick="checkQuiz(1, 0, false, this)"><span>شفرة قيصر (Caesar Cipher)</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+          <button class="quiz-opt-btn" onclick="checkQuiz(1, 1, true, this)"><span>لوحة المرة الواحدة (One-Time Pad / XOR)</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+          <button class="quiz-opt-btn" onclick="checkQuiz(1, 2, false, this)"><span>خوارزمية RSA-2048</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+          <button class="quiz-opt-btn" onclick="checkQuiz(1, 3, false, this)"><span>خوارزمية DES القديمة</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+        </div>
+        <div class="quiz-feedback" id="qFeed1"></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="quiz-box" id="qBox2">
+        <div class="quiz-q-title" id="quizQ2Txt">2. في التوقيع الرقمي (Digital Signature)، بأي مفتاح يوقع المرسل بصمة الوثيقة لضمان عدم الإنكار؟</div>
+        <div class="quiz-options">
+          <button class="quiz-opt-btn" onclick="checkQuiz(2, 0, false, this)"><span>بالمفتاح العام للمستقبل (Receiver's Public Key)</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+          <button class="quiz-opt-btn" onclick="checkQuiz(2, 1, false, this)"><span>بمفتاح AES المتماثل السري المشترك</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+          <button class="quiz-opt-btn" onclick="checkQuiz(2, 2, true, this)"><span>بالمفتاح الخاص السري للمرسل (Sender's Private Key)</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+          <button class="quiz-opt-btn" onclick="checkQuiz(2, 3, false, this)"><span>بالمفتاح العام للمرسل (Sender's Public Key)</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+        </div>
+        <div class="quiz-feedback" id="qFeed2"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="quiz-box" id="qBox3">
+        <div class="quiz-q-title" id="quizQ3Txt">3. ما الهدف الأساسي من تطبيق مرحلة SubBytes في كل جولة من معيار التشفير المتقدم AES؟</div>
+        <div class="quiz-options">
+          <button class="quiz-opt-btn" onclick="checkQuiz(3, 0, true, this)"><span>إحداث استبدال غير خطي يحقق التشويش (Confusion) ضد التحليل الخطي</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+          <button class="quiz-opt-btn" onclick="checkQuiz(3, 1, false, this)"><span>إزاحة الصفوف وتشتيت البتات لتحقيق الانتشار (Diffusion)</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+          <button class="quiz-opt-btn" onclick="checkQuiz(3, 2, false, this)"><span>ضغط حجم الكتلة من 256 بت إلى 128 بت</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+          <button class="quiz-opt-btn" onclick="checkQuiz(3, 3, false, this)"><span>توليد مفاتيح عشوائية جديدة للجولات</span> <i class="fa-regular fa-circle" style="opacity:0.3"></i></button>
+        </div>
+        <div class="quiz-feedback" id="qFeed3"></div>
+      </div>
     </div>
   </section>
 
@@ -1283,14 +1689,14 @@ function togglePlay(i){ I[i].timer ? stop(i) : play(i); }
 function play(i){
   const st = I[i];
   if(st.si >= st.steps.length - 1){ st.si = 0; render(i); }
-  q('play',i).innerHTML = '<i class="fa-solid fa-pause"></i> إيقاف';
+  q('play',i).innerHTML = '<i class="fa-solid fa-pause"></i> ' + (isEn ? 'Pause' : 'إيقاف');
   const delay = () => 1700 - q('speed',i).value;
   const tick = () => { next(i); if(st.timer) st.timer = setTimeout(tick, delay()); };
   st.timer = setTimeout(tick, delay());
 }
 function stop(i){
   clearTimeout(I[i].timer); I[i].timer = null;
-  const b = q('play',i); if(b) b.innerHTML = '<i class="fa-solid fa-play"></i> تشغيل';
+  const b = q('play',i); if(b) b.innerHTML = '<i class="fa-solid fa-play"></i> ' + (isEn ? 'Play' : 'تشغيل');
 }
 
 function renderAnalysis(i){
@@ -1304,48 +1710,86 @@ function renderAnalysis(i){
 }
 
 /* ================= KEYS CALCULATOR ================= */
+const KEYSPACE_MAP = {
+  8: {
+    lblAr: '8 بت (256 احتمال)',
+    lblEn: '8-bit (256 keys)',
+    valAr: '256 مفتاح',
+    valEn: '256 Keys',
+    tmAr: '< 0.0001 ثانية (لحظي)',
+    tmEn: '< 0.0001 sec (Instantaneous)',
+    vdAr: '<i class="fa-solid fa-triangle-exclamation"></i> كسر لحظي تافه حتى بهاتف قديم.',
+    vdEn: '<i class="fa-solid fa-triangle-exclamation"></i> Instant trivial crack even on an old mobile phone.',
+    secure: false
+  },
+  16: {
+    lblAr: '16 بت (65,536 احتمال)',
+    lblEn: '16-bit (65,536 keys)',
+    valAr: '65,536 مفتاح',
+    valEn: '65,536 Keys',
+    tmAr: '~ 0.001 ثانية',
+    tmEn: '~ 0.001 sec',
+    vdAr: '<i class="fa-solid fa-triangle-exclamation"></i> غير آمن تماماً.',
+    vdEn: '<i class="fa-solid fa-triangle-exclamation"></i> Completely insecure, broken instantaneously.',
+    secure: false
+  },
+  56: {
+    lblAr: '56 بت (معيار DES القديم)',
+    lblEn: '56-bit (Legacy DES standard)',
+    valAr: '7.2 × 10¹⁶ احتمال',
+    valEn: '7.2 × 10¹⁶ Keys',
+    tmAr: '~ 20 ساعة (بحاسوب مخصص)',
+    tmEn: '~ 20 Hours (Custom Hardware)',
+    vdAr: '<i class="fa-solid fa-triangle-exclamation"></i> مكسور عملياً منذ عام 1999 بواسطة EFF Deep Crack.',
+    vdEn: '<i class="fa-solid fa-triangle-exclamation"></i> Practically compromised since 1999 by EFF Deep Crack.',
+    secure: false
+  },
+  128: {
+    lblAr: '128 بت (معيار AES-128)',
+    lblEn: '128-bit (AES-128 standard)',
+    valAr: '3.4 × 10³⁸ احتمال',
+    valEn: '3.4 × 10³⁸ Keys',
+    tmAr: '> مليار مليار سنة!',
+    tmEn: '> 10¹⁸ Years (Centuries)',
+    vdAr: '<i class="fa-solid fa-shield-check" style="color:var(--ok)"></i> آمن تماماً ضد كل حواسيب الأرض مجتمعة.',
+    vdEn: '<i class="fa-solid fa-shield-check" style="color:var(--ok)"></i> Impervious to all world computing clusters combined.',
+    secure: true
+  },
+  256: {
+    lblAr: '256 بت (معيار AES-256)',
+    lblEn: '256-bit (AES-256 standard)',
+    valAr: '1.15 × 10⁷⁷ احتمال',
+    valEn: '1.15 × 10⁷⁷ Keys',
+    tmAr: 'يفوق عمر الكون بمليارات المرات',
+    tmEn: 'Billions of times the age of the Universe',
+    vdAr: '<i class="fa-solid fa-shield-check" style="color:var(--ok)"></i> مناعة مطلقة وقوة تشفير عسكرية حتى ضد الحواسيب الكمومية.',
+    vdEn: '<i class="fa-solid fa-shield-check" style="color:var(--ok)"></i> Astronomical entropy exceeding the age of the universe.',
+    secure: true
+  }
+};
+
+const KEY_OPT_LABELS = {
+  8: { ar: '8 بت (بدائي جداً - 256 مفتاح)', en: '8-bit (Trivial - 256 keys)' },
+  16: { ar: '16 بت (ضعيف - 65,536 مفتاح)', en: '16-bit (Weak - 65,536 keys)' },
+  56: { ar: '56 بت (معيار DES القديم - كُسر تاريخياً)', en: '56-bit (Legacy DES standard - Historically cracked)' },
+  128: { ar: '128 بت (AES-128 - آمن لملايين السنين)', en: '128-bit (AES-128 - Bulletproof for millennia)' },
+  256: { ar: '256 بت (AES-256 - مناعة عسكرية وفلكية)', en: '256-bit (AES-256 - Military & Quantum resistance)' }
+};
+
 function updateKeyspace(bits){
   const b = parseInt(bits, 10);
+  const item = KEYSPACE_MAP[b] || KEYSPACE_MAP[56];
   const lbl = $('keyBitLbl'), val = $('keyspaceVal'), tm = $('crackTimeVal'), vd = $('securityVerdict');
-  if(b === 8){
-    lbl.textContent = '8 بت (256 احتمال)';
-    val.textContent = '256 مفتاح';
-    tm.textContent = '< 0.0001 ثانية (لحظي)';
-    vd.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> كسر لحظي تافه حتى بهاتف قديم.';
-    vd.style.color = 'var(--bad)';
-  } else if(b === 16){
-    lbl.textContent = '16 بت (65,536 احتمال)';
-    val.textContent = '65,536 مفتاح';
-    tm.textContent = '~ 0.001 ثانية';
-    vd.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> غير آمن تماماً.';
-    vd.style.color = 'var(--bad)';
-  } else if(b === 56){
-    lbl.textContent = '56 بت (معيار DES القديم)';
-    val.textContent = '7.2 × 10¹⁶ احتمال';
-    tm.textContent = '~ 20 ساعة (بحاسوب مخصص)';
-    vd.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> مكسور عملياً منذ عام 1999 بواسطة EFF Deep Crack.';
-    vd.style.color = 'var(--bad)';
-  } else if(b === 128){
-    lbl.textContent = '128 بت (معيار AES-128)';
-    val.textContent = '3.4 × 10³⁸ احتمال';
-    tm.textContent = '> مليار مليار سنة!';
-    vd.innerHTML = '<i class="fa-solid fa-shield-check" style="color:var(--ok)"></i> آمن تماماً ضد كل حواسيب الأرض مجتمعة.';
-    vd.style.color = 'var(--ok)';
-  } else if(b === 256){
-    lbl.textContent = '256 بت (معيار AES-256)';
-    val.textContent = '1.15 × 10⁷⁷ احتمال';
-    tm.textContent = 'يفوق عمر الكون بمليارات المرات';
-    vd.innerHTML = '<i class="fa-solid fa-shield-check" style="color:var(--ok)"></i> مناعة مطلقة وقوة تشفير عسكرية حتى ضد الحواسيب الكمومية.';
-    vd.style.color = 'var(--ok)';
-  }
+  if(!lbl || !val || !tm || !vd) return;
+  lbl.textContent = isEn ? item.lblEn : item.lblAr;
+  val.textContent = isEn ? item.valEn : item.valAr;
+  tm.textContent = isEn ? item.tmEn : item.tmAr;
+  vd.innerHTML = isEn ? item.vdEn : item.vdAr;
+  vd.style.color = item.secure ? 'var(--ok)' : 'var(--bad)';
+  tm.style.color = item.secure ? 'var(--ok)' : 'var(--bad)';
 }
 
 /* ================= TEACHER TOOLS ================= */
-function toggleTheme(){
-  const d = document.documentElement.getAttribute('data-theme') === 'dark';
-  document.documentElement.setAttribute('data-theme', d ? 'light' : 'dark');
-  $('tTheme').innerHTML = d ? '<i class="fa-solid fa-moon"></i> ليلي' : '<i class="fa-solid fa-sun"></i> نهاري';
-}
 function toggleBig(){
   document.body.classList.toggle('big');
   $('tBig').classList.toggle('on');
@@ -1377,8 +1821,285 @@ addEventListener('keydown', e => {
   else if(e.key === ' '){ e.preventDefault(); togglePlay(i); }
 });
 
+
+/* ================= BILINGUAL SYSTEM & THEME SYNC ================= */
+let currentLang = localStorage.getItem('agy_lang') || 'ar';
+let isEn = currentLang === 'en';
+
+function updateThemeUI(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const btn = $('tTheme');
+  const txt = $('tThemeTxt');
+  if (btn && txt) {
+    if (theme === 'dark') {
+      btn.innerHTML = '<i class="fa-solid fa-sun"></i> <span id="tThemeTxt">' + (isEn ? 'Light' : 'نهاري') + '</span>';
+    } else {
+      btn.innerHTML = '<i class="fa-solid fa-moon"></i> <span id="tThemeTxt">' + (isEn ? 'Dark' : 'ليلي') + '</span>';
+    }
+  }
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const target = current === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('portal_theme', target);
+  updateThemeUI(target);
+  showToast(target === 'dark' ? (isEn ? 'Dark mode enabled' : 'تم تفعيل الوضع الليلي') : (isEn ? 'Light mode enabled' : 'تم تفعيل الوضع النهاري'));
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'ar' ? 'en' : 'ar';
+  localStorage.setItem('agy_lang', currentLang);
+  applyLanguageUI();
+  showToast(currentLang === 'en' ? 'Switched to English' : 'تم التحويل إلى اللغة العربية');
+}
+
+const AR_TEXT_CACHE = new Map();
+
+const EN_EXACT_MAP = {
+  // Topbar
+  'الرئيسية': 'Home',
+  'ملزمة PDF للطباعة': 'Printable PDF Handout',
+  'وضع العرض': 'Presentation Mode',
+  'قلم الشرح': 'Draw Pen',
+  'مسح': 'Clear Canvas',
+  'ليلي': 'Dark',
+  'نهاري': 'Light',
+  
+  // Hero
+  'مقرر الأمن السيبراني (سنة ثالثة علوم حاسوب) · إعداد: م. عبدالحميد هلال دعبان':
+    'Cybersecurity Course (3rd Year Computer Science) · Eng. Abdulhamid Helal Daban',
+  'مادة الأمن السيبراني': 'Cybersecurity Course',
+  'سنة ثالثة علوم حاسوب': '3rd Year Computer Science',
+  '7 خوارزميات محاكاة': '7 Cryptography Simulations',
+  'Bitwise & Modular Math': 'Bitwise & Modular Math',
+  '2026-2027م': '2026-2027',
+
+  // Section 1
+  '1. المبادئ التأسيسية للأمن السيبراني والرياضيات المتقطعة للتشفير':
+    '1. Foundational Cybersecurity Principles & Discrete Cryptographic Mathematics',
+  "مبدأ كيركهوفس الذهبي (Kerckhoffs's Principle)":
+    "Kerckhoffs's Golden Principle",
+  'مثلث الأمان CIA Triad': 'CIA Security Triad',
+  'الحساب النمطي (Modular Arithmetic)': 'Modular Arithmetic',
+  'عملية XOR (⊕) السحرية': 'The Magical XOR (⊕) Operation',
+  'مقياس المناعة الرياضية': 'Mathematical Resilience Metric',
+  'طول المفتاح التشفيري:': 'Cryptographic Key Length:',
+  'عدد الاحتمالات (2^k)': 'Total Possibilities (2^k)',
+  'الزمن المتوقع للكسر': 'Estimated Brute-Force Time',
+  'حكم الأمن السيبراني': 'Cybersecurity Verdict',
+
+  // Section 2
+  '2. خوارزميات التشفير السبع المشروحة بالتفصيل':
+    '2. Seven Core Cryptographic Algorithms in Detail',
+  'الفهرس': 'Index',
+  'الفكرة والتأصيل الرياضي': '1. Idea & Mathematical Basis',
+  'التنفيذ وتتبع الحالات الحية': '2. Live Tracing & Execution',
+  'التحليل الأمني ومقاومة الهجمات': '3. Security & Threat Analysis',
+  'تشبيه يقرّب المفهوم السيبراني': 'Conceptual Security Analogy',
+  'الكود البرمجي باللغة القياسية': 'Standard Reference Code',
+  'ابدأ المحاكاة وتتبع الحالات خطوة بخطوة ←': 'Start Simulation & Step-by-Step Tracing →',
+  'السطر البرمجي الجاري تنفيذه في المعالج': 'Current Executing Instruction in CPU',
+  'حالة المتغيرات والبتات المسجلة': 'CPU Registers & Variable State',
+  'لوحة عدادات الجهد التشفيري': 'Cryptographic Workload Counters',
+  'عمليات بتية': 'Bitwise Operations',
+  'احتمالات المفتاح': 'Key Space Tested',
+  'بتات متقلبة': 'Bits Flipped',
+  'Σ المجهود الكلي': 'Total Effort Σ',
+  'سرعة المحاكاة:': 'Simulation Speed:',
+  'تطبيق وإعادة التشغيل': 'Apply & Restart',
+
+  // Section 3
+  'التطبيق البرمجي لمعايير التشفير الصناعية بلغة Java':
+    'Industrial Cryptography Standards Implementation in Java',
+
+  // Section 4
+  '4. جدول المقارنة والتقييم الشامل لخوارزميات التشفير':
+    '4. Comprehensive Cryptographic Comparison & Evaluation Matrix',
+  'الخوارزمية': 'Algorithm',
+  'النوع': 'Type',
+  'حجم المفتاح': 'Key Size',
+  'الهدف الأمني الرئيسي': 'Primary Security Goal',
+  'نقاط الضعف والهجمات': 'Vulnerabilities & Attacks',
+  'الوضع الأمني في 2026-2027': 'Security Status (2026-2027)'
+};
+
+function applyLanguageUI() {
+  isEn = currentLang === 'en';
+  document.documentElement.lang = currentLang;
+  document.documentElement.dir = isEn ? 'ltr' : 'rtl';
+  document.title = isEn
+    ? 'Cryptography & Cybersecurity Foundations | Advanced Interactive Lab - Eng. Abdulhamid Helal Daban'
+    : 'أسس التشفير والأمن السيبراني | مختبر تفاعلي متقدم - م. عبدالحميد هلال دعبان';
+
+  if ($('txtPortalBack')) $('txtPortalBack').innerText = isEn ? 'Home' : 'الرئيسية';
+  if ($('txtPdfPrint')) $('txtPdfPrint').innerText = isEn ? 'Printable PDF' : 'ملزمة PDF للطباعة';
+  if ($('tBigTxt')) $('tBigTxt').innerText = isEn ? 'Stage Mode' : 'وضع العرض';
+  if ($('tPenTxt')) $('tPenTxt').innerText = isEn ? 'Draw Pen' : 'قلم الشرح';
+  if ($('tClrTxt')) $('tClrTxt').innerText = isEn ? 'Clear' : 'مسح';
+  if ($('tLangTxt')) $('tLangTxt').innerText = isEn ? 'عربي' : 'EN';
+  
+  const curTheme = document.documentElement.getAttribute('data-theme') || 'light';
+  updateThemeUI(curTheme);
+
+  if ($('lblKeyLenTitle')) $('lblKeyLenTitle').innerText = isEn ? 'Cryptographic Key Length: ' : 'طول المفتاح التشفيري: ';
+  if ($('lblPossibilities')) $('lblPossibilities').innerText = isEn ? 'Possibilities (2^k)' : 'عدد الاحتمالات ($2^k$)';
+  if ($('lblCrackTime')) $('lblCrackTime').innerText = isEn ? 'Estimated Crack Time' : 'الزمن المتوقع للكسر';
+  if ($('lblVerdict')) $('lblVerdict').innerText = isEn ? 'Cybersecurity Verdict' : 'حكم الأمن السيبراني';
+
+  const keySel = $('keyBitSelect');
+  if (keySel) {
+    Array.from(keySel.options).forEach(opt => {
+      const v = parseInt(opt.value, 10);
+      if (KEY_OPT_LABELS[v]) {
+        opt.textContent = isEn ? KEY_OPT_LABELS[v].en : KEY_OPT_LABELS[v].ar;
+      }
+    });
+    updateKeyspace(keySel.value);
+  }
+  buildToc();
+
+  // Exact Text Replacement in Body
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+  let n;
+  while (n = walker.nextNode()) {
+    const txt = n.nodeValue.trim();
+    if (!txt) continue;
+    if (EN_EXACT_MAP[txt]) {
+      if (!AR_TEXT_CACHE.has(n)) AR_TEXT_CACHE.set(n, n.nodeValue);
+      n.nodeValue = isEn ? EN_EXACT_MAP[txt] : AR_TEXT_CACHE.get(n);
+    }
+  }
+
+  // Update Dynamic Operations Slides Nav and Labels
+  OPS.forEach((o, i) => {
+    const sec = $('op-' + o.key);
+    if (!sec) return;
+    const btns = sec.querySelectorAll('.sl-btn');
+    if (btns.length === 3) {
+      btns[0].innerHTML = isEn ? '<span class="n">1</span>Idea &amp; Math Foundation' : '<span class="n">1</span>الفكرة والتأصيل الرياضي';
+      btns[1].innerHTML = isEn ? '<span class="n">2</span>Live Execution &amp; Tracing' : '<span class="n">2</span>التنفيذ وتتبع الحالات الحية';
+      btns[2].innerHTML = isEn ? '<span class="n">3</span>Security &amp; Attack Analysis' : '<span class="n">3</span>التحليل الأمني ومقاومة الهجمات';
+    }
+    const startSimBtn = sec.querySelector('.slide[data-slide="0"] button.btn');
+    if (startSimBtn) {
+      startSimBtn.innerHTML = isEn ? 'Start Simulation &amp; Tracing Step-by-Step →' : 'ابدأ المحاكاة وتتبع الحالات خطوة بخطوة ←';
+    }
+    updatePlayerControls(i);
+  });
+}
+
+function updatePlayerControls(i) {
+  const pBtn = q('play', i);
+  if (pBtn) {
+    const isPlaying = !!I[i].timer;
+    pBtn.innerHTML = isPlaying
+      ? (isEn ? '<i class="fa-solid fa-pause"></i> Pause' : '<i class="fa-solid fa-pause"></i> إيقاف')
+      : (isEn ? '<i class="fa-solid fa-play"></i> Play' : '<i class="fa-solid fa-play"></i> تشغيل');
+  }
+}
+
+/* ================= FLASHCARDS & QUIZ ================= */
+function toggleAnswer(id, btn) {
+  const el = $(id);
+  if (!el) return;
+  const isHidden = window.getComputedStyle(el).display === 'none';
+  el.style.display = isHidden ? 'block' : 'none';
+  if (btn) {
+    const txt = btn.querySelector('.fc-btn-txt');
+    if (txt) {
+      txt.innerText = isHidden
+        ? (isEn ? 'Hide Model Answer' : 'إخفاء الإجابة')
+        : (isEn ? 'Reveal Model Answer' : 'كشف الإجابة النموذجية');
+    }
+    const icon = btn.querySelector('i');
+    if (icon) {
+      icon.className = isHidden ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+    }
+  }
+}
+
+let quizAnswers = { 1: false, 2: false, 3: false };
+let quizAnswered = { 1: false, 2: false, 3: false };
+
+function checkQuiz(qNum, optIdx, isCorrect, btn) {
+  if (quizAnswered[qNum]) return;
+  quizAnswered[qNum] = true;
+  quizAnswers[qNum] = isCorrect;
+
+  const box = $('qBox' + qNum);
+  const feed = $('qFeed' + qNum);
+  const btns = box.querySelectorAll('.quiz-opt-btn');
+
+  btns.forEach(b => {
+    b.disabled = true;
+    if (b === btn) {
+      b.classList.add(isCorrect ? 'correct' : 'wrong');
+      const icon = b.querySelector('i');
+      if (icon) {
+        icon.style.opacity = '1';
+        icon.className = isCorrect ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-xmark';
+      }
+    }
+  });
+
+  if (feed) {
+    feed.style.display = 'block';
+    feed.style.color = isCorrect ? 'var(--ok)' : 'var(--bad)';
+    feed.innerHTML = isCorrect
+      ? (isEn ? '<i class="fa-solid fa-check"></i> Correct! Excellent analytical understanding.' : '<i class="fa-solid fa-check"></i> إجابة صحيحة وممتازة!')
+      : (isEn ? '<i class="fa-solid fa-xmark"></i> Incorrect answer. Review the explanation above.' : '<i class="fa-solid fa-xmark"></i> إجابة غير صحيحة، راجع الشرح في الدرس أعلاه.');
+  }
+
+  const totalCorrect = Object.values(quizAnswers).filter(Boolean).length;
+  const answeredCount = Object.values(quizAnswered).filter(Boolean).length;
+  $('quizScore').innerText = isEn ? 'Score: ' + totalCorrect + ' / 3' : 'النتيجة: ' + totalCorrect + ' / 3';
+  if (answeredCount === 3) {
+    showToast(isEn ? 'Quiz Completed: ' + totalCorrect + ' / 3' : 'أنهيت الاختبار الذاتي: ' + totalCorrect + ' من 3');
+  }
+}
+
+/* ================= TOAST & SCROLL FAB ================= */
+let toastTimer = null;
+function showToast(msg) {
+  const toast = $('toast');
+  const toastMsg = $('toastMsg');
+  if (!toast || !toastMsg) return;
+  toastMsg.innerText = msg;
+  toast.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2600);
+}
+
+window.addEventListener('scroll', () => {
+  const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+  const fab = $('fabBackTop');
+  if (fab) {
+    fab.classList.toggle('visible', winScroll > 350);
+  }
+});
+
 // Initialization
+const initialTheme = localStorage.getItem("portal_theme") || "light";
+updateThemeUI(initialTheme);
 buildSections();
+applyLanguageUI();
 </script>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+  <i class="fa-solid fa-circle-check" style="color:var(--brand);font-size:18px;"></i>
+  <span id="toastMsg">تمت العملية بنجاح</span>
+</div>
+
+<!-- Floating Action Button -->
+<div class="fab-container">
+  <button class="fab-btn" id="fabBackTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="العودة لأعلى الصفحة">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+</div>
+
 </body>
 </html>
