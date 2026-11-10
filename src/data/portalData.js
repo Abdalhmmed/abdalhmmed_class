@@ -256,7 +256,7 @@ export const portalData = {
           title: 'Cybersecurity & Cryptography',
           subtitle: 'Security Algorithms Engineering Lab for 3rd Year CS Students · Course Instructor: Eng. Abdulhamid Helal Daban',
           tagIcon: 'fa-solid fa-shield-cat',
-          tagText: 'Year 3 CS · Cybersecurity',
+          tagText: 'Java · Cybersecurity',
           lectures: [
             {
               id: 'cyber-lec-01',
