@@ -431,12 +431,13 @@ html[dir="ltr"] .op-header {
   </div>
 
   <div class="tools">
-    <button type="button" class="tool lang-btn" id="langToggleBtn" onclick="toggleLanguage()" title="Switch Language / تبديل لغة الطباعة">
+    <!-- Language toggle button hidden: English only mode -->
+    <button type="button" class="tool lang-btn" id="langToggleBtn" onclick="toggleLanguage()" title="Switch Language" style="display: none !important;">
       <i class="fa-solid fa-language"></i>
       <span id="langBtnText">العربية</span>
     </button>
 
-    <button type="button" class="tool cta-print" onclick="window.print()" title="Print A4 / طباعة ملزمة A4">
+    <button type="button" class="tool cta-print" onclick="window.print()" title="Print A4 / Save PDF">
       <i class="fa-solid fa-file-arrow-down"></i>
       <span class="lang-en">Print / Save PDF (A4)</span>
       <span class="lang-ar">طباعة / حفظ PDF (A4)</span>
@@ -1348,30 +1349,25 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// فك التشفير �
 
 <script>
 function setLanguage(lang) {
-  const isEn = (lang === 'en');
-  document.documentElement.lang = isEn ? 'en' : 'ar';
-  document.documentElement.dir = isEn ? 'ltr' : 'rtl';
-  localStorage.setItem('agy_lang', isEn ? 'en' : 'ar');
+  // Enforce English mode exclusively
+  const isEn = true;
+  document.documentElement.lang = 'en';
+  document.documentElement.dir = 'ltr';
 
   const btnText = document.getElementById('langBtnText');
   if (btnText) {
-    btnText.textContent = isEn ? 'العربية' : 'English';
+    btnText.textContent = 'English';
   }
-  document.title = isEn
-    ? 'Foundations of Cryptography & Security Algorithms Engineering - Eng. Abdulhamid Helal Daban'
-    : 'أسس علم التشفير وهندسة الخوارزميات الأمنية - م. عبدالحميد هلال دعبان';
+  document.title = 'Foundations of Cryptography & Security Algorithms Engineering - Eng. Abdulhamid Helal Daban';
 }
 
 function toggleLanguage() {
-  const current = document.documentElement.lang || localStorage.getItem('agy_lang') || 'ar';
-  const next = (current === 'en') ? 'ar' : 'en';
-  setLanguage(next);
+  setLanguage('en');
 }
 
-// Initialize on page load from saved preference
+// Initialize on page load strictly in English
 (function initLang() {
-  const saved = localStorage.getItem('agy_lang') || 'ar';
-  setLanguage(saved);
+  setLanguage('en');
 })();
 </script>
 </body>

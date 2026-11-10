@@ -873,7 +873,8 @@ html[dir="ltr"] .op-header {
   </div>
 
   <div class="tools">
-    <button type="button" class="tool lang-btn" id="langToggleBtn" onclick="toggleLanguage()" title="Switch Language / تبديل لغة الطباعة">
+    <!-- Language toggle button hidden: English only mode -->
+    <button type="button" class="tool lang-btn" id="langToggleBtn" onclick="toggleLanguage()" title="Switch Language" style="display: none !important;">
       <i class="fa-solid fa-language"></i>
       <span id="langBtnText">العربية</span>
     </button>
@@ -2304,30 +2305,25 @@ arr[2] = 88;       <span class="cm">// تعديل القيمة في خطوة و�
 
 <script>
 function setLanguage(lang) {
-  const isEn = (lang === 'en');
-  document.documentElement.lang = isEn ? 'en' : 'ar';
-  document.documentElement.dir = isEn ? 'ltr' : 'rtl';
-  localStorage.setItem('agy_lang', isEn ? 'en' : 'ar');
+  // Enforce English mode exclusively
+  const isEn = true;
+  document.documentElement.lang = 'en';
+  document.documentElement.dir = 'ltr';
 
   const btnText = document.getElementById('langBtnText');
   if (btnText) {
-    btnText.textContent = isEn ? 'العربية' : 'English';
+    btnText.textContent = 'English';
   }
-  document.title = isEn
-    ? 'Arrays in Java & Big-O Algorithm Complexity Analysis - Eng. Abdulhamid Helal Daban'
-    : 'المصفوفات (Arrays) في Java وتحليل كفاءة الخوارزميات - م. عبدالحميد هلال دعبان';
+  document.title = 'Arrays in Java & Big-O Algorithm Complexity Analysis - Eng. Abdulhamid Helal Daban';
 }
 
 function toggleLanguage() {
-  const current = document.documentElement.lang || localStorage.getItem('agy_lang') || 'ar';
-  const next = (current === 'en') ? 'ar' : 'en';
-  setLanguage(next);
+  setLanguage('en');
 }
 
-// Initialize on page load from saved preference
+// Initialize on page load strictly in English
 (function initLang() {
-  const saved = localStorage.getItem('agy_lang') || 'ar';
-  setLanguage(saved);
+  setLanguage('en');
 })();
 </script>
 </body>
