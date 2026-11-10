@@ -788,6 +788,11 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
     </div>
 
     <p><b>Security Foundation:</b> Relies on the computational intractability of the <b>Discrete Logarithm Problem (DLP)</b> over large prime fields.</p>
+
+    <div class="code-block"><span class="cm">// Diffie-Hellman Key Exchange in Java (BigInteger Modular Exponentiation)</span>
+<span class="kw">public static</span> BigInteger deriveSharedSecret(BigInteger publicReceived, BigInteger privateSelf, BigInteger prime) {
+    <span class="kw">return</span> publicReceived.modPow(privateSelf, prime); <span class="cm">// K = (g^b)^a mod p == (g^a)^b mod p</span>
+}</div>
   </div>
 
   <!-- ================= 8. SHA-256 HASH ================= -->
@@ -818,6 +823,15 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
         <td><span class="pill pill-ok">137 bits flipped (53.5%)!</span></td>
       </tr>
     </table>
+
+    <div class="code-block"><span class="cm">// SHA-256 Digest Computation in Java</span>
+<span class="kw">public static</span> String sha256(String input) <span class="kw">throws</span> Exception {
+    MessageDigest md = MessageDigest.getInstance(<span class="str">"SHA-256"</span>);
+    <span class="kw">byte</span>[] hash = md.digest(input.getBytes(StandardCharsets.UTF_8));
+    StringBuilder hex = <span class="kw">new</span> StringBuilder();
+    <span class="kw">for</span> (<span class="kw">byte</span> b : hash) hex.append(String.format(<span class="str">"%02x"</span>, b));
+    <span class="kw">return</span> hex.toString();
+}</div>
   </div>
 
   <!-- ================= 9. DIGITAL SIGNATURE ================= -->
@@ -840,6 +854,14 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
         <div class="array-item"><span class="addr">Sign with PrivKey</span><div class="box found">Signature S</div><span class="idx">S = H(M)^d mod n</span></div>
       </div>
     </div>
+
+    <div class="code-block"><span class="cm">// Digital Signature &amp; Verification in Java</span>
+<span class="kw">public static boolean</span> verifySignature(<span class="kw">byte</span>[] data, <span class="kw">byte</span>[] sig, PublicKey pubKey) <span class="kw">throws</span> Exception {
+    Signature verifier = Signature.getInstance(<span class="str">"SHA256withRSA"</span>);
+    verifier.initVerify(pubKey);
+    verifier.update(data);
+    <span class="kw">return</span> verifier.verify(sig);
+}</div>
 
     <p>
       <b>Non-Repudiation Guarantee:</b> Because the Private Key is held exclusively by the signer, the signer cannot legally or mathematically deny having signed the document once anyone verifies the signature using the signer's Public Key.
