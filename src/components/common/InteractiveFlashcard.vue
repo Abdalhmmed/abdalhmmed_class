@@ -82,7 +82,7 @@ function toggleReveal() {
 }
 .flashcard-answer {
   background: var(--bg, #f8fafc);
-  border-right: 4px solid var(--brand, #2563eb);
+  border: 1px solid var(--line, #e2e8f0);
   padding: 14px 18px;
   border-radius: 8px;
   margin-top: 14px;
@@ -91,12 +91,10 @@ function toggleReveal() {
   color: var(--ink, #0f172a);
 }
 :global(html[dir="ltr"]) .flashcard-answer {
-  border-right: none !important;
-  border-left: 4px solid var(--brand, #2563eb) !important;
+  border: 1px solid var(--line, #e2e8f0) !important;
 }
 :global(html[dir="rtl"]) .flashcard-answer {
-  border-left: none !important;
-  border-right: 4px solid var(--brand, #2563eb) !important;
+  border: 1px solid var(--line, #e2e8f0) !important;
 }
 
 .fade-slide-enter-active,

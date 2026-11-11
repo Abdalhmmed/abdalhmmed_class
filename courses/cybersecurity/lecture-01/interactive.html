@@ -62,6 +62,15 @@
 }
 
 * { box-sizing: border-box; }
+html, body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+}
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
@@ -167,7 +176,7 @@ code, .mono { font-family: "Fira Code", Consolas, monospace; direction: ltr; uni
 
 /* Headings */
 h2 {
-  font-size: 25px; margin: 0 0 18px; border-right: 6px solid var(--brand);
+  font-size: 25px; margin: 0 0 18px; border: none !important;
   padding-right: 16px; line-height: 1.5; font-weight: 900; color: var(--ink);
 }
 h3 { color: var(--brand); font-size: 19px; margin: 32px 0 14px; font-weight: 800; }
@@ -195,8 +204,8 @@ p { margin: 12px 0; line-height: 1.95; }
 .p-acc { background: var(--accent-soft); color: #b45309; }
 .p-bad { background: var(--bad-soft); color: var(--bad); }
 
-.note { background: var(--brand-soft); border-right: 5px solid var(--brand); border-radius: 12px; padding: 18px 22px; margin: 24px 0; line-height: 1.9; }
-.warn { background: var(--accent-soft); border-right: 5px solid var(--accent); border-radius: 12px; padding: 18px 22px; margin: 24px 0; line-height: 1.9; }
+.note { background: var(--brand-soft); border: 1px solid var(--brand-border); border-radius: 12px; padding: 18px 22px; margin: 24px 0; line-height: 1.9; }
+.warn { background: var(--accent-soft); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 18px 22px; margin: 24px 0; line-height: 1.9; }
 
 table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14.5px; margin: 24px 0; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
 th, td { border-bottom: 1px solid var(--line); padding: 14px 18px; text-align: right; }
@@ -289,7 +298,7 @@ tr:last-child td { border-bottom: none; }
   border-radius: 50%; background: var(--brand); color: #fff; text-align: center;
   line-height: 30px; font-weight: 900; font-size: 13.5px;
 }
-.analogy { background: var(--violet-soft); border-right: 5px solid var(--violet); border-radius: 14px; padding: 18px 22px; margin-bottom: 18px; }
+.analogy { background: var(--violet-soft); border: 1px solid rgba(139, 92, 246, 0.35); border-radius: 14px; padding: 18px 22px; margin-bottom: 18px; }
 
 .run-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
 @media (max-width: 1000px) { .run-grid { grid-template-columns: 1fr; } }
@@ -329,9 +338,9 @@ tr:last-child td { border-bottom: none; }
   background: var(--code); border-radius: 14px; padding: 16px 0; direction: ltr; text-align: left;
   font: 500 14px/1.8 "Fira Code"; color: var(--code-ink); overflow-x: auto; border: 1px solid rgba(16,185,129,0.2);
 }
-.code .ln { display: flex; padding: 0 18px; border-left: 4px solid transparent; transition: background .2s; }
+.code .ln { display: flex; padding: 0 18px; border: none; transition: background .2s; }
 .code .ln i { font-style: normal; color: #374151; width: 28px; flex-shrink: 0; user-select: none; }
-.code .ln.on { background: rgba(16, 185, 129, 0.22); border-left-color: var(--brand); }
+.code .ln.on { background: rgba(16, 185, 129, 0.22); border: none; }
 .code .ln.on span { color: #fff; font-weight: 700; }
 .kw { color: #34d399; } .cm { color: #64748b; font-style: italic; } .nm { color: #fca5a5; }
 
@@ -438,7 +447,7 @@ tr:last-child td { border-bottom: none; }
 .toc .num { background: var(--brand); color: #fff; border-radius: 8px; padding: 2px 10px; font: 700 12px 'Fira Code'; }
 
 /* Drawing Canvas & Teacher Tools */
-#pen { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 40; }
+#pen { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 40; border: none !important; outline: none !important; }
 body.drawing #pen { pointer-events: auto; cursor: crosshair; }
 body.big .wrap { max-width: 1380px; }
 body.big { font-size: 17.5px; }
@@ -452,19 +461,17 @@ html[dir="ltr"] body {
   letter-spacing: normal;
 }
 html[dir="ltr"] h2 {
-  border-right: none;
-  border-left: 6px solid var(--brand);
-  padding-right: 0;
-  padding-left: 16px;
+  border: none !important;
+  padding: 0;
 }
 html[dir="ltr"] .note,
 html[dir="ltr"] .mini[style*="border-right"] {
   border-right: none !important;
-  border-left: 5px solid var(--brand) !important;
+  border: 1px solid var(--brand-border) !important;
 }
 html[dir="ltr"] .warn {
   border-right: none !important;
-  border-left: 5px solid var(--accent) !important;
+  border: 1px solid var(--accent-border, rgba(245, 158, 11, 0.35)) !important;
 }
 html[dir="ltr"] th, 
 html[dir="ltr"] td {
@@ -489,7 +496,7 @@ html[dir="ltr"] .chips span i {
 }
 html[dir="ltr"] .analogy {
   border-right: none !important;
-  border-left: 5px solid var(--violet) !important;
+  border: 1px solid var(--violet-border, rgba(139, 92, 246, 0.35)) !important;
 }
 html[dir="ltr"] .idea-steps li {
   padding: 10px 0 10px 46px !important;
@@ -542,7 +549,7 @@ html[dir="ltr"] .next-hint {
 .flashcard-answer {
   display: none;
   background: var(--paper);
-  border-left: 4px solid var(--ok);
+  border: 1px solid var(--line);
   padding: 14px 18px;
   border-radius: 8px;
   margin-top: 14px;
@@ -552,7 +559,7 @@ html[dir="ltr"] .next-hint {
 }
 html[dir="rtl"] .flashcard-answer {
   border-left: none;
-  border-right: 4px solid var(--ok);
+  border: 1px solid var(--line);
 }
 
 .quiz-widget {
@@ -739,7 +746,7 @@ html[dir="ltr"] .fab-container {
   <section class="card" id="crypto-foundations">
     <h2>1. المبادئ التأسيسية للأمن السيبراني والرياضيات المتقطعة للتشفير</h2>
     
-    <div class="mini" style="border-right:5px solid var(--brand);background:var(--brand-soft);margin-bottom:18px;padding:16px 20px">
+    <div class="mini" style="border:1px solid var(--brand-border);background:var(--brand-soft);margin-bottom:18px;padding:16px 20px">
       <h3 style="margin:0 0 8px;color:var(--brand);font-size:19px"><i class="fa-solid fa-unlock-keyhole"></i> مبدأ كيركهوفس الذهبي (Kerckhoffs's Principle)</h3>
       <p style="margin:0;font-size:15px;line-height:1.8">
         <b>«يجب أن يكون أمان النظام التشفيري مبنياً بالكامل على سرية المفتاح (Key)، وليس على سرية الخوارزمية (Algorithm).»</b><br>

@@ -1,18 +1,21 @@
 <script setup>
 defineProps({
-  hero: { type: Object, required: true },
-  instructor: { type: Object, required: true }
+  hero: { type: Object, required: true }
 })
 </script>
 
 <template>
   <header id="home" class="portal-hero">
-    <div class="hero-container">
+    <div class="hero-container hero-container-single">
       <div class="hero-text">
-        <div class="hero-badge">
-          <span class="dot"></span>
-          <span>{{ hero.badge }}</span>
+        <!-- Academic Header Tag (Clean typography, borderless & background-free) -->
+        <div class="academic-hero-tag">
+          <span class="tag-label">{{ hero.kicker || 'Academic Curricula' }}</span>
+          <span class="tag-sep">/</span>
+          <span class="tag-title">{{ hero.badge }}</span>
+          <span v-if="hero.year" class="tag-year">{{ hero.year }}</span>
         </div>
+
         <h2 class="hero-title">
           {{ hero.titleLine1 }}<br />
           <span>{{ hero.titleHighlight }}</span>
@@ -31,30 +34,6 @@ defineProps({
             <span class="stat-num">{{ stat.num }}</span>
             <span class="stat-label">{{ stat.label }}</span>
           </div>
-        </div>
-      </div>
-
-      <!-- Instructor Card -->
-      <div id="about" class="lecturer-card">
-        <div class="card-content">
-          <div class="instructor-profile">
-            <div class="instructor-avatar">
-              <i class="fa-solid fa-code"></i>
-            </div>
-            <div class="instructor-info">
-              <h3>{{ instructor.name }}</h3>
-              <p>{{ instructor.subtitle }}</p>
-            </div>
-          </div>
-
-          <ul class="academic-meta-list">
-            <li v-for="(item, idx) in instructor.meta" :key="idx">
-              <i :class="item.icon"></i>
-              <div>
-                {{ item.label }} <b>{{ item.value }}</b>
-              </div>
-            </li>
-          </ul>
         </div>
       </div>
     </div>

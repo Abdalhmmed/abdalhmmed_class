@@ -17,16 +17,13 @@ html[dir="ltr"] .lecture-page h2 {
   padding-left: 0 !important;
 }
 html[dir="ltr"] .lecture-page .note {
-  border-right: none !important;
-  border-left: 5px solid var(--brand) !important;
+  border: 1px solid var(--brand-border) !important;
 }
 html[dir="ltr"] .lecture-page .warn {
-  border-right: none !important;
-  border-left: 5px solid var(--accent) !important;
+  border: 1px solid var(--accent-border, rgba(245, 158, 11, 0.35)) !important;
 }
 html[dir="ltr"] .lecture-page .analogy {
-  border-right: none !important;
-  border-left: 5px solid var(--violet) !important;
+  border: 1px solid var(--violet-border, rgba(139, 92, 246, 0.35)) !important;
 }
 html[dir="ltr"] .lecture-page table th,
 html[dir="ltr"] .lecture-page table td {
@@ -317,7 +314,7 @@ html[dir="ltr"] .lecture-page .next-hint {
 /* Callouts */
 .note {
   background: var(--brand-soft);
-  border-inline-start: 5px solid var(--brand);
+  border: 1px solid var(--brand-border);
   border-radius: 12px;
   padding: 18px 22px;
   margin: 24px 0;
@@ -325,7 +322,7 @@ html[dir="ltr"] .lecture-page .next-hint {
 }
 .warn {
   background: var(--accent-soft);
-  border-inline-start: 5px solid var(--accent);
+  border: 1px solid var(--accent-border, rgba(245, 158, 11, 0.35));
   border-radius: 12px;
   padding: 18px 22px;
   margin: 24px 0;
@@ -333,7 +330,7 @@ html[dir="ltr"] .lecture-page .next-hint {
 }
 .analogy {
   background: var(--violet-soft);
-  border-inline-start: 5px solid var(--violet);
+  border: 1px solid var(--violet-border, rgba(139, 92, 246, 0.35));
   border-radius: 14px;
   padding: 18px 22px;
   margin-bottom: 18px;
@@ -463,7 +460,8 @@ html[dir="ltr"] .lecture-page .next-hint {
 }
 .hub-head h2 {
   color: #fff !important;
-  border-color: var(--accent) !important;
+  border: none !important;
+  padding: 0 !important;
   margin: 0;
 }
 .hub-head p {
@@ -1462,7 +1460,7 @@ html[dir="ltr"] .lecture-page .next-hint {
 .code .ln {
   display: flex;
   padding: 0 18px;
-  border-left: 4px solid transparent;
+  border: none;
   transition: background 0.2s;
   min-width: min-content;
 }
@@ -1475,7 +1473,7 @@ html[dir="ltr"] .lecture-page .next-hint {
 }
 .code .ln.on {
   background: rgba(245, 158, 11, 0.18);
-  border-left-color: var(--accent);
+  border: none;
 }
 .code .ln.on span {
   color: #fff;
@@ -1653,13 +1651,18 @@ html[dir="ltr"] .lecture-page .next-hint {
 /* Teacher Drawing Pen & Auditorium Big Mode */
 #pen {
   position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
   pointer-events: none;
   z-index: 40;
+  border: none !important;
+  outline: none !important;
+  display: none;
 }
 body.drawing #pen {
+  display: block;
   pointer-events: auto;
   cursor: crosshair;
   touch-action: none;
@@ -1885,27 +1888,11 @@ html[dir="ltr"] .toc a .pill {
   overflow: hidden;
 }
 
-.roadmap-row::before {
-  content: '';
-  position: absolute;
-  inset-inline-start: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--accent, var(--brand));
-  opacity: 0.8;
-  transition: width 0.2s;
-}
-
 .roadmap-row:hover {
   background: var(--paper);
   border-color: var(--accent, var(--brand));
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-}
-
-.roadmap-row:hover::before {
-  width: 6px;
 }
 
 .roadmap-lead {
@@ -2301,8 +2288,8 @@ html[dir="ltr"] .toc a .pill {
   }
   .lecture-page h2 {
     font-size: 19px;
-    padding-inline-start: 12px;
-    border-inline-start-width: 4px;
+    padding-inline-start: 0;
+    border: none !important;
   }
   .lecture-page h3 {
     font-size: 16.5px;

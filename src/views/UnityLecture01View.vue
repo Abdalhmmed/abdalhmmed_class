@@ -350,9 +350,6 @@
       </footer>
     </main>
 
-    <!-- Floating Back to Top Button -->
-    <FloatingBackTop :is-en="isEn" />
-
     <!-- Toast Notification -->
     <div class="toast" :class="{ show: toast.show }">
       <i class="fa-solid fa-circle-check"></i>
@@ -378,7 +375,6 @@ import {
 
 import InteractiveFlashcard from '@/components/common/InteractiveFlashcard.vue'
 import SelfCheckQuizWidget from '@/components/common/SelfCheckQuizWidget.vue'
-import FloatingBackTop from '@/components/common/FloatingBackTop.vue'
 import RuleTileMatrixSimulator from '@/components/lecture/labs/RuleTileMatrixSimulator.vue'
 import GradingRubricCalculator from '@/components/lecture/labs/GradingRubricCalculator.vue'
 import TilemapPainterSimulator from '@/components/lecture/labs/TilemapPainterSimulator.vue'
@@ -684,7 +680,7 @@ h2 {
 
 .teacher-callout {
   background: var(--brand-soft, #fff7ed);
-  border-right: 4px solid var(--brand, #ea580c);
+  border: 1px solid var(--brand-border, #fed7aa);
   border-radius: 8px;
   padding: 16px 20px;
   display: flex;
@@ -703,8 +699,7 @@ h2 {
   margin-top: 4px;
 }
 :global(html[dir="ltr"]) .teacher-callout {
-  border-right: none !important;
-  border-left: 4px solid var(--brand, #ea580c) !important;
+  border: 1px solid var(--brand-border, #fed7aa) !important;
 }
 
 /* Assets Showcase in Section 2 */
@@ -765,7 +760,7 @@ h2 {
 
 .tip-callout {
   background: var(--brand-soft, #fff7ed);
-  border-right: 4px solid var(--brand, #ea580c);
+  border: 1px solid var(--brand-border, #fed7aa);
   border-radius: 8px;
   padding: 14px 18px;
   display: flex;
@@ -785,8 +780,7 @@ h2 {
   margin-top: 3px;
 }
 :global(html[dir="ltr"]) .tip-callout {
-  border-right: none !important;
-  border-left: 4px solid var(--brand, #ea580c) !important;
+  border: 1px solid var(--brand-border, #fed7aa) !important;
 }
 
 /* Tables */
@@ -955,5 +949,17 @@ h2 {
 }
 .unity-lecture-view :deep(.fab-btn:hover) {
   background: var(--brand-mid, #c2410c) !important;
+}
+
+/* Author badge orange highlight in topbar for Unity Lab */
+.unity-lecture-view :deep(.topbar-author-badge) {
+  color: #ea580c !important;
+  border-color: rgba(234, 88, 12, 0.4) !important;
+  background: rgba(234, 88, 12, 0.08) !important;
+}
+:global([data-theme="dark"]) .unity-lecture-view :deep(.topbar-author-badge) {
+  color: #fb923c !important;
+  border-color: rgba(251, 146, 60, 0.4) !important;
+  background: rgba(234, 88, 12, 0.16) !important;
 }
 </style>

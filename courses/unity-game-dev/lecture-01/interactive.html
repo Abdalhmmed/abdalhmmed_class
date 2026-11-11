@@ -95,6 +95,15 @@ html {
   scroll-behavior: smooth;
 }
 
+html, body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+}
 body {
   font-family: var(--font-arabic);
   background-color: var(--bg-page);
@@ -315,7 +324,7 @@ body.big {
   padding: 16px 20px;
   border-radius: var(--radius-md);
   margin: 18px 0;
-  border-right: 5px solid;
+  border: 1px solid var(--border, rgba(255,255,255,0.15));
   line-height: 1.8;
   font-size: 14px;
 }
@@ -716,12 +725,12 @@ body.big {
 .preview-tile-graphic.corner-tl {
   background: url('assets/grass_tile.jpg') center/cover no-repeat !important;
   border-top: 4px solid #22c55e;
-  border-left: 4px solid #22c55e;
+  border: 1px solid var(--border, rgba(255,255,255,0.15));
 }
 .preview-tile-graphic.corner-tr {
   background: url('assets/grass_tile.jpg') center/cover no-repeat !important;
   border-top: 4px solid #22c55e;
-  border-right: 4px solid #22c55e;
+  border: 1px solid var(--border, rgba(255,255,255,0.15));
 }
 .preview-tile-graphic.dirt-center {
   background: url('assets/dirt_tile.jpg') center/cover no-repeat !important;
@@ -850,8 +859,8 @@ body.big {
   left: -5px;
   width: 0;
   height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
+  border: 1px solid var(--border, rgba(255,255,255,0.15)); transparent;
+  border: 1px solid var(--border, rgba(255,255,255,0.15)); transparent;
   border-top: 7px solid #ef4444;
 }
 .keyframe-diamonds-row {
@@ -1316,7 +1325,7 @@ body.big {
 .hidden-answer {
   display: none;
   background: var(--bg-muted);
-  border-right: 3px solid var(--brand);
+  border: 1px solid var(--border, rgba(255,255,255,0.15));
   border-radius: 0 8px 8px 0;
   padding: 12px 14px;
   font-size: 13.5px;
@@ -1498,7 +1507,7 @@ html[dir="ltr"] body {
 }
 html[dir="ltr"] .callout {
   border-right: none;
-  border-left: 5px solid var(--brand);
+  border: 1px solid var(--border, rgba(255,255,255,0.15));
 }
 html[dir="ltr"] .callout.tip {
   border-left-color: var(--brand);
@@ -1526,7 +1535,7 @@ html[dir="ltr"] .search-box {
 }
 html[dir="ltr"] .hidden-answer {
   border-right: none;
-  border-left: 3px solid var(--brand);
+  border: 1px solid var(--border, rgba(255,255,255,0.15));
   border-radius: 8px 0 0 8px;
 }
 </style>

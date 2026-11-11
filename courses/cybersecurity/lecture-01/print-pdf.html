@@ -42,6 +42,15 @@
 
 * { box-sizing: border-box; }
 html { font-size: 14px; }
+html, body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+}
 body {
   margin: 0; padding: 0;
   background: var(--bg); color: var(--ink);
@@ -194,7 +203,7 @@ code, .mono { font-family: 'Fira Code', Consolas, monospace; direction: ltr; uni
 
 /* Headings */
 h2.sec-heading {
-  font-size: 21px; font-weight: 900; color: var(--brand-dark); border-left: 6px solid var(--brand);
+  font-size: 21px; font-weight: 900; color: var(--brand-dark); border: 1px solid var(--brand-border, #10b981);
   padding-left: 14px; margin: 40px 0 18px; page-break-after: avoid; break-after: avoid;
 }
 h3.sub-heading {
@@ -209,11 +218,11 @@ p { margin: 10px 0 14px; line-height: 1.8; }
   background: #fff; page-break-inside: avoid; break-inside: avoid;
 }
 .note-box {
-  background: var(--brand-light); border-left: 5px solid var(--brand); border-radius: 12px;
+  background: var(--brand-light); border: 1px solid var(--brand-border, #10b981); border-radius: 12px;
   padding: 14px 18px; margin: 18px 0; font-size: 13.5px; page-break-inside: avoid; break-inside: avoid;
 }
 .warn-box {
-  background: var(--accent-light); border-left: 5px solid var(--accent); border-radius: 12px;
+  background: var(--accent-light); border: 1px solid var(--accent-border, #f59e0b); border-radius: 12px;
   padding: 14px 18px; margin: 18px 0; font-size: 13.5px; page-break-inside: avoid; break-inside: avoid;
 }
 .analogy-box {
@@ -340,53 +349,53 @@ html[lang="en"] i.lang-en {
 /* Directional Logical Borders */
 html[dir="rtl"] h2.sec-heading {
   border-left: none;
-  border-right: 6px solid var(--brand);
+  border: 1px solid var(--brand-border, #10b981);
   padding-left: 0;
   padding-right: 14px;
 }
 html[dir="ltr"] h2.sec-heading {
   border-right: none;
-  border-left: 6px solid var(--brand);
+  border: 1px solid var(--brand-border, #10b981);
   padding-right: 0;
   padding-left: 14px;
 }
 
 html[dir="rtl"] .note-box {
   border-left: none;
-  border-right: 5px solid var(--brand);
+  border: 1px solid var(--brand-border, #10b981);
 }
 html[dir="ltr"] .note-box {
   border-right: none;
-  border-left: 5px solid var(--brand);
+  border: 1px solid var(--brand-border, #10b981);
 }
 
 html[dir="rtl"] .warn-box {
   border-left: none;
-  border-right: 5px solid var(--accent);
+  border: 1px solid var(--accent-border, #f59e0b);
 }
 html[dir="ltr"] .warn-box {
   border-right: none;
-  border-left: 5px solid var(--accent);
+  border: 1px solid var(--accent-border, #f59e0b);
 }
 
 html[dir="rtl"] .success-box {
   border-left: none;
-  border-right: 5px solid var(--ok);
+  border: 1px solid var(--line);
 }
 html[dir="ltr"] .success-box {
   border-right: none;
-  border-left: 5px solid var(--ok);
+  border: 1px solid var(--line);
 }
 
 html[dir="rtl"] .op-header {
   border-left: none;
-  border-right: 5px solid var(--brand);
+  border: 1px solid var(--brand-border, #10b981);
   padding-left: 0;
   padding-right: 14px;
 }
 html[dir="ltr"] .op-header {
   border-right: none;
-  border-left: 5px solid var(--brand);
+  border: 1px solid var(--brand-border, #10b981);
   padding-right: 0;
   padding-left: 14px;
 }

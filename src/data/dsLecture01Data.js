@@ -1001,7 +1001,9 @@ export const OPS = [
       '    boolean swapped = false;',
       '    for (int j = 0; j < n - 1 - i; j++) {',
       '        if (arr[j] > arr[j + 1]) {',
-      '            int temp = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = temp;',
+      '            int temp = arr[j];',
+      '            arr[j] = arr[j + 1];',
+      '            arr[j + 1] = temp;',
       '            swapped = true;',
       '        }',
       '    }',
@@ -1047,7 +1049,7 @@ export const OPS = [
             sw = true
             r.v.swapped = true
             r.push(
-              4,
+              5,
               en ? `Swapped → [${r.a[j]}, ${r.a[j + 1]}]` : `تم التبديل ← [${r.a[j]}, ${r.a[j + 1]}]`,
               {
                 cls: Object.assign(base(), { [j]: 'swap', [j + 1]: 'swap' }),
@@ -1061,7 +1063,7 @@ export const OPS = [
         r.c.cmp++
         if (!sw) {
           r.push(
-            8,
+            10,
             en
               ? 'No swaps in this pass → array is sorted, early break!'
               : 'لم يحدث أي تبديل في هذه الدورة ← المصفوفة مرتبة، break مبكر!',
@@ -1070,14 +1072,14 @@ export const OPS = [
           return metricsOnly ? r.c : r.S
         }
         r.push(
-          8,
+          10,
           en
             ? `End of pass ${i + 1}: value ${r.a[n - 1 - i]} settled in its final position.`
             : `انتهت الدورة ${i + 1}: القيمة ${r.a[n - 1 - i]} استقرت في مكانها النهائي.`,
           { cls: base() }
         )
       }
-      r.push(9, en ? 'Sorting complete in ascending order.' : 'اكتمل الترتيب تصاعدياً.', {
+      r.push(11, en ? 'Sorting complete in ascending order.' : 'اكتمل الترتيب تصاعدياً.', {
         cls: fill(0, n, 'done')
       })
       return metricsOnly ? r.c : r.S

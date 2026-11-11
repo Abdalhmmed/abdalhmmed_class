@@ -32,7 +32,7 @@ const cyOn2 = computed(() => Math.max(25, 290 - (n2Val.value / 1600) * 260))
 
     <div
       class="mini"
-      style="border-inline-start: 5px solid var(--brand); background: var(--brand-soft); margin-bottom: 18px; padding: 16px 20px"
+      style="border: 1px solid var(--brand-border); background: var(--brand-soft); margin-bottom: 18px; padding: 16px 20px"
     >
       <h3 style="margin: 0 0 8px; color: var(--brand); font-size: 19px">
         <i class="fa-solid fa-lightbulb" style="color: var(--accent)"></i>

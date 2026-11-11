@@ -1022,7 +1022,7 @@ onUnmounted(() => {
 /* Unity Rule Callout */
 .unity-rule-box {
   background: var(--brand-soft, #fef9c3);
-  border-right: 4px solid var(--brand, #f59e0b);
+  border: 1px solid var(--brand-border, #fde047);
   border-radius: 8px;
   padding: 12px 14px;
   font-size: 12px;
@@ -1042,7 +1042,6 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 :global(html[dir="ltr"]) .unity-rule-box {
-  border-right: none !important;
-  border-left: 4px solid var(--brand, #f59e0b) !important;
+  border: 1px solid var(--brand-border, #fde047) !important;
 }
 </style>

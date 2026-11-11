@@ -67,6 +67,15 @@ watch(
   }
 )
 
+watch(
+  () => prefs.isDrawing,
+  (val) => {
+    if (val) {
+      resizeCanvasPreservingContent()
+    }
+  }
+)
+
 onMounted(() => {
   resizeCanvasPreservingContent()
   window.addEventListener('resize', resizeCanvasPreservingContent)
@@ -79,6 +88,7 @@ onUnmounted(() => {
 
 <template>
   <canvas
+    v-show="prefs.isDrawing"
     id="pen"
     ref="canvasRef"
     @pointerdown="onPointerDown"

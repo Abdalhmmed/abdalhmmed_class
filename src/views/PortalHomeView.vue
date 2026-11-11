@@ -30,7 +30,7 @@ onMounted(() => {
   <div class="portal-page">
     <PortalNavbar :t="t" />
 
-    <PortalHero :hero="t.hero" :instructor="t.instructor" />
+    <PortalHero :hero="t.hero" />
 
     <!-- COURSES DIRECTORY -->
     <section id="courses" class="section">
@@ -60,6 +60,7 @@ onMounted(() => {
     <PortalFooterAndFeatures
       :features-section="t.featuresSection"
       :footer="t.footer"
+      :instructor="t.instructor"
     />
   </div>
 </template>

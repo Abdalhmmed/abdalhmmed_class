@@ -1,4 +1,3 @@
-
 <template>
   <div class="lecture-page theme-cyber">
     <!-- Interactive Drawing Canvas -->
@@ -278,9 +277,6 @@
       </footer>
     </div>
 
-    <!-- Floating Back to Top Button -->
-    <FloatingBackTop :is-en="isEn" />
-
     <!-- Toast Notification -->
     <div class="toast" :class="{ show: toast.show }">
       <i class="fa-solid fa-circle-check"></i>
@@ -305,7 +301,6 @@ import CryptoOperationHubCard from '@/components/lecture/simulation/CryptoOperat
 import JavaCryptoCodeReference from '@/components/lecture/labs/JavaCryptoCodeReference.vue'
 import InteractiveFlashcard from '@/components/common/InteractiveFlashcard.vue'
 import SelfCheckQuizWidget from '@/components/common/SelfCheckQuizWidget.vue'
-import FloatingBackTop from '@/components/common/FloatingBackTop.vue'
 import DrawingCanvas from '@/components/lecture/layout/DrawingCanvas.vue'
 import LectureTopBar from '@/components/lecture/layout/LectureTopBar.vue'
 import { usePreferencesStore } from '@/stores/usePreferencesStore'
@@ -381,6 +376,14 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.lecture-page.theme-cyber {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
 /* Card Specific Styling */
 .card.hero {
   background: linear-gradient(140deg, #022013 0%, #064e3b 50%, #059669 100%);
@@ -441,14 +444,13 @@ onUnmounted(() => {
 /* Kerckhoffs Card */
 .kerckhoffs-card {
   background: var(--brand-soft, #ecfdf5);
-  border-right: 5px solid #059669;
+  border: 1px solid var(--brand-border, #a7f3d0);
   border-radius: 12px;
   padding: 20px 24px;
   margin-bottom: 22px;
 }
 :global(html[dir="ltr"]) .kerckhoffs-card {
-  border-right: none;
-  border-left: 5px solid #059669;
+  border: 1px solid var(--brand-border, #a7f3d0);
 }
 .kerckhoffs-title {
   margin: 0 0 10px;
@@ -512,7 +514,7 @@ onUnmounted(() => {
   font-size: 13.5px;
   padding-top: 24px;
   line-height: 1.9;
-  border-top: 1px solid var(--line, #e2e8f0);
+  border-top: none;
 }
 
 /* Toast */
@@ -542,5 +544,23 @@ onUnmounted(() => {
   opacity: 1;
   transform: translateX(50%) translateY(0);
   pointer-events: auto;
+}
+
+/* Author Badge Styling in Topbar */
+.lecture-page.theme-cyber :deep(.topbar-author-badge) {
+  color: #059669 !important;
+  border-color: rgba(5, 150, 105, 0.45) !important;
+  background: rgba(5, 150, 105, 0.1) !important;
+}
+.lecture-page.theme-cyber :deep(.topbar-author-badge img) {
+  border-color: #059669 !important;
+}
+:global([data-theme="dark"]) .lecture-page.theme-cyber :deep(.topbar-author-badge) {
+  color: #34d399 !important;
+  border-color: rgba(52, 211, 153, 0.45) !important;
+  background: rgba(5, 150, 105, 0.2) !important;
+}
+:global([data-theme="dark"]) .lecture-page.theme-cyber :deep(.topbar-author-badge img) {
+  border-color: #34d399 !important;
 }
 </style>

@@ -244,6 +244,8 @@
 
 /* If a lecture page itself is assigned a course theme in code (e.g., <div class="lecture-page theme-cyber">),
    its brand colors automatically adapt to that course's identity! */
+.lecture-page.theme-ds,
+.lecture-page.theme-blue,
 .lecture-page.theme-cyber,
 .lecture-page.theme-emerald,
 .lecture-page.theme-amber,
@@ -279,6 +281,10 @@ html {
   scroll-behavior: smooth;
   max-width: 100%;
   overflow-x: hidden;
+  border: none !important;
+  outline: none !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 
 body {
@@ -289,6 +295,45 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   max-width: 100%;
   overflow-x: hidden;
+  border: none !important;
+  outline: none !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+#app {
+  border: none !important;
+  outline: none !important;
+  width: 100%;
+}
+
+/* Completely remove scrollbar, empty gutter line, track, and border across all elements */
+*::-webkit-scrollbar,
+::-webkit-scrollbar {
+  width: 0px !important;
+  height: 0px !important;
+  display: none !important;
+}
+
+*::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: none !important;
+}
+
+*::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  background: transparent !important;
+  border: none !important;
+  display: none !important;
+}
+
+*::-webkit-scrollbar-corner,
+::-webkit-scrollbar-corner {
+  background: transparent !important;
+  display: none !important;
 }
 
 html[lang="en"] body,

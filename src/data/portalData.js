@@ -1,7 +1,7 @@
 export const portalData = {
   ar: {
     brand: {
-      name: 'بوابتي التعليمية',
+      name: 'بوابة الملازم والمختبرات',
       role: ''
     },
     nav: {
@@ -13,23 +13,28 @@ export const portalData = {
       paletteTooltip: 'تغيير الهوية اللونية'
     },
     hero: {
-      badge: 'بوابة المحاضرات والمختبرات البرمجية الشاملة · 2026-2027م',
-      titleLine1: 'بوابتي التعليمية للملازم والمختبرات',
+      kicker: 'منصة أكاديمية جامعية',
+      badge: 'المحاضرات والمختبرات البرمجية الشاملة',
+      year: '2026-2027م',
+      titleLine1: 'البوابة التعليمية للملازم والمختبرات',
       titleHighlight: 'والتطبيقات البرمجية العملية',
-      desc: 'مساحتي التعليمية والبرمجية لتقديم شروحات المقررات الحاسوبية والبرمجية بأسلوب عملي تطبيقي حديث؛ يجمع بين المحاكاة التفاعلية الحية وملازم الـ PDF المنسقة للطباعة، لخدمة طلاب الحاسوب والتخصصات التقنية كافة.',
+      desc: 'بيئة تعليمية مخصصة لتقديم شروحات المقررات الحاسوبية والبرمجية بأسلوب عملي تطبيقي حديث؛ تجمع بين المحاكاة التفاعلية الحية وملازم الـ PDF المنسقة للطباعة، لدعم وتأهيل طلاب الحاسوب والتخصصات التقنية كافة.',
       stats: [
-        { num: '02', label: 'مقررات نشطة', bordered: false },
-        { num: '03', label: 'مختبرات وملازم تفاعلية', bordered: true },
+        { num: '03', label: 'مقررات نشطة', bordered: false },
+        { num: '04', label: 'مختبرات وملازم تفاعلية', bordered: true },
         { num: '100%', label: 'تفاعلي & مجاني للطلاب', bordered: true }
       ]
     },
     instructor: {
       name: 'م. عبدالحميد هلال دعبان',
       subtitle: 'بكالوريوس علوم حاسوب · مدرس الجانب العملي',
+      profileBtnLabel: 'الملف الأكاديمي والتواصل',
+      phone: '+967 778123807',
+      email: 'abdalhmmeddaban@gmail.com',
       meta: [
         { icon: 'fa-solid fa-user-graduate', label: 'المؤهل:', value: 'بكالوريوس علوم حاسوب (Computer Science)' },
         { icon: 'fa-solid fa-chalkboard-user', label: 'التدريس:', value: 'مدرس المعامل والمختبرات البرمجية' },
-        { icon: 'fa-solid fa-layer-group', label: 'الطلبة:', value: 'ذكاء اصطناعي (AI) · علوم حاسوب (CS) · نظم معلومات (IS)' },
+        { icon: 'fa-solid fa-layer-group', label: 'الطلبة:', value: 'ذكاء اصطناعي (AI) · CS · IS · IT' },
         { icon: 'fa-solid fa-building-columns', label: 'الجهة الأكاديمية:', value: 'جامعة عدن' }
       ]
     },
@@ -106,7 +111,6 @@ export const portalData = {
         },
         {
           id: 'unity-2d',
-          hidden: true,
           themeClass: 'theme-amber',
           icon: 'fa-brands fa-unity',
           title: 'تطوير ألعاب 2D بمحرك Unity (Unity 2D Game Dev)',
@@ -159,19 +163,23 @@ export const portalData = {
       ]
     },
     footer: {
-      logoTitle: 'بوابة المحاضرات والملازم البرمجية | م. عبدالحميد هلال دعبان',
-      descLine1: 'بوابة وموقع أكاديمي مخصص لشروحات وملازم ومختبرات الجانب العملي لطلاب الحاسوب والتقنية (ذكاء اصطناعي، علوم حاسوب، نظم معلومات) · جامعة عدن.',
-      descAuthor: 'تصميم وبرمجة الموقع والمنصة: م. عبدالحميد هلال دعبان',
-      descRole: '(بكالوريوس علوم حاسوب · مدرس الجانب العملي)',
+      badgeKicker: 'المنصة الأكاديمية والبرمجية الرسمية',
+      logoTitle: 'بوابة المحاضرات والمختبرات البرمجية | م. عبدالحميد هلال دعبان',
+      descLine1: 'بوابة أكاديمية متكاملة مخصصة للمختبرات التفاعلية وملازم المقررات العملية لطلاب علوم الحاسوب وتكنولوجيا المعلومات (ذكاء اصطناعي، علوم حاسوب، نظم معلومات، تقنية معلومات) · جامعة عدن.',
+      labelEng: 'هندسة وبرمجة المنصة:',
+      descAuthor: 'م. عبدالحميد هلال دعبان',
+      labelRole: 'الصفة:',
+      descRole: 'بكالوريوس علوم حاسوب · مدرس الجانب العملي',
       descYear: 'العام الجامعي 2026-2027م',
-      instructorsLine: 'إعداد المحتوى العلمي والتدريس: م. عبدالحميد هلال دعبان (هياكل البيانات والخوارزميات · أمن المعلومات والتشفير)',
-      rights: 'جميع حقوق الموقع والتصميم والمحتوى الأكاديمي والبرمجي محفوظة © 2026-2027م',
-      credits: 'تصميم وتطوير المنصة: م. عبدالحميد هلال دعبان · بوابة الملازم والمختبرات البرمجية (جامعة عدن)'
+      labelCourses: 'المقررات والملازم الدراسية:',
+      instructorsLine: 'هياكل البيانات والخوارزميات (Java) · أمن المعلومات والتشفير',
+      rights: 'جميع حقوق الملكية الفكرية والأكاديمية والبرمجية محفوظة © 2026-2027م',
+      credits: 'تصميم وهندسة وتطوير: م. عبدالحميد هلال دعبان · جامعة عدن'
     }
   },
   en: {
     brand: {
-      name: 'My Educational Portal',
+      name: 'Programming Lectures Portal',
       role: ''
     },
     nav: {
@@ -183,19 +191,24 @@ export const portalData = {
       paletteTooltip: 'Switch Color Palette'
     },
     hero: {
-      badge: 'Comprehensive Programming Lectures & Interactive Labs · 2026-2027',
+      kicker: 'University Academic Portal',
+      badge: 'Comprehensive Programming Lectures & Interactive Labs',
+      year: '2026-2027',
       titleLine1: 'Academic Portal for Interactive Handouts',
       titleHighlight: '& Practical Programming Labs',
       desc: 'An academic educational platform offering computer science and software engineering tutorials with a modern hands-on approach—combining live interactive memory simulations with print-ready A4 PDF handouts.',
       stats: [
-        { num: '02', label: 'Active Courses', bordered: false },
-        { num: '03', label: 'Interactive Labs & Handouts', bordered: true },
+        { num: '03', label: 'Active Courses', bordered: false },
+        { num: '04', label: 'Interactive Labs & Handouts', bordered: true },
         { num: '100%', label: 'Interactive & Free for Students', bordered: true }
       ]
     },
     instructor: {
       name: 'Eng. Abdulhamid Helal Daban',
       subtitle: 'B.Sc. in Computer Science · Practical Lab Instructor',
+      profileBtnLabel: 'Academic Profile & Contact',
+      phone: '+967 778123807',
+      email: 'abdalhmmeddaban@gmail.com',
       meta: [
         { icon: 'fa-solid fa-user-graduate', label: 'Degree:', value: 'B.Sc. in Computer Science' },
         { icon: 'fa-solid fa-chalkboard-user', label: 'Role:', value: 'Programming Labs & Practical Instructor' },
@@ -276,7 +289,6 @@ export const portalData = {
         },
         {
           id: 'unity-2d',
-          hidden: true,
           themeClass: 'theme-amber',
           icon: 'fa-brands fa-unity',
           title: 'Unity 2D Game Development',
@@ -329,14 +341,18 @@ export const portalData = {
       ]
     },
     footer: {
+      badgeKicker: 'Official Academic & Computing Platform',
       logoTitle: 'Programming Lectures & Labs Portal | Eng. Abdulhamid Helal Daban',
-      descLine1: 'Official academic web portal dedicated to practical computer science handouts and interactive labs (AI, CS, IS, IT) · University of Aden.',
-      descAuthor: 'Portal Architecture, Design & Engineering: Eng. Abdulhamid Helal Daban',
-      descRole: '(B.Sc. in Computer Science · Practical Lab Instructor)',
+      descLine1: 'An open academic resource providing interactive computing environments, algorithm visualizers, and print-ready lecture handouts for computer science and engineering students (AI, CS, IS, IT) · University of Aden.',
+      labelEng: 'Architecture, UI & System Engineering:',
+      descAuthor: 'Eng. Abdulhamid Helal Daban',
+      labelRole: 'Role:',
+      descRole: 'B.Sc. in Computer Science · Practical Lab Instructor',
       descYear: 'Academic Year 2026-2027',
-      instructorsLine: 'Course Instructor & Author: Eng. Abdulhamid Helal Daban (Data Structures & Algorithms · Cybersecurity & Cryptography)',
-      rights: 'All Website, Design, Academic & Software Rights Reserved © 2026-2027',
-      credits: 'Platform Designed & Developed by: Eng. Abdulhamid Helal Daban · Programming Lectures & Labs Portal (University of Aden)'
+      labelCourses: 'Course Curricula & Authoring:',
+      instructorsLine: 'Data Structures & Algorithms · Cybersecurity & Cryptography',
+      rights: 'All Website, Architectural, Academic & Software Rights Reserved © 2026-2027',
+      credits: 'Designed, Engineered & Authored by: Eng. Abdulhamid Helal Daban · University of Aden'
     }
   }
 }

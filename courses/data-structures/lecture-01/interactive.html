@@ -79,7 +79,7 @@ code,.mono{font-family:"Fira Code",Consolas,monospace;direction:ltr;unicode-bidi
 
 /* Headings with clear hierarchy & margins */
 h2{
-  font-size:25px;margin:0 0 18px;border-right:6px solid var(--brand);
+  font-size:25px;margin:0 0 18px;border: none !important; padding: 0;
   padding-right:16px;line-height:1.5;font-weight:900;color:var(--ink);
 }
 h3{color:var(--brand);font-size:19px;margin:32px 0 14px;font-weight:800}
@@ -106,8 +106,8 @@ p{margin:12px 0;line-height:1.95}
 .p-acc{background:var(--accent-soft);color:#b45309}.p-bad{background:var(--bad-soft);color:var(--bad)}
 [data-theme=dark] .p-acc{color:var(--accent)}
 
-.note{background:var(--brand-soft);border-right:5px solid var(--brand);border-radius:12px;padding:18px 22px;margin:24px 0;line-height:1.9}
-.warn{background:var(--accent-soft);border-right:5px solid var(--accent);border-radius:12px;padding:18px 22px;margin:24px 0;line-height:1.9}
+.note{background:var(--brand-soft);border: 1px solid var(--brand-border);border-radius:12px;padding:18px 22px;margin:24px 0;line-height:1.9}
+.warn{background:var(--accent-soft);border: 1px solid var(--accent-border, rgba(245, 158, 11, 0.35));border-radius:12px;padding:18px 22px;margin:24px 0;line-height:1.9}
 
 table{width:100%;border-collapse:separate;border-spacing:0;font-size:14.5px;margin:24px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 th,td{border-bottom:1px solid var(--line);padding:14px 18px;text-align:right}
@@ -150,7 +150,7 @@ tr:last-child td{border-bottom:none}
 .idea-steps{counter-reset:s;list-style:none;padding:0;margin:16px 0}
 .idea-steps li{counter-increment:s;position:relative;padding:10px 46px 10px 0;font-size:15px;line-height:1.8}
 .idea-steps li::before{content:counter(s);position:absolute;right:0;top:10px;width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;text-align:center;line-height:30px;font-weight:900;font-size:13.5px}
-.analogy{background:var(--violet-soft);border-right:5px solid var(--violet);border-radius:14px;padding:18px 22px;margin-bottom:18px}
+.analogy{background:var(--violet-soft);border: 1px solid var(--violet-border, rgba(139, 92, 246, 0.35));border-radius:14px;padding:18px 22px;margin-bottom:18px}
 .next-hint{text-align:left;margin-top:24px}
 
 /* run slide */
@@ -311,9 +311,9 @@ tr:last-child td{border-bottom:none}
 .speed{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);font-weight:700}
 
 .code{background:var(--code);border-radius:14px;padding:16px 0;direction:ltr;text-align:left;font:500 14px/1.8 "Fira Code";color:var(--code-ink);overflow-x:auto}
-.code .ln{display:flex;padding:0 18px;border-left:4px solid transparent;transition:background .2s}
+.code .ln{display:flex;padding:0 18px;border: none;transition:background .2s}
 .code .ln i{font-style:normal;color:#4b5a77;width:28px;flex-shrink:0;user-select:none}
-.code .ln.on{background:rgba(245,158,11,.18);border-left-color:var(--accent)}
+.code .ln.on{background:rgba(245,158,11,.18);border: none;}
 .code .ln.on span{color:#fff}
 .kw{color:#7dd3fc}.cm{color:#64748b;font-style:italic}.nm{color:#fca5a5}
 .panel-title{font-weight:800;font-size:13.5px;color:var(--muted);margin:16px 0 8px}
@@ -794,7 +794,7 @@ h2 i, h3 i, h4 i {
   <section class="card" id="complexity">
     <h2>الدرس 1: ما هو رمز Big-O وكيف نقيس كفاءة الكود؟</h2>
     
-    <div class="mini" style="border-right:5px solid var(--brand);background:var(--brand-soft);margin-bottom:18px;padding:16px 20px">
+    <div class="mini" style="border: 1px solid var(--brand-border);background:var(--brand-soft);margin-bottom:18px;padding:16px 20px">
       <h3 style="margin:0 0 8px;color:var(--brand);font-size:19px"><i class="fa-solid fa-lightbulb" style="color:var(--accent)"></i> ما هو وما هو اختصار له؟</h3>
       <p style="margin:0;font-size:15px;line-height:1.8">
         الحرف <b>O</b> يرمز لكلمة <b>"Order of Growth"</b> (رتبة أو معدل النمو)، ويُعرف بـ <b>Big-O Notation</b>.<br>
@@ -1590,7 +1590,7 @@ const OPS = [
   text:'نقارن كل عنصرين متجاورين ونبدّلهما إذا كانا بترتيب خاطئ. في نهاية كل دورة «تطفو» أكبر قيمة إلى آخر المصفوفة. إذا مرّت دورة كاملة بلا تبديل فالمصفوفة مرتبة ونتوقف.',
   steps:['الحلقة الخارجية i تمثل رقم الدورة.','الحلقة الداخلية j تقارن arr[j] و arr[j+1].','إذا arr[j] > arr[j+1] نبدّلهما ونضع swapped = true.','آخر i عنصر أصبحت في مكانها النهائي فلا نقارنها.','إذا لم يحدث تبديل في دورة: break.'],
   analogy:'مثل فقاعات الهواء في الماء: الفقاعة الأكبر تصعد للأعلى أولاً في كل جولة.',
-  code:['for (int i = 0; i < n - 1; i++) {','    boolean swapped = false;','    for (int j = 0; j < n - 1 - i; j++) {','        if (arr[j] > arr[j + 1]) {','            int temp = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = temp;','            swapped = true;','        }','    }','    if (!swapped) break;','}'],
+  code:['for (int i = 0; i < n - 1; i++) {','    boolean swapped = false;','    for (int j = 0; j < n - 1 - i; j++) {','        if (arr[j] > arr[j + 1]) {','            int temp = arr[j];','            arr[j] = arr[j + 1];','            arr[j + 1] = temp;','            swapped = true;','        }','    }','    if (!swapped) break;','}'],
   inputs:[['preset','',null]], defArr:[50,20,40,15,35],
   gen(p){
     const r=Recorder({a:p.arr}), n=p.arr.length; let sorted=n;
