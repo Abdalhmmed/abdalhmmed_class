@@ -38,6 +38,53 @@ export const portalData = {
         { icon: 'fa-solid fa-building-columns', label: 'الجهة الأكاديمية:', value: 'جامعة عدن' }
       ]
     },
+    instructors: [
+      {
+        name: 'م. عبدالحميد هلال دعبان',
+        subtitle: 'بكالوريوس علوم حاسوب · مدرس الجانب العملي',
+        profileBtnLabel: 'الملف الأكاديمي والتواصل',
+        cardLayout: 'wide',
+        phone: '+967 778123807',
+        email: 'abdalhmmeddaban@gmail.com',
+        meta: [
+          { icon: 'fa-solid fa-user-graduate', label: 'المؤهل:', value: 'بكالوريوس علوم حاسوب (Computer Science)' },
+          { icon: 'fa-solid fa-chalkboard-user', label: 'التدريس:', value: 'مدرس المعامل والمختبرات البرمجية' },
+          { icon: 'fa-solid fa-building-columns', label: 'الجهة الأكاديمية:', value: 'جامعة عدن' },
+          {
+            icon: 'fa-solid fa-layer-group',
+            label: 'الطلبة:',
+            fullWidth: true,
+            tags: ['ذكاء اصطناعي (AI)', 'علوم الحاسوب (CS)', 'نظم المعلومات (IS)', 'تقنية المعلومات (IT)']
+          }
+        ]
+      },
+      {
+        name: 'م. أحمد علي محمود ناصر',
+        subtitle: 'بكالوريوس علوم حاسوب · محاضر جامعي ومدرس الجانب العملي',
+        profileBtnLabel: 'الملف الأكاديمي والتواصل',
+        cardLayout: 'wide',
+        phone: '+967 784298289',
+        email: 'ahmedplaycode@gmail.com',
+        meta: [
+          { icon: 'fa-solid fa-user-graduate', label: 'المؤهل:', value: 'بكالوريوس علوم حاسوب (Computer Science)' },
+          { icon: 'fa-solid fa-chalkboard-user', label: 'الصفة:', value: 'محاضر جامعي · مدرس المعامل والمختبرات البرمجية' },
+          { icon: 'fa-solid fa-building-columns', label: 'الجامعات:', value: 'جامعة العادل · جامعة العلوم والتكنولوجيا · جامعة عدن' },
+          { icon: 'fa-solid fa-users', label: 'المجتمع التقني:', value: 'مؤسس مجتمع Yemen Pixel' },
+          {
+            icon: 'fa-solid fa-code',
+            label: 'مجالات التدريس:',
+            fullWidth: true,
+            tags: ['البرمجة المرئية (.NET)', 'تصميم المترجمات', 'أمن الشبكات والتشفير', 'التصميم التفاعلي', 'رسوميات الحاسوب', 'قواعد البيانات', 'تطوير ألعاب Unity']
+          },
+          {
+            icon: 'fa-solid fa-layer-group',
+            label: 'التخصصات الأكاديمية:',
+            fullWidth: true,
+            tags: ['علوم الحاسوب (CS)', 'تقنية المعلومات (IT)', 'نظم المعلومات (IS)', 'الذكاء الاصطناعي (AI)', 'تصميم رسوميات الحاسوب']
+          }
+        ]
+      }
+    ],
     coursesSection: {
       title: 'المقررات والملازم الدراسية',
       subtitle: 'استعرض الملازم المتاحة للمقرر، مع إمكانية الدخول للشرح التفاعلي أو الانتقال لنسخة الـ PDF المجهزة للطباعة.',
@@ -90,8 +137,8 @@ export const portalData = {
           icon: 'fa-solid fa-shield-halved',
           title: 'الأمن السيبراني والتشفير (Cybersecurity & Cryptography)',
           subtitle: 'مختبر هندسة الخوارزميات الأمنية لطلبة السنة الثالثة علوم حاسوب · أستاذ المقرر: م. عبدالحميد هلال دعبان',
-          tagIcon: 'fa-solid fa-shield-cat',
-          tagText: 'سنة 3 CS · أمن سيبراني',
+          tagIcon: 'fa-brands fa-python',
+          tagText: 'Python · أمن سيبراني',
           lectures: [
             {
               id: 'cyber-lec-01',
@@ -216,6 +263,53 @@ export const portalData = {
         { icon: 'fa-solid fa-building-columns', label: 'Institution:', value: 'University of Aden' }
       ]
     },
+    instructors: [
+      {
+        name: 'Eng. Abdulhamid Helal Daban',
+        subtitle: 'B.Sc. in Computer Science · Practical Lab Instructor',
+        profileBtnLabel: 'Academic Profile & Contact',
+        cardLayout: 'wide',
+        phone: '+967 778123807',
+        email: 'abdalhmmeddaban@gmail.com',
+        meta: [
+          { icon: 'fa-solid fa-user-graduate', label: 'Degree:', value: 'B.Sc. in Computer Science' },
+          { icon: 'fa-solid fa-chalkboard-user', label: 'Role:', value: 'Programming Labs & Practical Instructor' },
+          { icon: 'fa-solid fa-building-columns', label: 'Institution:', value: 'University of Aden' },
+          {
+            icon: 'fa-solid fa-layer-group',
+            label: 'Students:',
+            fullWidth: true,
+            tags: ['Artificial Intelligence (AI)', 'CS', 'IS', 'IT']
+          }
+        ]
+      },
+      {
+        name: 'Eng. Ahmed Ali Mahmoud Nasser',
+        subtitle: 'B.Sc. in Computer Science · University Lecturer & Practical Instructor',
+        profileBtnLabel: 'Academic Profile & Contact',
+        cardLayout: 'wide',
+        phone: '+967 784298289',
+        email: 'ahmedplaycode@gmail.com',
+        meta: [
+          { icon: 'fa-solid fa-user-graduate', label: 'Degree:', value: 'B.Sc. in Computer Science' },
+          { icon: 'fa-solid fa-chalkboard-user', label: 'Role:', value: 'University Lecturer · Programming & Practical Labs Instructor' },
+          { icon: 'fa-solid fa-building-columns', label: 'Institutions:', value: 'Al-Adel University · University of Science and Technology · University of Aden' },
+          { icon: 'fa-solid fa-users', label: 'Community:', value: 'Founder of Yemen Pixel' },
+          {
+            icon: 'fa-solid fa-code',
+            label: 'Teaching Areas:',
+            fullWidth: true,
+            tags: ['Visual Programming (.NET)', 'Compiler Design', 'Network Security & Encryption', 'Interactive Design', 'Computer Graphics', 'Database Systems', 'Unity Game Development']
+          },
+          {
+            icon: 'fa-solid fa-layer-group',
+            label: 'Academic Disciplines:',
+            fullWidth: true,
+            tags: ['Computer Science (CS)', 'Information Technology (IT)', 'Information Systems (IS)', 'Artificial Intelligence (AI)', 'Computer Graphics Design']
+          }
+        ]
+      }
+    ],
     coursesSection: {
       title: 'Academic Courses & Lab Handouts',
       subtitle: 'Explore available course modules with direct access to live interactive simulations or print-ready A4 PDF handouts.',
@@ -268,8 +362,8 @@ export const portalData = {
           icon: 'fa-solid fa-shield-halved',
           title: 'Cybersecurity & Cryptography',
           subtitle: 'Security Algorithms Engineering Lab for 3rd Year CS Students · Course Instructor: Eng. Abdulhamid Helal Daban',
-          tagIcon: 'fa-solid fa-shield-cat',
-          tagText: 'Java · Cybersecurity',
+          tagIcon: 'fa-brands fa-python',
+          tagText: 'Python · Cybersecurity',
           lectures: [
             {
               id: 'cyber-lec-01',

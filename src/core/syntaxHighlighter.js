@@ -30,6 +30,7 @@ const KEYWORDS = new Set([
   'while',
   'do',
   'if',
+  'elif',
   'else',
   'switch',
   'case',
@@ -39,20 +40,54 @@ const KEYWORDS = new Set([
   'true',
   'false',
   'null',
-  'return'
+  'return',
+  // Python keywords & built-ins
+  'def',
+  'import',
+  'from',
+  'as',
+  'in',
+  'and',
+  'or',
+  'not',
+  'is',
+  'try',
+  'except',
+  'with',
+  'True',
+  'False',
+  'None',
+  'bytes',
+  'bytearray',
+  'str',
+  'bool',
+  'pow',
+  'ord',
+  'chr',
+  'range',
+  'len',
+  'zip',
+  'print'
 ])
 
 export function highlightJavaLine(rawLine) {
   const line = String(rawLine ?? '')
   if (!line.trim()) return '&nbsp;'
 
-  // Check if entire trimmed line is a block comment line (* or /** or */)
+  // Check if entire trimmed line is a comment or docstring line
   const trimmed = line.trim()
-  if (trimmed.startsWith('/*') || trimmed.startsWith('*') || trimmed.startsWith('//')) {
+  if (
+    trimmed.startsWith('/*') ||
+    trimmed.startsWith('*') ||
+    trimmed.startsWith('//') ||
+    trimmed.startsWith('#') ||
+    trimmed.startsWith('"""') ||
+    trimmed.startsWith("'''")
+  ) {
     return `<span class="cm">${esc(line)}</span>`
   }
 
-  // Separate trailing // comment if not inside quotes
+  // Separate trailing // or # comment if not inside quotes
   let codePart = line
   let commentPart = ''
   let inSingle = false
@@ -63,7 +98,11 @@ export function highlightJavaLine(rawLine) {
     const prev = i > 0 ? line[i - 1] : ''
     if (ch === "'" && !inDouble && prev !== '\\') inSingle = !inSingle
     else if (ch === '"' && !inSingle && prev !== '\\') inDouble = !inDouble
-    else if (ch === '/' && line[i + 1] === '/' && !inSingle && !inDouble) {
+    else if (
+      !inSingle &&
+      !inDouble &&
+      ((ch === '/' && line[i + 1] === '/') || ch === '#')
+    ) {
       codePart = line.slice(0, i)
       commentPart = line.slice(i)
       break

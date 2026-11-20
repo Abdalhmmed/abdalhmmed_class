@@ -25,6 +25,10 @@ function copyStaticDirsPlugin() {
 export default defineConfig({
   base: './',
   plugins: [vue(), copyStaticDirsPlugin()],
+  build: {
+    target: ['es2015', 'chrome64', 'safari12'],
+    cssTarget: 'chrome64'
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

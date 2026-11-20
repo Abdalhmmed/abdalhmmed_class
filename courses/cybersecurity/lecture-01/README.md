@@ -37,5 +37,5 @@
    - **العملية 6:** دوال الهاش التشفيرية وانهيار الجليد الحتمي (Cryptographic Hash SHA-256 Avalanche Effect).
    - **العملية 7:** التوقيع الرقمي وإثبات عدم الإنكار (Digital Signature & Verification).
 
-4. **مرجع الأكواد الجاهزة بلغة Java والتطبيق الشامل (`MainCrypto.java`):**
-   - أمثلة معيارية باستخدام حزمة `java.security` و `javax.crypto` لـ AES-256-GCM، RSA-2048، و SHA-256.
+4. **مرجع الأكواد الجاهزة بلغة Python والتطبيق الشامل (`main_crypto.py`):**
+   - أمثلة معيارية باستخدام مكتبتي `cryptography` و `hashlib` لـ AES-256-GCM، RSA-2048، و SHA-256.

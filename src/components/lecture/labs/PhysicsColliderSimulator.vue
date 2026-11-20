@@ -150,7 +150,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
 
 const props = defineProps({
   isEn: { type: Boolean, default: false }
@@ -163,6 +163,18 @@ const isTesting = ref(false)
 const isSnagged = ref(false)
 const playerLeft = ref('20px')
 const playerTransition = ref('none')
+let activeTimers = []
+
+function clearAllTimers() {
+  activeTimers.forEach((id) => clearTimeout(id))
+  activeTimers = []
+}
+
+function scheduleTimer(fn, ms) {
+  const id = setTimeout(fn, ms)
+  activeTimers.push(id)
+  return id
+}
 
 const playerStyle = computed(() => ({
   left: playerLeft.value,
@@ -175,6 +187,8 @@ function setMode(mode) {
 }
 
 function resetPlayer() {
+  clearAllTimers()
+  isTesting.value = false
   isSnagged.value = false
   playerTransition.value = 'none'
   playerLeft.value = '20px'
@@ -182,18 +196,18 @@ function resetPlayer() {
 
 function runTest() {
   if (isTesting.value) return
-  isTesting.value = true
   resetPlayer()
+  isTesting.value = true
 
-  setTimeout(() => {
+  scheduleTimer(() => {
     if (currentMode.value === 'seams') {
       // Snag at 42%
       playerTransition.value = 'left 1.1s cubic-bezier(0.2, 0.8, 0.2, 1)'
       playerLeft.value = '42%'
-      setTimeout(() => {
+      scheduleTimer(() => {
         isSnagged.value = true
         emit('notify', props.isEn ? '⚠️ Player snagged on internal collider seam!' : '⚠️ تعثر اللاعب عند الفاصل الداخلي!')
-        setTimeout(() => {
+        scheduleTimer(() => {
           isSnagged.value = false
           isTesting.value = false
         }, 1200)
@@ -202,13 +216,17 @@ function runTest() {
       // Smooth run to end
       playerTransition.value = 'left 2.2s cubic-bezier(0.25, 1, 0.5, 1)'
       playerLeft.value = 'calc(100% - 60px)'
-      setTimeout(() => {
+      scheduleTimer(() => {
         emit('notify', props.isEn ? '✅ Smooth movement with Composite Collider 2D!' : '✅ انزلاق ناعم ومثالي بفضل Composite Collider!')
         isTesting.value = false
       }, 2300)
     }
   }, 50)
 }
+
+onUnmounted(() => {
+  clearAllTimers()
+})
 </script>
 
 <style scoped>

@@ -61,6 +61,7 @@ onMounted(() => {
       :features-section="t.featuresSection"
       :footer="t.footer"
       :instructor="t.instructor"
+      :instructors="t.instructors"
     />
   </div>
 </template>

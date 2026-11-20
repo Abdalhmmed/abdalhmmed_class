@@ -1,13 +1,23 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
-defineProps({
+const props = defineProps({
   featuresSection: { type: Object, required: true },
   footer: { type: Object, required: true },
-  instructor: { type: Object, default: () => null }
+  instructor: { type: Object, default: () => null },
+  instructors: { type: Array, default: () => [] }
 })
 
-const isPopoverOpen = ref(false)
+const openPopoverIndex = ref(null)
+
+const instructorList = computed(() => {
+  if (props.instructors && props.instructors.length > 0) return props.instructors
+  return props.instructor ? [props.instructor] : []
+})
+
+function togglePopover(idx) {
+  openPopoverIndex.value = openPopoverIndex.value === idx ? null : idx
+}
 </script>
 
 <template>
@@ -52,84 +62,104 @@ const isPopoverOpen = ref(false)
         {{ footer.descLine1 }}
       </p>
 
-      <!-- Hoverable Academic Profile Popover Button -->
-      <div
-        v-if="instructor"
-        class="instructor-popover-wrapper"
-        @mouseenter="isPopoverOpen = true"
-        @mouseleave="isPopoverOpen = false"
-      >
-        <button
-          type="button"
-          class="instructor-profile-btn"
-          :class="{ active: isPopoverOpen }"
-          aria-haspopup="dialog"
-          :aria-expanded="isPopoverOpen"
-          @click="isPopoverOpen = !isPopoverOpen"
+      <!-- Hoverable Academic Profile Popover Buttons -->
+      <div v-if="instructorList.length" class="instructors-popover-row">
+        <div
+          v-for="(inst, instIdx) in instructorList"
+          :key="inst.email || inst.name || instIdx"
+          class="instructor-popover-wrapper"
+          @mouseenter="openPopoverIndex = instIdx"
+          @mouseleave="openPopoverIndex = null"
         >
-          <span class="btn-avatar">
-            <i class="fa-solid fa-user-tie"></i>
-          </span>
-          <span class="btn-label">{{ instructor.name }} · {{ instructor.profileBtnLabel || 'Academic Profile & Contact' }}</span>
-          <i class="fa-solid fa-chevron-up btn-chevron"></i>
-        </button>
-
-        <!-- Popover Card Floating Above -->
-        <transition name="popover-fade">
-          <div
-            v-if="isPopoverOpen"
-            class="instructor-floating-card"
-            role="dialog"
-            aria-label="Instructor Academic Profile"
+          <button
+            type="button"
+            class="instructor-profile-btn"
+            :class="{ active: openPopoverIndex === instIdx }"
+            aria-haspopup="dialog"
+            :aria-expanded="openPopoverIndex === instIdx"
+            @click="togglePopover(instIdx)"
           >
-            <div class="floating-header">
-              <div class="floating-avatar">
-                <i class="fa-solid fa-user-graduate"></i>
-              </div>
-              <div class="floating-info">
-                <h4>{{ instructor.name }}</h4>
-                <p>{{ instructor.subtitle }}</p>
-              </div>
-            </div>
+            <span class="btn-avatar">
+              <i class="fa-solid fa-user-tie"></i>
+            </span>
+            <span class="btn-label">{{ inst.name }} · {{ inst.profileBtnLabel || 'Academic Profile & Contact' }}</span>
+            <i class="fa-solid fa-chevron-up btn-chevron"></i>
+          </button>
 
-            <div class="floating-divider"></div>
-
-            <ul class="floating-meta-list">
-              <li v-for="(item, idx) in instructor.meta" :key="idx">
-                <i :class="item.icon"></i>
-                <div class="meta-content">
-                  <span class="meta-lbl">{{ item.label }}</span>
-                  <strong class="meta-val">{{ item.value }}</strong>
+          <!-- Popover Card Floating Above -->
+          <transition name="popover-fade">
+            <div
+              v-if="openPopoverIndex === instIdx"
+              class="instructor-floating-card"
+              :class="{ 'instructor-floating-card--wide': inst.cardLayout === 'wide' }"
+              role="dialog"
+              aria-label="Instructor Academic Profile"
+            >
+              <div class="floating-header">
+                <div class="floating-avatar">
+                  <i class="fa-solid fa-user-graduate"></i>
                 </div>
-              </li>
-            </ul>
+                <div class="floating-info">
+                  <h4>{{ inst.name }}</h4>
+                  <p>{{ inst.subtitle }}</p>
+                </div>
+              </div>
 
-            <!-- Contact Channels (Phone / WhatsApp & Email) -->
-            <div v-if="instructor.phone || instructor.email" class="floating-contact-box">
-              <a
-                v-if="instructor.phone"
-                :href="'https://wa.me/' + instructor.phone.replace(/[^0-9]/g, '')"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="contact-chip"
-                title="WhatsApp / Phone"
-              >
-                <i class="fa-brands fa-whatsapp"></i>
-                <span dir="ltr">{{ instructor.phone }}</span>
-              </a>
+              <div class="floating-divider"></div>
 
-              <a
-                v-if="instructor.email"
-                :href="'mailto:' + instructor.email"
-                class="contact-chip"
-                title="Email"
+              <ul
+                class="floating-meta-list"
+                :class="{ 'floating-meta-list--grid': inst.cardLayout === 'wide' }"
               >
-                <i class="fa-regular fa-envelope"></i>
-                <span>{{ instructor.email }}</span>
-              </a>
+                <li
+                  v-for="(item, idx) in inst.meta"
+                  :key="idx"
+                  :class="{ 'meta-item-full': item.fullWidth }"
+                >
+                  <i :class="item.icon"></i>
+                  <div class="meta-content">
+                    <span class="meta-lbl">{{ item.label }}</span>
+                    <div v-if="item.tags && item.tags.length" class="meta-tags">
+                      <span v-for="(tag, tIdx) in item.tags" :key="tIdx" class="meta-tag-chip">
+                        {{ tag }}
+                      </span>
+                    </div>
+                    <strong v-else class="meta-val">{{ item.value }}</strong>
+                  </div>
+                </li>
+              </ul>
+
+              <!-- Contact Channels (Phone / WhatsApp & Email) -->
+              <div
+                v-if="inst.phone || inst.email"
+                class="floating-contact-box"
+                :class="{ 'floating-contact-box--row': inst.cardLayout === 'wide' }"
+              >
+                <a
+                  v-if="inst.phone"
+                  :href="'https://wa.me/' + inst.phone.replace(/[^0-9]/g, '')"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-chip"
+                  title="WhatsApp / Phone"
+                >
+                  <i class="fa-brands fa-whatsapp"></i>
+                  <span dir="ltr">{{ inst.phone }}</span>
+                </a>
+
+                <a
+                  v-if="inst.email"
+                  :href="'mailto:' + inst.email"
+                  class="contact-chip"
+                  title="Email"
+                >
+                  <i class="fa-regular fa-envelope"></i>
+                  <span>{{ inst.email }}</span>
+                </a>
+              </div>
             </div>
-          </div>
-        </transition>
+          </transition>
+        </div>
       </div>
 
       <div class="footer-divider"></div>

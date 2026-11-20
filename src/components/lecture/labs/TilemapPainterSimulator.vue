@@ -145,16 +145,20 @@
 
         <div
           class="grid-canvas"
-          @mouseleave="stopPainting"
-          @mouseup="stopPainting"
+          style="touch-action: none;"
+          @pointerleave="stopPainting"
+          @pointerup="stopPainting"
+          @pointercancel="stopPainting"
+          @pointermove="onGridPointerMove"
         >
           <div
             v-for="(tile, idx) in gridData"
             :key="idx"
             class="cell-tile"
             :class="tileClass(tile)"
-            @mousedown="startPainting(idx)"
-            @mouseenter="onCellHover(idx)"
+            :data-cell-idx="idx"
+            @pointerdown.prevent="startPainting(idx)"
+            @pointerenter="onCellHover(idx)"
           ></div>
         </div>
 
@@ -248,6 +252,16 @@ function onCellHover(index) {
   }
 }
 
+function onGridPointerMove(e) {
+  if (!isMouseDown.value || e.pointerType === 'mouse') return
+  const el = document.elementFromPoint(e.clientX, e.clientY)
+  const idxAttr = el?.getAttribute?.('data-cell-idx')
+  if (idxAttr !== null && idxAttr !== undefined) {
+    const idx = Number(idxAttr)
+    if (!isNaN(idx)) onCellHover(idx)
+  }
+}
+
 function stopPainting() {
   isMouseDown.value = false
 }
@@ -295,7 +309,9 @@ function loadPreset(type) {
 }
 
 function copyLayerName() {
-  navigator.clipboard?.writeText('Ground_Tilemap')
+  if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+    navigator.clipboard.writeText('Ground_Tilemap').catch(() => {})
+  }
   emit('notify', props.isEn ? 'Copied Ground_Tilemap to clipboard' : 'تم نسخ اسم الطبقة Ground_Tilemap')
 }
 </script>

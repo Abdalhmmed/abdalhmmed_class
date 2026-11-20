@@ -2,13 +2,13 @@
   <div class="jca-code-reference">
     <div class="badge-title">
       <i class="fa-solid fa-code"></i>
-      <span>{{ isEn ? 'Java Security & Cryptography Reference (JCA)' : 'مرجع الأكواد الأكاديمية (Java Security & Crypto Reference)' }}</span>
+      <span>{{ isEn ? 'Python Security & Cryptography Reference' : 'مرجع الأكواد الأكاديمية المبسطة (Python Security & Crypto Reference)' }}</span>
     </div>
     <h2 class="section-title">
-      {{ isEn ? 'Industrial Cryptography Standards Implementation in Java' : 'التطبيق البرمجي لمعايير التشفير الصناعية بلغة Java' }}
+      {{ isEn ? 'Industrial Cryptography Standards Implementation in Python' : 'التطبيق البرمجي السهل لمعايير التشفير الصناعية بلغة Python' }}
     </h2>
     <p class="lead">
-      {{ isEn ? 'Standard and verified production-grade algorithms implemented using official javax.crypto and java.security packages following NIST guidelines:' : 'أكواد نموذجية ومختبرة لطلبة السنة الثالثة باستخدام الحزم الرسمية javax.crypto و java.security، متوافقة مع أحدث إرشادات الأمن السيبراني الصادرة عن NIST:' }}
+      {{ isEn ? 'Clean, easy-to-follow Python examples using the standard hashlib library and the official cryptography package following NIST guidelines:' : 'أكواد نموذجية سهلة ومختصرة لطلبة السنة الثالثة باستخدام مكتبتي hashlib و cryptography في لغة Python، متوافقة مع إرشادات الأمن السيبراني (NIST):' }}
     </p>
 
     <!-- Code 1: AES-256 GCM -->
@@ -21,9 +21,9 @@
         <span class="pill-badge">NIST Recommended / AEAD</span>
       </div>
       <p class="code-desc">
-        {{ isEn ? 'GCM mode provides confidentiality alongside cryptographic data integrity (AEAD) against active tampering:' : 'يوفر وضع GCM التشفير والسرية مع مصادقة سلامة البيانات (Integrity) في آنٍ واحد ضد هجمات التعديل والتلاعب (Tampering):' }}
+        {{ isEn ? 'GCM mode provides confidentiality alongside cryptographic data integrity (AEAD) against active tampering:' : 'يوفر وضع GCM التشفير والسرية مع مصادقة سلامة البيانات (Integrity) في آنٍ واحد بأسطر قليلة وواضحة:' }}
       </p>
-      <CodeViewer :lines="aesGcmCode" :active-line="-1" />
+      <CodeViewer :lines="aesGcmCode" :active-line="-1" lang-label="Python" />
     </div>
 
     <!-- Code 2: RSA-2048 Asymmetric -->
@@ -31,14 +31,14 @@
       <div class="code-header">
         <h3 class="code-title">
           <i class="fa-solid fa-key"></i>
-          <span>{{ isEn ? '2. Asymmetric Cryptography: RSA-2048 with OAEP Padding' : '2. التشفير غير المتماثل: RSA-2048 مع حشوة OAEP' }}</span>
+          <span>{{ isEn ? '2. Asymmetric Cryptography: RSA-2048 Key Pair Generation' : '2. التشفير غير المتماثل: توليد مفاتيح RSA-2048' }}</span>
         </h3>
-        <span class="pill-badge">Asymmetric / OAEP Padding</span>
+        <span class="pill-badge">Asymmetric / RSA-2048</span>
       </div>
       <p class="code-desc">
-        {{ isEn ? 'Generates public/private keypair with randomized OAEP padding preventing mathematical chosen-ciphertext attacks:' : 'توليد زوج المفاتيح (العام للتشفير والخاص لفك التشفير) مع منع هجمات التحليل الرياضي عبر حشوة OAEP العشوائية:' }}
+        {{ isEn ? 'Generates a secure 2048-bit RSA public/private keypair in just a few simple lines of Python:' : 'توليد زوج المفاتيح (العام للتشفير والخاص لفك التشفير) بسهولة تامة في Python:' }}
       </p>
-      <CodeViewer :lines="rsaCode" :active-line="-1" />
+      <CodeViewer :lines="rsaCode" :active-line="-1" lang-label="Python" />
     </div>
 
     <!-- Code 3: Complete Main Program -->
@@ -46,11 +46,11 @@
       <div class="code-header">
         <h3 class="code-title">
           <i class="fa-solid fa-star" style="color:var(--accent, #d97706);"></i>
-          <span>{{ isEn ? '3. Comprehensive Main Program (MainCrypto.java)' : '3. برنامج تطبيقي متكامل يدمج التشفير والهاش والتوقيع الرقمي (MainCrypto.java)' }}</span>
+          <span>{{ isEn ? '3. Comprehensive Main Program (main_crypto.py)' : '3. برنامج تطبيقي متكامل ومبسط يدمج الهاش والتشفير (main_crypto.py)' }}</span>
         </h3>
         <span class="pill-badge">Complete Demo</span>
       </div>
-      <CodeViewer :lines="mainProgramCode" :active-line="-1" />
+      <CodeViewer :lines="mainProgramCode" :active-line="-1" lang-label="Python" />
     </div>
   </div>
 </template>
@@ -63,60 +63,52 @@ defineProps({
 })
 
 const aesGcmCode = [
-  'import javax.crypto.Cipher;',
-  'import javax.crypto.KeyGenerator;',
-  'import javax.crypto.SecretKey;',
-  'import javax.crypto.spec.GCMParameterSpec;',
-  'import java.security.SecureRandom;',
-  'import java.util.Base64;',
+  'import os',
+  'from cryptography.hazmat.primitives.ciphers.aead import AESGCM',
   '',
-  'public class AESGCMExample {',
-  '    private static final int AES_KEY_SIZE = 256; // بت',
-  '    private static final int GCM_IV_LENGTH = 12; // بايت (96 بت موصى بها)',
-  '    private static final int GCM_TAG_LENGTH = 128; // بت',
+  'def encrypt_aes(message, key):',
+  '    nonce = os.urandom(12)  # قيمة عشوائية 12 بايت (96 بت)',
+  '    aes = AESGCM(key)',
+  '    ciphertext = aes.encrypt(nonce, message, None)',
+  '    return nonce, ciphertext',
   '',
-  '    public static byte[] encrypt(byte[] pText, SecretKey key, byte[] iv) throws Exception {',
-  '        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");',
-  '        GCMParameterSpec spec = new GCMParameterSpec(GCM_TAG_LENGTH, iv);',
-  '        cipher.init(Cipher.ENCRYPT_MODE, key, spec);',
-  '        return cipher.doFinal(pText);',
-  '    }',
-  '}'
+  '# مثال سريع للتشغيل:',
+  'key = AESGCM.generate_key(bit_length=256)  # مفتاح 256 بت',
+  'nonce, encrypted = encrypt_aes(b"Hello Cyber", key)'
 ]
 
 const rsaCode = [
-  'import java.security.KeyPair;',
-  'import java.security.KeyPairGenerator;',
-  'import javax.crypto.Cipher;',
+  'from cryptography.hazmat.primitives.asymmetric import rsa',
   '',
-  'public class RSAExample {',
-  '    public static KeyPair generateRSAKeyPair() throws Exception {',
-  '        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");',
-  '        generator.initialize(2048); // مفتاح بطول 2048 بت آمن حالياً',
-  '        return generator.generateKeyPair();',
-  '    }',
-  '}'
+  'def generate_rsa_keys():',
+  '    private_key = rsa.generate_private_key(',
+  '        public_exponent=65537,',
+  '        key_size=2048  # مفتاح بطول 2048 بت آمن حالياً',
+  '    )',
+  '    public_key = private_key.public_key()',
+  '    return private_key, public_key'
 ]
 
 const mainProgramCode = [
-  '/**',
-  ' * مختبر الأمن السيبراني والتشفير العملي (سنة ثالثة علوم حاسوب)',
-  ' * إعداد وتطوير: م. عبدالحميد هلال دعبان',
-  ' * العام الجامعي: 2026-2027م',
-  ' */',
-  'public class MainCrypto {',
-  '    public static void main(String[] args) throws Exception {',
-  '        System.out.println("=== نظام التشفير والأمن السيبراني الأكاديمي ===");',
-  '        String secretMessage = "CyberSecurity-3rdYear-CS-2027";',
+  '# مختبر الأمن السيبراني والتشفير العملي (سنة ثالثة علوم حاسوب)',
+  '# إعداد وتطوير: م. عبدالحميد هلال دعبان - العام الجامعي 2026-2027م',
+  'import os',
+  'import hashlib',
+  'from cryptography.hazmat.primitives.ciphers.aead import AESGCM',
   '',
-  '        // 1. حساب الهاش SHA-256 لبصمة البيانات',
-  '        System.out.println("الرسالة الأصلية: " + secretMessage);',
-  '        System.out.println("بصمة الهاش (SHA-256): تم حسابها لمنع التلاعب (Integrity).");',
+  'print("=== نظام التشفير والأمن السيبراني بلغة Python ===")',
+  'message = "CyberSecurity-3rdYear-CS-2027".encode()',
   '',
-  '        // 2. التشفير المتماثل AES-256 للسرية',
-  '        System.out.println("تم تشفير البيانات بنجاح باستخدام مفتاح 256-بت متماثل.");',
-  '    }',
-  '}'
+  '# 1. حساب بصمة الهاش SHA-256 لضمان السلامة (Integrity)',
+  'digest = hashlib.sha256(message).hexdigest()',
+  'print("الرسالة الأصلية:", message.decode())',
+  'print("بصمة الهاش (SHA-256):", digest)',
+  '',
+  '# 2. التشفير المتماثل AES-256-GCM لضمان السرية والمصادقة',
+  'key = AESGCM.generate_key(bit_length=256)',
+  'nonce = os.urandom(12)',
+  'ciphertext = AESGCM(key).encrypt(nonce, message, None)',
+  'print("تم التشفير بنجاح (Hex):", ciphertext.hex()[:32] + "...")'
 ]
 </script>
 

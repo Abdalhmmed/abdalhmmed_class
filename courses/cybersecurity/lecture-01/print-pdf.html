@@ -150,41 +150,52 @@ code, .mono { font-family: 'Fira Code', Consolas, monospace; direction: ltr; uni
   padding: 50px 60px;
 }
 
-/* Cover Page */
+/* Cover Page (Matches Interactive Cyber Hero Theme) */
 .cover-page {
-  border: 1px solid var(--line);
+  border: none;
   border-radius: var(--radius);
-  padding: 60px 48px;
+  padding: 46px 44px;
   margin-bottom: 50px;
-  background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+  background: linear-gradient(140deg, #022013 0%, #064e3b 52%, #059669 100%);
+  color: #ffffff;
   position: relative;
   page-break-after: always;
   break-after: page;
-  box-shadow: var(--shadow);
+  box-shadow: 0 18px 40px -12px rgba(2, 32, 19, 0.35);
 }
 .cover-header {
   display: flex; justify-content: space-between; align-items: center; gap: 20px;
-  border-bottom: 2px solid var(--line); padding-bottom: 16px; margin-bottom: 40px;
-  font-size: 13px; font-weight: 700; color: var(--muted); line-height: 1.6;
+  border-bottom: 1px solid rgba(167, 243, 208, 0.25); padding-bottom: 14px; margin-bottom: 34px;
+  font-size: 12.5px; font-weight: 700; color: #a7f3d0; line-height: 1.6;
 }
-.cover-header > span:first-child { color: var(--brand); font-weight: 800; }
+.cover-header > span:first-child { color: #ffffff; font-weight: 800; }
 .cover-title {
-  font-size: 33px; font-weight: 900; color: var(--brand-dark); line-height: 1.3; margin: 14px 0 16px;
+  font-size: 32px; font-weight: 900; color: #ffffff; line-height: 1.32; margin: 14px 0 14px;
 }
 .cover-subtitle {
-  font-size: 18px; color: var(--muted); font-weight: 700; margin: 0 0 28px; line-height: 1.55;
+  font-size: 16.5px; color: #d1fae5; font-weight: 600; margin: 0 0 22px; line-height: 1.6;
 }
 .cover-divider {
-  width: 90px; height: 5px; background: var(--brand); border-radius: 4px; margin-bottom: 30px;
+  width: 84px; height: 4px; background: #34d399; border-radius: 4px; margin-bottom: 22px;
 }
 .cover-desc {
-  font-size: 14.5px; line-height: 1.85; color: var(--ink); max-width: 720px; margin-bottom: 40px;
+  font-size: 14px; line-height: 1.85; color: #ecfdf5; max-width: 740px; margin-bottom: 24px;
+}
+.cover-chips {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px;
+}
+.cover-chips span {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(167, 243, 208, 0.35);
+  border-radius: 24px; padding: 4px 14px;
+  font-size: 12px; font-weight: 700; color: #ffffff;
 }
 .cover-meta {
-  background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px;
-  padding: 18px 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; font-size: 13px;
+  background: rgba(2, 32, 19, 0.45); border: 1px solid rgba(167, 243, 208, 0.25); border-radius: 12px;
+  padding: 18px 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; font-size: 12.5px; color: #ecfdf5;
 }
-.cover-meta div strong { display: block; color: var(--brand); margin-bottom: 4px; }
+.cover-meta div strong { display: block; color: #6ee7b7; margin-bottom: 4px; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; }
 
 /* Table of Contents */
 .toc-box {
@@ -203,8 +214,14 @@ code, .mono { font-family: 'Fira Code', Consolas, monospace; direction: ltr; uni
 
 /* Headings */
 h2.sec-heading {
-  font-size: 21px; font-weight: 900; color: var(--brand-dark); border: 1px solid var(--brand-border, #10b981);
-  padding-left: 14px; margin: 40px 0 18px; page-break-after: avoid; break-after: avoid;
+  font-size: 20px; font-weight: 900; color: var(--brand-dark);
+  background: var(--brand-light); border: 1px solid #a7f3d0; border-left: 5px solid var(--brand);
+  border-radius: 10px; padding: 10px 16px; margin: 34px 0 18px;
+  page-break-after: avoid; break-after: avoid;
+}
+html[dir="rtl"] h2.sec-heading {
+  border-left: 1px solid #a7f3d0;
+  border-right: 5px solid var(--brand);
 }
 h3.sub-heading {
   font-size: 16px; font-weight: 800; color: var(--brand); margin: 24px 0 12px; page-break-after: avoid; break-after: avoid;
@@ -256,17 +273,57 @@ p { margin: 10px 0 14px; line-height: 1.8; }
 .array-item .box.swap { background: var(--bad-light); border-color: var(--bad); color: var(--bad); }
 .array-item .idx { font-size: 11px; color: var(--muted); font-weight: 700; font-family: 'Fira Code', monospace; margin-top: 6px; }
 
-/* Code Listings */
+/* Code Listings (Matches Interactive Python CodeViewer) */
 .code-block {
-  background: var(--code-bg); color: var(--code-ink); border-radius: 12px; padding: 14px 18px;
+  position: relative;
+  background: var(--code-bg); color: var(--code-ink); border-radius: 12px; padding: 34px 18px 14px;
   margin: 14px 0; direction: ltr; text-align: left; font-family: 'Fira Code', Consolas, monospace;
   font-size: 12px; line-height: 1.7; white-space: pre-wrap; word-break: break-word;
   page-break-inside: avoid; break-inside: avoid; border: 1px solid #143527;
 }
+.code-block::before {
+  content: "Python";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 5px 14px;
+  background: rgba(16, 185, 129, 0.14);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.22);
+  color: #6ee7b7;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  border-radius: 11px 11px 0 0;
+}
 .code-block .kw { color: #34d399; font-weight: 700; }
-.code-block .cm { color: #64748b; font-style: italic; }
+.code-block .cm { color: #94a3b8; font-style: italic; }
 .code-block .str { color: #86efac; }
 .code-block .num { color: #fca5a5; }
+
+.flashcard-print {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--brand);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  background: #ffffff;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+html[dir="rtl"] .flashcard-print {
+  border-left: 1px solid var(--line);
+  border-right: 4px solid var(--brand);
+}
+.flashcard-print .fq {
+  font-weight: 800;
+  color: var(--brand-dark);
+  margin-bottom: 6px;
+  font-size: 13.5px;
+}
+.flashcard-print .fa {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+}
 
 .op-card {
   border: 1px solid var(--line); border-radius: 12px; padding: 24px; margin: 24px 0;
@@ -467,11 +524,18 @@ html[dir="ltr"] .op-header {
     <div>
       <span class="pill pill-ok" style="font-size: 13px; padding: 4px 14px;">Comprehensive University Lab Handout</span>
       <h1 class="cover-title">Foundations of Cryptography &amp;<br>Security Algorithms Engineering</h1>
-      <h2 class="cover-subtitle">An Analytical &amp; Practical Guide Focusing on Mathematical Foundations, Bit-Level Tracing, and Java Implementations</h2>
+      <h2 class="cover-subtitle">An Analytical &amp; Practical Guide Focusing on Mathematical Foundations, Bit-Level Tracing, and Python Implementations</h2>
       <div class="cover-divider"></div>
       <p class="cover-desc">
-        This standard academic handout covers core cybersecurity principles in detail: the CIA Triad, Kerckhoffs's Principle, Keyspace &amp; Brute-Force bounds, Modular Arithmetic &amp; the Extended Euclidean Algorithm, and a step-by-step breakdown of 7 foundational algorithms (Caesar Cipher, One-Time Pad / Stream XOR, AES Block Cipher, RSA Public-Key Cryptography, Diffie-Hellman Key Exchange, SHA-256 Cryptographic Hashing, and Digital Signatures), complete with production-ready Java code.
+        This standard academic handout covers core cybersecurity principles in detail: the CIA Triad, Kerckhoffs's Principle, Keyspace &amp; Brute-Force bounds, Modular Arithmetic &amp; the Extended Euclidean Algorithm, and a step-by-step breakdown of 7 foundational algorithms (Caesar Cipher, One-Time Pad / Stream XOR, AES Block Cipher, RSA Public-Key Cryptography, Diffie-Hellman Key Exchange, SHA-256 Cryptographic Hashing, and Digital Signatures), complete with production-ready Python code.
       </p>
+      <div class="cover-chips">
+        <span><i class="fa-solid fa-shield-halved"></i> Cybersecurity</span>
+        <span><i class="fa-solid fa-user-graduate"></i> 3rd Year Computer Science</span>
+        <span><i class="fa-solid fa-key"></i> 7 Core Algorithms</span>
+        <span><i class="fa-brands fa-python"></i> Python Implementations</span>
+        <span><i class="fa-solid fa-certificate"></i> 2026–2027</span>
+      </div>
     </div>
 
     <div class="cover-meta">
@@ -503,7 +567,7 @@ html[dir="ltr"] .op-header {
       <li><span>7. Diffie-Hellman Key Agreement Protocol (PFS)</span> <span class="num">07</span></li>
       <li><span>8. Cryptographic Hash Functions &amp; Avalanche Effect (SHA-256)</span> <span class="num">08</span></li>
       <li><span>9. Digital Signatures &amp; Cryptographic Non-Repudiation</span> <span class="num">09</span></li>
-      <li><span>10. Standard Java Reference Implementations (javax.crypto)</span> <span class="num">10</span></li>
+      <li><span>10. Standard Python Reference Implementations (cryptography &amp; hashlib)</span> <span class="num">10</span></li>
     </ul>
   </div>
 
@@ -590,19 +654,19 @@ html[dir="ltr"] .op-header {
   <p>
     Used to compute the modular multiplicative inverse <code>d = e<sup>-1</sup> mod &phi;(n)</code> satisfying <code>(e &middot; d) mod &phi;(n) = 1</code>. Without this algorithm, RSA private key generation would be computationally infeasible.
   </p>
-  <div class="code-block"><span class="cm">// Compute modular multiplicative inverse: d = e^-1 mod phi</span>
-<span class="kw">public static int</span> modInverse(<span class="kw">int</span> e, <span class="kw">int</span> phi) {
-    <span class="kw">int</span> t = 0, newT = 1;
-    <span class="kw">int</span> r = phi, newR = e;
-    <span class="kw">while</span> (newR != 0) {
-        <span class="kw">int</span> q = r / newR;
-        <span class="kw">int</span> tempT = t - q * newT; t = newT; newT = tempT;
-        <span class="kw">int</span> tempR = r - q * newR; r = newR; newR = tempR;
-    }
-    <span class="kw">if</span> (r &gt; 1) <span class="kw">return</span> -1; <span class="cm">// Not invertible</span>
-    <span class="kw">if</span> (t &lt; 0) t += phi;
-    <span class="kw">return</span> t;
-}</div>
+  <div class="code-block"><span class="cm"># Compute modular multiplicative inverse: d = e^-1 mod phi</span>
+<span class="kw">def</span> mod_inverse(e: <span class="kw">int</span>, phi: <span class="kw">int</span>) -&gt; <span class="kw">int</span>:
+    t, new_t = 0, 1
+    r, new_r = phi, e
+    <span class="kw">while</span> new_r != 0:
+        q = r // new_r
+        t, new_t = new_t, t - q * new_t
+        r, new_r = new_r, r - q * new_r
+    <span class="kw">if</span> r &gt; 1:
+        <span class="kw">return</span> -1  <span class="cm"># Not invertible</span>
+    <span class="kw">if</span> t &lt; 0:
+        t += phi
+    <span class="kw">return</span> t</div>
 
   <h3 class="sub-heading">Fast Modular Exponentiation (Square-and-Multiply)</h3>
   <p>
@@ -635,17 +699,14 @@ html[dir="ltr"] .op-header {
       </div>
     </div>
 
-    <div class="code-block"><span class="kw">public static</span> String encryptCaesar(String text, <span class="kw">int</span> k) {
-    StringBuilder result = <span class="kw">new</span> StringBuilder();
-    <span class="kw">for</span> (<span class="kw">char</span> c : text.toUpperCase().toCharArray()) {
-        <span class="kw">if</span> (c &gt;= <span class="str">'A'</span> &amp;&amp; c &lt;= <span class="str">'Z'</span>) {
-            <span class="kw">int</span> p = c - <span class="str">'A'</span>;
-            <span class="kw">int</span> cVal = (p + k) % 26;
-            result.append((<span class="kw">char</span>) (<span class="str">'A'</span> + cVal));
-        }
-    }
-    <span class="kw">return</span> result.toString();
-}</div>
+    <div class="code-block"><span class="kw">def</span> encrypt_caesar(text: <span class="kw">str</span>, k: <span class="kw">int</span>) -&gt; <span class="kw">str</span>:
+    result = []
+    <span class="kw">for</span> c <span class="kw">in</span> text.upper():
+        <span class="kw">if</span> <span class="str">'A'</span> &lt;= c &lt;= <span class="str">'Z'</span>:
+            p = ord(c) - ord(<span class="str">'A'</span>)
+            c_val = (p + k) % 26
+            result.append(chr(ord(<span class="str">'A'</span>) + c_val))
+    <span class="kw">return</span> <span class="str">''</span>.join(result)</div>
 
     <div class="grid-2">
       <div class="card-box" style="margin: 0;">
@@ -679,19 +740,22 @@ html[dir="ltr"] .op-header {
 
     <div class="diagram-stage">
       <div class="array-strip">
-        <div class="array-item"><span class="addr">P ('C')</span><div class="box">01000011</div><span class="idx">ASCII</span></div>
-        <div class="array-item"><span class="addr">K (Key)</span><div class="box compare">01011010</div><span class="idx">0x5A</span></div>
-        <div class="array-item"><span class="addr">C (P &oplus; K)</span><div class="box found">00011001</div><span class="idx">0x19</span></div>
+        <div class="array-item"><span class="addr">P (Number 65)</span><div class="box">01000001</div><span class="idx">8-bit Binary</span></div>
+        <div class="array-item"><span class="addr">K (Key 90)</span><div class="box compare">01011010</div><span class="idx">8-bit Key</span></div>
+        <div class="array-item"><span class="addr">C (P &oplus; K = 27)</span><div class="box found">00011011</div><span class="idx">Encrypted (27)</span></div>
       </div>
     </div>
 
-    <div class="code-block"><span class="kw">public static byte</span>[] xorCipher(<span class="kw">byte</span>[] data, <span class="kw">byte</span>[] key) {
-    <span class="kw">byte</span>[] cipher = <span class="kw">new byte</span>[data.length];
-    <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; data.length; i++) {
-        cipher[i] = (<span class="kw">byte</span>) (data[i] ^ key[i]); <span class="cm">// Single-cycle hardware bitwise XOR</span>
-    }
-    <span class="kw">return</span> cipher;
-}</div>
+    <div class="code-block"><span class="kw">def</span> xor_number(num, key):
+    p_bits = format(num, <span class="str">"08b"</span>)   <span class="cm"># Plaintext number (8 bits)</span>
+    k_bits = format(key, <span class="str">"08b"</span>)   <span class="cm"># Key number (8 bits)</span>
+    c_bits = <span class="str">""</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(8):            <span class="cm"># Compare bit by bit manually</span>
+        <span class="kw">if</span> p_bits[i] == k_bits[i]:
+            c_bits += <span class="str">"0"</span>         <span class="cm"># Same bits -&gt; 0</span>
+        <span class="kw">else</span>:
+            c_bits += <span class="str">"1"</span>         <span class="cm"># Different bits -&gt; 1</span>
+    <span class="kw">return</span> int(c_bits, 2)         <span class="cm"># Example: xor_number(65, 90) == 27</span></div>
 
     <div class="warn-box">
       <b>Fatal Key Reuse Vulnerability (Two-Time Pad Trap):</b> If two messages P<sub>1</sub> and P<sub>2</sub> are encrypted with the same key stream K:
@@ -738,13 +802,12 @@ html[dir="ltr"] .op-header {
       </div>
     </div>
 
-    <div class="code-block"><span class="cm">// Structure of a Standard AES Encryption Round</span>
-<span class="kw">void</span> aesRound(<span class="kw">byte</span>[][] state, <span class="kw">byte</span>[][] roundKey) {
-    subBytes(state);              <span class="cm">// 1. Non-linear byte substitution (Confusion)</span>
-    shiftRows(state);             <span class="cm">// 2. Row-wise cyclic permutation (Diffusion)</span>
-    mixColumns(state);            <span class="cm">// 3. Column mixing in Galois Field GF(2^8)</span>
-    addRoundKey(state, roundKey); <span class="cm">// 4. XOR state with derived Round Key</span>
-}</div>
+    <div class="code-block"><span class="cm"># Structure of a Standard AES Encryption Round</span>
+<span class="kw">def</span> aes_round(state, round_key):
+    sub_bytes(state)              <span class="cm"># 1. Non-linear byte substitution (Confusion)</span>
+    shift_rows(state)             <span class="cm"># 2. Row-wise cyclic permutation (Diffusion)</span>
+    mix_columns(state)            <span class="cm"># 3. Column mixing in Galois Field GF(2^8)</span>
+    add_round_key(state, round_key) <span class="cm"># 4. XOR state with derived Round Key</span></div>
   </div>
 
   <!-- ================= 6. RSA ASYMMETRIC ================= -->
@@ -763,13 +826,13 @@ html[dir="ltr"] .op-header {
       <li><b>Encryption:</b> <code>C = M<sup>e</sup> mod n</code> | <b>Decryption:</b> <code>M = C<sup>d</sup> mod n</code>.</li>
     </ol>
 
-    <div class="code-block"><span class="cm">// RSA Implementation using Java BigInteger</span>
-BigInteger n = p.multiply(q);
-BigInteger phi = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
-BigInteger d = e.modInverse(phi);      <span class="cm">// Secret Private Exponent</span>
+    <div class="code-block"><span class="cm"># RSA Implementation using Python Arbitrary-Precision Integers</span>
+n = p * q
+phi = (p - 1) * (q - 1)
+d = pow(e, -1, phi)      <span class="cm"># Secret Private Exponent</span>
 
-BigInteger C = M.modPow(e, n);         <span class="cm">// Encrypt with Public Key (e, n)</span>
-BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private Key (d, n)</span></div>
+C = pow(M, e, n)         <span class="cm"># Encrypt with Public Key (e, n)</span>
+decrypted = pow(C, d, n) <span class="cm"># Decrypt with Private Key (d, n)</span></div>
   </div>
 
   <!-- ================= 7. DIFFIE-HELLMAN ================= -->
@@ -798,10 +861,9 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
 
     <p><b>Security Foundation:</b> Relies on the computational intractability of the <b>Discrete Logarithm Problem (DLP)</b> over large prime fields.</p>
 
-    <div class="code-block"><span class="cm">// Diffie-Hellman Key Exchange in Java (BigInteger Modular Exponentiation)</span>
-<span class="kw">public static</span> BigInteger deriveSharedSecret(BigInteger publicReceived, BigInteger privateSelf, BigInteger prime) {
-    <span class="kw">return</span> publicReceived.modPow(privateSelf, prime); <span class="cm">// K = (g^b)^a mod p == (g^a)^b mod p</span>
-}</div>
+    <div class="code-block"><span class="cm"># Diffie-Hellman Key Exchange in Python (Built-in Modular Exponentiation)</span>
+<span class="kw">def</span> derive_shared_secret(public_received: <span class="kw">int</span>, private_self: <span class="kw">int</span>, prime: <span class="kw">int</span>) -&gt; <span class="kw">int</span>:
+    <span class="kw">return</span> pow(public_received, private_self, prime)  <span class="cm"># K = (g^b)^a mod p == (g^a)^b mod p</span></div>
   </div>
 
   <!-- ================= 8. SHA-256 HASH ================= -->
@@ -833,14 +895,11 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
       </tr>
     </table>
 
-    <div class="code-block"><span class="cm">// SHA-256 Digest Computation in Java</span>
-<span class="kw">public static</span> String sha256(String input) <span class="kw">throws</span> Exception {
-    MessageDigest md = MessageDigest.getInstance(<span class="str">"SHA-256"</span>);
-    <span class="kw">byte</span>[] hash = md.digest(input.getBytes(StandardCharsets.UTF_8));
-    StringBuilder hex = <span class="kw">new</span> StringBuilder();
-    <span class="kw">for</span> (<span class="kw">byte</span> b : hash) hex.append(String.format(<span class="str">"%02x"</span>, b));
-    <span class="kw">return</span> hex.toString();
-}</div>
+    <div class="code-block"><span class="cm"># SHA-256 Digest Computation in Python</span>
+<span class="kw">import</span> hashlib
+
+<span class="kw">def</span> sha256(text: <span class="kw">str</span>) -&gt; <span class="kw">str</span>:
+    <span class="kw">return</span> hashlib.sha256(text.encode(<span class="str">"utf-8"</span>)).hexdigest()</div>
   </div>
 
   <!-- ================= 9. DIGITAL SIGNATURE ================= -->
@@ -864,54 +923,121 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
       </div>
     </div>
 
-    <div class="code-block"><span class="cm">// Digital Signature &amp; Verification in Java</span>
-<span class="kw">public static boolean</span> verifySignature(<span class="kw">byte</span>[] data, <span class="kw">byte</span>[] sig, PublicKey pubKey) <span class="kw">throws</span> Exception {
-    Signature verifier = Signature.getInstance(<span class="str">"SHA256withRSA"</span>);
-    verifier.initVerify(pubKey);
-    verifier.update(data);
-    <span class="kw">return</span> verifier.verify(sig);
-}</div>
+    <div class="code-block"><span class="cm"># Digital Signature Verification in Python (cryptography library)</span>
+<span class="kw">from</span> cryptography.hazmat.primitives <span class="kw">import</span> hashes
+<span class="kw">from</span> cryptography.hazmat.primitives.asymmetric <span class="kw">import</span> padding
+
+<span class="kw">def</span> verify_signature(data: <span class="kw">bytes</span>, sig: <span class="kw">bytes</span>, pub_key) -&gt; <span class="kw">bool</span>:
+    <span class="kw">try</span>:
+        pub_key.verify(sig, data, padding.PSS(mgf=padding.MGF1(hashes.SHA256()),
+                       salt_length=padding.PSS.MAX_LENGTH), hashes.SHA256())
+        <span class="kw">return True</span>
+    <span class="kw">except</span> Exception:
+        <span class="kw">return False</span></div>
 
     <p>
       <b>Non-Repudiation Guarantee:</b> Because the Private Key is held exclusively by the signer, the signer cannot legally or mathematically deny having signed the document once anyone verifies the signature using the signer's Public Key.
     </p>
   </div>
 
-  <!-- ================= 10. JAVA ARCHITECTURE REFERENCE ================= -->
-  <h2 class="sec-heading">7. Standard Java Cryptographic Reference (javax.crypto &amp; java.security)</h2>
-  <div class="code-block"><span class="cm">/**
- * Cybersecurity &amp; Cryptography Engineering Lab in Java
- * Prepared by: Eng. Abdulhamid Helal Daban — Academic Year 2026–2027
- */</span>
-<span class="kw">import</span> javax.crypto.Cipher;
-<span class="kw">import</span> javax.crypto.SecretKey;
-<span class="kw">import</span> javax.crypto.spec.GCMParameterSpec;
-<span class="kw">import</span> java.security.KeyPair;
-<span class="kw">import</span> java.security.MessageDigest;
-<span class="kw">import</span> java.security.Signature;
+  <!-- ================= 10. PYTHON CRYPTOGRAPHY REFERENCE ================= -->
+  <h2 class="sec-heading">7. Standard Python Cryptographic Reference (cryptography &amp; hashlib)</h2>
+  <div class="code-block"><span class="cm">"""
+Cybersecurity &amp; Cryptography Engineering Lab in Python
+Prepared by: Eng. Abdulhamid Helal Daban — Academic Year 2026–2027
+"""</span>
+<span class="kw">import</span> hashlib
+<span class="kw">from</span> cryptography.hazmat.primitives <span class="kw">import</span> hashes
+<span class="kw">from</span> cryptography.hazmat.primitives.asymmetric <span class="kw">import</span> padding
+<span class="kw">from</span> cryptography.hazmat.primitives.ciphers.aead <span class="kw">import</span> AESGCM
 
-<span class="kw">public class</span> MasterCryptoReference {
-    <span class="cm">// 1. Authenticated Symmetric Encryption: AES-256 in GCM Mode</span>
-    <span class="kw">public static byte</span>[] encryptAES(<span class="kw">byte</span>[] data, SecretKey key, <span class="kw">byte</span>[] iv) <span class="kw">throws</span> Exception {
-        Cipher cipher = Cipher.getInstance(<span class="str">"AES/GCM/NoPadding"</span>);
-        cipher.init(Cipher.ENCRYPT_MODE, key, <span class="kw">new</span> GCMParameterSpec(128, iv));
-        <span class="kw">return</span> cipher.doFinal(data);
-    }
+<span class="cm"># 1. Authenticated Symmetric Encryption: AES-256 in GCM Mode</span>
+<span class="kw">def</span> encrypt_aes(data: <span class="kw">bytes</span>, key: <span class="kw">bytes</span>, nonce: <span class="kw">bytes</span>) -&gt; <span class="kw">bytes</span>:
+    <span class="kw">return</span> AESGCM(key).encrypt(nonce, data, <span class="kw">None</span>)
 
-    <span class="cm">// 2. Cryptographic Hashing: SHA-256 Digest</span>
-    <span class="kw">public static byte</span>[] hashSHA256(<span class="kw">byte</span>[] data) <span class="kw">throws</span> Exception {
-        MessageDigest md = MessageDigest.getInstance(<span class="str">"SHA-256"</span>);
-        <span class="kw">return</span> md.digest(data);
-    }
+<span class="cm"># 2. Cryptographic Hashing: SHA-256 Digest</span>
+<span class="kw">def</span> hash_sha256(data: <span class="kw">bytes</span>) -&gt; <span class="kw">bytes</span>:
+    <span class="kw">return</span> hashlib.sha256(data).digest()
 
-    <span class="cm">// 3. Digital Signature Generation: SHA256withRSA</span>
-    <span class="kw">public static byte</span>[] signData(<span class="kw">byte</span>[] data, KeyPair pair) <span class="kw">throws</span> Exception {
-        Signature signer = Signature.getInstance(<span class="str">"SHA256withRSA"</span>);
-        signer.initSign(pair.getPrivate());
-        signer.update(data);
-        <span class="kw">return</span> signer.sign();
-    }
-}</div>
+<span class="cm"># 3. Digital Signature Generation: RSA-PSS with SHA-256</span>
+<span class="kw">def</span> sign_data(data: <span class="kw">bytes</span>, private_key) -&gt; <span class="kw">bytes</span>:
+    <span class="kw">return</span> private_key.sign(
+        data,
+        padding.PSS(mgf=padding.MGF1(hashes.SHA256()), salt_length=padding.PSS.MAX_LENGTH),
+        hashes.SHA256()
+    )</div>
+
+  <!-- ================= 11. COMPARISON MATRIX & FLASHCARDS ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">8. Cryptographic Algorithms Comparison &amp; Status Matrix</h2>
+  <table>
+    <tr>
+      <th>Algorithm</th>
+      <th>Type</th>
+      <th>Key Size</th>
+      <th>Primary Security Goal</th>
+      <th>2026–2027 Status</th>
+    </tr>
+    <tr>
+      <td><b>Caesar Cipher</b></td>
+      <td>Historical Shift</td>
+      <td>1–25</td>
+      <td>Basic text obfuscation</td>
+      <td><span class="pill pill-bad">Broken / Educational</span></td>
+    </tr>
+    <tr>
+      <td><b>One-Time Pad (XOR)</b></td>
+      <td>Stream Cipher</td>
+      <td>Equal to Message</td>
+      <td>Mathematical Perfect Secrecy</td>
+      <td><span class="pill pill-ok">Unbreakable if Never Reused</span></td>
+    </tr>
+    <tr>
+      <td><b>AES (Rijndael)</b></td>
+      <td>Block (128-bit)</td>
+      <td>128 / 192 / 256-bit</td>
+      <td>High-speed bulk confidentiality</td>
+      <td><span class="pill pill-ok">Global Gold Standard</span></td>
+    </tr>
+    <tr>
+      <td><b>RSA</b></td>
+      <td>Asymmetric</td>
+      <td>2048–4096-bit</td>
+      <td>Key exchange &amp; signatures</td>
+      <td><span class="pill pill-acc">Secure (2048+) / PQC Transition</span></td>
+    </tr>
+    <tr>
+      <td><b>Diffie-Hellman</b></td>
+      <td>Key Exchange</td>
+      <td>2048-bit / ECC 256</td>
+      <td>Shared secret over public channel</td>
+      <td><span class="pill pill-ok">Backbone of TLS 1.3 &amp; HTTPS</span></td>
+    </tr>
+    <tr>
+      <td><b>SHA-256</b></td>
+      <td>One-Way Hash</td>
+      <td>Keyless (256-bit)</td>
+      <td>Data integrity &amp; tamper detection</td>
+      <td><span class="pill pill-ok">Industry &amp; Blockchain Standard</span></td>
+    </tr>
+  </table>
+  <div class="note-box">
+    <b>Hybrid Cryptography Summary:</b> Modern protocols (HTTPS/TLS 1.3, SSH, Signal) combine algorithms: <b>RSA / Diffie-Hellman</b> establishes the session key, <b>AES-256-GCM</b> encrypts bulk traffic at line speed, and <b>SHA-256 + Digital Signatures</b> guarantee integrity and identity.
+  </div>
+
+  <h2 class="sec-heading">9. Oral Review Flashcards (Key Exam Questions)</h2>
+  <div class="flashcard-print">
+    <div class="fq">Q1: Why is Kerckhoffs's Principle considered the cornerstone of modern cryptography?</div>
+    <div class="fa"><b>Model Answer:</b> Modern algorithms (AES, RSA, SHA-256) are open and peer-audited worldwide. System security must rely solely on key secrecy, never on hiding the algorithm ("Security through Obscurity").</div>
+  </div>
+  <div class="flashcard-print">
+    <div class="fq">Q2: What is the fundamental operational difference between Symmetric (AES) and Asymmetric (RSA) encryption?</div>
+    <div class="fa"><b>Model Answer:</b> AES uses a single shared secret key and runs ~1000× faster, ideal for bulk data. RSA uses a public/private keypair and is used for key exchange and digital signatures.</div>
+  </div>
+  <div class="flashcard-print">
+    <div class="fq">Q3: What is the Avalanche Effect in cryptographic hash functions like SHA-256?</div>
+    <div class="fa"><b>Model Answer:</b> Flipping even a single input bit causes over 50% of the 256-bit output digest to change unpredictably, preventing pattern correlation or reversal.</div>
+  </div>
 
   <!-- FOOTER -->
   <div class="note-box" style="margin-top: 30px; text-align: center;">
@@ -939,11 +1065,18 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
     <div>
       <span class="pill pill-ok" style="font-size: 13px; padding: 4px 14px;">دليل أكاديمي جامعي شامل</span>
       <h1 class="cover-title">أسس علم التشفير وهندسة الخوارزميات الأمنية<br>(Foundations of Cryptography & Modern Security)</h1>
-      <h2 class="cover-subtitle">دليل عملي تحليلي يركز على الفهم الرياضي العميق، تتبع البتات، والتطبيق البرمجي بلغة Java</h2>
+      <h2 class="cover-subtitle">دليل عملي تحليلي يركز على الفهم الرياضي العميق، تتبع البتات، والتطبيق البرمجي بلغة Python</h2>
       <div class="cover-divider"></div>
       <p class="cover-desc">
-        ملزمة أكاديمية قياسية تغطي بالتفصيل: أهداف الأمن السيبراني ومثلث CIA، مبدأ كيركهوفس، فضاء المفاتيح (Keyspace)، حساب الموديلار وخوارزمية إقليدس الموسعة، تفكيك 7 خوارزميات رئيسية (قيصر، لوحة المرة الواحدة OTP/XOR، معيار AES، خوارزمية RSA، بروتوكول Diffie-Hellman، دوال الهاش SHA-256، والتوقيع الرقمي)، مع الأكواد النموذجية الكاملة لطلبة علوم الحاسوب.
+        ملزمة أكاديمية قياسية تغطي بالتفصيل: أهداف الأمن السيبراني ومثلث CIA، مبدأ كيركهوفس، فضاء المفاتيح (Keyspace)، حساب الموديلار وخوارزمية إقليدس الموسعة، تفكيك 7 خوارزميات رئيسية (قيصر، لوحة المرة الواحدة OTP/XOR، معيار AES، خوارزمية RSA، بروتوكول Diffie-Hellman، دوال الهاش SHA-256، والتوقيع الرقمي)، مع الأكواد النموذجية الكاملة بلغة Python لطلبة علوم الحاسوب.
       </p>
+      <div class="cover-chips">
+        <span><i class="fa-solid fa-shield-halved"></i> مادة الأمن السيبراني</span>
+        <span><i class="fa-solid fa-user-graduate"></i> سنة ثالثة علوم حاسوب</span>
+        <span><i class="fa-solid fa-key"></i> 7 خوارزميات أساسية</span>
+        <span><i class="fa-brands fa-python"></i> تطبيقات Python</span>
+        <span><i class="fa-solid fa-certificate"></i> 2026-2027م</span>
+      </div>
     </div>
 
     <div class="cover-meta">
@@ -975,7 +1108,7 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
       <li><span>7. بروتوكول تبادل المفاتيح ديفي-هيلمان (Diffie-Hellman)</span> <span class="num">07</span></li>
       <li><span>8. دوال الهاش التشفيرية وأثر الانهيار الثلجي (SHA-256)</span> <span class="num">08</span></li>
       <li><span>9. التوقيع الرقمي وإثبات عدم الإنكار (Digital Signatures)</span> <span class="num">09</span></li>
-      <li><span>10. الأكواد المعيارية بلغة Java وجدول المقارنة الشامل</span> <span class="num">10</span></li>
+      <li><span>10. الأكواد المعيارية بلغة Python وجدول المقارنة الشامل</span> <span class="num">10</span></li>
     </ul>
   </div>
 
@@ -1062,19 +1195,19 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
   <p>
     تُستخدم لحساب المعكوس الضربي التشفيري $d = e^{-1} \pmod{\phi(n)}$، والذي يحقق الشرط الأساسي: $e \cdot d \equiv 1 \pmod{\phi(n)}$. بدون هذه الخوارزمية يستحيل توليد مفاتيح RSA في زمن معقول.
   </p>
-  <div class="code-block"><span class="cm">// حساب المعكوس الضربي التشفيري d = e^-1 mod phi</span>
-<span class="kw">public static int</span> modInverse(<span class="kw">int</span> e, <span class="kw">int</span> phi) {
-    <span class="kw">int</span> t = 0, newT = 1;
-    <span class="kw">int</span> r = phi, newR = e;
-    <span class="kw">while</span> (newR != 0) {
-        <span class="kw">int</span> q = r / newR;
-        <span class="kw">int</span> tempT = t - q * newT; t = newT; newT = tempT;
-        <span class="kw">int</span> tempR = r - q * newR; r = newR; newR = tempR;
-    }
-    <span class="kw">if</span> (r &gt; 1) <span class="kw">return</span> -1; <span class="cm">// لا يوجد معكوس</span>
-    <span class="kw">if</span> (t &lt; 0) t += phi;
-    <span class="kw">return</span> t;
-}</div>
+  <div class="code-block"><span class="cm"># حساب المعكوس الضربي التشفيري d = e^-1 mod phi</span>
+<span class="kw">def</span> mod_inverse(e: <span class="kw">int</span>, phi: <span class="kw">int</span>) -&gt; <span class="kw">int</span>:
+    t, new_t = 0, 1
+    r, new_r = phi, e
+    <span class="kw">while</span> new_r != 0:
+        q = r // new_r
+        t, new_t = new_t, t - q * new_t
+        r, new_r = new_r, r - q * new_r
+    <span class="kw">if</span> r &gt; 1:
+        <span class="kw">return</span> -1  <span class="cm"># لا يوجد معكوس</span>
+    <span class="kw">if</span> t &lt; 0:
+        t += phi
+    <span class="kw">return</span> t</div>
 
   <h3 class="sub-heading">الأس السريع بالحساب الموديلاري (Fast Modular Exponentiation)</h3>
   <p>
@@ -1107,17 +1240,14 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
       </div>
     </div>
 
-    <div class="code-block"><span class="kw">public static</span> String encryptCaesar(String text, <span class="kw">int</span> k) {
-    StringBuilder result = <span class="kw">new</span> StringBuilder();
-    <span class="kw">for</span> (<span class="kw">char</span> c : text.toUpperCase().toCharArray()) {
-        <span class="kw">if</span> (c &gt;= <span class="str">'A'</span> &amp;&amp; c &lt;= <span class="str">'Z'</span>) {
-            <span class="kw">int</span> p = c - <span class="str">'A'</span>;
-            <span class="kw">int</span> cVal = (p + k) % 26;
-            result.append((<span class="kw">char</span>) (<span class="str">'A'</span> + cVal));
-        }
-    }
-    <span class="kw">return</span> result.toString();
-}</div>
+    <div class="code-block"><span class="kw">def</span> encrypt_caesar(text: <span class="kw">str</span>, k: <span class="kw">int</span>) -&gt; <span class="kw">str</span>:
+    result = []
+    <span class="kw">for</span> c <span class="kw">in</span> text.upper():
+        <span class="kw">if</span> <span class="str">'A'</span> &lt;= c &lt;= <span class="str">'Z'</span>:
+            p = ord(c) - ord(<span class="str">'A'</span>)
+            c_val = (p + k) % 26
+            result.append(chr(ord(<span class="str">'A'</span>) + c_val))
+    <span class="kw">return</span> <span class="str">''</span>.join(result)</div>
 
     <div class="grid-2">
       <div class="card-box" style="margin: 0;">
@@ -1151,19 +1281,22 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
 
     <div class="diagram-stage">
       <div class="array-strip">
-        <div class="array-item"><span class="addr">P ('C')</span><div class="box">01000011</div><span class="idx">ASCII</span></div>
-        <div class="array-item"><span class="addr">K (Key)</span><div class="box compare">01011010</div><span class="idx">0x5A</span></div>
-        <div class="array-item"><span class="addr">C (P ⊕ K)</span><div class="box found">00011001</div><span class="idx">0x19</span></div>
+        <div class="array-item"><span class="addr">P (الرقم 65)</span><div class="box">01000001</div><span class="idx">8 بتات</span></div>
+        <div class="array-item"><span class="addr">K (المفتاح 90)</span><div class="box compare">01011010</div><span class="idx">8 بتات</span></div>
+        <div class="array-item"><span class="addr">C (P ⊕ K = 27)</span><div class="box found">00011011</div><span class="idx">الناتج (27)</span></div>
       </div>
     </div>
 
-    <div class="code-block"><span class="kw">public static byte</span>[] xorCipher(<span class="kw">byte</span>[] data, <span class="kw">byte</span>[] key) {
-    <span class="kw">byte</span>[] cipher = <span class="kw">new byte</span>[data.length];
-    <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; data.length; i++) {
-        cipher[i] = (<span class="kw">byte</span>) (data[i] ^ key[i]); <span class="cm">// XOR بتية في دورة ساعة واحدة</span>
-    }
-    <span class="kw">return</span> cipher;
-}</div>
+    <div class="code-block"><span class="kw">def</span> xor_number(num, key):
+    p_bits = format(num, <span class="str">"08b"</span>)   <span class="cm"># الرقم الأصلي (8 بتات)</span>
+    k_bits = format(key, <span class="str">"08b"</span>)   <span class="cm"># رقم المفتاح (8 بتات)</span>
+    c_bits = <span class="str">""</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(8):            <span class="cm"># مقارنة كل بت يدوياً</span>
+        <span class="kw">if</span> p_bits[i] == k_bits[i]:
+            c_bits += <span class="str">"0"</span>         <span class="cm"># متشابهان -&gt; 0</span>
+        <span class="kw">else</span>:
+            c_bits += <span class="str">"1"</span>         <span class="cm"># مختلفان -&gt; 1</span>
+    <span class="kw">return</span> int(c_bits, 2)         <span class="cm"># مثال: xor_number(65, 90) == 27</span></div>
 
     <div class="warn-box">
       <b>كارثة إعادة استخدام المفتاح (Two-Time Pad Trap):</b> إذا شُفر نصان $P_1, P_2$ بنفس المفتاح $K$:
@@ -1210,13 +1343,12 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
       </div>
     </div>
 
-    <div class="code-block"><span class="cm">// دورة الجولة النموذجية في AES</span>
-<span class="kw">void</span> aesRound(<span class="kw">byte</span>[][] state, <span class="kw">byte</span>[][] roundKey) {
-    subBytes(state);    <span class="cm">// 1. تشويش غير خطي</span>
-    shiftRows(state);   <span class="cm">// 2. انتشار بين الأعمدة</span>
-    mixColumns(state);  <span class="cm">// 3. خلط رياضي في حقل GF(2^8)</span>
-    addRoundKey(state, roundKey); <span class="cm">// 4. دمج المفتاح بـ XOR</span>
-}</div>
+    <div class="code-block"><span class="cm"># دورة الجولة النموذجية في AES</span>
+<span class="kw">def</span> aes_round(state, round_key):
+    sub_bytes(state)                <span class="cm"># 1. تشويش غير خطي</span>
+    shift_rows(state)               <span class="cm"># 2. انتشار بين الأعمدة</span>
+    mix_columns(state)              <span class="cm"># 3. خلط رياضي في حقل GF(2^8)</span>
+    add_round_key(state, round_key) <span class="cm"># 4. دمج المفتاح بـ XOR</span></div>
   </div>
 
   <!-- ================= 6. RSA ASYMMETRIC ================= -->
@@ -1235,13 +1367,13 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// Decrypt with Private 
       <li><b>التشفير:</b> $C = M^e \pmod n$ | <b>فك التشفير:</b> $M = C^d \pmod n$.</li>
     </ol>
 
-    <div class="code-block"><span class="cm">// تطبيق RSA باستخدام فئة BigInteger في Java</span>
-BigInteger n = p.multiply(q);
-BigInteger phi = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
-BigInteger d = e.modInverse(phi); <span class="cm">// المفتاح الخاص السري</span>
+    <div class="code-block"><span class="cm"># تطبيق RSA باستخدام الأعداد الصحيحة عالية الدقة في Python</span>
+n = p * q
+phi = (p - 1) * (q - 1)
+d = pow(e, -1, phi)      <span class="cm"># المفتاح الخاص السري</span>
 
-BigInteger C = M.modPow(e, n);     <span class="cm">// التشفير بالمفتاح العام (e, n)</span>
-BigInteger decrypted = C.modPow(d, n); <span class="cm">// فك التشفير بالمفتاح الخاص (d, n)</span></div>
+C = pow(M, e, n)         <span class="cm"># التشفير بالمفتاح العام (e, n)</span>
+decrypted = pow(C, d, n) <span class="cm"># فك التشفير بالمفتاح الخاص (d, n)</span></div>
   </div>
 
   <!-- ================= 7. DIFFIE-HELLMAN ================= -->
@@ -1327,43 +1459,104 @@ BigInteger decrypted = C.modPow(d, n); <span class="cm">// فك التشفير �
     </p>
   </div>
 
-  <!-- ================= 10. JAVA ARCHITECTURE REFERENCE ================= -->
-  <h2 class="sec-heading">7. الأكواد المعيارية بلغة Java لحزم `javax.crypto`</h2>
-  <div class="code-block"><span class="cm">/**
- * مختبر الأمن السيبراني وعلم التشفير بلغة Java
- * إعداد: م. عبدالحميد هلال دعبان - العام الجامعي 2026-2027م
- */</span>
-<span class="kw">import</span> javax.crypto.Cipher;
-<span class="kw">import</span> javax.crypto.KeyGenerator;
-<span class="kw">import</span> javax.crypto.SecretKey;
-<span class="kw">import</span> javax.crypto.spec.GCMParameterSpec;
-<span class="kw">import</span> java.security.KeyPair;
-<span class="kw">import</span> java.security.KeyPairGenerator;
-<span class="kw">import</span> java.security.MessageDigest;
-<span class="kw">import</span> java.security.Signature;
+  <!-- ================= 10. PYTHON CRYPTOGRAPHY REFERENCE ================= -->
+  <h2 class="sec-heading">7. الأكواد المعيارية بلغة Python لمكتبتي <code>cryptography</code> و <code>hashlib</code></h2>
+  <div class="code-block"><span class="cm">"""
+مختبر الأمن السيبراني وعلم التشفير بلغة Python
+إعداد: م. عبدالحميد هلال دعبان - العام الجامعي 2026-2027م
+"""</span>
+<span class="kw">import</span> hashlib
+<span class="kw">from</span> cryptography.hazmat.primitives <span class="kw">import</span> hashes
+<span class="kw">from</span> cryptography.hazmat.primitives.asymmetric <span class="kw">import</span> padding
+<span class="kw">from</span> cryptography.hazmat.primitives.ciphers.aead <span class="kw">import</span> AESGCM
 
-<span class="kw">public class</span> MasterCryptoReference {
-    <span class="cm">// 1. تشفير متماثل AES-256 بوضع GCM المصادق</span>
-    <span class="kw">public static byte</span>[] encryptAES(<span class="kw">byte</span>[] data, SecretKey key, <span class="kw">byte</span>[] iv) <span class="kw">throws</span> Exception {
-        Cipher cipher = Cipher.getInstance(<span class="str">"AES/GCM/NoPadding"</span>);
-        cipher.init(Cipher.ENCRYPT_MODE, key, <span class="kw">new</span> GCMParameterSpec(128, iv));
-        <span class="kw">return</span> cipher.doFinal(data);
-    }
+<span class="cm"># 1. تشفير متماثل AES-256 بوضع GCM المصادق</span>
+<span class="kw">def</span> encrypt_aes(data: <span class="kw">bytes</span>, key: <span class="kw">bytes</span>, nonce: <span class="kw">bytes</span>) -&gt; <span class="kw">bytes</span>:
+    <span class="kw">return</span> AESGCM(key).encrypt(nonce, data, <span class="kw">None</span>)
 
-    <span class="cm">// 2. بصمة الهاش SHA-256</span>
-    <span class="kw">public static byte</span>[] hashSHA256(<span class="kw">byte</span>[] data) <span class="kw">throws</span> Exception {
-        MessageDigest md = MessageDigest.getInstance(<span class="str">"SHA-256"</span>);
-        <span class="kw">return</span> md.digest(data);
-    }
+<span class="cm"># 2. بصمة الهاش SHA-256</span>
+<span class="kw">def</span> hash_sha256(data: <span class="kw">bytes</span>) -&gt; <span class="kw">bytes</span>:
+    <span class="kw">return</span> hashlib.sha256(data).digest()
 
-    <span class="cm">// 3. التوقيع الرقمي بـ RSA-2048</span>
-    <span class="kw">public static byte</span>[] signData(<span class="kw">byte</span>[] data, KeyPair pair) <span class="kw">throws</span> Exception {
-        Signature signer = Signature.getInstance(<span class="str">"SHA256withRSA"</span>);
-        signer.initSign(pair.getPrivate());
-        signer.update(data);
-        <span class="kw">return</span> signer.sign();
-    }
-}</div>
+<span class="cm"># 3. التوقيع الرقمي بـ RSA-2048 (PSS + SHA-256)</span>
+<span class="kw">def</span> sign_data(data: <span class="kw">bytes</span>, private_key) -&gt; <span class="kw">bytes</span>:
+    <span class="kw">return</span> private_key.sign(
+        data,
+        padding.PSS(mgf=padding.MGF1(hashes.SHA256()), salt_length=padding.PSS.MAX_LENGTH),
+        hashes.SHA256()
+    )</div>
+
+  <!-- ================= 11. COMPARISON MATRIX & FLASHCARDS ================= -->
+  <div class="page-break"></div>
+  <h2 class="sec-heading">8. جدول المقارنة والتقييم الشامل لخوارزميات التشفير</h2>
+  <table>
+    <tr>
+      <th>الخوارزمية</th>
+      <th>النوع</th>
+      <th>حجم المفتاح</th>
+      <th>الهدف الأمني الرئيسي</th>
+      <th>الوضع الأمني 2026-2027</th>
+    </tr>
+    <tr>
+      <td><b>شفرة قيصر (Caesar)</b></td>
+      <td>إزاحة تاريخية</td>
+      <td>1 - 25</td>
+      <td>إخفاء بدائي للنصوص</td>
+      <td><span class="pill pill-bad">مكسورة بالكامل / تعليمية</span></td>
+    </tr>
+    <tr>
+      <td><b>لوحة المرة الواحدة (OTP/XOR)</b></td>
+      <td>تشفير تدفق</td>
+      <td>بطول الرسالة</td>
+      <td>سرية تامة رياضياً</td>
+      <td><span class="pill pill-ok">غير قابلة للكسر عند عدم التكرار</span></td>
+    </tr>
+    <tr>
+      <td><b>معيار AES (Rijndael)</b></td>
+      <td>كتل (128 بت)</td>
+      <td>128 / 192 / 256 بت</td>
+      <td>سرية البيانات الضخمة</td>
+      <td><span class="pill pill-ok">المعيار الذهبي العالمي</span></td>
+    </tr>
+    <tr>
+      <td><b>نظام RSA</b></td>
+      <td>غير متماثل</td>
+      <td>2048 - 4096 بت</td>
+      <td>تبادل المفاتيح والتوقيع</td>
+      <td><span class="pill pill-acc">آمن (2048+) / تحول للـ PQC</span></td>
+    </tr>
+    <tr>
+      <td><b>بروتوكول Diffie-Hellman</b></td>
+      <td>تبادل مفاتيح</td>
+      <td>2048 بت / ECC 256</td>
+      <td>مفتاح مشترك عبر قناة عامة</td>
+      <td><span class="pill pill-ok">أساس TLS 1.3 والـ HTTPS</span></td>
+    </tr>
+    <tr>
+      <td><b>دوال الهاش (SHA-256)</b></td>
+      <td>اتجاه واحد</td>
+      <td>بدون مفتاح (256 بت)</td>
+      <td>سلامة البيانات وعدم التلاعب</td>
+      <td><span class="pill pill-ok">معيار الصناعة والبلوكشين</span></td>
+    </tr>
+  </table>
+  <div class="note-box">
+    <b>خلاصة التشفير الهجين (Hybrid Cryptography):</b> تدمج الأنظمة الحديثة (HTTPS، SSH، Signal) بين الخوارزميات: نستخدم <b>RSA أو Diffie-Hellman</b> لتبادل مفتاح الجلسة، ثم <b>AES-256-GCM</b> لتشفير البيانات بسرعة فائقة، مع <b>SHA-256 والتوقيع الرقمي</b> لضمان السلامة وإثبات الهوية.
+  </div>
+
+  <h2 class="sec-heading">9. بطاقات المراجعة الشفوية (أهم أسئلة الامتحان)</h2>
+  <div class="flashcard-print">
+    <div class="fq">س1: لماذا يعتبر مبدأ كيركهوفس (Kerckhoffs's Principle) حجر الزاوية في التشفير الحديث؟</div>
+    <div class="fa"><b>الإجابة النموذجية:</b> لأن الخوارزميات (AES و RSA و SHA-256) منشورة ومفتوحة للتدقيق العالمي، ويرتكز الأمان بالكامل على سرية المفتاح لا على إخفاء الخوارزمية.</div>
+  </div>
+  <div class="flashcard-print">
+    <div class="fq">س2: ما الفرق الجوهري بين التشفير المتماثل (AES) وغير المتماثل (RSA)؟</div>
+    <div class="fa"><b>الإجابة النموذجية:</b> يستخدم AES مفتاحاً واحداً مشتركاً وهو أسرع بنحو 1000 مرة للبيانات الضخمة، بينما يستخدم RSA زوج مفاتيح (عام وخاص) لتبادل المفاتيح والتوقيع الرقمي.</div>
+  </div>
+  <div class="flashcard-print">
+    <div class="fq">س3: ما هو أثر الانهيار الثلجي (Avalanche Effect) في دالة SHA-256؟</div>
+    <div class="fa"><b>الإجابة النموذجية:</b> تغيير بت واحد فقط في المدخل يؤدي إلى انقلاب أكثر من 50% من بتات البصمة الناتجة بشكل غير متوقع، مما يمنع استنتاج أي نمط.</div>
+  </div>
 
   <!-- FOOTER -->
   <div class="note-box" style="margin-top: 30px; text-align: center;">

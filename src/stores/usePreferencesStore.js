@@ -1,8 +1,30 @@
 import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 
+function safeGetStorage(key, fallback) {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const val = window.localStorage.getItem(key)
+      return val !== null ? val : fallback
+    }
+  } catch {
+    // Ignore SecurityError / QuotaExceededError in restricted WebViews or private mode
+  }
+  return fallback
+}
+
+function safeSetStorage(key, value) {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem(key, value)
+    }
+  } catch {
+    // Ignore storage errors on restricted devices
+  }
+}
+
 export const usePreferencesStore = defineStore('preferences', () => {
-  const theme = ref(localStorage.getItem('portal_theme') || 'light')
+  const theme = ref(safeGetStorage('portal_theme', 'light'))
   const lang = ref('en')
   const isBigMode = ref(false)
   const isDrawing = ref(false)
@@ -24,13 +46,13 @@ export const usePreferencesStore = defineStore('preferences', () => {
 
   function toggleTheme() {
     theme.value = theme.value === 'dark' ? 'light' : 'dark'
-    localStorage.setItem('portal_theme', theme.value)
+    safeSetStorage('portal_theme', theme.value)
     applyDomAttributes()
   }
 
   function toggleLang() {
     lang.value = lang.value === 'ar' ? 'en' : 'ar'
-    localStorage.setItem('agy_lang', lang.value)
+    safeSetStorage('agy_lang', lang.value)
     applyDomAttributes()
   }
 

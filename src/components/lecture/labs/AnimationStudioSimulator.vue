@@ -1,5 +1,5 @@
 <template>
-  <div class="anim-studio-container">
+  <div ref="studioRootRef" class="anim-studio-container">
     <div class="studio-two-cols">
       <!-- COLUMN 1: VIEWPORT & DOPE SHEET (Appears on the RIGHT in RTL) -->
       <div class="studio-viewport-panel">
@@ -438,11 +438,17 @@ const fps = ref(8)
 const isLoop = ref(true)
 const customFrames = ref(null)
 
+const studioRootRef = ref(null)
 const rulerRef = ref(null)
 const diamondRefs = ref([])
 const playheadPos = ref(20)
 
 let timer = null
+let cachedDiamondPositions = []
+let isVisibleOnScreen = true
+let observer = null
+let resizeTimer = null
+let initPlayheadTimer = null
 
 const currentClipData = computed(() => {
   if (customFrames.value) {
@@ -472,29 +478,44 @@ const shadowStyle = computed(() => {
   }
 })
 
-function updatePlayhead() {
+function measureDiamondPositions() {
   nextTick(() => {
     if (!rulerRef.value) return
     const diamonds = rulerRef.value.querySelectorAll('.keyframe-diamond')
     if (!diamonds || diamonds.length === 0) return
-    const target = diamonds[currentFrameIndex.value]
-    if (target) {
-      const rRect = rulerRef.value.getBoundingClientRect()
-      const dRect = target.getBoundingClientRect()
-      playheadPos.value = (dRect.left + dRect.width / 2) - rRect.left
-    }
+    const rRect = rulerRef.value.getBoundingClientRect()
+    cachedDiamondPositions = Array.from(diamonds).map((d) => {
+      const dRect = d.getBoundingClientRect()
+      return (dRect.left + dRect.width / 2) - rRect.left
+    })
+    updatePlayhead()
   })
+}
+
+function updatePlayhead() {
+  if (cachedDiamondPositions.length > currentFrameIndex.value) {
+    playheadPos.value = cachedDiamondPositions[currentFrameIndex.value]
+  }
+}
+
+function canRunTimer() {
+  return isPlaying.value && isVisibleOnScreen && (typeof document === 'undefined' || !document.hidden)
 }
 
 function startTimer() {
   stopTimer()
+  if (!canRunTimer()) return
   timer = setInterval(() => {
-    if (!isPlaying.value) return
+    if (!canRunTimer()) {
+      stopTimer()
+      return
+    }
     if (currentFrameIndex.value + 1 >= totalFrames.value) {
       if (isLoop.value) {
         currentFrameIndex.value = 0
       } else {
         isPlaying.value = false
+        stopTimer()
         return
       }
     } else {
@@ -509,6 +530,21 @@ function stopTimer() {
     clearInterval(timer)
     timer = null
   }
+}
+
+function handleVisibilityChange() {
+  if (document.hidden) {
+    stopTimer()
+  } else if (canRunTimer()) {
+    startTimer()
+  }
+}
+
+function handleResize() {
+  if (resizeTimer) clearTimeout(resizeTimer)
+  resizeTimer = setTimeout(() => {
+    measureDiamondPositions()
+  }, 150)
 }
 
 function restartTimer() {
@@ -552,18 +588,44 @@ function setFps(newFps) {
 function onClipChange() {
   customFrames.value = null
   currentFrameIndex.value = 0
-  updatePlayhead()
+  measureDiamondPositions()
   restartTimer()
   emit('notify', props.isEn ? `Loaded clip: ${currentClipData.value.nameEn}` : `تم تحميل: ${currentClipData.value.name}`)
 }
 
 onMounted(() => {
-  startTimer()
-  setTimeout(updatePlayhead, 120)
+  if (typeof IntersectionObserver !== 'undefined' && studioRootRef.value) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        isVisibleOnScreen = Boolean(entry && entry.isIntersecting)
+        if (isVisibleOnScreen && canRunTimer()) {
+          startTimer()
+        } else {
+          stopTimer()
+        }
+      },
+      { threshold: 0.05 }
+    )
+    observer.observe(studioRootRef.value)
+  } else {
+    startTimer()
+  }
+  document.addEventListener('visibilitychange', handleVisibilityChange)
+  window.addEventListener('resize', handleResize, { passive: true })
+  initPlayheadTimer = setTimeout(measureDiamondPositions, 120)
 })
 
 onUnmounted(() => {
   stopTimer()
+  if (initPlayheadTimer) clearTimeout(initPlayheadTimer)
+  if (resizeTimer) clearTimeout(resizeTimer)
+  if (observer) {
+    observer.disconnect()
+    observer = null
+  }
+  document.removeEventListener('visibilitychange', handleVisibilityChange)
+  window.removeEventListener('resize', handleResize)
 })
 </script>
 

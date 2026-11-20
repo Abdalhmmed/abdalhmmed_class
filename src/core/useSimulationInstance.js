@@ -13,6 +13,8 @@ export function useSimulationInstance(opConfig, opIndex) {
   const isPlaying = ref(false)
   const speed = ref(750)
   let timerId = null
+  let hasBuilt = false
+  let needsRebuild = true
 
   // Input state reactive per operation
   const arrInput = ref(opConfig.defArr ? opConfig.defArr.join(', ') : '')
@@ -90,6 +92,14 @@ export function useSimulationInstance(opConfig, opIndex) {
     const generated = opConfig.gen(getValidatedParams(), prefs.lang)
     steps.value = generated
     stepIndex.value = preserveStep ? Math.min(prevIdx, Math.max(0, generated.length - 1)) : 0
+    hasBuilt = true
+    needsRebuild = false
+  }
+
+  function ensureBuilt() {
+    if (!hasBuilt || needsRebuild) {
+      rebuild(hasBuilt)
+    }
   }
 
   function applyPreset() {
@@ -168,6 +178,9 @@ export function useSimulationInstance(opConfig, opIndex) {
     stop()
     currentSlide.value = s
     prefs.activeOpIndex = opIndex
+    if (s === 1) {
+      ensureBuilt()
+    }
   }
 
   function tryCase(caseKey) {
@@ -193,16 +206,17 @@ export function useSimulationInstance(opConfig, opIndex) {
     steps.value.length ? ((stepIndex.value + 1) / steps.value.length) * 100 : 0
   )
 
-  // Re-generate step messages in the new language while preserving the active step index
+  // Re-generate step messages lazily in the new language while preserving the active step index
   watch(
     () => prefs.lang,
     () => {
-      rebuild(true)
+      if (currentSlide.value === 1 && hasBuilt) {
+        rebuild(true)
+      } else {
+        needsRebuild = true
+      }
     }
   )
-
-  // Initialize steps immediately
-  rebuild()
 
   onUnmounted(() => {
     stop()

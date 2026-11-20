@@ -1,35 +1,71 @@
 <script setup>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, nextTick, onUnmounted } from 'vue'
 import { usePreferencesStore } from '@/stores/usePreferencesStore'
 
 const prefs = usePreferencesStore()
 const canvasRef = ref(null)
 let drawing = false
+let resizeTimer = null
+let resizeListenerAttached = false
 
 function resizeCanvasPreservingContent() {
   const cvs = canvasRef.value
-  if (!cvs) return
-  const ctx = cvs.getContext('2d')
+  if (!cvs || !prefs.isDrawing) return
+  const ctx = cvs.getContext('2d', { willReadFrequently: true })
+  if (!ctx) return
 
   // Save current drawing before resizing
   let savedData = null
   if (cvs.width > 0 && cvs.height > 0) {
-    savedData = ctx.getImageData(0, 0, cvs.width, cvs.height)
+    try {
+      savedData = ctx.getImageData(0, 0, cvs.width, cvs.height)
+    } catch {
+      savedData = null
+    }
   }
 
   cvs.width = window.innerWidth
   cvs.height = window.innerHeight
 
   if (savedData) {
-    ctx.putImageData(savedData, 0, 0)
+    try {
+      ctx.putImageData(savedData, 0, 0)
+    } catch {
+      // Ignore putImageData errors on extreme viewport changes
+    }
+  }
+}
+
+function handleDebouncedResize() {
+  if (resizeTimer) clearTimeout(resizeTimer)
+  resizeTimer = setTimeout(() => {
+    resizeCanvasPreservingContent()
+  }, 150)
+}
+
+function attachResize() {
+  if (!resizeListenerAttached) {
+    window.addEventListener('resize', handleDebouncedResize, { passive: true })
+    resizeListenerAttached = true
+  }
+}
+
+function detachResize() {
+  if (resizeTimer) {
+    clearTimeout(resizeTimer)
+    resizeTimer = null
+  }
+  if (resizeListenerAttached) {
+    window.removeEventListener('resize', handleDebouncedResize)
+    resizeListenerAttached = false
   }
 }
 
 function clearCanvas() {
   const cvs = canvasRef.value
   if (!cvs) return
-  const ctx = cvs.getContext('2d')
-  ctx.clearRect(0, 0, cvs.width, cvs.height)
+  const ctx = cvs.getContext('2d', { willReadFrequently: true })
+  if (ctx) ctx.clearRect(0, 0, cvs.width, cvs.height)
 }
 
 function onPointerDown(e) {
@@ -38,7 +74,8 @@ function onPointerDown(e) {
   if (!cvs) return
   drawing = true
   cvs.setPointerCapture?.(e.pointerId)
-  const ctx = cvs.getContext('2d')
+  const ctx = cvs.getContext('2d', { willReadFrequently: true })
+  if (!ctx) return
   ctx.beginPath()
   ctx.moveTo(e.clientX, e.clientY)
 }
@@ -47,7 +84,8 @@ function onPointerMove(e) {
   if (!drawing || !prefs.isDrawing) return
   const cvs = canvasRef.value
   if (!cvs) return
-  const ctx = cvs.getContext('2d')
+  const ctx = cvs.getContext('2d', { willReadFrequently: true })
+  if (!ctx) return
   ctx.lineWidth = 4
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
@@ -71,24 +109,26 @@ watch(
   () => prefs.isDrawing,
   (val) => {
     if (val) {
-      resizeCanvasPreservingContent()
+      nextTick(() => {
+        resizeCanvasPreservingContent()
+        attachResize()
+      })
+    } else {
+      drawing = false
+      detachResize()
     }
-  }
+  },
+  { immediate: true }
 )
 
-onMounted(() => {
-  resizeCanvasPreservingContent()
-  window.addEventListener('resize', resizeCanvasPreservingContent)
-})
-
 onUnmounted(() => {
-  window.removeEventListener('resize', resizeCanvasPreservingContent)
+  detachResize()
 })
 </script>
 
 <template>
   <canvas
-    v-show="prefs.isDrawing"
+    v-if="prefs.isDrawing"
     id="pen"
     ref="canvasRef"
     @pointerdown="onPointerDown"

@@ -731,7 +731,7 @@ html[dir="ltr"] .fab-container {
     </div>
     <h1>أسس علم التشفير وهندسة الخوارزميات الأمنية<br>مختبر المحاكاة التفاعلي والتحليل الرياضي الشامل</h1>
     <p>
-      شرح تفاعلي يجمع بين النماذج الرياضية الصارمة (الحساب النمطي، مشكلة اللوغاريتم المنفصل، وتبديلات S-Box) وبين التطبيق البرمجي الحي بلغة Java. كل عملية تشفيرية تُعرض في 3 شرائح بيداغوجية: <b>① الفكرة والتأصيل الرياضي</b>، ثم <b>② التنفيذ البصري خطوة بخطوة</b> مع تتبع البتات والمصفوفات، ثم <b>③ التحليل الأمني ومقاومة الهجمات</b>.
+      شرح تفاعلي يجمع بين النماذج الرياضية الصارمة (الحساب النمطي، مشكلة اللوغاريتم المنفصل، وتبديلات S-Box) وبين التطبيق البرمجي الحي بلغة Python. كل عملية تشفيرية تُعرض في 3 شرائح بيداغوجية: <b>① الفكرة والتأصيل الرياضي</b>، ثم <b>② التنفيذ البصري خطوة بخطوة</b> مع تتبع البتات والمصفوفات، ثم <b>③ التحليل الأمني ومقاومة الهجمات</b>.
     </p>
     <div class="chips">
       <span><i class="fa-solid fa-shield-halved"></i> مادة الأمن السيبراني</span>
@@ -821,14 +821,14 @@ html[dir="ltr"] .fab-container {
   <!-- DYNAMIC OPERATIONS CONTAINER -->
   <div id="opsSections"></div>
 
-  <!-- 3. JAVA CRYPTOGRAPHY ARCHITECTURE (JCA) CODE REFERENCE -->
-  <section class="card" id="java-crypto-codes">
+  <!-- 3. PYTHON CRYPTOGRAPHY CODE REFERENCE -->
+  <section class="card" id="python-crypto-codes">
     <div style="font-size:13px;color:var(--brand);font-weight:800;letter-spacing:0.5px">
-      <i class="fa-solid fa-code"></i> مرجع الأكواد الأكاديمية (Java Security & Crypto Reference)
+      <i class="fa-solid fa-code"></i> مرجع الأكواد الأكاديمية (Python Security &amp; Crypto Reference)
     </div>
-    <h2 style="margin-top:6px">التطبيق البرمجي لمعايير التشفير الصناعية بلغة Java</h2>
+    <h2 style="margin-top:6px">التطبيق البرمجي لمعايير التشفير الصناعية بلغة Python</h2>
     <p class="lead">
-      أكواد نموذجية ومختبرة لطلبة السنة الثالثة باستخدام الحزم الرسمية <code>javax.crypto</code> و <code>java.security</code>، متوافقة مع أحدث إرشادات الأمن السيبراني الصادرة عن المعهد الوطني للمعايير والتقنية (NIST).
+      أكواد نموذجية ومختبرة لطلبة السنة الثالثة باستخدام مكتبتي <code>cryptography</code> و <code>hashlib</code> القياسيتين في Python، متوافقة مع أحدث إرشادات الأمن السيبراني الصادرة عن المعهد الوطني للمعايير والتقنية (NIST).
     </p>
 
     <!-- Code 1: AES-256 GCM -->
@@ -840,25 +840,16 @@ html[dir="ltr"] .fab-container {
       <p style="margin:0 0 12px;font-size:14.5px;color:var(--muted)">
         يوفر وضع GCM التشفير والسرية مع مصادقة سلامة البيانات (Integrity) في آنٍ واحد ضد هجمات التعديل والتلاعب (Tampering):
       </p>
-<div class="code" style="padding:16px 20px;white-space:pre"><span class="kw">import</span> javax.crypto.Cipher;
-<span class="kw">import</span> javax.crypto.KeyGenerator;
-<span class="kw">import</span> javax.crypto.SecretKey;
-<span class="kw">import</span> javax.crypto.spec.GCMParameterSpec;
-<span class="kw">import</span> java.security.SecureRandom;
-<span class="kw">import</span> java.util.Base64;
+<div class="code" style="padding:16px 20px;white-space:pre"><span class="kw">import</span> os
+<span class="kw">from</span> cryptography.hazmat.primitives.ciphers.aead <span class="kw">import</span> AESGCM
 
-<span class="kw">public class</span> AESGCMExample {
-    <span class="kw">private static final int</span> AES_KEY_SIZE = 256; <span class="cm">// بت</span>
-    <span class="kw">private static final int</span> GCM_IV_LENGTH = 12; <span class="cm">// بايت (96 بت موصى بها)</span>
-    <span class="kw">private static final int</span> GCM_TAG_LENGTH = 128; <span class="cm">// بت</span>
+AES_KEY_SIZE = 32   <span class="cm"># 32 بايت = 256 بت</span>
+GCM_NONCE_LEN = 12  <span class="cm"># 12 بايت = 96 بت (موصى بها من NIST)</span>
 
-    <span class="kw">public static byte</span>[] encrypt(<span class="kw">byte</span>[] pText, SecretKey key, <span class="kw">byte</span>[] iv) <span class="kw">throws</span> Exception {
-        Cipher cipher = Cipher.getInstance(<span class="string">"AES/GCM/NoPadding"</span>);
-        GCMParameterSpec spec = <span class="kw">new</span> GCMParameterSpec(GCM_TAG_LENGTH, iv);
-        cipher.init(Cipher.ENCRYPT_MODE, key, spec);
-        <span class="kw">return</span> cipher.doFinal(pText);
-    }
-}</div>
+<span class="kw">def</span> encrypt_aes_gcm(plaintext: <span class="kw">bytes</span>, key: <span class="kw">bytes</span>, nonce: <span class="kw">bytes</span>) -&gt; <span class="kw">bytes</span>:
+    aesgcm = AESGCM(key)
+    <span class="cm"># ينتج النص المشفر مدمجاً معه وسم المصادقة (128-bit Auth Tag)</span>
+    <span class="kw">return</span> aesgcm.encrypt(nonce, plaintext, <span class="kw">None</span>)</div>
     </div>
 
     <!-- Code 2: RSA-2048 Asymmetric -->
@@ -870,42 +861,48 @@ html[dir="ltr"] .fab-container {
       <p style="margin:0 0 12px;font-size:14.5px;color:var(--muted)">
         توليد زوج المفاتيح (العام للتشفير والخاص لفك التشفير) مع منع هجمات التحليل الرياضي عبر حشوة OAEP العشوائية:
       </p>
-<div class="code" style="padding:16px 20px;white-space:pre"><span class="kw">import</span> java.security.KeyPair;
-<span class="kw">import</span> java.security.KeyPairGenerator;
-<span class="kw">import</span> javax.crypto.Cipher;
+<div class="code" style="padding:16px 20px;white-space:pre"><span class="kw">from</span> cryptography.hazmat.primitives.asymmetric <span class="kw">import</span> rsa
 
-<span class="kw">public class</span> RSAExample {
-    <span class="kw">public static</span> KeyPair generateRSAKeyPair() <span class="kw">throws</span> Exception {
-        KeyPairGenerator generator = KeyPairGenerator.getInstance(<span class="string">"RSA"</span>);
-        generator.initialize(2048); <span class="cm">// مفتاح بطول 2048 بت آمن حالياً</span>
-        <span class="kw">return</span> generator.generateKeyPair();
-    }
-}</div>
+<span class="kw">def</span> generate_rsa_keypair():
+    private_key = rsa.generate_private_key(
+        public_exponent=65537,
+        key_size=2048  <span class="cm"># مفتاح بطول 2048 بت آمن حالياً</span>
+    )
+    public_key = private_key.public_key()
+    <span class="kw">return</span> private_key, public_key</div>
     </div>
 
     <!-- Code 3: Complete Main Program -->
     <div>
       <div class="panel-title" style="font-size:15px;color:var(--ink)">
-        <i class="fa-solid fa-star" style="color:var(--accent)"></i> برنامج تطبيقي متكامل يدمج التشفير والهاش والتوقيع الرقمي (`MainCrypto.java`):
+        <i class="fa-solid fa-star" style="color:var(--accent)"></i> برنامج تطبيقي متكامل يدمج التشفير والهاش والتوقيع الرقمي (<code>main_crypto.py</code>):
       </div>
-<div class="code" style="padding:16px 20px;white-space:pre"><span class="cm">/**
- * مختبر الأمن السيبراني والتشفير العملي (سنة ثالثة علوم حاسوب)
- * إعداد وتطوير: م. عبدالحميد هلال دعبان
- * العام الجامعي: 2026-2027م
- */</span>
-<span class="kw">public class</span> MainCrypto {
-    <span class="kw">public static void</span> main(String[] args) <span class="kw">throws</span> Exception {
-        System.out.println(<span class="string">"=== نظام التشفير والأمن السيبراني الأكاديمي ==="</span>);
-        String secretMessage = <span class="string">"CyberSecurity-3rdYear-CS-2027"</span>;
+<div class="code" style="padding:16px 20px;white-space:pre"><span class="cm">"""
+مختبر الأمن السيبراني والتشفير العملي (سنة ثالثة علوم حاسوب)
+إعداد وتطوير: م. عبدالحميد هلال دعبان
+العام الجامعي: 2026-2027م
+"""</span>
+<span class="kw">import</span> os
+<span class="kw">import</span> hashlib
+<span class="kw">from</span> cryptography.hazmat.primitives.ciphers.aead <span class="kw">import</span> AESGCM
 
-        <span class="cm">// 1. حساب الهاش SHA-256 لبصمة البيانات</span>
-        System.out.println(<span class="string">"الرسالة الأصلية: "</span> + secretMessage);
-        System.out.println(<span class="string">"بصمة الهاش (SHA-256): تم حسابها لمنع التلاعب (Integrity)."</span>);
+<span class="kw">def</span> main():
+    print(<span class="string">"=== نظام التشفير والأمن السيبراني الأكاديمي ==="</span>)
+    secret_message = <span class="string">"CyberSecurity-3rdYear-CS-2027"</span>.encode(<span class="string">"utf-8"</span>)
 
-        <span class="cm">// 2. التشفير المتماثل AES-256 للسرية</span>
-        System.out.println(<span class="string">"تم تشفير البيانات بنجاح باستخدام مفتاح 256-بت متماثل."</span>);
-    }
-}</div>
+    <span class="cm"># 1. حساب الهاش SHA-256 لبصمة البيانات (Integrity)</span>
+    digest = hashlib.sha256(secret_message).hexdigest()
+    print(<span class="string">"الرسالة الأصلية:"</span>, secret_message.decode(<span class="string">"utf-8"</span>))
+    print(<span class="string">"بصمة الهاش (SHA-256):"</span>, digest)
+
+    <span class="cm"># 2. التشفير المتماثل AES-256-GCM للسرية والمصادقة</span>
+    key = AESGCM.generate_key(bit_length=256)
+    nonce = os.urandom(12)
+    ciphertext = AESGCM(key).encrypt(nonce, secret_message, <span class="kw">None</span>)
+    print(<span class="string">"تم تشفير البيانات بنجاح باستخدام مفتاح 256-بت متماثل:"</span>, ciphertext.hex()[:32] + <span class="string">"..."</span>)
+
+<span class="kw">if</span> __name__ == <span class="string">"__main__"</span>:
+    main()</div>
     </div>
   </section>
 
@@ -1096,8 +1093,8 @@ const $ = id => document.getElementById(id);
 const esc = s => (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function hl(line){
   let s = esc(line), cm='';
-  const k = s.indexOf('//'); if(k>=0){ cm='<span class="cm">'+s.slice(k)+'</span>'; s=s.slice(0,k); }
-  s = s.replace(/\b(int|byte|char|boolean|String|for|while|if|else|return|new|class|public|static|void|import)\b/g,'<span class="kw">$1</span>');
+  const k = s.indexOf('#'); if(k>=0){ cm='<span class="cm">'+s.slice(k)+'</span>'; s=s.slice(0,k); }
+  s = s.replace(/\b(def|for|in|while|if|elif|else|return|import|from|as|class|try|except|True|False|None|with|bytes|bytearray|int|str|pow|ord|chr|range)\b/g,'<span class="kw">$1</span>');
   return s+cm;
 }
 function codeHTML(lines, on){
@@ -1131,15 +1128,13 @@ const OPS = [
   ],
   analogy: 'مثل قرص ساعة يحتوي 26 حرفاً: تدير المؤشر للأمام بمقدار k خطوة لكل حرف، ولإعادته تديره للخلف بنفس المقدار.',
   code: [
-    'public static String encryptCaesar(String text, int k) {',
-    '    StringBuilder result = new StringBuilder();',
-    '    for (char c : text.toCharArray()) {',
-    '        int p = c - \'A\';',
-    '        int cVal = (p + k) % 26;',
-    '        result.append((char) (\'A\' + cVal));',
-    '    }',
-    '    return result.toString();',
-    '}'
+    'def encrypt_caesar(text: str, k: int) -> str:',
+    '    result = []',
+    '    for c in text:',
+    '        p = ord(c) - ord(\'A\')',
+    '        c_val = (p + k) % 26',
+    '        result.append(chr(ord(\'A\') + c_val))',
+    '    return \'\'.join(result)'
   ],
   inputs: [['text','النص الصريح (A-Z)','SECURITY'], ['k','المفتاح k (الإزاحة)',3]],
   gen(p){
@@ -1166,7 +1161,7 @@ const OPS = [
         bcls: { [i]: 'found' }, bptr: { [i]: cChar }
       });
     }
-    r.push(7, `اكتمل تشفير النص بالكامل ➔ "${r.b.join('')}". فضاء المفاتيح هو 25 فقط مما يجعلها عرضة للكسر في ثوانٍ.`, {
+    r.push(6, `اكتمل تشفير النص بالكامل ➔ "${r.b.join('')}". فضاء المفاتيح هو 25 فقط مما يجعلها عرضة للكسر في ثوانٍ.`, {
       bcls: Object.fromEntries(txt.split('').map((_,idx)=>[idx,'found']))
     });
     return r.S;
@@ -1181,49 +1176,57 @@ const OPS = [
 {
   key: 'otp_xor', name: 'تشفير التدفق ونظرية لوحة المرة الواحدة', badge: 'Stream / OTP',
   head: 'تشفير التدفق (One-Time Pad & Stream XOR Cipher)',
-  text: 'تطبيق عملية الجمع البتي XOR ($\oplus$) بين بتات النص الصريح ومفتاح عشوائي حقيقي بنفس الطول.',
+  text: 'تطبيق عملية الجمع البتي XOR ($\oplus$) بتّاً تلو الآخر بين التمثيل الثنائي لرقم أصلي ورقم مفتاح عشوائي لتحويله إلى رقم مشفر جديد.',
   steps: [
-    'تحويل الحرف إلى تمثيله الثنائي (Binary ASCII 8-bit).',
-    'توليد بتات مفتاح عشوائي حقيقي (Pseudorandom / TRNG).',
-    'إجراء عملية XOR بتياً: $C_i = P_i \oplus K_i$.',
-    'فك التشفير بمطابقة XOR ثانية: $P_i = C_i \oplus K_i$.'
+    'تحويل الرقم الصريح (مثل 65) إلى 8 بتات ثنائية: 01000001.',
+    'تحويل رقم المفتاح السري (مثل 90) إلى 8 بتات ثنائية: 01011010.',
+    'مقارنة كل بت مع البت المقابل له بعملية XOR: إذا تشابها يكون الناتج 0 وإذا اختلفا يكون 1.',
+    'تجميع البتات الناتجة (00011011) للحصول على الرقم المشفر الجديد (27). وللإرجاع نطبق XOR بنفس المفتاح: 27 ⊕ 90 = 65.'
   ],
-  analogy: 'مثل قفل سحري ثنائي: إذا كان بت المفتاح 1 يقلب البت (0 يصبح 1 و 1 يصبح 0)، وعند تطبيقه ثانية يعود لأصله.',
+  analogy: 'مثل قفل سحري ثنائي: إذا كان بت المفتاح 1 يقلب البت (0 يصبح 1 و 1 يصبح 0)، وإذا كان 0 يبقيه كما هو؛ وعند تطبيقه ثانية يعود الرقم لأصله.',
   code: [
-    'public static byte[] xorCipher(byte[] data, byte[] key) {',
-    '    byte[] cipher = new byte[data.length];',
-    '    for (int i = 0; i < data.length; i++) {',
-    '        cipher[i] = (byte) (data[i] ^ key[i]); // XOR خطوة واحدة',
-    '    }',
-    '    return cipher;',
-    '}'
+    'def xor_number(num, key):',
+    '    p_bits = format(num, "08b")   # الرقم الأصلي (8 بتات)',
+    '    k_bits = format(key, "08b")   # رقم المفتاح (8 بتات)',
+    '    c_bits = ""',
+    '    for i in range(8):            # مقارنة بت تلو الآخر',
+    '        if p_bits[i] == k_bits[i]:',
+    '            c_bits += "0"         # متشابهان ➔ 0',
+    '        else:',
+    '            c_bits += "1"         # مختلفان ➔ 1',
+    '    return int(c_bits, 2)         # تحويل البتات إلى رقم'
   ],
-  inputs: [['text','النص الصريح','CYBER']],
+  inputs: [['num','الرقم الأصلي (0-255)','65'], ['key','رقم المفتاح (0-255)','90']],
   gen(p){
-    const txt = (p.text||'CYBER').slice(0,6);
-    const keys = [0x5A, 0x1F, 0xC3, 0x77, 0x2E, 0x9D];
-    const r = Recorder({ a: txt.split(''), b: Array(txt.length).fill('?') });
-    r.push(0, `تشفير التدفق OTP بالـ XOR للنص "${txt}". كل حرف يُمثل بـ 8 بتات.`);
+    const num = Math.max(0, Math.min(255, Number.isFinite(Number(p.num)) ? parseInt(p.num, 10) : 65));
+    const key = Math.max(0, Math.min(255, Number.isFinite(Number(p.key)) ? parseInt(p.key, 10) : 90));
+    const cipher = num ^ key;
+    const pBin = num.toString(2).padStart(8,'0');
+    const kBin = key.toString(2).padStart(8,'0');
+    const cBin = cipher.toString(2).padStart(8,'0');
+    const r = Recorder({ a: pBin.split(''), b: Array(8).fill('?') });
+    r.v.num = num; r.v.key = key; r.v.pBits = pBin; r.v.kBits = kBin;
+    r.push(1, `الرقم الأصلي ${num} يساوي ثنائياً ${pBin} (8 بتات)، ورقم المفتاح ${key} يساوي ${kBin}. سنقارن كل بت يدوياً.`);
     
-    for(let i=0; i<txt.length; i++){
-      const pByte = txt.charCodeAt(i);
-      const kByte = keys[i % keys.length];
-      const cByte = pByte ^ kByte;
-      const pBin = pByte.toString(2).padStart(8,'0');
-      const kBin = kByte.toString(2).padStart(8,'0');
-      const cBin = cByte.toString(2).padStart(8,'0');
-      
-      r.c.ops += 8; r.v.char = txt[i]; r.v.pBin = pBin; r.v.kBin = kBin; r.v.cBin = cBin;
-      r.push(3, `الحرف '${txt[i]}' ثنائياً: ${pBin} والمفتاح K = ${kBin}.`, {
-        cls: { [i]: 'active' }, ptr: { [i]: 'P' }
-      });
-      
-      r.b[i] = '0x' + cByte.toString(16).toUpperCase();
-      r.push(4, `${pBin} ⊕ ${kBin} = ${cBin} (الست عشري: ${r.b[i]}). عملية فورية في مسجلات المعالج!`, {
-        cls: { [i]: 'done' }, bcls: { [i]: 'found' }, bptr: { [i]: r.b[i] }
+    for(let i=0; i<8; i++){
+      const pBit = parseInt(pBin[i], 10);
+      const kBit = parseInt(kBin[i], 10);
+      const isSame = pBit === kBit;
+      const cBit = isSame ? 0 : 1;
+      r.c.ops += 1;
+      if(pBit !== cBit) r.c.flips += 1;
+      r.v.bit = i; r.v.pBit = pBit; r.v.kBit = kBit; r.v.cBit = cBit;
+      r.b[i] = String(cBit);
+      r.push(isSame ? 6 : 8, `البت [${i}]: مقارنة ${pBit} مع ${kBit} ➔ ${isSame ? 'متشابهان ➔ نكتب 0' : 'مختلفان ➔ نكتب 1'}.`, {
+        cls: { [i]: 'active' }, ptr: { [i]: `K=${kBit}` },
+        bcls: { [i]: pBit !== cBit ? 'swap' : 'found' }, bptr: { [i]: `${pBit}⊕${kBit}=${cBit}` }
       });
     }
-    r.push(6, `اكتمل تشفير التدفق. برهن العالم كلود شانون (1949) أن شفرة OTP تحقق السرية التامة رياضياً (Perfect Secrecy).`);
+    r.v.cipher = cipher; r.v.cBits = cBin;
+    r.push(9, `اكتمل التشفير! تحويل "${cBin}" إلى عشري يعطي الرقم المشفر ${cipher}. تحوّل ${num} إلى ${cipher}، وإعادة تشغيل الدالة على (${cipher}, ${key}) تعيد ${num}!`, {
+      cls: Object.fromEntries(Array.from({length:8},(_,idx)=>[idx,'done'])),
+      bcls: Object.fromEntries(Array.from({length:8},(_,idx)=>[idx,'found']))
+    });
     return r.S;
   },
   cases: [
@@ -1245,11 +1248,11 @@ const OPS = [
   ],
   analogy: 'مثل خلط مكعب روبيك وصبغه بألوان جديدة: كل تحريك يخلط خلايا المصفوفة حتى يستحيل تتبع المكان الأصلي للبايت.',
   code: [
-    '// جولة AES النموذجية (Round Transformation)',
-    'subBytes(state);    // استبدال غير خطي (Confusion)',
-    'shiftRows(state);   // إزاحة الصفوف دورياً (Diffusion)',
-    'mixColumns(state);  // خلط الأعمدة في حقل غالوا GF(2^8)',
-    'addRoundKey(state, roundKey); // دمج مفتاح الجولة بـ XOR'
+    '# جولة AES النموذجية (Round Transformation)',
+    'sub_bytes(state)             # استبدال غير خطي (Confusion)',
+    'shift_rows(state)            # إزاحة الصفوف دورياً (Diffusion)',
+    'mix_columns(state)           # خلط الأعمدة في حقل غالوا GF(2^8)',
+    'add_round_key(state, r_key)  # دمج مفتاح الجولة بـ XOR'
   ],
   inputs: [],
   gen(){
@@ -1303,11 +1306,11 @@ const OPS = [
   ],
   analogy: 'مثل قفل مفتوح يوزعه الشخص على الناس (مفتاح عام): يستطيع أي إنسان وضع رسالته وإقفال الصندوق، لكن الشخص صاحب المفتاح الخاص فقط هو من يستطيع فتحه.',
   code: [
-    '// التشفير وفك التشفير في RSA بحساب الموديلار',
-    'BigInteger C = M.modPow(e, n); // التشفير بالمفتاح العام (e, n)',
-    'BigInteger M = C.modPow(d, n); // فك التشفير بالمفتاح الخاص (d, n)',
-    '// إيجاد d عبر المعكوس الضربي:',
-    'BigInteger d = e.modInverse(phi);'
+    '# التشفير وفك التشفير في RSA بحساب الموديلار في Python',
+    'C = pow(M, e, n)        # التشفير بالمفتاح العام (e, n)',
+    'M = pow(C, d, n)        # فك التشفير بالمفتاح الخاص (d, n)',
+    '# إيجاد d عبر المعكوس الضربي المدمج:',
+    'd = pow(e, -1, phi)'
   ],
   inputs: [['m','الرسالة الرقمية M (عدد أصغر من n=3233)','65']],
   gen(p){
@@ -1318,7 +1321,7 @@ const OPS = [
     r.v.p = 61; r.v.q = 53; r.v.n = n; r.v.phi = phi; r.v.e = e; r.v.d = d;
     
     r.push(0, `تم توليد المعاملات: p=61, q=53 ➔ المعامل العام n = 3233 ودالة أويلر φ(n) = 3120.`);
-    r.push(3, `المفتاح العام e = 17. حساب المفتاح الخاص d = 17⁻¹ mod 3120 ➔ d = 2753 عبر إقليدس الموسع.`);
+    r.push(4, `المفتاح العام e = 17. حساب المفتاح الخاص d = 17⁻¹ mod 3120 ➔ d = 2753 عبر إقليدس الموسع.`);
     
     // Fast modular exponentiation for C = 65^17 mod 3233 = 2790
     const C = 2790;
@@ -1352,12 +1355,12 @@ const OPS = [
   ],
   analogy: 'مثل خلط الألوان: يتفقان على لون أساسي عام (أصفر)، يضيف كل منهما لوناً سرياً خاصاً به (أزرق وأحمر). يتبادلان المزيج علناً، ثم يضيف كل طرف لونه السري للمزيج، فيحصل كلاهما على نفس اللون البني المشترك دون أن يعرف المتنصت التركيبة السرية!',
   code: [
-    '// طرف أليس (Alice):',
-    'BigInteger A = g.modPow(a, p); // ترسل A لبوب',
-    'BigInteger secretKeyAlice = B.modPow(a, p); // تحسب المفتاح المشترك',
-    '// طرف بوب (Bob):',
-    'BigInteger B = g.modPow(b, p); // يرسل B لأليس',
-    'BigInteger secretKeyBob = A.modPow(b, p); // يحسب نفس المفتاح!'
+    '# طرف أليس (Alice):',
+    'A = pow(g, a, p)                 # ترسل A لبوب',
+    'secret_key_alice = pow(B, a, p)  # تحسب المفتاح المشترك',
+    '# طرف بوب (Bob):',
+    'B = pow(g, b, p)                 # يرسل B لأليس',
+    'secret_key_bob = pow(A, b, p)    # يحسب نفس المفتاح!'
   ],
   inputs: [],
   gen(){
@@ -1375,7 +1378,7 @@ const OPS = [
       cls: { 0:'active' }, ptr: { 0:`A=${A}` }
     });
     r.c.ops++;
-    r.push(3, `بوب يحسب قيمته العامة: B = ${g}^${b} mod ${p} = ${B}، ويرسلها لأليس علناً.`, {
+    r.push(4, `بوب يحسب قيمته العامة: B = ${g}^${b} mod ${p} = ${B}، ويرسلها لأليس علناً.`, {
       bcls: { 0:'active' }, bptr: { 0:`B=${B}` }
     });
     
@@ -1405,12 +1408,11 @@ const OPS = [
   ],
   analogy: 'مثل ماكينة فرم اللحم أو العصارة: تضع الفواكه وتخلطها فتحصل على مزيج فريد، لكن يستحيل تماماً إعادة المزيج إلى فواكهه الأصلية السليمة.',
   code: [
-    'import java.security.MessageDigest;',
-    'MessageDigest md = MessageDigest.getInstance("SHA-256");',
-    'byte[] hash = md.digest("Cyber".getBytes()); // بصمة 32 بايت (256 بت)',
-    '// تحويل البصمة إلى نص ست عشري (Hex String):',
-    'StringBuilder hex = new StringBuilder();',
-    'for (byte b : hash) hex.append(String.format("%02x", b));'
+    'import hashlib',
+    'data = "Cyber".encode("utf-8")',
+    'hash_obj = hashlib.sha256(data)  # بصمة 32 بايت (256 بت)',
+    '# تحويل البصمة إلى نص ست عشري (Hex String):',
+    'hex_digest = hash_obj.hexdigest()'
   ],
   inputs: [],
   gen(){
@@ -1451,15 +1453,15 @@ const OPS = [
   ],
   analogy: 'مثل ختم الشمع الملكي الخاص: الملك فقط يملك الخاتم لطبعه، لكن أي حارس أو مواطن في المملكة يستطيع مقارنة شكل الختم للتأكد من أنه صادر من الملك شخصياً ولم يتم فضه أو تزويره.',
   code: [
-    'Signature signer = Signature.getInstance("SHA256withRSA");',
-    'signer.initSign(privateKey); // التوقيع بالمفتاح الخاص',
-    'signer.update(documentBytes);',
-    'byte[] signature = signer.sign();',
-    '// التحقق لدى الطرف الآخر بالمفتاح العام:',
-    'Signature verifier = Signature.getInstance("SHA256withRSA");',
-    'verifier.initVerify(publicKey);',
-    'verifier.update(receivedDocBytes);',
-    'boolean isValid = verifier.verify(signature); // true إذا كانت أصلية ولم تُعدل'
+    'from cryptography.hazmat.primitives import hashes',
+    'from cryptography.hazmat.primitives.asymmetric import padding',
+    '# التوقيع بالمفتاح الخاص (Signing with Private Key):',
+    'signature = private_key.sign(document_bytes,',
+    '    padding.PSS(mgf=padding.MGF1(hashes.SHA256()),',
+    '                salt_length=padding.PSS.MAX_LENGTH), hashes.SHA256())',
+    '# التحقق لدى الطرف الآخر بالمفتاح العام:',
+    'public_key.verify(signature, received_doc_bytes,',
+    '    padding.PSS(mgf=padding.MGF1(hashes.SHA256()), salt_length=padding.PSS.MAX_LENGTH), hashes.SHA256())'
   ],
   inputs: [],
   gen(){
@@ -1477,7 +1479,7 @@ const OPS = [
       bcls: { 0:'found' }, bptr: { 0:'موثق رسمياً' }
     });
     
-    r.push(8, `المستقبل يفك التوقيع بمفتاح البنك العام؛ تطابق الهاش يثبت صحة الوثيقة وهوية الموقع 100% (Valid Signature).`, {
+    r.push(7, `المستقبل يفك التوقيع بمفتاح البنك العام؛ تطابق الهاش يثبت صحة الوثيقة وهوية الموقع 100% (Valid Signature).`, {
       cls: { 0:'done' }, bcls: { 0:'done' }
     });
     return r.S;
@@ -1917,8 +1919,8 @@ const EN_EXACT_MAP = {
   'تطبيق وإعادة التشغيل': 'Apply & Restart',
 
   // Section 3
-  'التطبيق البرمجي لمعايير التشفير الصناعية بلغة Java':
-    'Industrial Cryptography Standards Implementation in Java',
+  'التطبيق البرمجي لمعايير التشفير الصناعية بلغة Python':
+    'Industrial Cryptography Standards Implementation in Python',
 
   // Section 4
   '4. جدول المقارنة والتقييم الشامل لخوارزميات التشفير':

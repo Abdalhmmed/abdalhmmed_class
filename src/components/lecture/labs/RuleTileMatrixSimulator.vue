@@ -30,7 +30,9 @@
             <span>W</span><small>{{ getCellLabel('W') }}</small>
           </div>
           <div class="matrix-cell center-cell">
-            <span>X</span><small>{{ isEn ? 'Center Tile' : 'القطعة الحالية' }}</small>
+            <img :src="centerTileImg" alt="Grass Tile" class="center-tile-thumb" />
+            <span class="center-badge">X</span>
+            <small class="center-lbl">{{ isEn ? 'Center Tile' : 'القطعة الحالية' }}</small>
           </div>
           <div class="matrix-cell" :class="state.E" @click="cycle('E')">
             <span>E</span><small>{{ getCellLabel('E') }}</small>
@@ -64,10 +66,21 @@
           <span>{{ isEn ? 'Automatically Selected Sprite' : 'النتيجة التلقائية المحسوبة' }}</span>
         </h4>
 
-        <div class="sprite-preview">
+        <div class="sprite-preview" :class="ruleResult.className">
           <div class="preview-tile-graphic" :class="ruleResult.className">
-            <i :class="ruleResult.icon"></i>
+            <img
+              :src="ruleResult.image"
+              :alt="isEn ? ruleResult.titleEn : ruleResult.title"
+              class="preview-tile-img"
+            />
+            <span class="preview-edge-badge" :title="isEn ? ruleResult.titleEn : ruleResult.title">
+              <i :class="ruleResult.icon"></i>
+            </span>
           </div>
+        </div>
+        <div class="preview-file-tag">
+          <i class="fa-regular fa-image"></i>
+          <span>{{ ruleResult.assetTag }}</span>
         </div>
 
         <div class="rule-name">{{ isEn ? ruleResult.titleEn : ruleResult.title }}</div>
@@ -79,10 +92,14 @@
 
 <script setup>
 import { reactive, computed } from 'vue'
+import grassTileUrl from '@/../assets/grass_tile.jpg'
+import dirtTileUrl from '@/../assets/dirt_tile.jpg'
 
 const props = defineProps({
   isEn: { type: Boolean, default: false }
 })
+
+const centerTileImg = grassTileUrl
 
 const state = reactive({
   NW: 'dont-care',
@@ -128,65 +145,77 @@ const ruleResult = computed(() => {
   if (N === 'not-this' && W === 'not-this' && E === 'this' && S === 'this') {
     return {
       className: 'corner-tl',
+      image: grassTileUrl,
+      assetTag: 'grass_tile.jpg · Top-Left Corner',
       icon: 'fa-solid fa-turn-up',
       title: 'زاوية علوية يسرى (Top-Left Corner)',
       titleEn: 'Top-Left Corner Tile',
-      desc: 'الجانب العلوي والأيسر فارغان؛ يختار Rule Tile قطعة الزاوية المنحنية.',
-      descEn: 'Top and Left neighbors are empty; Unity automatically places the top-left corner sprite.'
+      desc: 'الجانب العلوي والأيسر فارغان؛ يختار Rule Tile قطعة الزاوية العشبية المنحنية.',
+      descEn: 'Top and Left neighbors are empty; Unity automatically places the top-left grass corner sprite.'
     }
   }
 
   if (N === 'not-this' && E === 'not-this' && W === 'this' && S === 'this') {
     return {
       className: 'corner-tr',
+      image: grassTileUrl,
+      assetTag: 'grass_tile.jpg · Top-Right Corner',
       icon: 'fa-solid fa-turn-up fa-flip-horizontal',
       title: 'زاوية علوية يمنى (Top-Right Corner)',
       titleEn: 'Top-Right Corner Tile',
-      desc: 'الجانب العلوي والأيمن فارغان؛ يختار المحرك زاوية الحافة اليمنى.',
-      descEn: 'Top and Right neighbors are empty; Unity places the top-right corner sprite.'
+      desc: 'الجانب العلوي والأيمن فارغان؛ يختار المحرك زاوية الحافة العشبية اليمنى.',
+      descEn: 'Top and Right neighbors are empty; Unity places the top-right grass corner sprite.'
     }
   }
 
   if (N === 'this' && S === 'this' && E === 'not-this' && W === 'this') {
     return {
       className: 'edge-right',
+      image: dirtTileUrl,
+      assetTag: 'dirt_tile.jpg · Right Cliff Edge',
       icon: 'fa-solid fa-arrow-right',
       title: 'حافة يمنى (Right Edge Tile)',
       titleEn: 'Right Edge Tile',
-      desc: 'الجهة اليمنى فارغة؛ يضع Rule Tile جدار الحافة اليمنى للأرضية.',
-      descEn: 'Right neighbor is empty while other sides are connected; places right wall edge.'
+      desc: 'الجهة اليمنى فارغة بينما الأعلى متصل؛ يضع Rule Tile جدار الحافة اليمنى للأرضية.',
+      descEn: 'Right neighbor is empty while top is connected; places the right dirt cliff edge.'
     }
   }
 
   if (N === 'this' && S === 'this' && E === 'this' && W === 'this') {
     return {
       className: 'dirt-center',
+      image: dirtTileUrl,
+      assetTag: 'dirt_tile.jpg · Inner Center',
       icon: 'fa-solid fa-border-all',
       title: 'وسط الأرضية (Inner Center Dirt)',
       titleEn: 'Inner Center Dirt Tile',
-      desc: 'كل الجيران الأربعة متصلون بالكامل؛ يتم استخدام قطعة التراب/الصخر العميقة.',
-      descEn: 'All cardinal neighbors are connected; Unity fills with deep inner dirt.'
+      desc: 'كل الجيران الأربعة متصلون بالكامل؛ يتم استبدال العشب بقطعة التراب الداخلية العميقة.',
+      descEn: 'All cardinal neighbors are connected; Unity switches from grass to deep inner dirt.'
     }
   }
 
   if (N === 'not-this' && S === 'not-this' && E === 'not-this' && W === 'not-this') {
     return {
       className: 'single-float',
+      image: grassTileUrl,
+      assetTag: 'grass_tile.jpg · Floating Block',
       icon: 'fa-solid fa-cube',
-      title: 'قطعة مفردة معلقة (Floating Block)',
-      titleEn: 'Floating Single Block',
-      desc: 'لا يوجد أي جار متصل؛ يعرض المحرك قطعة حرة صغيرة محاطة بجميع الحواف.',
-      descEn: 'No adjacent neighbors are connected; Unity renders an isolated floating block.'
+      title: 'قطعة عشبية منفردة معلقة (Floating Block)',
+      titleEn: 'Floating Single Grass Block',
+      desc: 'لا يوجد أي جار متصل؛ يعرض المحرك قطعة عشب حرة منفردة محاطة بالحواف من كل الجهات.',
+      descEn: 'No adjacent neighbors are connected; Unity renders an isolated floating grass block.'
     }
   }
 
   return {
     className: 'grass-top',
+    image: grassTileUrl,
+    assetTag: 'grass_tile.jpg · Walkable Top Surface',
     icon: 'fa-solid fa-arrow-up',
-    title: 'حافة علوية عشبية (Top Edge Tile)',
+    title: 'حافة علوية عشبية (Top Grass Edge Tile)',
     titleEn: 'Top Grass Edge Tile',
-    desc: 'الأرض متصلة من الجوانب والأسفل والأعلى فارغ؛ هذا هو السطح الطبيعي للمشي.',
-    descEn: 'Bottom and side neighbors connected with top empty; default walkable grass surface.'
+    desc: 'الأرض متصلة من الجوانب والأسفل والأعلى فارغ؛ يختار المحرك بلاطة أرضية العشب كسطح للمشي.',
+    descEn: 'Bottom and side neighbors connected with top empty; default walkable grass ground surface.'
   }
 })
 </script>
@@ -284,10 +313,32 @@ const ruleResult = computed(() => {
   color: var(--text-muted, #57534e);
 }
 .matrix-cell.center-cell {
-  background: var(--brand-soft, #fef3c7);
+  position: relative;
+  overflow: hidden;
+  background: #141414;
   border-color: var(--brand, #d97706);
-  color: var(--brand, #b45309);
+  color: #fff;
   cursor: default;
+}
+.center-tile-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.62);
+  image-rendering: pixelated;
+  opacity: 0.45;
+  pointer-events: none;
+}
+.center-badge,
+.center-lbl {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+}
+.center-lbl {
+  font-size: 10px;
 }
 .presets-row {
   display: flex;
@@ -318,32 +369,96 @@ const ruleResult = computed(() => {
   text-align: center;
 }
 .sprite-preview {
-  width: 110px;
-  height: 110px;
+  width: 128px;
+  height: 128px;
   border: 3px solid var(--brand, #d97706);
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 16px 0;
-  background: #1c1917;
-  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+  margin: 16px 0 10px;
+  background: #141414;
+  padding: 6px;
+  box-shadow: 0 8px 20px rgba(217, 119, 6, 0.22);
+  transition: all 0.25s ease;
 }
 .preview-tile-graphic {
+  position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #141414;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
-  color: #fff;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
 }
-.preview-tile-graphic.grass-top { background: #22c55e; border-top: 5px solid #86efac; }
-.preview-tile-graphic.corner-tl { background: #16a34a; border-top: 5px solid #86efac; border-left: 5px solid #86efac; }
-.preview-tile-graphic.corner-tr { background: #16a34a; border-top: 5px solid #86efac; border-right: 5px solid #86efac; }
-.preview-tile-graphic.edge-right { background: #15803d; border-right: 5px solid #86efac; }
-.preview-tile-graphic.dirt-center { background: #78350f; }
-.preview-tile-graphic.single-float { background: #eab308; border: 3px solid #fef08a; }
+.preview-tile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.62);
+  image-rendering: pixelated;
+  display: block;
+}
+.preview-edge-badge {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: rgba(15, 23, 42, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #86efac;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+.preview-tile-graphic.grass-top {
+  border-top: 4px solid #4ade80;
+  box-shadow: inset 0 4px 10px rgba(74, 222, 128, 0.35);
+}
+.preview-tile-graphic.corner-tl {
+  border-top-left-radius: 22px;
+  border-top: 4px solid #4ade80;
+  border-left: 4px solid #4ade80;
+}
+.preview-tile-graphic.corner-tr {
+  border-top-right-radius: 22px;
+  border-top: 4px solid #4ade80;
+  border-right: 4px solid #4ade80;
+}
+.preview-tile-graphic.edge-right {
+  border-right: 4px solid #f59e0b;
+  box-shadow: inset -4px 0 10px rgba(245, 158, 11, 0.3);
+}
+.preview-tile-graphic.dirt-center {
+  border: 2px solid rgba(120, 53, 15, 0.7);
+}
+.preview-tile-graphic.single-float {
+  border-radius: 16px;
+  border: 3px solid #4ade80;
+  box-shadow: 0 0 14px rgba(74, 222, 128, 0.45);
+}
+.preview-file-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--brand, #b45309);
+  background: var(--brand-soft, #fefce8);
+  border: 1px solid var(--brand-border, #fef08a);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
 
 .rule-name {
   font-size: 16px;

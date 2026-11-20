@@ -11,8 +11,8 @@ export const CYBER_META = {
   year: '2026-2027م',
   heroH1: 'أسس علم التشفير وهندسة الخوارزميات الأمنية\nمختبر المحاكاة التفاعلي والتحليل الرياضي الشامل',
   heroH1En: 'Foundations of Cryptography & Security Algorithms Engineering\nAdvanced Interactive Simulation & Comprehensive Mathematical Analysis',
-  heroP: 'شرح تفاعلي يجمع بين النماذج الرياضية الصارمة (الحساب النمطي، مشكلة اللوغاريتم المنفصل، وتبديلات S-Box) وبين التطبيق البرمجي الحي بلغة Java. كل عملية تشفيرية تُعرض في 3 شرائح: الفكرة والتأصيل الرياضي، التنفيذ البصري خطوة بخطوة، ثم التحليل الأمني ومقاومة الهجمات.',
-  heroPEn: 'An advanced interactive laboratory blending rigorous discrete mathematics (Modular Arithmetic, DLP, S-Box SPN substitutions) with live Java cryptographic execution. Each algorithm is broken into 3 slides: mathematical foundation, visual register tracing, and attack resistance analysis.'
+  heroP: 'شرح تفاعلي يجمع بين النماذج الرياضية الصارمة (الحساب النمطي، مشكلة اللوغاريتم المنفصل، وتبديلات S-Box) وبين التطبيق البرمجي السهل والمباشر بلغة Python. كل عملية تشفيرية تُعرض في 3 شرائح: الفكرة والتأصيل الرياضي، التنفيذ البصري خطوة بخطوة، ثم التحليل الأمني ومقاومة الهجمات.',
+  heroPEn: 'An advanced interactive laboratory blending rigorous discrete mathematics (Modular Arithmetic, DLP, S-Box SPN substitutions) with clean, beginner-friendly Python cryptographic implementations. Each algorithm is broken into 3 slides: mathematical foundation, visual register tracing, and attack resistance analysis.'
 }
 
 export const CYBER_FOUNDATIONS = {

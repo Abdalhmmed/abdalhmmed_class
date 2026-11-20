@@ -219,7 +219,7 @@ defineExpose({
     </div>
 
     <!-- SLIDE 0: IDEA & CONCEPT -->
-    <div v-show="sim.currentSlide.value === 0" class="slide on">
+    <div v-if="sim.currentSlide.value === 0" class="slide on">
       <div class="idea-grid">
         <div>
           <h3>{{ opHead }}</h3>
@@ -238,7 +238,7 @@ defineExpose({
             <p style="margin: 6px 0 0">{{ opAnalogy }}</p>
           </div>
           <div class="panel-title">{{ activeEn ? 'Standard Reference Code' : 'الكود البرمجي الكامل' }}</div>
-          <CodeViewer :lines="opCode" :active-line="-1" />
+          <CodeViewer :lines="opCode" :active-line="-1" :lang-label="stageType === 'crypto' ? 'Python' : 'Java'" />
         </div>
       </div>
       <div class="next-hint" style="margin-top: 20px;">
@@ -249,7 +249,7 @@ defineExpose({
     </div>
 
     <!-- SLIDE 1: STEP-BY-STEP SIMULATION -->
-    <div v-show="sim.currentSlide.value === 1" class="slide on">
+    <div v-if="sim.currentSlide.value === 1" class="slide on">
       <!-- Dynamic Inputs Bar -->
       <slot name="inputs" :sim="sim" :op="op" :is-en="activeEn">
         <div v-if="op.defArr || (op.inputs && op.inputs.length > 0)" class="inputs">
@@ -362,7 +362,7 @@ defineExpose({
           <div class="panel-title">
             {{ activeEn ? 'Executing Instruction in Processor' : 'الكود — السطر المظلّل هو الذي يُنفَّذ الآن' }}
           </div>
-          <CodeViewer :lines="opCode" :active-line="sim.currentStep.value.line" />
+          <CodeViewer :lines="opCode" :active-line="sim.currentStep.value.line" :lang-label="stageType === 'crypto' ? 'Python' : 'Java'" />
 
           <div class="panel-title">{{ activeEn ? 'Variables & Register Watch' : 'المتغيرات' }}</div>
           <div class="vars">
@@ -444,7 +444,7 @@ defineExpose({
     </div>
 
     <!-- SLIDE 2: ANALYSIS & EVALUATION -->
-    <div v-show="sim.currentSlide.value === 2" class="slide on">
+    <div v-if="sim.currentSlide.value === 2" class="slide on">
       <slot
         name="analysis"
         :op="op"

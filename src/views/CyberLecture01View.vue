@@ -220,8 +220,8 @@
         />
       </div>
 
-      <!-- 4. JAVA CRYPTOGRAPHY ARCHITECTURE REFERENCE (JCA) -->
-      <section class="card" id="java-crypto-codes">
+      <!-- 4. PYTHON CRYPTOGRAPHY CODE REFERENCE -->
+      <section class="card" id="python-crypto-codes">
         <JavaCryptoCodeReference :is-en="isEn" />
       </section>
 
@@ -366,7 +366,7 @@ watchEffect(() => {
 })
 
 onMounted(() => {
-  window.scrollTo({ top: 0, behavior: 'instant' })
+  window.scrollTo(0, 0)
   window.addEventListener('keydown', handleKeyDown)
 })
 

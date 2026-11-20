@@ -133,7 +133,7 @@ function handleKeyDown(e) {
 }
 
 onMounted(() => {
-  window.scrollTo({ top: 0, behavior: 'instant' })
+  window.scrollTo(0, 0)
   window.addEventListener('keydown', handleKeyDown)
 })
 

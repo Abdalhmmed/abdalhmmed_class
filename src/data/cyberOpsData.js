@@ -38,26 +38,22 @@ export const CYBER_OPS = [
     },
     code: {
       ar: [
-        'public static String encryptCaesar(String text, int k) {',
-        '    StringBuilder result = new StringBuilder();',
-        '    for (char c : text.toCharArray()) {',
-        '        int p = c - \'A\';',
-        '        int cVal = (p + k) % 26;',
-        '        result.append((char) (\'A\' + cVal));',
-        '    }',
-        '    return result.toString();',
-        '}'
+        'def encrypt_caesar(text, k):',
+        '    result = ""',
+        '    for c in text:',
+        '        p = ord(c) - ord("A")',
+        '        c_val = (p + k) % 26',
+        '        result += chr(ord("A") + c_val)',
+        '    return result'
       ],
       en: [
-        'public static String encryptCaesar(String text, int k) {',
-        '    StringBuilder result = new StringBuilder();',
-        '    for (char c : text.toCharArray()) {',
-        '        int p = c - \'A\';',
-        '        int cVal = (p + k) % 26;',
-        '        result.append((char) (\'A\' + cVal));',
-        '    }',
-        '    return result.toString();',
-        '}'
+        'def encrypt_caesar(text, k):',
+        '    result = ""',
+        '    for c in text:',
+        '        p = ord(c) - ord("A")',
+        '        c_val = (p + k) % 26',
+        '        result += chr(ord("A") + c_val)',
+        '    return result'
       ]
     },
     inputs: [
@@ -68,7 +64,7 @@ export const CYBER_OPS = [
       const isEn = lang === 'en'
       const txt = (p.text || 'SECURITY').toUpperCase().replace(/[^A-Z]/g, '') || 'SECURITY'
       const k = (((p.k || 3) % 26) + 26) % 26
-      const r = Recorder({ a: txt.split(''), b: Array(txt.length).fill('?') })
+      const r = Recorder({ isCrypto: true, a: txt.split(''), b: Array(txt.length).fill('?') })
       r.v.k = k
       r.push(0, isEn ? `Begin encrypting plaintext "${txt}" with shift key k = ${k}.` : `نبدأ تشفير النص "${txt}" بمفتاح إزاحة k = ${k}.`)
 
@@ -95,7 +91,7 @@ export const CYBER_OPS = [
           bptr: { [i]: cChar }
         })
       }
-      r.push(7, isEn ? `Ciphertext generated successfully ➔ "${r.b.join('')}". Keyspace is only 25, trivially cracked in milliseconds.` : `اكتمل تشفير النص بالكامل ➔ "${r.b.join('')}". فضاء المفاتيح هو 25 فقط مما يجعلها عرضة للكسر في ثوانٍ.`, {
+      r.push(6, isEn ? `Ciphertext generated successfully ➔ "${r.b.join('')}". Keyspace is only 25, trivially cracked in milliseconds.` : `اكتمل تشفير النص بالكامل ➔ "${r.b.join('')}". فضاء المفاتيح هو 25 فقط مما يجعلها عرضة للكسر في ثوانٍ.`, {
         bcls: Object.fromEntries(txt.split('').map((_, idx) => [idx, 'found']))
       })
       return r.S
@@ -138,83 +134,119 @@ export const CYBER_OPS = [
       en: 'Stream XOR Cipher & One-Time Pad'
     },
     text: {
-      ar: 'تطبيق عملية الجمع البتي XOR (⊕) بين بتات النص الصريح ومفتاح عشوائي حقيقي بنفس الطول.',
-      en: 'Bitwise exclusive-OR (XOR ⊕) between plaintext bytes and a true random key stream of identical length.'
+      ar: 'تطبيق عملية الجمع البتي XOR (⊕) بتّاً تلو الآخر بين التمثيل الثنائي لرقم أصلي ورقم مفتاح عشوائي لتحويله إلى رقم مشفر جديد.',
+      en: 'Bitwise exclusive-OR (XOR ⊕) applied bit-by-bit between the 8-bit binary representation of a plaintext number and a secret key number to produce a new encrypted number.'
     },
     steps: {
       ar: [
-        'تحويل الحرف إلى تمثيله الثنائي (Binary ASCII 8-bit).',
-        'توليد بتات مفتاح عشوائي حقيقي (Pseudorandom / TRNG).',
-        'إجراء عملية XOR بتياً: C_i = P_i ⊕ K_i.',
-        'فك التشفير بمطابقة XOR ثانية: P_i = C_i ⊕ K_i.'
+        'تحويل الرقم الصريح (مثل 65) إلى 8 بتات ثنائية: 01000001.',
+        'تحويل رقم المفتاح السري (مثل 90) إلى 8 بتات ثنائية: 01011010.',
+        'مقارنة كل بت مع البت المقابل له بعملية XOR: إذا تشابها يكون الناتج 0 وإذا اختلفا يكون 1.',
+        'تجميع البتات الناتجة (00011011) للحصول على الرقم المشفر الجديد (27). وللإرجاع نطبق XOR بنفس المفتاح: 27 ⊕ 90 = 65.'
       ],
       en: [
-        'Convert characters into 8-bit binary ASCII representation.',
-        'Generate true random key stream bytes (TRNG).',
-        'Execute bitwise XOR: C_i = P_i ⊕ K_i.',
-        'Invert symmetrically via second XOR: P_i = C_i ⊕ K_i.'
+        'Convert the plaintext number (e.g. 65) into 8 bits: 01000001.',
+        'Convert the secret key number (e.g. 90) into 8 bits: 01011010.',
+        'Apply XOR bit-by-bit: identical bits yield 0, different bits yield 1.',
+        'Read the resulting 8 bits (00011011) as the new encrypted number (27). Re-applying XOR restores 65: 27 ⊕ 90 = 65.'
       ]
     },
     analogy: {
-      ar: 'مثل قفل سحري ثنائي: إذا كان بت المفتاح 1 يقلب البت (0 يصبح 1 و 1 يصبح 0)، وعند تطبيقه ثانية يعود لأصله.',
-      en: 'A binary toggle lock: XORing with 1 inverts the bit; applying it a second time perfectly restores the original state.'
+      ar: 'مثل قفل سحري ثنائي: إذا كان بت المفتاح 1 يقلب البت (0 يصبح 1 و 1 يصبح 0)، وإذا كان 0 يبقيه كما هو؛ وعند تطبيقه ثانية يعود الرقم لأصله.',
+      en: 'A binary toggle lock: when the key bit is 1 it flips the bit, and when 0 it leaves it unchanged; applying it a second time restores the original number.'
     },
     code: {
       ar: [
-        'public static byte[] xorCipher(byte[] data, byte[] key) {',
-        '    byte[] cipher = new byte[data.length];',
-        '    for (int i = 0; i < data.length; i++) {',
-        '        cipher[i] = (byte) (data[i] ^ key[i]); // XOR خطوة واحدة',
-        '    }',
-        '    return cipher;',
-        '}'
+        'def xor_number(num, key):',
+        '    p_bits = format(num, "08b")   # الرقم الأصلي (8 بتات)',
+        '    k_bits = format(key, "08b")   # رقم المفتاح (8 بتات)',
+        '    c_bits = ""',
+        '    for i in range(8):            # مقارنة بت تلو الآخر',
+        '        if p_bits[i] == k_bits[i]:',
+        '            c_bits += "0"         # متشابهان ➔ 0',
+        '        else:',
+        '            c_bits += "1"         # مختلفان ➔ 1',
+        '    return int(c_bits, 2)         # تحويل البتات إلى رقم'
       ],
       en: [
-        'public static byte[] xorCipher(byte[] data, byte[] key) {',
-        '    byte[] cipher = new byte[data.length];',
-        '    for (int i = 0; i < data.length; i++) {',
-        '        cipher[i] = (byte) (data[i] ^ key[i]); // Single-cycle XOR',
-        '    }',
-        '    return cipher;',
-        '}'
+        'def xor_number(num, key):',
+        '    p_bits = format(num, "08b")   # Plaintext number (8 bits)',
+        '    k_bits = format(key, "08b")   # Key number (8 bits)',
+        '    c_bits = ""',
+        '    for i in range(8):            # Compare bit by bit',
+        '        if p_bits[i] == k_bits[i]:',
+        '            c_bits += "0"         # Same bits ➔ 0',
+        '        else:',
+        '            c_bits += "1"         # Different bits ➔ 1',
+        '    return int(c_bits, 2)         # Convert bits back to int'
       ]
     },
     inputs: [
-      ['text', { ar: 'النص الصريح', en: 'Plaintext' }, 'CYBER']
+      ['num', { ar: 'الرقم الأصلي (0-255)', en: 'Plaintext Number (0-255)' }, 65],
+      ['key', { ar: 'رقم المفتاح (0-255)', en: 'Key Number (0-255)' }, 90]
     ],
     gen(p, lang = 'ar') {
       const isEn = lang === 'en'
-      const txt = (p.text || 'CYBER').slice(0, 6)
-      const keys = [0x5a, 0x1f, 0xc3, 0x77, 0x2e, 0x9d]
-      const r = Recorder({ a: txt.split(''), b: Array(txt.length).fill('?') })
-      r.push(0, isEn ? `OTP Stream Cipher with XOR for "${txt}". Each character is 8 bits.` : `تشفير التدفق OTP بالـ XOR للنص "${txt}". كل حرف يُمثل بـ 8 بتات.`)
+      const num = Math.max(0, Math.min(255, Number.isFinite(Number(p.num)) ? parseInt(p.num, 10) : 65))
+      const key = Math.max(0, Math.min(255, Number.isFinite(Number(p.key)) ? parseInt(p.key, 10) : 90))
+      const cipher = num ^ key
+      const pBin = num.toString(2).padStart(8, '0')
+      const kBin = key.toString(2).padStart(8, '0')
+      const cBin = cipher.toString(2).padStart(8, '0')
 
-      for (let i = 0; i < txt.length; i++) {
-        const pByte = txt.charCodeAt(i)
-        const kByte = keys[i % keys.length]
-        const cByte = pByte ^ kByte
-        const pBin = pByte.toString(2).padStart(8, '0')
-        const kBin = kByte.toString(2).padStart(8, '0')
-        const cBin = cByte.toString(2).padStart(8, '0')
+      const r = Recorder({ isCrypto: true, a: pBin.split(''), b: Array(8).fill('?') })
+      r.v.num = num
+      r.v.key = key
+      r.v.pBits = pBin
+      r.v.kBits = kBin
 
-        r.c.ops += 8
-        r.v.char = txt[i]
-        r.v.pBin = pBin
-        r.v.kBin = kBin
-        r.v.cBin = cBin
-        r.push(3, isEn ? `Character '${txt[i]}' in binary: ${pBin} with key K = ${kBin}.` : `الحرف '${txt[i]}' ثنائياً: ${pBin} والمفتاح K = ${kBin}.`, {
-          cls: { [i]: 'active' },
-          ptr: { [i]: 'P' }
-        })
+      r.push(
+        1,
+        isEn
+          ? `Plaintext number ${num} = ${pBin} (8 bits). Secret key ${key} = ${kBin}. We compare each bit manually.`
+          : `الرقم الأصلي ${num} يساوي ثنائياً ${pBin} (8 بتات)، ورقم المفتاح ${key} يساوي ${kBin}. سنقارن كل بت يدوياً.`
+      )
 
-        r.b[i] = '0x' + cByte.toString(16).toUpperCase()
-        r.push(4, isEn ? `${pBin} ⊕ ${kBin} = ${cBin} (Hex: ${r.b[i]}). Instant hardware XOR execution in ALU registers!` : `${pBin} ⊕ ${kBin} = ${cBin} (الست عشري: ${r.b[i]}). عملية فورية في مسجلات المعالج!`, {
-          cls: { [i]: 'done' },
-          bcls: { [i]: 'found' },
-          bptr: { [i]: r.b[i] }
-        })
+      for (let i = 0; i < 8; i++) {
+        const pBit = parseInt(pBin[i], 10)
+        const kBit = parseInt(kBin[i], 10)
+        const isSame = pBit === kBit
+        const cBit = isSame ? 0 : 1
+
+        r.c.ops += 1
+        if (pBit !== cBit) r.c.flips += 1
+        r.v.bit = i
+        r.v.pBit = pBit
+        r.v.kBit = kBit
+        r.v.cBit = cBit
+
+        r.b[i] = String(cBit)
+        r.push(
+          isSame ? 6 : 8,
+          isEn
+            ? `Bit [${i}]: ${pBit} vs ${kBit} ➔ ${isSame ? 'Same ➔ write "0"' : 'Different ➔ write "1"'}.`
+            : `البت [${i}]: مقارنة ${pBit} مع ${kBit} ➔ ${isSame ? 'متشابهان ➔ نكتب 0' : 'مختلفان ➔ نكتب 1'}.`,
+          {
+            cls: { [i]: 'active' },
+            ptr: { [i]: `K=${kBit}` },
+            bcls: { [i]: pBit !== cBit ? 'swap' : 'found' },
+            bptr: { [i]: `${pBit}⊕${kBit}=${cBit}` }
+          }
+        )
       }
-      r.push(6, isEn ? 'Stream encryption complete. Shannon (1949) mathematically proved OTP achieves Perfect Secrecy.' : 'اكتمل تشفير التدفق. برهن العالم كلود شانون (1949) أن شفرة OTP تحقق السرية التامة رياضياً (Perfect Secrecy).')
+
+      r.v.cipher = cipher
+      r.v.cBits = cBin
+      r.push(
+        9,
+        isEn
+          ? `Done! int("${cBin}", 2) = ${cipher}. Number ${num} became ${cipher} using key ${key}. Running xor_number(${cipher}, ${key}) restores ${num}!`
+          : `اكتمل التشفير! تحويل "${cBin}" إلى عشري يعطي الرقم المشفر ${cipher}. تحوّل ${num} إلى ${cipher}، وإعادة تشغيل الدالة على (${cipher}, ${key}) تعيد ${num}!`,
+        {
+          cls: Object.fromEntries(Array.from({ length: 8 }, (_, idx) => [idx, 'done'])),
+          bcls: Object.fromEntries(Array.from({ length: 8 }, (_, idx) => [idx, 'found']))
+        }
+      )
       return r.S
     },
     cases: [
@@ -278,18 +310,18 @@ export const CYBER_OPS = [
     },
     code: {
       ar: [
-        '// جولة AES النموذجية (Round Transformation)',
-        'subBytes(state);    // استبدال غير خطي (Confusion)',
-        'shiftRows(state);   // إزاحة الصفوف دورياً (Diffusion)',
-        'mixColumns(state);  // خلط الأعمدة في حقل غالوا GF(2^8)',
-        'addRoundKey(state, roundKey); // دمج مفتاح الجولة بـ XOR'
+        '# جولة AES النموذجية (Round Transformation)',
+        'sub_bytes(state)             # استبدال غير خطي (Confusion)',
+        'shift_rows(state)            # إزاحة الصفوف دورياً (Diffusion)',
+        'mix_columns(state)           # خلط الأعمدة في حقل غالوا GF(2^8)',
+        'add_round_key(state, r_key)  # دمج مفتاح الجولة بـ XOR'
       ],
       en: [
-        '// Standard AES Round Transformation',
-        'subBytes(state);    // Non-linear S-Box (Confusion)',
-        'shiftRows(state);   // Cyclic Row Shift (Diffusion)',
-        'mixColumns(state);  // Matrix Mix in GF(2^8)',
-        'addRoundKey(state, roundKey); // Bitwise XOR Subkey'
+        '# Standard AES Round Transformation',
+        'sub_bytes(state)             # Non-linear S-Box (Confusion)',
+        'shift_rows(state)            # Cyclic Row Shift (Diffusion)',
+        'mix_columns(state)           # Matrix Mix in GF(2^8)',
+        'add_round_key(state, r_key)  # Bitwise XOR Subkey'
       ]
     },
     inputs: [],
@@ -297,7 +329,7 @@ export const CYBER_OPS = [
       const isEn = lang === 'en'
       const initBytes = ['43', '59', '42', '45', '52', '53', '45', '43', '55', '52', '49', '54', '59', '32', '30', '32']
       const sboxMap = { '43': '1A', '59': 'CB', '42': '2C', '45': '6E', '52': '00', '53': 'ED', '55': 'FC', '49': '3B', '54': '20', '32': '23', '30': '04' }
-      const r = Recorder({ a: initBytes })
+      const r = Recorder({ isCrypto: true, a: initBytes })
       r.push(0, isEn ? 'Initial state array for 16-byte (128-bit) block represented in hexadecimal (Hex).' : 'مصفوفة الحالة الابتدائية لكتلة 16 بايت (128 بت) ممثلة بالنظام الست عشري (Hex).')
 
       r.push(1, isEn ? 'SubBytes Phase: Non-linear substitution of every byte via cryptographic S-Box to defeat differential cryptanalysis.' : 'مرحلة SubBytes: استبدال غير خطي لكل بايت باستخدام S-Box التشفيري لمنع التحليل التفاضلي.', {
@@ -390,18 +422,18 @@ export const CYBER_OPS = [
     },
     code: {
       ar: [
-        '// التشفير وفك التشفير في RSA بحساب الموديلار',
-        'BigInteger C = M.modPow(e, n); // التشفير بالمفتاح العام (e, n)',
-        'BigInteger M = C.modPow(d, n); // فك التشفير بالمفتاح الخاص (d, n)',
-        '// إيجاد d عبر المعكوس الضربي:',
-        'BigInteger d = e.modInverse(phi);'
+        '# التشفير وفك التشفير في RSA بسهولة باستخدام pow() في Python',
+        'C = pow(M, e, n)        # التشفير بالمفتاح العام (e, n)',
+        'M = pow(C, d, n)        # فك التشفير بالمفتاح الخاص (d, n)',
+        '# إيجاد المفتاح الخاص d عبر المعكوس الضربي:',
+        'd = pow(e, -1, phi)'
       ],
       en: [
-        '// RSA Modular Exponentiation',
-        'BigInteger C = M.modPow(e, n); // Encrypt with Public Key (e, n)',
-        'BigInteger M = C.modPow(d, n); // Decrypt with Private Key (d, n)',
-        '// Compute private modular inverse:',
-        'BigInteger d = e.modInverse(phi);'
+        '# Simple RSA Modular Exponentiation in Python',
+        'C = pow(M, e, n)        # Encrypt with Public Key (e, n)',
+        'M = pow(C, d, n)        # Decrypt with Private Key (d, n)',
+        '# Compute private modular inverse:',
+        'd = pow(e, -1, phi)'
       ]
     },
     inputs: [
@@ -414,7 +446,7 @@ export const CYBER_OPS = [
       const phi = 3120
       const e = 17
       const d = 2753
-      const r = Recorder({ a: [M], b: ['?'] })
+      const r = Recorder({ isCrypto: true, a: [M], b: ['?'] })
       r.v.p = 61
       r.v.q = 53
       r.v.n = n
@@ -423,7 +455,7 @@ export const CYBER_OPS = [
       r.v.d = d
 
       r.push(0, isEn ? `Parameters generated: p=61, q=53 ➔ Public modulus n = 3233 and Euler's totient φ(n) = 3120.` : `تم توليد المعاملات: p=61, q=53 ➔ المعامل العام n = 3233 ودالة أويلر φ(n) = 3120.`)
-      r.push(3, isEn ? `Public exponent e = 17. Private exponent d = 17⁻¹ mod 3120 ➔ d = 2753 via Extended Euclidean algorithm.` : `المفتاح العام e = 17. حساب المفتاح الخاص d = 17⁻¹ mod 3120 ➔ d = 2753 عبر إقليدس الموسع.`)
+      r.push(4, isEn ? `Public exponent e = 17. Private exponent d = 17⁻¹ mod 3120 ➔ d = 2753 via Extended Euclidean algorithm.` : `المفتاح العام e = 17. حساب المفتاح الخاص d = 17⁻¹ mod 3120 ➔ d = 2753 عبر إقليدس الموسع.`)
 
       const C = 2790
       r.c.ops += 17
@@ -503,20 +535,20 @@ export const CYBER_OPS = [
     },
     code: {
       ar: [
-        '// طرف أليس (Alice):',
-        'BigInteger A = g.modPow(a, p); // ترسل A لبوب',
-        'BigInteger secretKeyAlice = B.modPow(a, p); // تحسب المفتاح المشترك',
-        '// طرف بوب (Bob):',
-        'BigInteger B = g.modPow(b, p); // يرسل B لأليس',
-        'BigInteger secretKeyBob = A.modPow(b, p); // يحسب نفس المفتاح!'
+        '# طرف أليس (Alice):',
+        'A = pow(g, a, p)            # ترسل A لبوب',
+        'key_alice = pow(B, a, p)    # تحسب المفتاح المشترك',
+        '# طرف بوب (Bob):',
+        'B = pow(g, b, p)            # يرسل B لأليس',
+        'key_bob = pow(A, b, p)      # يحسب نفس المفتاح!'
       ],
       en: [
-        '// Alice side:',
-        'BigInteger A = g.modPow(a, p); // Transmit A to Bob',
-        'BigInteger secretKeyAlice = B.modPow(a, p); // Derive shared key',
-        '// Bob side:',
-        'BigInteger B = g.modPow(b, p); // Transmit B to Alice',
-        'BigInteger secretKeyBob = A.modPow(b, p); // Arrive at identical key!'
+        '# Alice side:',
+        'A = pow(g, a, p)            # Transmit A to Bob',
+        'key_alice = pow(B, a, p)    # Derive shared key',
+        '# Bob side:',
+        'B = pow(g, b, p)            # Transmit B to Alice',
+        'key_bob = pow(A, b, p)      # Arrive at identical key!'
       ]
     },
     inputs: [],
@@ -529,7 +561,7 @@ export const CYBER_OPS = [
       const A = 8
       const B = 19
       const K = 2
-      const r = Recorder({ a: [isEn ? 'Alice: a=6' : 'أليس: a=6'], b: [isEn ? 'Bob: b=15' : 'بوب: b=15'] })
+      const r = Recorder({ isCrypto: true, a: [isEn ? 'Alice: a=6' : 'أليس: a=6'], b: [isEn ? 'Bob: b=15' : 'بوب: b=15'] })
       r.v.p = prime
       r.v.g = g
       r.v.a = a
@@ -544,7 +576,7 @@ export const CYBER_OPS = [
         ptr: { 0: `A=${A}` }
       })
       r.c.ops++
-      r.push(3, isEn ? `Bob calculates public value: B = ${g}^${b} mod ${prime} = ${B}, and transmits it publicly to Alice.` : `بوب يحسب قيمته العامة: B = ${g}^${b} mod ${prime} = ${B}، ويرسلها لأليس علناً.`, {
+      r.push(4, isEn ? `Bob calculates public value: B = ${g}^${b} mod ${prime} = ${B}, and transmits it publicly to Alice.` : `بوب يحسب قيمته العامة: B = ${g}^${b} mod ${prime} = ${B}، ويرسلها لأليس علناً.`, {
         bcls: { 0: 'active' },
         bptr: { 0: `B=${B}` }
       })
@@ -622,20 +654,18 @@ export const CYBER_OPS = [
     },
     code: {
       ar: [
-        'import java.security.MessageDigest;',
-        'MessageDigest md = MessageDigest.getInstance("SHA-256");',
-        'byte[] hash = md.digest("Cyber".getBytes()); // بصمة 32 بايت (256 بت)',
-        '// تحويل البصمة إلى نص ست عشري (Hex String):',
-        'StringBuilder hex = new StringBuilder();',
-        'for (byte b : hash) hex.append(String.format("%02x", b));'
+        'import hashlib',
+        'data = "Cyber".encode()',
+        'hash_obj = hashlib.sha256(data)  # بصمة 256 بت',
+        '# تحويل البصمة إلى نص ست عشري (Hex):',
+        'hex_digest = hash_obj.hexdigest()'
       ],
       en: [
-        'import java.security.MessageDigest;',
-        'MessageDigest md = MessageDigest.getInstance("SHA-256");',
-        'byte[] hash = md.digest("Cyber".getBytes()); // 32-byte digest',
-        '// Format digest into 64-char Hex string:',
-        'StringBuilder hex = new StringBuilder();',
-        'for (byte b : hash) hex.append(String.format("%02x", b));'
+        'import hashlib',
+        'data = "Cyber".encode()',
+        'hash_obj = hashlib.sha256(data)  # 256-bit digest',
+        '# Format digest into 64-char Hex string:',
+        'hex_digest = hash_obj.hexdigest()'
       ]
     },
     inputs: [],
@@ -646,7 +676,7 @@ export const CYBER_OPS = [
       const input2 = 'cyber'
       const hash2 = 'b4bf5d7e5fcf89ef8adb64ec9c624db850d10f2afef020ed9ef23892df0833af'
 
-      const r = Recorder({ a: [input1], b: [hash1.slice(0, 24) + '...'] })
+      const r = Recorder({ isCrypto: true, a: [input1], b: [hash1.slice(0, 24) + '...'] })
       r.push(0, isEn ? `Computing SHA-256 hash for "${input1}". Produces a 64-hex-character (256-bit) digest.` : `حساب هاش النص "${input1}". ينتج بصمة ست عشرية طولها 64 خانة (256 بت).`)
       r.c.ops += 64
       r.push(2, isEn ? `Digest of "${input1}" = ${hash1.slice(0, 32)}...` : `بصمة "${input1}" = ${hash1.slice(0, 32)}...`)
@@ -723,33 +753,27 @@ export const CYBER_OPS = [
     },
     code: {
       ar: [
-        'Signature signer = Signature.getInstance("SHA256withRSA");',
-        'signer.initSign(privateKey); // التوقيع بالمفتاح الخاص',
-        'signer.update(documentBytes);',
-        'byte[] signature = signer.sign();',
-        '// التحقق لدى الطرف الآخر بالمفتاح العام:',
-        'Signature verifier = Signature.getInstance("SHA256withRSA");',
-        'verifier.initVerify(publicKey);',
-        'verifier.update(receivedDocBytes);',
-        'boolean isValid = verifier.verify(signature); // true إذا كانت أصلية ولم تُعدل'
+        'from cryptography.hazmat.primitives import hashes',
+        'from cryptography.hazmat.primitives.asymmetric import padding',
+        '# التوقيع بالمفتاح الخاص:',
+        'signature = private_key.sign(document, padding.PKCS1v15(), hashes.SHA256())',
+        '# التحقق لدى المستقبل بالمفتاح العام:',
+        'public_key.verify(signature, received_doc, padding.PKCS1v15(), hashes.SHA256())'
       ],
       en: [
-        'Signature signer = Signature.getInstance("SHA256withRSA");',
-        'signer.initSign(privateKey); // Sign using Private Key',
-        'signer.update(documentBytes);',
-        'byte[] signature = signer.sign();',
-        '// Verification on receiver side using Public Key:',
-        'Signature verifier = Signature.getInstance("SHA256withRSA");',
-        'verifier.initVerify(publicKey);',
-        'verifier.update(receivedDocBytes);',
-        'boolean isValid = verifier.verify(signature); // true if intact'
+        'from cryptography.hazmat.primitives import hashes',
+        'from cryptography.hazmat.primitives.asymmetric import padding',
+        '# Sign using Private Key:',
+        'signature = private_key.sign(document, padding.PKCS1v15(), hashes.SHA256())',
+        '# Verify on receiver side using Public Key:',
+        'public_key.verify(signature, received_doc, padding.PKCS1v15(), hashes.SHA256())'
       ]
     },
     inputs: [],
     gen(p, lang = 'ar') {
       const isEn = lang === 'en'
       const doc = isEn ? 'Wire Transfer: $10,000' : 'تحويل مالي: 10,000$'
-      const r = Recorder({ a: [doc], b: [isEn ? 'Pending Signature' : 'في انتظار التوقيع'] })
+      const r = Recorder({ isCrypto: true, a: [doc], b: [isEn ? 'Pending Signature' : 'في انتظار التوقيع'] })
       r.push(0, isEn ? `Document awaiting digital signature: "${doc}".` : `الوثيقة المراد توقيعها: "${doc}".`)
 
       r.c.ops++
@@ -765,7 +789,7 @@ export const CYBER_OPS = [
         bptr: { 0: isEn ? 'Signed' : 'موثق رسمياً' }
       })
 
-      r.push(8, isEn ? `Recipient verifies signature with Bank's Public Key; matching digest proves document integrity & signer identity 100% (Valid Signature).` : `المستقبل يفك التوقيع بمفتاح البنك العام؛ تطابق الهاش يثبت صحة الوثيقة وهوية الموقع 100% (Valid Signature).`, {
+      r.push(5, isEn ? `Recipient verifies signature with Bank's Public Key; matching digest proves document integrity & signer identity 100% (Valid Signature).` : `المستقبل يفك التوقيع بمفتاح البنك العام؛ تطابق الهاش يثبت صحة الوثيقة وهوية الموقع 100% (Valid Signature).`, {
         cls: { 0: 'done' },
         bcls: { 0: 'done' }
       })
